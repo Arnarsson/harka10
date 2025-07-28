@@ -27,6 +27,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const supabase = createClient()
 
   useEffect(() => {
+    // Skip auth initialization if Supabase is not configured
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setState({ user: null, loading: false, error: null })
+      return
+    }
+
     // Check active session
     checkUser()
 
@@ -75,6 +81,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signIn = async (email: string, password: string) => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setState(prev => ({ ...prev, error: 'Authentication is not configured' }))
+      throw new Error('Authentication is not configured')
+    }
+
     try {
       setState(prev => ({ ...prev, loading: true, error: null }))
 
@@ -98,6 +109,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signUp = async (email: string, password: string, fullName: string) => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setState(prev => ({ ...prev, error: 'Authentication is not configured' }))
+      throw new Error('Authentication is not configured')
+    }
+
     try {
       setState(prev => ({ ...prev, loading: true, error: null }))
 
