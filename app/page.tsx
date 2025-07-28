@@ -45,6 +45,12 @@ export default function LandingPage() {
             <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Features
             </Link>
+            <Link href="/courses" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Courses
+            </Link>
+            <Link href="/certificates" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Certificates
+            </Link>
             <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Dashboard
             </Link>

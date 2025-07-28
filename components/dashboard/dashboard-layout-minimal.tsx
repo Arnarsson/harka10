@@ -24,11 +24,15 @@ import {
   Menu,
   X,
   LogOut,
+  Award,
+  GraduationCap,
 } from "lucide-react"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Courses", href: "/courses", icon: GraduationCap },
   { name: "Learning", href: "/learning", icon: BookOpen },
+  { name: "Certificates", href: "/certificates", icon: Award },
   { name: "Playground", href: "/playground", icon: MessageSquare },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
   { name: "Team", href: "/team", icon: Users },
