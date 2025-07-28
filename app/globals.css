@@ -4,48 +4,88 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 240 10% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 15%;
-    --primary: 240 100% 60%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 100% 60%;
-    --radius: 0.75rem;
+    /* Minimalist Color System - Light Mode */
+    --background: 0 0% 100%;           /* Pure white */
+    --foreground: 0 0% 9%;             /* Near black */
+    
+    --card: 0 0% 100%;                 /* White cards */
+    --card-foreground: 0 0% 9%;        /* Near black text */
+    
+    --popover: 0 0% 100%;              /* White popovers */
+    --popover-foreground: 0 0% 9%;     /* Near black text */
+    
+    --primary: 0 0% 9%;                /* Black primary */
+    --primary-foreground: 0 0% 100%;   /* White on primary */
+    
+    --secondary: 0 0% 96%;             /* Light gray */
+    --secondary-foreground: 0 0% 9%;   /* Near black */
+    
+    --muted: 0 0% 96%;                 /* Light gray */
+    --muted-foreground: 0 0% 40%;      /* Medium gray text */
+    
+    --accent: 0 0% 96%;                /* Light gray accent */
+    --accent-foreground: 0 0% 9%;      /* Near black */
+    
+    --destructive: 0 0% 9%;            /* Black for errors */
+    --destructive-foreground: 0 0% 100%; /* White text */
+    
+    --border: 0 0% 92%;                /* Light gray border */
+    --input: 0 0% 92%;                 /* Light gray input border */
+    --ring: 0 0% 9%;                   /* Black focus ring */
+    
+    /* Spacing */
+    --radius: 0.25rem;                 /* Smaller radius for minimal look */
+    
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    
+    /* Font Weights */
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-bold: 700;
+    
+    /* Line Heights */
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 240 100% 60%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 100% 60%;
+    /* Minimalist Color System - Dark Mode */
+    --background: 0 0% 9%;             /* Near black */
+    --foreground: 0 0% 95%;            /* Off white */
+    
+    --card: 0 0% 9%;                   /* Near black cards */
+    --card-foreground: 0 0% 95%;       /* Off white text */
+    
+    --popover: 0 0% 9%;                /* Near black popovers */
+    --popover-foreground: 0 0% 95%;    /* Off white text */
+    
+    --primary: 0 0% 95%;               /* Off white primary */
+    --primary-foreground: 0 0% 9%;     /* Near black on primary */
+    
+    --secondary: 0 0% 15%;             /* Dark gray */
+    --secondary-foreground: 0 0% 95%;  /* Off white */
+    
+    --muted: 0 0% 15%;                 /* Dark gray */
+    --muted-foreground: 0 0% 60%;      /* Medium gray text */
+    
+    --accent: 0 0% 15%;                /* Dark gray accent */
+    --accent-foreground: 0 0% 95%;     /* Off white */
+    
+    --destructive: 0 0% 95%;           /* Off white for errors */
+    --destructive-foreground: 0 0% 9%; /* Near black text */
+    
+    --border: 0 0% 15%;                /* Dark gray border */
+    --input: 0 0% 15%;                 /* Dark gray input border */
+    --ring: 0 0% 95%;                  /* Off white focus ring */
   }
 }
 
@@ -53,144 +93,97 @@
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
-    font-family: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-    font-weight: 400;
+    font-family: var(--font-satoshi), -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+    font-weight: var(--font-normal);
+    line-height: var(--leading-normal);
+    font-size: var(--text-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography Classes */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-medium);
+    line-height: var(--leading-tight);
+  }
+
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+  h3 { font-size: var(--text-2xl); }
+  h4 { font-size: var(--text-xl); }
+  h5 { font-size: var(--text-lg); }
+  h6 { font-size: var(--text-base); }
+
+  p {
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Remove all default button styles */
+  button {
+    font-family: inherit;
+  }
+
+  /* Clean focus states */
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 }
 
-/* Nordic design elements */
-.nordic-gradient {
-  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
-}
-
-.glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Stella-inspired design elements */
-.stella-gradient {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #006699 100%);
-}
-
-.stella-card {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 1rem;
-}
-
-.stella-nav {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* HARKA-inspired design elements */
-.harka-gradient {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #ec4899 50%, #f59e0b 75%, #10b981 100%);
-}
-
-.harka-lines {
-  background: linear-gradient(
-    90deg,
-    #ef4444 0%,
-    #f97316 16.66%,
-    #eab308 33.33%,
-    #22c55e 50%,
-    #06b6d4 66.66%,
-    #3b82f6 83.33%,
-    #8b5cf6 100%
-  );
-  height: 4px;
-}
-
-.harka-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.harka-nav {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-/* Learning progress animations */
-@keyframes progress-fill {
-  from {
-    width: 0%;
+/* Minimalist Utility Classes */
+@layer utilities {
+  /* Remove all gradient classes - we don't use them */
+  .no-gradient {
+    background: none !important;
   }
-  to {
-    width: var(--progress-width);
+
+  /* Simple hover states */
+  .hover-opacity {
+    @apply transition-opacity hover:opacity-70;
+  }
+
+  /* Minimal transitions */
+  .transition-minimal {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  /* Clean cards without shadows or effects */
+  .card-minimal {
+    @apply bg-card text-card-foreground rounded-[var(--radius)] border;
+  }
+
+  /* Minimal button styles */
+  .btn-minimal {
+    @apply inline-flex items-center justify-center rounded-[var(--radius)] 
+           text-sm font-medium transition-colors
+           focus-visible:outline-none focus-visible:ring-2 
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* Text utilities */
+  .text-subtle {
+    @apply text-muted-foreground;
+  }
+
+  /* Spacing utilities */
+  .section-spacing {
+    @apply py-16 md:py-24;
+  }
+
+  .container-padding {
+    @apply px-4 md:px-6;
   }
 }
 
-.progress-animate {
-  animation: progress-fill 1s ease-out;
-}
-
-/* Data visualization colors */
-.data-positive {
-  color: #00d4ff;
-}
-
-.data-negative {
-  color: #ff6b6b;
-}
-
-.data-neutral {
-  color: #8b949e;
-}
-
-/* Hexagonal dot pattern for data viz */
-.hex-pattern {
-  background-image: radial-gradient(circle at 1px 1px, rgba(0, 212, 255, 0.3) 1px, transparent 0);
-  background-size: 20px 20px;
-}
-
-/* Typography */
-.font-satoshi {
-  font-family: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Smooth animations */
-.smooth-enter {
-  animation: smoothEnter 0.6s ease-out;
-}
-
-@keyframes smoothEnter {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Focus styles */
-.focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
-}
-
-/* Custom scrollbar */
+/* Remove all custom scrollbar styling for minimal look */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: auto;
 }
 
 ::-webkit-scrollbar-track {
@@ -198,10 +191,34 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
+/* Minimal loading states */
+@keyframes pulse-minimal {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-minimal {
+  animation: pulse-minimal 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Remove all decorative elements */
+.nordic-gradient,
+.glass-effect,
+.stella-gradient,
+.stella-card,
+.stella-nav,
+.harka-gradient,
+.harka-lines,
+.harka-card,
+.harka-nav,
+.hex-pattern,
+.text-gradient {
+  display: none !important;
 }
