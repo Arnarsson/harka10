@@ -63,7 +63,8 @@ export function VideoPlayer({
       // rel=0 prevents showing related videos
       // controls=0 hides default controls (we'll add our own)
       // showinfo=0 hides video title and uploader info
-      return `https://www.youtube-nocookie.com/embed/${id}?modestbranding=1&rel=0&showinfo=0&controls=0&autoplay=${autoplay ? 1 : 0}&mute=${muted ? 1 : 0}&enablejsapi=1&origin=${window.location.origin}`
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      return `https://www.youtube-nocookie.com/embed/${id}?modestbranding=1&rel=0&showinfo=0&controls=0&autoplay=${autoplay ? 1 : 0}&mute=${muted ? 1 : 0}&enablejsapi=1&origin=${origin}`
     }
 
     if (platform === 'vimeo') {
