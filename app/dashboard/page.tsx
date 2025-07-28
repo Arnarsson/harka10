@@ -1,10 +1,13 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
-import { DashboardOverviewMinimal } from "@/components/dashboard/dashboard-overview-minimal"
+import { DashboardOverviewAnimated } from "@/components/dashboard/dashboard-overview-animated"
+import { PageTransition } from "@/components/layout/page-transition"
 
 export default function DashboardPage() {
   return (
     <DashboardLayoutMinimal>
-      <DashboardOverviewMinimal />
+      <PageTransition>
+        <DashboardOverviewAnimated />
+      </PageTransition>
     </DashboardLayoutMinimal>
   )
 }
