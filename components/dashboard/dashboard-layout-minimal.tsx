@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useAuth } from "@/lib/auth/hooks"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -24,11 +25,15 @@ import {
   Menu,
   X,
   LogOut,
+  Award,
+  GraduationCap,
 } from "lucide-react"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Courses", href: "/courses", icon: GraduationCap },
   { name: "Learning", href: "/learning", icon: BookOpen },
+  { name: "Certificates", href: "/certificates", icon: Award },
   { name: "Playground", href: "/playground", icon: MessageSquare },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
   { name: "Team", href: "/team", icon: Users },
@@ -42,6 +47,12 @@ interface DashboardLayoutProps {
 export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
+  const { user, isAdmin, isInstructor, signOut } = useAuth()
+
+  // Add admin navigation if user is admin
+  const navItems = isAdmin 
+    ? [...navigation, { name: "Admin", href: "/admin", icon: Settings }]
+    : navigation
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,7 +70,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
               </Button>
             </div>
             <nav className="px-3 py-4">
-              {navigation.map((item) => {
+              {navItems.map((item) => {
                 const isActive = pathname === item.href
                 return (
                   <Link
@@ -91,7 +102,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
           </div>
 
           <nav className="px-3 py-4 space-y-1">
-            {navigation.map((item) => {
+            {navItems.map((item) => {
               const isActive = pathname === item.href
               return (
                 <Link
@@ -149,8 +160,10 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                    <AvatarFallback className="text-xs">JD</AvatarFallback>
+                    <AvatarImage src={user?.avatar_url || "/placeholder.svg?height=32&width=32"} alt={user?.full_name || "User"} />
+                    <AvatarFallback className="text-xs">
+                      {user?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -160,7 +173,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
                   Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => signOut()}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign out
                 </DropdownMenuItem>
