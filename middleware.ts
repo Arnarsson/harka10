@@ -15,6 +15,7 @@ const isPublicRoute = createRouteMatcher([
   "/login",
   "/signup",
   "/logout",
+  "/debug-auth",
   "/admin/sign-in",
   "/api/webhooks/(.*)",
   "/api/stripe/(.*)",
@@ -25,7 +26,6 @@ const isPublicRoute = createRouteMatcher([
   "/workshop"
 ])
 
-const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 const isAuthPage = createRouteMatcher([
   '/sign-in',
   '/sign-in/(.*)',
@@ -35,41 +35,51 @@ const isAuthPage = createRouteMatcher([
   '/signup'
 ])
 
-export default clerkMiddleware((auth, req) => {
-  const { userId, sessionClaims } = auth()
+const isAdminRoute = createRouteMatcher(['/admin(.*)'])
+
+export default clerkMiddleware(async (auth, req) => {
+  const { userId } = await auth()
+  const path = req.nextUrl.pathname
   
-  // If user is authenticated and trying to access auth pages, redirect to dashboard
+  // Debug logging
+  console.log(`🔍 Middleware: ${path} | UserId: ${userId || 'null'} | Method: ${req.method}`)
+  
+  // 1. Redirect authenticated users away from auth pages
   if (userId && isAuthPage(req)) {
+    console.log(`🔄 Redirecting authenticated user from auth page: ${path}`)
     return NextResponse.redirect(new URL('/learn/dashboard', req.url))
   }
 
-  // Handle admin routes
-  if (isAdminRoute(req) && !req.nextUrl.pathname.startsWith('/admin/sign-in')) {
+  // 2. Handle admin routes
+  if (isAdminRoute(req) && !path.startsWith('/admin/sign-in')) {
     if (!userId) {
+      console.log(`🚫 Redirecting unauthenticated user from admin route: ${path}`)
       return NextResponse.redirect(new URL('/admin/sign-in', req.url))
-    }
-
-    const isAdmin = sessionClaims?.metadata?.role === 'admin' || 
-                    sessionClaims?.publicMetadata?.role === 'admin'
-    
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL('/', req.url))
     }
   }
 
-  // Allow public routes
+  // 3. Allow public routes
   if (isPublicRoute(req)) {
+    console.log(`🌐 Allowing public route: ${path}`)
     return NextResponse.next()
   }
 
-  // For all other routes, require authentication
+  // 4. Protect all other routes - require authentication
   if (!userId) {
+    console.log(`🚫 Redirecting unauthenticated user to sign-in: ${path}`)
     return NextResponse.redirect(new URL('/sign-in', req.url))
   }
 
+  // 5. Allow authenticated users to access protected routes
+  console.log(`✅ Allowing authenticated user to access: ${path}`)
   return NextResponse.next()
 })
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)']
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
 }
