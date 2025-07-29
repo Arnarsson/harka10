@@ -1,12 +1,12 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
-import { HarkaCertificates } from "@/components/certificates/harka-certificates"
+import { ResourcesPage } from "@/components/resources/resources-page"
 import { PageTransition } from "@/components/layout/page-transition"
 
-export default function CertificatesPage() {
+export default function Resources() {
   return (
     <DashboardLayoutMinimal>
       <PageTransition>
-        <HarkaCertificates />
+        <ResourcesPage />
       </PageTransition>
     </DashboardLayoutMinimal>
   )
