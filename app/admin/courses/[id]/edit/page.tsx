@@ -9,10 +9,11 @@ import {
   ChevronLeft, Save, Upload, Plus, X, Trash2, 
   GripVertical, Video, FileText, PenTool, BarChart,
   Globe, DollarSign, Clock, Award, Image as ImageIcon,
-  Play, Edit3, Settings, Eye
+  Play, Edit3, Settings, Eye, Rocket
 } from 'lucide-react'
 import { VideoPlayer } from '@/components/ui/video-player'
 import { LessonEditor } from '@/components/admin/lesson-editor'
+import { CoursePublishModal } from '@/components/admin/course-publish-modal'
 import type { Course, Module, Lesson } from '@/lib/types/course'
 
 function EditCoursePage() {
@@ -23,6 +24,7 @@ function EditCoursePage() {
   const [activeTab, setActiveTab] = useState<'basic' | 'curriculum' | 'pricing' | 'settings'>('basic')
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null)
   const [showLessonEditor, setShowLessonEditor] = useState(false)
+  const [showPublishModal, setShowPublishModal] = useState(false)
 
   useEffect(() => {
     loadCourse()
@@ -126,6 +128,18 @@ function EditCoursePage() {
     setShowLessonEditor(true)
   }
 
+  const handlePublish = async (publishData: any) => {
+    try {
+      // TODO: Update course publish status in Supabase
+      console.log('Publishing course:', publishData)
+      setCourse(prev => prev ? { ...prev, ...publishData } : prev)
+      await new Promise(resolve => setTimeout(resolve, 1500))
+    } catch (error) {
+      console.error('Error publishing course:', error)
+      throw error
+    }
+  }
+
   if (!course) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
@@ -161,6 +175,13 @@ function EditCoursePage() {
                 <Eye size={20} />
                 Preview
               </Link>
+              <button
+                onClick={() => setShowPublishModal(true)}
+                className="flex items-center gap-2 px-4 py-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors"
+              >
+                <Rocket size={20} />
+                Publish
+              </button>
               <button
                 onClick={saveCourse}
                 disabled={loading}
@@ -328,6 +349,15 @@ function EditCoursePage() {
             setShowLessonEditor(false)
           }}
           onClose={() => setShowLessonEditor(false)}
+        />
+      )}
+
+      {/* Course Publish Modal */}
+      {showPublishModal && (
+        <CoursePublishModal
+          course={course}
+          onClose={() => setShowPublishModal(false)}
+          onPublish={handlePublish}
         />
       )}
     </div>
