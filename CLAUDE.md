@@ -1,28 +1,59 @@
 # Claude Code Instructions for HARKA Project
 
-## Testing Strategy
+## Testing Strategy (Updated for Production Environment)
 
-### Playwright Testing Rules
-- **ALWAYS run Playwright tests** when making changes to authentication, routing, or user flows
-- **REQUIRED test scenarios** for any auth-related changes:
-  1. Unauthenticated user access to protected routes
-  2. Authenticated user redirect from auth pages
-  3. Sign-in/sign-up flow completion
-  4. Middleware route protection
-  5. Public route accessibility
-- **Test before and after** any middleware, auth component, or routing changes
-- **Create new tests** for any new user-facing features
-- **Run tests in headless mode** for CI/CD: `pnpm exec playwright test --headed=false`
-- **Debug with headed mode** when investigating issues: `pnpm exec playwright test --headed`
+### Core Testing Principles
+- **ALWAYS test authentication logic** when making auth/routing changes
+- **VALIDATE middleware behavior** through code review and manual testing
+- **TEST build compilation** after every change: `pnpm run build`
+- **VERIFY TypeScript compilation** with no errors
+- **MANUAL verification** of key user flows on deployed app
 
-### Test Coverage Requirements
-- Authentication flows (sign-in, sign-up, logout)
-- Protected route access
-- Public route access  
-- Navigation flows
-- Form submissions
-- Error handling
-- Mobile responsiveness (use Playwright device emulation)
+### Required Testing Scenarios
+When making auth/routing changes, manually verify these scenarios:
+
+1. **Unauthenticated Access**:
+   - Dashboard URL → Should redirect to sign-in
+   - Protected routes → Should redirect to sign-in
+   - Public routes (/, /toolkit) → Should load normally
+
+2. **Authentication Flow**:
+   - Sign-in page loads without errors
+   - Sign-up page loads without errors
+   - No redirect loops on auth pages
+   - Successful auth redirects to dashboard
+
+3. **Navigation**:
+   - Homepage login/signup buttons work
+   - Dashboard link redirects unauthenticated users
+   - Authenticated users can access protected routes
+
+### Middleware Testing Checklist
+When modifying `middleware.ts`, verify:
+
+```typescript
+// Key middleware logic patterns to maintain:
+
+1. Auth page check FIRST (prevents redirect loops)
+   if (userId && isAuthPage(req)) {
+     return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+   }
+
+2. Admin route protection
+   if (isAdminRoute(req) && !req.nextUrl.pathname.startsWith('/admin/sign-in')) {
+     // Admin logic here
+   }
+
+3. Public route allowance
+   if (isPublicRoute(req)) {
+     return NextResponse.next()
+   }
+
+4. Protected route authentication requirement
+   if (!userId) {
+     return NextResponse.redirect(new URL('/sign-in', req.url))
+   }
+```
 
 ## Code Quality Standards
 
@@ -31,7 +62,14 @@
 - **ALWAYS** validate user authentication on server-side (middleware)
 - **USE** proper TypeScript types for auth state
 - **IMPLEMENT** proper error boundaries for auth failures
-- **TEST** all authentication edge cases
+- **AVOID** conflicting redirect URLs in components and providers
+
+### Clerk Configuration Rules
+- **MINIMAL** ClerkProvider configuration (avoid inline URLs)
+- **USE** environment variables for redirect URLs when needed
+- **AVOID** multiple redirect URL configs (component + provider + env)
+- **REMOVE** `forceRedirectUrl` and `fallbackRedirectUrl` from components
+- **LET** middleware handle routing logic
 
 ### Performance Optimization
 - **USE** Next.js Image component for all images
@@ -54,7 +92,7 @@
 - **USE** proper prop types and interfaces
 - **IMPLEMENT** loading and error states
 - **ENSURE** accessibility (ARIA labels, keyboard navigation)
-- **TEST** components in isolation when possible
+- **AVOID** inline styles, use Tailwind classes
 
 ### API & Data Handling
 - **USE** proper HTTP status codes
@@ -69,41 +107,32 @@
 1. **READ** existing code to understand patterns
 2. **CHECK** if similar functionality exists
 3. **PLAN** the implementation approach
-4. **IDENTIFY** what tests need to be written/updated
+4. **IDENTIFY** potential breaking changes
 
 ### During Development
-1. **WRITE** tests for new functionality
-2. **RUN** existing tests to ensure no regressions
-3. **FOLLOW** TypeScript best practices
-4. **IMPLEMENT** proper error handling
-5. **ADD** loading states for async operations
+1. **FOLLOW** TypeScript best practices
+2. **IMPLEMENT** proper error handling
+3. **ADD** loading states for async operations
+4. **MAINTAIN** consistent code style
+5. **AVOID** introducing new dependencies without justification
 
 ### After Changes
-1. **RUN** full test suite: `pnpm exec playwright test`
-2. **CHECK** build passes: `pnpm run build`
-3. **TEST** in multiple browsers/devices
-4. **VERIFY** accessibility compliance
-5. **CHECK** performance impact
+1. **RUN** build: `pnpm run build`
+2. **CHECK** TypeScript compilation succeeds
+3. **VERIFY** no console errors in development
+4. **TEST** key user flows manually
+5. **DEPLOY** and verify on production URL
 
-### Testing Commands
+### Build Verification Commands
 ```bash
-# Run all tests
-pnpm exec playwright test
+# Essential build checks
+pnpm run build          # Must pass without errors
+pnpm run dev            # Should start without issues
+pnpm run type-check     # TypeScript compilation check
 
-# Run tests with UI
-pnpm exec playwright test --ui
-
-# Run specific test file
-pnpm exec playwright test auth.spec.ts
-
-# Run tests in headed mode (see browser)
-pnpm exec playwright test --headed
-
-# Generate test report
-pnpm exec playwright show-report
-
-# Debug specific test
-pnpm exec playwright test --debug auth.spec.ts
+# Development workflow
+pnpm run dev            # Start development server
+pnpm run lint           # Check code quality
 ```
 
 ## Project-Specific Rules
@@ -112,7 +141,24 @@ pnpm exec playwright test --debug auth.spec.ts
 - **USE** middleware for route protection
 - **AVOID** client-side route guards
 - **IMPLEMENT** proper loading states during auth checks
-- **TEST** all auth scenarios with Playwright
+- **KEEP** ClerkProvider configuration minimal
+- **USE** environment variables for redirect configuration
+
+### Middleware Configuration
+```typescript
+// Correct pattern for middleware.ts:
+const isPublicRoute = createRouteMatcher([
+  "/", "/about", "/pricing", "/contact", "/blog", "/blog/(.*)",
+  "/sign-in", "/sign-in/(.*)", "/sign-up", "/sign-up/(.*)",
+  "/login", "/signup", "/logout", "/toolkit", "/team", "/workshop"
+])
+
+const isAuthPage = createRouteMatcher([
+  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)', '/login', '/signup'
+])
+
+// Order matters: Check auth users on auth pages FIRST
+```
 
 ### UI/UX Standards
 - **MAINTAIN** consistent design system
@@ -121,47 +167,82 @@ pnpm exec playwright test --debug auth.spec.ts
 - **ENSURE** proper contrast ratios and accessibility
 - **ADD** proper loading and error states
 
-### Performance Monitoring
-- **MONITOR** Core Web Vitals
-- **OPTIMIZE** images and assets
-- **MINIMIZE** layout shifts
-- **IMPLEMENT** efficient data fetching
-
 ### Error Handling
-- **IMPLEMENT** error boundaries
-- **LOG** errors appropriately
+- **IMPLEMENT** error boundaries for React components
+- **LOG** errors appropriately (but not sensitive data)
 - **SHOW** user-friendly error messages
 - **HANDLE** network failures gracefully
+- **AVOID** exposing internal error details to users
 
 ## Mandatory Checks Before Deployment
-1. ✅ All Playwright tests pass
-2. ✅ Build completes without errors
-3. ✅ TypeScript compilation succeeds
-4. ✅ No console errors in browser
-5. ✅ Authentication flows work correctly
-6. ✅ All routes accessible as intended
+
+1. ✅ Build completes successfully (`pnpm run build`)
+2. ✅ TypeScript compilation succeeds (no type errors)
+3. ✅ Development server starts without errors
+4. ✅ No console errors in browser during development
+5. ✅ Authentication flows work on deployed app
+6. ✅ All routes accessible as intended (manual verification)
 7. ✅ Mobile responsiveness verified
-8. ✅ Loading states implemented
-9. ✅ Error handling tested
-10. ✅ Performance metrics acceptable
+8. ✅ Loading states implemented where needed
+9. ✅ Error handling implemented
+10. ✅ No sensitive data exposed in client-side code
+
+## Manual Testing Protocol
+
+When making authentication/routing changes:
+
+### 1. Public Routes Test
+- Navigate to `/` - should load homepage
+- Navigate to `/toolkit` - should load without auth
+- Navigate to `/about`, `/pricing` - should load if they exist
+
+### 2. Protected Routes Test  
+- Navigate to `/learn/dashboard` without auth - should redirect to `/sign-in`
+- Navigate to `/analytics` without auth - should redirect to `/sign-in`
+
+### 3. Auth Pages Test
+- Navigate to `/sign-in` - should load sign-in form
+- Navigate to `/sign-up` - should load sign-up form
+- Navigate to `/login` - should load sign-in form
+- Check for NO redirect loops (page should be stable)
+
+### 4. Authentication Flow Test
+- Complete sign-in flow - should redirect to dashboard
+- Try accessing auth pages while signed in - should redirect to dashboard
+- Sign out - should return to homepage or sign-in
 
 ## Quick Reference Commands
 ```bash
-# Development
-pnpm run dev
+# Essential development commands
+pnpm run dev            # Start development server
+pnpm run build          # Build for production (REQUIRED before deploy)
+pnpm run start          # Start production server
+pnpm run lint           # Check code quality
+pnpm run type-check     # Check TypeScript types
 
-# Testing
-pnpm exec playwright test
-pnpm exec playwright test --headed
-pnpm exec playwright test --ui
-
-# Building
-pnpm run build
-pnpm run start
-
-# Linting & Formatting
-pnpm run lint
-pnpm run format
+# Debugging
+npm run dev -- --turbo    # Start with Turbo (faster)
+npm run build -- --debug  # Build with debug info
 ```
 
-Remember: **Quality > Speed**. Always prioritize working, tested code over quick implementations.
+## Environment Configuration
+
+### Required Environment Variables
+```bash
+# Clerk Authentication (Required)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key
+CLERK_SECRET_KEY=your_secret_key
+
+# Optional Clerk URL Configuration
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/learn/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/learn/dashboard
+```
+
+### Development vs Production
+- **Development**: Use test keys, enable debug mode
+- **Production**: Use production keys, disable debug features
+- **Never**: Commit real API keys to repository
+
+Remember: **Reliability > Features**. Always prioritize working, stable authentication over adding new features.
