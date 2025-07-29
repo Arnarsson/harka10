@@ -218,7 +218,8 @@ export function ContentManagement() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
+          <TabsTrigger value="landing">Landing CMS</TabsTrigger>
           <TabsTrigger value="pages">Pages</TabsTrigger>
           <TabsTrigger value="blog">Blog Posts</TabsTrigger>
           <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
@@ -226,6 +227,206 @@ export function ContentManagement() {
           <TabsTrigger value="videos">Video Manager</TabsTrigger>
           <TabsTrigger value="editor">Content Editor</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="landing" className="space-y-6">
+          <div className="grid gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Hero Section</CardTitle>
+                <CardDescription>Main landing page hero content</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="hero-headline">Main Headline</Label>
+                  <Input 
+                    id="hero-headline" 
+                    defaultValue="AI that delivers real business value"
+                    className="text-lg"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="hero-subheadline">Subheadline</Label>
+                  <Textarea 
+                    id="hero-subheadline" 
+                    defaultValue="We turn AI potential into practical solutions that deliver measurable results – without lengthy project cycles or PowerPoints."
+                    className="h-20"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="cta-text">CTA Button Text</Label>
+                    <Input id="cta-text" defaultValue="Book Discovery Call" />
+                  </div>
+                  <div>
+                    <Label htmlFor="cta-url">CTA URL</Label>
+                    <Input id="cta-url" defaultValue="https://calendly.com/harka-ai-workshop" />
+                  </div>
+                </div>
+                <Button>Save Hero Section</Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Trust Indicators</CardTitle>
+                <CardDescription>Client numbers and certifications</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <Label htmlFor="companies-trained">Companies Trained</Label>
+                    <Input id="companies-trained" defaultValue="500+" />
+                  </div>
+                  <div>
+                    <Label htmlFor="satisfaction-rate">Satisfaction Rate</Label>
+                    <Input id="satisfaction-rate" defaultValue="98%" />
+                  </div>
+                  <div>
+                    <Label htmlFor="certification">Certification</Label>
+                    <Input id="certification" defaultValue="ISO 27001 Certified" />
+                  </div>
+                </div>
+                <Button>Save Trust Indicators</Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Statistics</CardTitle>
+                <CardDescription>Results and performance metrics</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="risk-assessment">Risk Assessment Improvement</Label>
+                    <Input id="risk-assessment" defaultValue="85% faster" />
+                  </div>
+                  <div>
+                    <Label htmlFor="technician-capacity">Technician Capacity</Label>
+                    <Input id="technician-capacity" defaultValue="75% liberated" />
+                  </div>
+                  <div>
+                    <Label htmlFor="capital-reduction">Capital Reduction</Label>
+                    <Input id="capital-reduction" defaultValue="32% reduction" />
+                  </div>
+                  <div>
+                    <Label htmlFor="data-analysis">Data Analysis Speed</Label>
+                    <Input id="data-analysis" defaultValue="60x speed increase" />
+                  </div>
+                </div>
+                <Button>Save Statistics</Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Video Testimonials</CardTitle>
+                <CardDescription>Manage client testimonial videos</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4">
+                    <h4 className="font-medium mb-2">Maritime Company CTO</h4>
+                    <div className="grid grid-cols-2 gap-4 mb-3">
+                      <div>
+                        <Label htmlFor="testimonial-1-quote">Quote</Label>
+                        <Input id="testimonial-1-quote" defaultValue="85% faster risk assessments" />
+                      </div>
+                      <div>
+                        <Label htmlFor="testimonial-1-video">Video URL</Label>
+                        <Input id="testimonial-1-video" placeholder="YouTube/Vimeo URL" />
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="testimonial-1-desc">Description</Label>
+                      <Textarea 
+                        id="testimonial-1-desc" 
+                        defaultValue="HARKA transformed our technical analysis process. What used to take our experts hours now takes minutes."
+                        className="h-16"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="border rounded-lg p-4">
+                    <h4 className="font-medium mb-2">Manufacturing Director</h4>
+                    <div className="grid grid-cols-2 gap-4 mb-3">
+                      <div>
+                        <Label htmlFor="testimonial-2-quote">Quote</Label>
+                        <Input id="testimonial-2-quote" defaultValue="ROI within first week" />
+                      </div>
+                      <div>
+                        <Label htmlFor="testimonial-2-video">Video URL</Label>
+                        <Input id="testimonial-2-video" placeholder="YouTube/Vimeo URL" />
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="testimonial-2-desc">Description</Label>
+                      <Textarea 
+                        id="testimonial-2-desc" 
+                        defaultValue="The workshop paid for itself before we even finished. Our team is now AI-powered."
+                        className="h-16"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="border rounded-lg p-4">
+                    <h4 className="font-medium mb-2">Energy Sector Manager</h4>
+                    <div className="grid grid-cols-2 gap-4 mb-3">
+                      <div>
+                        <Label htmlFor="testimonial-3-quote">Quote</Label>
+                        <Input id="testimonial-3-quote" defaultValue="Team productivity up 60%" />
+                      </div>
+                      <div>
+                        <Label htmlFor="testimonial-3-video">Video URL</Label>
+                        <Input id="testimonial-3-video" placeholder="YouTube/Vimeo URL" />
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="testimonial-3-desc">Description</Label>
+                      <Textarea 
+                        id="testimonial-3-desc" 
+                        defaultValue="HARKA didn't just teach us AI - they helped us reimagine our entire workflow."
+                        className="h-16"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <Button>Save Testimonials</Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>FAQ Section</CardTitle>
+                <CardDescription>Frequently asked questions management</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4">
+                    <div className="mb-3">
+                      <Label htmlFor="faq-1-question">Question</Label>
+                      <Input id="faq-1-question" defaultValue="What exactly happens in the 48-hour workshop?" />
+                    </div>
+                    <div>
+                      <Label htmlFor="faq-1-answer">Answer</Label>
+                      <Textarea 
+                        id="faq-1-answer" 
+                        defaultValue="Day 1 focuses on AI fundamentals, prompt engineering, and building your first prototypes. Day 2 covers ethics, GDPR compliance, and developing company-specific AI solutions. You'll leave with working tools, not just theory."
+                        className="h-20"
+                      />
+                    </div>
+                  </div>
+
+                  <Button variant="outline" className="w-full">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add FAQ
+                  </Button>
+                </div>
+                <Button>Save FAQ Section</Button>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
 
         <TabsContent value="pages" className="space-y-6">
           <Card>
