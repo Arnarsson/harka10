@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth/hooks'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { MagicLinkAuth } from './magic-link-auth'
 
 interface SocialLoginProps {
   className?: string
