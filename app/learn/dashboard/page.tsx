@@ -1,13 +1,15 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
 import { EnhancedDashboard } from "@/components/dashboard/enhanced-dashboard"
-import { PageTransition } from "@/components/layout/page-transition"
+import { AuthDebug } from "@/components/debug/auth-debug"
+import { ErrorBoundary } from "@/components/error-boundary"
 
 export default function DashboardPage() {
   return (
-    <DashboardLayoutMinimal>
-      <PageTransition>
+    <ErrorBoundary>
+      <DashboardLayoutMinimal>
         <EnhancedDashboard />
-      </PageTransition>
-    </DashboardLayoutMinimal>
+        <AuthDebug />
+      </DashboardLayoutMinimal>
+    </ErrorBoundary>
   )
 }

@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Input } from "@/components/ui/input"
+import { IntelligentPromptSuggestions } from "@/components/ai/intelligent-prompt-suggestions"
 import { 
   Send,
   Copy,
@@ -167,8 +168,12 @@ export function PromptPlayground() {
             </CardHeader>
             <CardContent className="space-y-4">
               <Tabs defaultValue="editor" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
+                <TabsList className="grid w-full grid-cols-4">
                   <TabsTrigger value="editor">Editor</TabsTrigger>
+                  <TabsTrigger value="ai-suggestions">
+                    <Sparkles className="h-4 w-4 mr-1" />
+                    AI Suggestions
+                  </TabsTrigger>
                   <TabsTrigger value="parameters">Parameters</TabsTrigger>
                   <TabsTrigger value="history">History</TabsTrigger>
                 </TabsList>
@@ -202,6 +207,18 @@ export function PromptPlayground() {
                     <Send className="mr-2 h-4 w-4" />
                     Generate
                   </Button>
+                </TabsContent>
+
+                <TabsContent value="ai-suggestions" className="space-y-4">
+                  <IntelligentPromptSuggestions
+                    currentPrompt={prompt}
+                    onPromptSelect={(selectedPrompt) => setPrompt(selectedPrompt)}
+                    userContext={{
+                      role: "Product Manager",
+                      industry: "Technology",
+                      experience: "Intermediate"
+                    }}
+                  />
                 </TabsContent>
 
                 <TabsContent value="parameters" className="space-y-4">

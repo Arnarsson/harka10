@@ -4,9 +4,10 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, ChevronDown, Globe, Menu, X, Sun, Moon } from "lucide-react"
+import { ArrowRight, ChevronDown, Globe, Menu, X, Sun, Moon, User } from "lucide-react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
+import { useUser } from "@clerk/nextjs"
 
 interface HarkaHeroProps {
   language: 'da' | 'en'
@@ -16,6 +17,7 @@ interface HarkaHeroProps {
 export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+  const { isSignedIn, user } = useUser()
 
   const content = {
     da: {
@@ -221,52 +223,73 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link href="#method" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                {t.method}
+              <Link href="/learn/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Dashboard
               </Link>
-              <Link href="#results" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                {t.results}
+              <Link href="/learn/learning" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Learning
               </Link>
-              <Link href="#team" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                {t.team}
+              <Link href="/learn/playground" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Playground
               </Link>
-              <Link href="#blog" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                {t.blog}
+              <Link href="/analytics" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Analytics
               </Link>
-              <Link href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                {t.contact}
+              <Link href="/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Toolkit
               </Link>
             </div>
 
             {/* Right side controls */}
             <div className="hidden md:flex items-center space-x-4">
-              {/* Theme toggle */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2"
-              >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">{t.switchTheme}</span>
-              </Button>
+              {isSignedIn ? (
+                <>
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-700 dark:text-gray-300">Connected</span>
+                  </div>
+                  
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onLanguageChange(language === 'da' ? 'en' : 'da')}
+                    className="flex items-center gap-2"
+                  >
+                    <Globe className="h-4 w-4" />
+                    {language === 'da' ? 'EN' : 'DA'}
+                  </Button>
 
-              {/* Language toggle */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onLanguageChange(language === 'da' ? 'en' : 'da')}
-                className="flex items-center gap-2"
-              >
-                <Globe className="h-4 w-4" />
-                {language === 'da' ? 'EN' : 'DA'}
-              </Button>
+                  <Link href="/learn/dashboard">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 text-white" />
+                    </div>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onLanguageChange(language === 'da' ? 'en' : 'da')}
+                    className="flex items-center gap-2"
+                  >
+                    <Globe className="h-4 w-4" />
+                    {language === 'da' ? 'EN' : 'DA'}
+                  </Button>
 
-              {/* CTA Button */}
-              <Button className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200">
-                {t.bookMeeting}
-              </Button>
+                  <Link href="/login">
+                    <Button variant="ghost" size="sm">
+                      Login
+                    </Button>
+                  </Link>
+
+                  <Link href="/signup">
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -286,20 +309,20 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="#method" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                {t.method}
+              <Link href="/learn/dashboard" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                Dashboard
               </Link>
-              <Link href="#results" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                {t.results}
+              <Link href="/learn/learning" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                Learning
               </Link>
-              <Link href="#team" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                {t.team}
+              <Link href="/learn/playground" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                Playground
               </Link>
-              <Link href="#blog" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                {t.blog}
+              <Link href="/analytics" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                Analytics
               </Link>
-              <Link href="#contact" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                {t.contact}
+              <Link href="/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                Toolkit
               </Link>
               <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
                 <Button
@@ -309,11 +332,28 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                   className="w-full justify-start"
                 >
                   <Globe className="h-4 w-4 mr-2" />
-                  {t.switchLanguage}
+                  {language === 'da' ? 'EN' : 'DA'}
                 </Button>
-                <Button className="w-full mt-2 bg-black dark:bg-white text-white dark:text-black">
-                  {t.bookMeeting}
-                </Button>
+                {isSignedIn ? (
+                  <Link href="/learn/dashboard">
+                    <Button className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white">
+                      Go to Dashboard
+                    </Button>
+                  </Link>
+                ) : (
+                  <div className="space-y-2 mt-2">
+                    <Link href="/login">
+                      <Button variant="outline" className="w-full">
+                        Login
+                      </Button>
+                    </Link>
+                    <Link href="/signup">
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                        Sign Up
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -321,43 +361,112 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="text-center">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
-              {t.heroHeadline}
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-              {t.heroSubheadline}
-            </p>
-            <Button size="lg" className="bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 px-8 py-4 text-lg">
-              {t.heroCta}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
+      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-6rem)]">
+            {/* Left Content */}
+            <div className="space-y-8">
+              <div className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2" />
+                Trusted by 500+ Nordic Companies
+              </div>
 
-          {/* Stats */}
-          <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-12">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">2</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statDays}</div>
+              <div className="space-y-6">
+                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                  <span className="text-gray-900 dark:text-white">AI that delivers</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">real business value</span>
+                </h1>
+
+                <p className="text-lg text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed">
+                  {t.heroSubheadline}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                {isSignedIn ? (
+                  <Link href="/learn/dashboard">
+                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Go to Dashboard
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/signup">
+                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Start Free Trial
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                )}
+                <Button size="lg" variant="outline" className="group">
+                  <div className="mr-2 h-4 w-4 rounded bg-blue-600 flex items-center justify-center">
+                    <div className="w-0 h-0 border-l-2 border-l-white border-t-1 border-t-transparent border-b-1 border-b-transparent ml-0.5"></div>
+                  </div>
+                  Watch Demo
+                </Button>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">6</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statMonths}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">75%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statAdmin}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">10x</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statRoi}</div>
+
+            {/* Right Content - Learning Progress Dashboard */}
+            <div className="relative">
+              <Card className="p-8 bg-white dark:bg-gray-800 shadow-xl">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-semibold">Learning Progress</h3>
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm">?</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="font-medium">Fundamentals</span>
+                      <span className="text-green-600 font-semibold">100%</span>
+                    </div>
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full w-full" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="font-medium">Ethics & Governance</span>
+                      <span className="text-blue-600 font-semibold">75%</span>
+                    </div>
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-blue-500 to-green-400 rounded-full w-3/4" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="font-medium">Implementation</span>
+                      <span className="text-purple-600 font-semibold">45%</span>
+                    </div>
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full w-[45%]" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-gray-200 dark:border-gray-700 mt-6">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <div className="text-sm text-gray-500">Next Module</div>
+                      <div className="text-sm font-medium">Project Planning Workshop</div>
+                    </div>
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Continue
+                    </Button>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
 
           {/* Scroll indicator */}
-          <div className="mt-20 text-center">
+          <div className="text-center mt-8">
             <ChevronDown className="h-6 w-6 text-gray-400 mx-auto animate-bounce" />
             <div className="text-sm text-gray-500 mt-2">Scroll down</div>
           </div>

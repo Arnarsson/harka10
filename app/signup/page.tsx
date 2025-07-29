@@ -21,7 +21,6 @@ export default function SignupPage() {
                 card: 'shadow-2xl border-0 bg-white',
               }
             }}
-            redirectUrl="/learn/dashboard"
           />
         </div>
       </div>
