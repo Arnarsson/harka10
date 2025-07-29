@@ -222,3 +222,82 @@
 .text-gradient {
   display: none !important;
 }
+
+/* High Contrast Mode Styles */
+.high-contrast {
+  /* Force high contrast colors */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 100%;
+  --secondary-foreground: 0 0% 0%;
+  --border: 0 0% 0%;
+  --ring: 0 0% 0%;
+}
+
+.high-contrast * {
+  /* Remove all shadows */
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.high-contrast img,
+.high-contrast video {
+  /* Add border to images for visibility */
+  border: 2px solid black !important;
+}
+
+.high-contrast button,
+.high-contrast a,
+.high-contrast input,
+.high-contrast textarea,
+.high-contrast select {
+  /* Strong borders for interactive elements */
+  border: 2px solid currentColor !important;
+}
+
+.high-contrast button:hover,
+.high-contrast a:hover {
+  /* High contrast hover states */
+  background-color: black !important;
+  color: white !important;
+}
+
+.high-contrast .text-muted-foreground {
+  /* Ensure muted text is still readable */
+  color: black !important;
+  opacity: 0.8;
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.focus-visible:focus {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Skip link styles */
+.skip-link:focus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  color: black;
+  padding: 8px 16px;
+  z-index: 100;
+  text-decoration: none;
+  border: 2px solid black;
+}
