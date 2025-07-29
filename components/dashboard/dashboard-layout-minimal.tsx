@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useAuth } from "@/lib/auth/hooks"
+import { useUser, useClerk } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -55,7 +55,12 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const pathname = usePathname()
-  const { user, isAdmin, isInstructor, signOut } = useAuth()
+  const { user, isLoaded } = useUser()
+  const { signOut } = useClerk()
+  
+  // Check user roles from metadata
+  const isAdmin = user?.publicMetadata?.role === 'admin'
+  const isInstructor = user?.publicMetadata?.role === 'instructor'
   const { theme, setTheme } = useTheme()
 
   // Add admin navigation if user is admin
@@ -198,9 +203,9 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={user?.avatar_url || "/placeholder.svg?height=32&width=32"} alt={user?.full_name || "User"} />
+                    <AvatarImage src={user?.imageUrl || "/placeholder.svg?height=32&width=32"} alt={user?.fullName || "User"} />
                     <AvatarFallback className="text-xs">
-                      {user?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                      {user?.fullName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
