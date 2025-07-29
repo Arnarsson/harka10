@@ -15,8 +15,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Use a valid-looking mock key during build time
-  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_YmFsYW5jZWQtcmF0LTczLmNsZXJrLmFjY291bnRzLmRldiQ'
+  // Always provide a publishable key - use a properly formatted mock during build time
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_bW9ja2VkLWtleS1mb3ItYnVpbGQtdGltZS5jbGVyay5hY2NvdW50cy5kZXYk'
   
   return (
     <ClerkProvider publishableKey={publishableKey}>
