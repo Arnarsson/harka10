@@ -1,13 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { stripe } from '@/lib/stripe'
-import { clerkClient } from '@clerk/nextjs'
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
+import { clerkClient } from '@clerk/nextjs/server'
+import Stripe from 'stripe'
 
 export async function POST(req: NextRequest) {
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+  
+  if (!process.env.STRIPE_SECRET_KEY || !webhookSecret) {
+    return NextResponse.json({ error: 'Stripe not configured' }, { status: 503 })
+  }
+  
+  // Initialize Stripe only when needed
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2024-06-20',
+    typescript: true,
+  })
+  
   const body = await req.text()
-  const signature = headers().get('stripe-signature')!
+  const signature = headers().get('stripe-signature')
+  
+  if (!signature) {
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
+  }
 
   let event
 
