@@ -23,8 +23,8 @@ export default function RootLayout({
       publishableKey={publishableKey}
       signInUrl="/sign-in"
       signUpUrl="/sign-up"
-      afterSignInUrl="/learn/dashboard"
-      afterSignUpUrl="/learn/dashboard"
+      signInFallbackRedirectUrl="/learn/dashboard"
+      signUpFallbackRedirectUrl="/learn/dashboard"
     >
       <html lang="en" suppressHydrationWarning>
         <head>
