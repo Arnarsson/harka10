@@ -11,11 +11,9 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <HarkaHero 
-        language={language} 
-        onLanguageChange={handleLanguageChange}
-      />
-    </div>
+    <HarkaHero 
+      language={language} 
+      onLanguageChange={handleLanguageChange}
+    />
   )
 }
