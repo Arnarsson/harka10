@@ -8,6 +8,8 @@ import type { UserProfile, AuthState } from './types'
 interface AuthContextType extends AuthState {
   signIn: (email: string, password: string) => Promise<void>
   signUp: (email: string, password: string, fullName: string) => Promise<void>
+  signInWithMagicLink: (email: string) => Promise<void>
+  signInWithProvider: (provider: 'google' | 'github' | 'linkedin') => Promise<void>
   signOut: () => Promise<void>
   isAdmin: boolean
   isInstructor: boolean
@@ -155,6 +157,65 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const signInWithMagicLink = async (email: string) => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setState(prev => ({ ...prev, error: 'Authentication is not configured' }))
+      throw new Error('Authentication is not configured')
+    }
+
+    try {
+      setState(prev => ({ ...prev, loading: true, error: null }))
+
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        }
+      })
+
+      if (error) throw error
+
+      // Don't update state here as user needs to check email
+      setState(prev => ({ ...prev, loading: false }))
+    } catch (error: any) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error.message || 'Failed to send magic link'
+      }))
+      throw error
+    }
+  }
+
+  const signInWithProvider = async (provider: 'google' | 'github' | 'linkedin') => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setState(prev => ({ ...prev, error: 'Authentication is not configured' }))
+      throw new Error('Authentication is not configured')
+    }
+
+    try {
+      setState(prev => ({ ...prev, loading: true, error: null }))
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        }
+      })
+
+      if (error) throw error
+
+      // OAuth will redirect, so no need to update state here
+    } catch (error: any) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error.message || `Failed to sign in with ${provider}`
+      }))
+      throw error
+    }
+  }
+
   const signOut = async () => {
     try {
       setState(prev => ({ ...prev, loading: true }))
@@ -177,6 +238,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     ...state,
     signIn,
     signUp,
+    signInWithMagicLink,
+    signInWithProvider,
     signOut,
     isAdmin: state.user?.role === 'admin',
     isInstructor: state.user?.role === 'instructor',
