@@ -1,145 +1,121 @@
-import { Variants } from "framer-motion"
-
-// Page transition variants
-export const pageVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  },
-}
-
-// Stagger children animations
-export const staggerContainer: Variants = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-}
-
-export const staggerItem: Variants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut",
-    },
-  },
-}
-
-// Card hover animations
-export const cardHover = {
-  rest: {
-    scale: 1,
-    transition: {
-      duration: 0.2,
-      ease: "easeOut",
-    },
-  },
-  hover: {
-    scale: 1.02,
-    transition: {
-      duration: 0.2,
-      ease: "easeOut",
-    },
-  },
-  tap: {
-    scale: 0.98,
-  },
-}
-
-// Button animations
-export const buttonHover = {
-  rest: {
-    scale: 1,
-  },
-  hover: {
-    scale: 1.05,
-  },
-  tap: {
-    scale: 0.95,
-  },
-}
-
-// Fade in animation for lazy loaded content
-export const fadeIn: Variants = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-    },
-  },
-}
-
-// Progress bar animation
-export const progressBar: Variants = {
-  initial: {
-    width: "0%",
-  },
-  animate: (progress: number) => ({
-    width: `${progress}%`,
-    transition: {
-      duration: 1,
-      ease: "easeOut",
-    },
-  }),
-}
-
-// Certificate unlock animation
-export const certificateUnlock: Variants = {
-  initial: {
-    scale: 0,
-    rotate: -180,
-    opacity: 0,
-  },
-  animate: {
-    scale: 1,
-    rotate: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 200,
-      damping: 15,
-    },
-  },
-}
-
-// Skeleton loading animation
-export const shimmer = {
-  animate: {
-    backgroundPosition: ["200% 0", "-200% 0"],
-    transition: {
-      duration: 2,
-      ease: "linear",
-      repeat: Infinity,
-    },
-  },
-}
-
-// Number counter animation
-export const counterAnimation = {
+export const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.5 }
+}
+
+export const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.3 }
+}
+
+export const scaleIn = {
+  initial: { scale: 0.9, opacity: 0 },
+  animate: { scale: 1, opacity: 1 },
+  transition: { type: "spring", stiffness: 100 }
+}
+
+export const slideInFromRight = {
+  initial: { x: 50, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+  transition: { duration: 0.4 }
+}
+
+export const slideInFromLeft = {
+  initial: { x: -50, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+  transition: { duration: 0.4 }
+}
+
+export const staggerContainer = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+export const staggerItem = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 }
+}
+
+export const pulseAnimation = {
+  animate: {
+    scale: [1, 1.05, 1],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+}
+
+export const shimmerAnimation = {
+  animate: {
+    backgroundPosition: ['0% 0%', '100% 0%'],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "linear"
+    }
+  }
+}
+
+export const bounceAnimation = {
+  animate: {
+    y: [0, -10, 0],
+    transition: {
+      duration: 1.5,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+}
+
+export const rotateAnimation = {
+  animate: {
+    rotate: 360,
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "linear"
+    }
+  }
+}
+
+export const hoverScale = {
+  whileHover: { scale: 1.05 },
+  whileTap: { scale: 0.95 }
+}
+
+export const hoverBrightness = {
+  whileHover: { filter: "brightness(1.1)" },
+  transition: { duration: 0.2 }
+}
+
+export const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  in: { opacity: 1, y: 0 },
+  out: { opacity: 0, y: -20 }
+}
+
+export const buttonHover = {
+  whileHover: { 
+    scale: 1.05,
+    boxShadow: "0 10px 20px rgba(0,0,0,0.1)"
+  },
+  whileTap: { scale: 0.95 },
+  transition: { type: "spring", stiffness: 400 }
+}
+
+export const cardHover = {
+  whileHover: { 
+    y: -5,
+    boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+  },
+  transition: { type: "spring", stiffness: 300 }
 }
