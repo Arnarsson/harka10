@@ -27,17 +27,22 @@ import {
   LogOut,
   Award,
   GraduationCap,
+  Moon,
+  Sun,
+  FileText,
+  TrendingUp,
+  HelpCircle
 } from "lucide-react"
+import { useTheme } from "next-themes"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Courses", href: "/courses", icon: GraduationCap },
-  { name: "Learning", href: "/learning", icon: BookOpen },
+  { name: "My Courses", href: "/courses", icon: GraduationCap },
+  { name: "Progress", href: "/learning", icon: TrendingUp },
+  { name: "Discussion", href: "/discussion", icon: MessageSquare },
+  { name: "Resources", href: "/resources", icon: FileText },
   { name: "Certificates", href: "/certificates", icon: Award },
-  { name: "Playground", href: "/playground", icon: MessageSquare },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Team", href: "/team", icon: Users },
-  { name: "Toolkit", href: "/toolkit", icon: Target },
+  { name: "Settings", href: "/settings", icon: Settings },
 ]
 
 interface DashboardLayoutProps {
@@ -48,6 +53,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
   const { user, isAdmin, isInstructor, signOut } = useAuth()
+  const { theme, setTheme } = useTheme()
 
   // Add admin navigation if user is admin
   const navItems = isAdmin 
@@ -62,8 +68,8 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
           <div className="fixed inset-0 bg-black/20" onClick={() => setSidebarOpen(false)} />
           <div className="fixed inset-y-0 left-0 w-64 bg-background border-r">
             <div className="flex h-14 items-center justify-between px-6">
-              <Link href="/dashboard" className="text-lg font-medium">
-                AI Platform
+              <Link href="/dashboard" className="text-xl font-bold">
+                HARKA
               </Link>
               <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
                 <X className="h-4 w-4" />
@@ -96,8 +102,8 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
       <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:w-64 lg:block">
         <div className="h-full bg-background border-r">
           <div className="flex h-14 items-center px-6">
-            <Link href="/dashboard" className="text-lg font-medium">
-              AI Platform
+            <Link href="/dashboard" className="text-xl font-bold">
+              HARKA
             </Link>
           </div>
 
@@ -129,8 +135,8 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
                   <AvatarFallback className="text-xs">JD</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">John Doe</p>
-                  <p className="text-xs text-muted-foreground truncate">john@example.com</p>
+                  <p className="text-sm font-medium truncate">Sven</p>
+                  <p className="text-xs text-muted-foreground truncate">View Profile</p>
                 </div>
               </div>
             </div>
@@ -152,8 +158,13 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon">
-              <Settings className="h-4 w-4" />
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
 
             <DropdownMenu>

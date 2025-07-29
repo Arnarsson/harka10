@@ -70,8 +70,8 @@ export function EnhancedDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">Good morning, John! 👋</h1>
-        <p className="text-muted-foreground mt-2">Here's your AI training progress overview</p>
+        <h1 className="text-3xl font-bold">Welcome back, Sven!</h1>
+        <p className="text-muted-foreground mt-2">Continue your learning journey</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
