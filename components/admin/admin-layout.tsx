@@ -50,6 +50,11 @@ const navigation = [
     href: "/admin/subscriptions",
     icon: CreditCard,
   },
+  {
+    name: "Settings",
+    href: "/admin/settings",
+    icon: Settings,
+  },
 ]
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {

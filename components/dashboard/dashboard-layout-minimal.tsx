@@ -33,18 +33,21 @@ import {
   TrendingUp,
   HelpCircle,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Wrench,
+  Shield
 } from "lucide-react"
 import { useTheme } from "next-themes"
 
 const navigation = [
   { name: "Dashboard", href: "/learn/dashboard", icon: LayoutDashboard },
-  { name: "My Courses", href: "/learn/courses", icon: GraduationCap },
-  { name: "Progress", href: "/learn/learning", icon: TrendingUp },
+  { name: "Learning", href: "/learn/learning", icon: GraduationCap },
+  { name: "Playground", href: "/learn/playground", icon: Target },
+  { name: "Analytics", href: "/learn/analytics", icon: BarChart3 },
+  { name: "Toolkit", href: "/learn/toolkit", icon: Wrench },
   { name: "Discussion", href: "/learn/discussion", icon: MessageSquare },
   { name: "Resources", href: "/learn/resources", icon: FileText },
   { name: "Certificates", href: "/learn/certificates", icon: Award },
-  { name: "Settings", href: "/learn/settings", icon: Settings },
 ]
 
 interface DashboardLayoutProps {
@@ -65,7 +68,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
 
   // Add admin navigation if user is admin
   const navItems = isAdmin 
-    ? [...navigation, { name: "Admin", href: "/admin", icon: Settings }]
+    ? [...navigation, { name: "Admin", href: "/admin", icon: Shield }]
     : navigation
 
   return (
@@ -215,6 +218,17 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
                   <Settings className="mr-2 h-4 w-4" />
                   Settings
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin">
+                        <Shield className="mr-2 h-4 w-4" />
+                        Admin Panel
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut()}>
                   <LogOut className="mr-2 h-4 w-4" />
