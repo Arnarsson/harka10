@@ -1,12 +1,12 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
-import { DashboardOverviewEnhanced } from "@/components/dashboard/dashboard-overview-enhanced"
+import { DiscussionPage } from "@/components/discussion/discussion-page"
 import { PageTransition } from "@/components/layout/page-transition"
 
-export default function DashboardPage() {
+export default function Discussion() {
   return (
     <DashboardLayoutMinimal>
       <PageTransition>
-        <DashboardOverviewEnhanced />
+        <DiscussionPage />
       </PageTransition>
     </DashboardLayoutMinimal>
   )
