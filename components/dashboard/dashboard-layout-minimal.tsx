@@ -31,18 +31,20 @@ import {
   Sun,
   FileText,
   TrendingUp,
-  HelpCircle
+  HelpCircle,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react"
 import { useTheme } from "next-themes"
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "My Courses", href: "/courses", icon: GraduationCap },
-  { name: "Progress", href: "/learning", icon: TrendingUp },
-  { name: "Discussion", href: "/discussion", icon: MessageSquare },
-  { name: "Resources", href: "/resources", icon: FileText },
-  { name: "Certificates", href: "/certificates", icon: Award },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Dashboard", href: "/learn/dashboard", icon: LayoutDashboard },
+  { name: "My Courses", href: "/learn/courses", icon: GraduationCap },
+  { name: "Progress", href: "/learn/learning", icon: TrendingUp },
+  { name: "Discussion", href: "/learn/discussion", icon: MessageSquare },
+  { name: "Resources", href: "/learn/resources", icon: FileText },
+  { name: "Certificates", href: "/learn/certificates", icon: Award },
+  { name: "Settings", href: "/learn/settings", icon: Settings },
 ]
 
 interface DashboardLayoutProps {
@@ -51,6 +53,7 @@ interface DashboardLayoutProps {
 
 export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const pathname = usePathname()
   const { user, isAdmin, isInstructor, signOut } = useAuth()
   const { theme, setTheme } = useTheme()
@@ -99,12 +102,20 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
       )}
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:w-64 lg:block">
+      <div className={`hidden lg:fixed lg:inset-y-0 lg:left-0 lg:block transition-all duration-300 ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-64'}`}>
         <div className="h-full bg-background border-r">
-          <div className="flex h-14 items-center px-6">
-            <Link href="/dashboard" className="text-xl font-bold">
+          <div className="flex h-14 items-center justify-between px-6">
+            <Link href="/learn/dashboard" className={`text-xl font-bold transition-opacity ${sidebarCollapsed ? 'opacity-0' : 'opacity-100'}`}>
               HARKA
             </Link>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="hidden lg:flex"
+            >
+              {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+            </Button>
           </div>
 
           <nav className="px-3 py-4 space-y-1">
@@ -114,14 +125,22 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 text-sm rounded-[var(--radius)] transition-colors ${
+                  className={`flex items-center gap-3 px-3 py-2 text-sm rounded-[var(--radius)] transition-colors group relative ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
+                  title={sidebarCollapsed ? item.name : undefined}
                 >
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.name}</span>
+                  <item.icon className="h-4 w-4 flex-shrink-0" />
+                  <span className={`transition-opacity ${sidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
+                    {item.name}
+                  </span>
+                  {sidebarCollapsed && (
+                    <div className="absolute left-12 bg-background border rounded-md px-2 py-1 text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50 shadow-lg">
+                      {item.name}
+                    </div>
+                  )}
                 </Link>
               )
             })}
@@ -130,11 +149,11 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
           <div className="absolute bottom-0 left-0 right-0 p-3">
             <div className="border rounded-[var(--radius)] p-4">
               <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-8 w-8 flex-shrink-0">
                   <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                  <AvatarFallback className="text-xs">JD</AvatarFallback>
+                  <AvatarFallback className="text-xs">S</AvatarFallback>
                 </Avatar>
-                <div className="flex-1 min-w-0">
+                <div className={`flex-1 min-w-0 transition-opacity ${sidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
                   <p className="text-sm font-medium truncate">Sven</p>
                   <p className="text-xs text-muted-foreground truncate">View Profile</p>
                 </div>
@@ -145,11 +164,19 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
       </div>
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
         {/* Top header */}
         <header className="h-14 border-b flex items-center justify-between px-6">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setSidebarOpen(true)}>
+              <Menu className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="hidden lg:flex" 
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            >
               <Menu className="h-4 w-4" />
             </Button>
             <h1 className="text-lg font-medium capitalize">
