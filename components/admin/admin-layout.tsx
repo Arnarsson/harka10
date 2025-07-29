@@ -19,8 +19,16 @@ import {
   Wrench
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Permission, PermissionService } from "@/lib/auth/permissions"
 
-const navigation = [
+interface NavigationItem {
+  name: string
+  href: string
+  icon: any
+  permission?: Permission
+}
+
+const navigation: NavigationItem[] = [
   {
     name: "Dashboard",
     href: "/admin/dashboard",
@@ -30,42 +38,58 @@ const navigation = [
     name: "Users",
     href: "/admin/users", 
     icon: Users,
+    permission: "users.view"
   },
   {
     name: "Courses",
     href: "/admin/courses",
     icon: BookOpen,
+    permission: "courses.view"
   },
   {
     name: "Content",
     href: "/admin/content",
     icon: FileText,
+    permission: "content.view"
   },
   {
     name: "Blog",
     href: "/admin/blog",
     icon: Newspaper,
+    permission: "blog.view"
   },
   {
     name: "Toolkit",
     href: "/admin/toolkit",
     icon: Wrench,
+    permission: "system.settings"
   },
   {
     name: "Settings",
     href: "/admin/settings",
     icon: Settings,
+    permission: "system.settings"
   },
   {
     name: "Subscriptions",
     href: "/admin/subscriptions",
     icon: CreditCard,
+    permission: "subscriptions.view"
   },
 ]
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const pathname = usePathname()
+  
+  // For now, assume admin role - in real implementation, get from user context/auth
+  const userRole = 'admin' as const
+  
+  // Filter navigation items based on user permissions
+  const filteredNavigation = navigation.filter(item => {
+    if (!item.permission) return true
+    return PermissionService.hasPermission(userRole, item.permission)
+  })
 
   return (
     <div className="min-h-screen bg-background">
@@ -100,7 +124,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
         {/* Navigation */}
         <nav className="flex-1 px-2 py-4 space-y-1">
-          {navigation.map((item) => {
+          {filteredNavigation.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
             return (
               <Link

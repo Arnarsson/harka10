@@ -6,7 +6,8 @@ import { motion } from 'framer-motion'
 import { 
   Users, Search, Filter, MoreVertical, Edit, Trash2, 
   Shield, UserPlus, Mail, Calendar, Activity, ChevronLeft,
-  Ban, CheckCircle, Clock, Award, BookOpen, DollarSign
+  Ban, CheckCircle, Clock, Award, BookOpen, DollarSign,
+  ChevronUp, ChevronDown, Download, Eye, RefreshCw
 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -38,6 +39,11 @@ function AdminUsersPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive' | 'banned'>('all')
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [showUserModal, setShowUserModal] = useState(false)
+  const [sortField, setSortField] = useState<'name' | 'email' | 'created_at' | 'last_sign_in'>('created_at')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
+  const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set())
+  const [showBulkActions, setShowBulkActions] = useState(false)
+  const [dateFilter, setDateFilter] = useState<'all' | 'week' | 'month' | 'quarter' | 'year'>('all')
 
   const supabase = createClient()
 
@@ -131,7 +137,58 @@ function AdminUsersPage() {
     const matchesRole = roleFilter === 'all' || user.role === roleFilter
     const matchesStatus = statusFilter === 'all' || user.status === statusFilter
 
-    return matchesSearch && matchesRole && matchesStatus
+    // Date filtering
+    let matchesDate = true
+    if (dateFilter !== 'all') {
+      const userDate = new Date(user.created_at)
+      const now = new Date()
+      const diffTime = now.getTime() - userDate.getTime()
+      const diffDays = diffTime / (1000 * 3600 * 24)
+
+      switch (dateFilter) {
+        case 'week':
+          matchesDate = diffDays <= 7
+          break
+        case 'month':
+          matchesDate = diffDays <= 30
+          break
+        case 'quarter':
+          matchesDate = diffDays <= 90
+          break
+        case 'year':
+          matchesDate = diffDays <= 365
+          break
+      }
+    }
+
+    return matchesSearch && matchesRole && matchesStatus && matchesDate
+  }).sort((a, b) => {
+    let aValue: any, bValue: any
+    
+    switch (sortField) {
+      case 'name':
+        aValue = a.full_name.toLowerCase()
+        bValue = b.full_name.toLowerCase()
+        break
+      case 'email':
+        aValue = a.email.toLowerCase()
+        bValue = b.email.toLowerCase()
+        break
+      case 'created_at':
+        aValue = new Date(a.created_at)
+        bValue = new Date(b.created_at)
+        break
+      case 'last_sign_in':
+        aValue = new Date(a.last_sign_in_at || '1970-01-01')
+        bValue = new Date(b.last_sign_in_at || '1970-01-01')
+        break
+      default:
+        return 0
+    }
+
+    if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1
+    if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1
+    return 0
   })
 
   const handleUpdateRole = async (userId: string, newRole: User['role']) => {
@@ -150,6 +207,60 @@ function AdminUsersPage() {
     if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
       // TODO: Delete user from database
       console.log('Delete user:', userId)
+    }
+  }
+
+  const handleSort = (field: typeof sortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortField(field)
+      setSortDirection('asc')
+    }
+  }
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedUsers(new Set(filteredUsers.map(user => user.id)))
+    } else {
+      setSelectedUsers(new Set())
+    }
+  }
+
+  const handleSelectUser = (userId: string, checked: boolean) => {
+    const newSelected = new Set(selectedUsers)
+    if (checked) {
+      newSelected.add(userId)
+    } else {
+      newSelected.delete(userId)
+    }
+    setSelectedUsers(newSelected)
+  }
+
+  const handleBulkAction = async (action: 'delete' | 'ban' | 'activate' | 'export') => {
+    const selectedUserIds = Array.from(selectedUsers)
+    
+    switch (action) {
+      case 'delete':
+        if (confirm(`Are you sure you want to delete ${selectedUserIds.length} users? This action cannot be undone.`)) {
+          console.log('Bulk delete:', selectedUserIds)
+          setSelectedUsers(new Set())
+        }
+        break
+      case 'ban':
+        if (confirm(`Are you sure you want to ban ${selectedUserIds.length} users?`)) {
+          console.log('Bulk ban:', selectedUserIds)
+          setSelectedUsers(new Set())
+        }
+        break
+      case 'activate':
+        console.log('Bulk activate:', selectedUserIds)
+        setSelectedUsers(new Set())
+        break
+      case 'export':
+        console.log('Export users:', selectedUserIds)
+        // TODO: Implement export functionality
+        break
     }
   }
 
@@ -236,39 +347,106 @@ function AdminUsersPage() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
-            <input
-              type="text"
-              placeholder="Search users..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-            />
+        <div className="space-y-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
+              <input
+                type="text"
+                placeholder="Search users..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              />
+            </div>
+            <div className="flex gap-2">
+              <select
+                value={roleFilter}
+                onChange={(e) => setRoleFilter(e.target.value as any)}
+                className="px-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              >
+                <option value="all">All Roles</option>
+                <option value="admin">Admin</option>
+                <option value="instructor">Instructor</option>
+                <option value="student">Student</option>
+              </select>
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value as any)}
+                className="px-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="banned">Banned</option>
+              </select>
+              <select
+                value={dateFilter}
+                onChange={(e) => setDateFilter(e.target.value as any)}
+                className="px-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+              >
+                <option value="all">All Time</option>
+                <option value="week">Last Week</option>
+                <option value="month">Last Month</option>
+                <option value="quarter">Last Quarter</option>
+                <option value="year">Last Year</option>
+              </select>
+              <button
+                onClick={() => loadUsers()}
+                className="px-4 py-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors"
+              >
+                <RefreshCw size={20} />
+              </button>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <select
-              value={roleFilter}
-              onChange={(e) => setRoleFilter(e.target.value as any)}
-              className="px-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+
+          {/* Bulk Actions */}
+          {selectedUsers.size > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg"
             >
-              <option value="all">All Roles</option>
-              <option value="admin">Admin</option>
-              <option value="instructor">Instructor</option>
-              <option value="student">Student</option>
-            </select>
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as any)}
-              className="px-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-            >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="banned">Banned</option>
-            </select>
-          </div>
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-blue-900">
+                  {selectedUsers.size} user{selectedUsers.size === 1 ? '' : 's'} selected
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleBulkAction('export')}
+                  className="px-3 py-1 text-sm bg-white border border-blue-300 text-blue-700 rounded hover:bg-blue-50 transition-colors flex items-center gap-1"
+                >
+                  <Download size={14} />
+                  Export
+                </button>
+                <button
+                  onClick={() => handleBulkAction('activate')}
+                  className="px-3 py-1 text-sm bg-white border border-green-300 text-green-700 rounded hover:bg-green-50 transition-colors"
+                >
+                  Activate
+                </button>
+                <button
+                  onClick={() => handleBulkAction('ban')}
+                  className="px-3 py-1 text-sm bg-white border border-yellow-300 text-yellow-700 rounded hover:bg-yellow-50 transition-colors"
+                >
+                  Ban
+                </button>
+                <button
+                  onClick={() => handleBulkAction('delete')}
+                  className="px-3 py-1 text-sm bg-white border border-red-300 text-red-700 rounded hover:bg-red-50 transition-colors"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => setSelectedUsers(new Set())}
+                  className="px-3 py-1 text-sm bg-white border border-zinc-300 text-zinc-700 rounded hover:bg-zinc-50 transition-colors"
+                >
+                  Clear
+                </button>
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Users Table */}
@@ -278,7 +456,25 @@ function AdminUsersPage() {
               <thead className="bg-zinc-50 border-b border-zinc-200">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-zinc-600 uppercase tracking-wider">
-                    User
+                    <input
+                      type="checkbox"
+                      checked={selectedUsers.size === filteredUsers.length && filteredUsers.length > 0}
+                      onChange={(e) => handleSelectAll(e.target.checked)}
+                      className="rounded border-zinc-300"
+                    />
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-zinc-600 uppercase tracking-wider">
+                    <button
+                      onClick={() => handleSort('name')}
+                      className="flex items-center gap-1 hover:text-zinc-900 transition-colors"
+                    >
+                      User
+                      {sortField === 'name' && (
+                        sortDirection === 'asc' ? 
+                          <ChevronUp size={14} /> : 
+                          <ChevronDown size={14} />
+                      )}
+                    </button>
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-zinc-600 uppercase tracking-wider">
                     Role
@@ -287,7 +483,17 @@ function AdminUsersPage() {
                     Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-zinc-600 uppercase tracking-wider">
-                    Activity
+                    <button
+                      onClick={() => handleSort('created_at')}
+                      className="flex items-center gap-1 hover:text-zinc-900 transition-colors"
+                    >
+                      Joined
+                      {sortField === 'created_at' && (
+                        sortDirection === 'asc' ? 
+                          <ChevronUp size={14} /> : 
+                          <ChevronDown size={14} />
+                      )}
+                    </button>
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-zinc-600 uppercase tracking-wider">
                     Stats
@@ -305,6 +511,14 @@ function AdminUsersPage() {
                     animate={{ opacity: 1 }}
                     className="hover:bg-zinc-50 transition-colors"
                   >
+                    <td className="px-6 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedUsers.has(user.id)}
+                        onChange={(e) => handleSelectUser(user.id, e.target.checked)}
+                        className="rounded border-zinc-300"
+                      />
+                    </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative w-10 h-10 rounded-full overflow-hidden bg-zinc-200">
