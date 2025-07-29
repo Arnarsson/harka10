@@ -17,7 +17,9 @@ import {
   ChevronRight,
   Newspaper,
   Wrench,
-  Shield
+  Shield,
+  Search,
+  Database
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Permission, PermissionService } from "@/lib/auth/permissions"
@@ -60,6 +62,11 @@ const navigation: NavigationItem[] = [
     permission: "blog.view"
   },
   {
+    name: "Search",
+    href: "/admin/search",
+    icon: Search
+  },
+  {
     name: "Toolkit",
     href: "/admin/toolkit",
     icon: Wrench,
@@ -70,6 +77,12 @@ const navigation: NavigationItem[] = [
     href: "/admin/moderation",
     icon: Shield,
     permission: "content.moderate"
+  },
+  {
+    name: "Backup",
+    href: "/admin/backup",
+    icon: Database,
+    permission: "system.backup"
   },
   {
     name: "Settings",
