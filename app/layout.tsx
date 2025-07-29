@@ -19,7 +19,13 @@ export default function RootLayout({
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_bW9ja2VkLWtleS1mb3ItYnVpbGQtdGltZS5jbGVyay5hY2NvdW50cy5kZXYk'
   
   return (
-    <ClerkProvider publishableKey={publishableKey}>
+    <ClerkProvider 
+      publishableKey={publishableKey}
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      afterSignInUrl="/learn/dashboard"
+      afterSignUpUrl="/learn/dashboard"
+    >
       <html lang="en" suppressHydrationWarning>
         <head>
           <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />

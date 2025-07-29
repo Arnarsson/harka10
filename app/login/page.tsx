@@ -22,6 +22,8 @@ export default function LoginPage() {
                 card: 'shadow-2xl border-0 bg-white',
               }
             }}
+            afterSignInUrl="/learn/dashboard"
+            afterSignUpUrl="/learn/dashboard"
             redirectUrl="/learn/dashboard"
           />
         </div>

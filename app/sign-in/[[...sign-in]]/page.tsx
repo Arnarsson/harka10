@@ -15,6 +15,9 @@ export default function Page() {
               card: 'shadow-2xl border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80',
             }
           }}
+          afterSignInUrl="/learn/dashboard"
+          afterSignUpUrl="/learn/dashboard"
+          redirectUrl="/learn/dashboard"
         />
       </div>
     </div>

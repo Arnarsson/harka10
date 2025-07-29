@@ -54,7 +54,7 @@ export default clerkMiddleware((auth, req) => {
   }
 
   // Redirect authenticated users away from auth pages
-  if (userId && (req.nextUrl.pathname === '/sign-in' || req.nextUrl.pathname === '/sign-up' || 
+  if (userId && (req.nextUrl.pathname.startsWith('/sign-in') || req.nextUrl.pathname.startsWith('/sign-up') || 
                  req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/signup')) {
     return NextResponse.redirect(new URL('/learn/dashboard', req.url))
   }
