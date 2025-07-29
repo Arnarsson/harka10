@@ -91,6 +91,46 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       resultsTitle: "Results that speak for themselves",
       resultsSubtitle: "In just 48 hours, our customers have achieved significant business breakthroughs.",
       
+      // Case study section
+      caseStudyTitle: "Kundecase • Marine‑ og industrivirksomhed opnår store tidsbesparelser på kritiske analyser",
+      caseStudySubtitle: "Om kunden",
+      caseStudyDescription: "En ledende aktør inden for marine services og kraftløsninger med speciale i vedligeholdelse af skibsmotorer, kraftværker og industrielle anlæg.",
+      challengeTitle: "Udfordringen",
+      challengeDesc: "Før samarbejdet med HARKA havde kunden en række ressourcekrævende processer:",
+      challengeItems: [
+        "Servicerapporter krævede mange timers manuel indtastning per rapport.",
+        "Risikoanalyser af turbosystemer tog dage at udarbejde.",
+        "Kapital var bundet i ældre reservedele uden overblik over lagerstatus.",
+        "Dokumentationen var uensartet på tværs af tekniske teams."
+      ],
+      workshopTitle: "Workshop‑resultater",
+      workshopDesc: "I løbet af to dages workshop byggede medarbejderne selv følgende AI‑løsninger:",
+      workshopItems: [
+        "Service‑rapport‑bot: Den manuelle indtastning blev automatiseret, så rapporter, der tidligere tog flere timer at udfylde, nu kan gennemføres på få minutter med en markant tidsbesparelse.",
+        "Turbo‑risikoanalyse: Specialistanalyser, der før tog timer, kan nu udføres på under et kvarter.",
+        "Lager‑intelligens: Analyse af reservedelslageret frigjorde en væsentlig del af kapitalen, der tidligere var bundet i forældet inventar."
+      ],
+      spotlightTitle: "Spotlight: Fra specialistviden til AI‑værktøj",
+      spotlightDesc: "Workshoppens højdepunkt var en risikoanalyse‑løsning for turbosystemer. Ved kun at bruge:",
+      spotlightItems: [
+        "Billeder af relevante komponenter",
+        "Korte videooptagelser af systemet i drift",
+        "En standard servicehåndbog"
+      ],
+      spotlightResult: "… kunne AI'en på under 10 minutter generere en detaljeret teknisk vurdering, der identificerede potentielle svagheder, prioriterede problemer efter alvor og gav konkrete handlingsanbefalinger. En opgave, der tidligere krævede timers ekspertanalyse, er nu en proces, enhver tekniker kan gennemføre. Dette viser, hvordan specialiseret viden kan demokratiseres og skaleres gennem AI – selv i højtekniske domæner.",
+      valueTitle: "Værdi udover workshoppen",
+      valueItems: [
+        "AI‑governance på plads: Medarbejderne implementerede en skræddersyet etisk kontrolramme, som nu fungerer som standard for alle nye teknologiprojekter.",
+        "Kompetenceløft: Hele teamet mestrer nu både ChatGPT og Microsoft Copilot i deres daglige arbejde.",
+        "Kontinuerlig læring: Adgang til HARKAs videobibliotek og et helt års sparring sikrer, at kompetencerne fortsat udvikles.",
+        "Selvkørende AI‑kultur: Virksomheden har etableret månedlige \"AI‑dage\", hvor nye use cases identificeres og prototyper bygges."
+      ],
+      customerExperienceTitle: "Kundeoplevelsen",
+      customerQuote: "Det mest overraskende var ikke bare, at vi fik konkrete løsninger på to dage – men at løsningerne faktisk fungerer i vores hverdag og allerede har sparet os for hundredvis af arbejdstimer. HARKA leverede ikke konsulentrapporter, men ægte værktøjer vi bruger hver dag.",
+      customerRole: "Afdelingsleder",
+      nextStepsTitle: "Næste skridt",
+      nextStepsDesc: "Virksomheden arbejder nu på permanente versioner af prototype‑løsningerne med fortsat sparring fra HARKA.",
+      
       // Team section
       teamTitle: "The team behind HARKA",
       teamSubtitle: "Meet the two experts who, in just 48 hours, transform your company's AI potential into practical solutions and concrete results.",
@@ -183,6 +223,46 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       resultsTitle: "Results that speak for themselves",
       resultsSubtitle: "In just 48 hours, our customers have achieved significant business breakthroughs.",
       
+      // Case study section
+      caseStudyTitle: "Customer Case • Marine and Industrial Company Achieves Major Time Savings on Critical Analyses",
+      caseStudySubtitle: "About the Customer",
+      caseStudyDescription: "A leading player in marine services and power solutions specializing in maintenance of ship engines, power plants and industrial facilities.",
+      challengeTitle: "The Challenge",
+      challengeDesc: "Before working with HARKA, the customer had several resource-intensive processes:",
+      challengeItems: [
+        "Service reports required many hours of manual entry per report.",
+        "Risk analyses of turbo systems took days to complete.",
+        "Capital was tied up in older spare parts without inventory overview.",
+        "Documentation was inconsistent across technical teams."
+      ],
+      workshopTitle: "Workshop Results",
+      workshopDesc: "During a two-day workshop, employees built the following AI solutions themselves:",
+      workshopItems: [
+        "Service Report Bot: Manual entry was automated, so reports that previously took several hours to complete can now be done in minutes with significant time savings.",
+        "Turbo Risk Analysis: Specialist analyses that previously took hours can now be performed in under fifteen minutes.",
+        "Inventory Intelligence: Analysis of the spare parts inventory freed up a significant portion of capital previously tied up in obsolete inventory."
+      ],
+      spotlightTitle: "Spotlight: From Expert Knowledge to AI Tool",
+      spotlightDesc: "The workshop's highlight was a risk analysis solution for turbo systems. Using only:",
+      spotlightItems: [
+        "Images of relevant components",
+        "Short video recordings of the system in operation",
+        "A standard service handbook"
+      ],
+      spotlightResult: "...the AI could generate a detailed technical assessment in under 10 minutes that identified potential weaknesses, prioritized problems by severity, and gave concrete action recommendations. A task that previously required hours of expert analysis is now a process any technician can perform. This shows how specialized knowledge can be democratized and scaled through AI – even in highly technical domains.",
+      valueTitle: "Value Beyond the Workshop",
+      valueItems: [
+        "AI governance in place: Employees implemented a tailored ethical control framework that now serves as the standard for all new technology projects.",
+        "Competency boost: The entire team now masters both ChatGPT and Microsoft Copilot in their daily work.",
+        "Continuous learning: Access to HARKA's video library and a full year of sparring ensures skills continue to develop.",
+        "Self-driving AI culture: The company has established monthly \"AI days\" where new use cases are identified and prototypes built."
+      ],
+      customerExperienceTitle: "Customer Experience",
+      customerQuote: "The most surprising thing was not just that we got concrete solutions in two days – but that the solutions actually work in our everyday life and have already saved us hundreds of working hours. HARKA delivered not consultant reports, but real tools we use every day.",
+      customerRole: "Department Manager",
+      nextStepsTitle: "Next Steps",
+      nextStepsDesc: "The company is now working on permanent versions of the prototype solutions with continued sparring from HARKA.",
+      
       // Team section
       teamTitle: "The team behind HARKA",
       teamSubtitle: "Meet the two experts who, in just 48 hours, transform your company's AI potential into practical solutions and concrete results.",
@@ -252,6 +332,15 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                   <Button
                     variant="ghost"
                     size="sm"
+                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    className="flex items-center gap-2"
+                  >
+                    {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                  </Button>
+                  
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() => onLanguageChange(language === 'da' ? 'en' : 'da')}
                     className="flex items-center gap-2"
                   >
@@ -267,6 +356,15 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                 </>
               ) : (
                 <>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    className="flex items-center gap-2"
+                  >
+                    {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                  </Button>
+                  
                   <Button
                     variant="ghost"
                     size="sm"
@@ -325,6 +423,16 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                 Toolkit
               </Link>
               <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                  className="w-full justify-start mb-2"
+                >
+                  {theme === 'light' ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
+                  {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                </Button>
+                
                 <Button
                   variant="ghost"
                   size="sm"
@@ -659,6 +767,131 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                 <p className="text-sm text-gray-500 mt-2">Measurable ROI from day one. Our 48-hour workshop delivers immediate value with implemented solutions that provide a positive return already during the course.</p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Case Study Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {t.caseStudyTitle}
+            </h2>
+          </div>
+
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 lg:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Left Column - Company & Challenge */}
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    {t.caseStudySubtitle}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {t.caseStudyDescription}
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    {t.challengeTitle}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    {t.challengeDesc}
+                  </p>
+                  <ul className="space-y-2">
+                    {t.challengeItems.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                        <span className="text-gray-600 dark:text-gray-300 text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right Column - Solutions & Results */}
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    {t.workshopTitle}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    {t.workshopDesc}
+                  </p>
+                  <ul className="space-y-3">
+                    {t.workshopItems.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                        <span className="text-gray-600 dark:text-gray-300 text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Spotlight Section */}
+            <div className="mt-12 bg-white/60 dark:bg-gray-700/30 rounded-xl p-6 lg:p-8">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                {t.spotlightTitle}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                {t.spotlightDesc}
+              </p>
+              <ul className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                {t.spotlightItems.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-gray-600 dark:text-gray-300 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-gray-700 dark:text-gray-200 italic">
+                {t.spotlightResult}
+              </p>
+            </div>
+
+            {/* Value & Experience */}
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  {t.valueTitle}
+                </h3>
+                <ul className="space-y-2">
+                  {t.valueItems.map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span className="text-gray-600 dark:text-gray-300 text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  {t.customerExperienceTitle}
+                </h3>
+                <blockquote className="bg-white/40 dark:bg-gray-600/20 rounded-lg p-4 mb-4">
+                  <p className="text-gray-700 dark:text-gray-200 italic text-sm mb-2">
+                    "{t.customerQuote}"
+                  </p>
+                  <cite className="text-gray-600 dark:text-gray-400 text-xs">
+                    – {t.customerRole}
+                  </cite>
+                </blockquote>
+                
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">
+                    {t.nextStepsTitle}
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                    {t.nextStepsDesc}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
