@@ -1,10 +1,10 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
-import { ComprehensiveLearning } from "@/components/learning/comprehensive-learning"
+import { LearningAnalytics } from "@/components/analytics/learning-analytics"
 
-export default function LearningPage() {
+export default function AnalyticsPage() {
   return (
     <DashboardLayoutMinimal>
-      <ComprehensiveLearning />
+      <LearningAnalytics />
     </DashboardLayoutMinimal>
   )
 }

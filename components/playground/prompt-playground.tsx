@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Input } from "@/components/ui/input"
-import { IntelligentPromptSuggestions } from "@/components/ai/intelligent-prompt-suggestions"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { 
   Send,
   Copy,
@@ -30,13 +30,24 @@ import {
   Heart,
   Clock,
   MoreVertical,
-  ChevronRight
+  ChevronRight,
+  Play,
+  Share,
+  Download,
+  GitBranch,
+  Zap,
+  Brain,
+  Globe
 } from "lucide-react"
 
 export function PromptPlayground() {
   const [prompt, setPrompt] = useState("Write a professional email to a client explaining the benefits of implementing AI in their customer service operations. Include specific examples and ROI metrics.")
   const [response, setResponse] = useState("AI response will appear here")
   const [activeTemplate, setActiveTemplate] = useState<string | null>(null)
+  const [selectedModel, setSelectedModel] = useState("gpt-4")
+  const [temperature, setTemperature] = useState(0.7)
+  const [maxTokens, setMaxTokens] = useState(2000)
+  const [isGenerating, setIsGenerating] = useState(false)
 
   const templates = [
     {
@@ -147,11 +158,49 @@ export function PromptPlayground() {
     }
   }
 
+  const aiModels = [
+    { id: "gpt-4", name: "GPT-4", description: "Most capable, best for complex tasks", icon: Brain },
+    { id: "gpt-3.5-turbo", name: "GPT-3.5 Turbo", description: "Fast and efficient", icon: Zap },
+    { id: "claude-3", name: "Claude 3", description: "Excellent reasoning", icon: MessageSquare },
+    { id: "gemini", name: "Gemini Pro", description: "Google's latest model", icon: Globe }
+  ]
+
+  const experiments = [
+    {
+      id: 1,
+      name: "Customer Service Bot v2",
+      description: "Enhanced with sentiment analysis",
+      status: "running",
+      created: "2 hours ago",
+      results: { accuracy: 94, responses: 156 }
+    },
+    {
+      id: 2,
+      name: "Product Description Generator",
+      description: "A/B testing different styles",
+      status: "completed",
+      created: "1 day ago",
+      results: { ctr: 12.4, conversions: 8 }
+    }
+  ]
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Prompt Playground</h1>
-        <p className="text-muted-foreground mt-2">Experiment with AI prompts and discover new possibilities</p>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold">AI Playground</h1>
+          <p className="text-muted-foreground">Experiment with multiple AI models and advanced features</p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline">
+            <Share className="h-4 w-4 mr-2" />
+            Share
+          </Button>
+          <Button variant="outline">
+            <Download className="h-4 w-4 mr-2" />
+            Export
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -210,57 +259,90 @@ export function PromptPlayground() {
                 </TabsContent>
 
                 <TabsContent value="ai-suggestions" className="space-y-4">
-                  <IntelligentPromptSuggestions
-                    currentPrompt={prompt}
-                    onPromptSelect={(selectedPrompt) => setPrompt(selectedPrompt)}
-                    userContext={{
-                      role: "Product Manager",
-                      industry: "Technology",
-                      experience: "Intermediate"
-                    }}
-                  />
+                  <div className="p-4 border rounded-lg bg-muted/50">
+                    <div className="text-center">
+                      <Sparkles className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                      <h3 className="text-lg font-medium mb-2">AI Prompt Suggestions</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Get AI-powered suggestions to improve your prompts
+                      </p>
+                      <Button>
+                        <Sparkles className="h-4 w-4 mr-2" />
+                        Generate Suggestions
+                      </Button>
+                    </div>
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="parameters" className="space-y-4">
                   <div className="space-y-4">
                     <div>
-                      <Label>Model</Label>
-                      <RadioGroup defaultValue="gpt4">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="gpt4" id="gpt4" />
-                          <Label htmlFor="gpt4">GPT-4 (Most capable)</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="gpt35" id="gpt35" />
-                          <Label htmlFor="gpt35">GPT-3.5 (Faster)</Label>
-                        </div>
-                      </RadioGroup>
+                      <Label>AI Model</Label>
+                      <Select value={selectedModel} onValueChange={setSelectedModel}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {aiModels.map((model) => (
+                            <SelectItem key={model.id} value={model.id}>
+                              <div className="flex items-center gap-2">
+                                <model.icon className="h-4 w-4" />
+                                <div>
+                                  <div className="font-medium">{model.name}</div>
+                                  <div className="text-xs text-muted-foreground">{model.description}</div>
+                                </div>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <div>
-                      <Label htmlFor="temperature">Temperature (0.7)</Label>
+                      <Label htmlFor="temperature">Temperature ({temperature})</Label>
                       <Input
                         id="temperature"
                         type="range"
                         min="0"
                         max="2"
                         step="0.1"
-                        defaultValue="0.7"
+                        value={temperature}
+                        onChange={(e) => setTemperature(Number(e.target.value))}
                         className="w-full"
                       />
+                      <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                        <span>Conservative</span>
+                        <span>Creative</span>
+                      </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="max-tokens">Max Tokens (2000)</Label>
+                      <Label htmlFor="max-tokens">Max Tokens ({maxTokens})</Label>
                       <Input
                         id="max-tokens"
                         type="range"
                         min="100"
                         max="4000"
                         step="100"
-                        defaultValue="2000"
+                        value={maxTokens}
+                        onChange={(e) => setMaxTokens(Number(e.target.value))}
                         className="w-full"
                       />
+                    </div>
+
+                    <div>
+                      <Label>Output Format</Label>
+                      <Select defaultValue="text">
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="text">Plain Text</SelectItem>
+                          <SelectItem value="markdown">Markdown</SelectItem>
+                          <SelectItem value="json">JSON</SelectItem>
+                          <SelectItem value="code">Code</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                 </TabsContent>
@@ -310,20 +392,28 @@ export function PromptPlayground() {
         </div>
 
         <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                Template Library
-              </CardTitle>
-              <div className="relative mt-2">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search templates..."
-                  className="pl-8"
-                />
-              </div>
-            </CardHeader>
+          <Tabs defaultValue="templates" className="space-y-4">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="templates">Templates</TabsTrigger>
+              <TabsTrigger value="experiments">Experiments</TabsTrigger>
+              <TabsTrigger value="models">Models</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="templates">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    Template Library
+                  </CardTitle>
+                  <div className="relative mt-2">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search templates..."
+                      className="pl-8"
+                    />
+                  </div>
+                </CardHeader>
             <CardContent>
               <ScrollArea className="h-[400px]">
                 <div className="space-y-3">
@@ -359,11 +449,82 @@ export function PromptPlayground() {
                   ))}
                 </div>
               </ScrollArea>
-              <Button variant="link" className="w-full mt-2" size="sm">
-                Browse All Templates
-              </Button>
-            </CardContent>
-          </Card>
+                <Button variant="link" className="w-full mt-2" size="sm">
+                  Browse All Templates
+                </Button>
+              </CardContent>
+            </Card>
+            </TabsContent>
+
+            <TabsContent value="experiments">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <GitBranch className="h-5 w-5" />
+                    Active Experiments
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {experiments.map((experiment) => (
+                    <div key={experiment.id} className="p-4 border rounded-lg">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h4 className="font-medium">{experiment.name}</h4>
+                          <p className="text-sm text-muted-foreground">{experiment.description}</p>
+                        </div>
+                        <Badge variant={experiment.status === "running" ? "default" : "secondary"}>
+                          {experiment.status}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">{experiment.created}</span>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Play className="h-3 w-3 mr-1" />
+                            View
+                          </Button>
+                          <Button size="sm" variant="ghost">
+                            <MoreVertical className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <Button className="w-full">
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    Create New Experiment
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="models">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5" />
+                    AI Models
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {aiModels.map((model) => (
+                    <div key={model.id} className="p-4 border rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <model.icon className="h-8 w-8 p-2 bg-primary/10 rounded-lg" />
+                        <div className="flex-1">
+                          <h4 className="font-medium">{model.name}</h4>
+                          <p className="text-sm text-muted-foreground">{model.description}</p>
+                        </div>
+                        <Button size="sm" variant={selectedModel === model.id ? "default" : "outline"}>
+                          {selectedModel === model.id ? "Active" : "Select"}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
 
           <Card>
             <CardHeader>

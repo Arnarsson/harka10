@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, ChevronDown, Globe, Menu, X, Sun, Moon, User } from "lucide-react"
+import { ArrowRight, ChevronDown, Globe, Menu, X, Sun, Moon, User, Shield } from "lucide-react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { useUser } from "@clerk/nextjs"
@@ -20,6 +20,9 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
   const { theme, setTheme } = useTheme()
   const { isSignedIn, user } = useUser()
   const { trackCTAClick } = useAnalytics()
+  
+  // Check if user is admin
+  const isAdmin = user?.publicMetadata?.role === 'admin'
 
   const content = {
     da: {
@@ -314,12 +317,18 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               <Link href="/learn/playground" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Playground
               </Link>
-              <Link href="/analytics" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <Link href="/learn/analytics" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Analytics
               </Link>
-              <Link href="/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <Link href="/learn/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Toolkit
               </Link>
+              {isAdmin && (
+                <Link href="/admin" className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors flex items-center gap-1">
+                  <Shield className="h-4 w-4" />
+                  Admin
+                </Link>
+              )}
             </div>
 
             {/* Right side controls */}
@@ -418,12 +427,18 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               <Link href="/learn/playground" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                 Playground
               </Link>
-              <Link href="/analytics" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+              <Link href="/learn/analytics" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                 Analytics
               </Link>
-              <Link href="/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+              <Link href="/learn/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                 Toolkit
               </Link>
+              {isAdmin && (
+                <Link href="/admin" className="block px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  Admin Panel
+                </Link>
+              )}
               <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
                 <Button
                   variant="ghost"

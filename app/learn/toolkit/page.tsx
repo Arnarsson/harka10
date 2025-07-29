@@ -1,10 +1,10 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
-import { ComprehensiveLearning } from "@/components/learning/comprehensive-learning"
+import { AIToolkit } from "@/components/toolkit/ai-toolkit"
 
-export default function LearningPage() {
+export default function ToolkitPage() {
   return (
     <DashboardLayoutMinimal>
-      <ComprehensiveLearning />
+      <AIToolkit />
     </DashboardLayoutMinimal>
   )
 }
