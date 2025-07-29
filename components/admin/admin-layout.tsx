@@ -15,7 +15,8 @@ import {
   Menu,
   ChevronLeft,
   ChevronRight,
-  Newspaper
+  Newspaper,
+  Wrench
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -44,6 +45,16 @@ const navigation = [
     name: "Blog",
     href: "/admin/blog",
     icon: Newspaper,
+  },
+  {
+    name: "Toolkit",
+    href: "/admin/toolkit",
+    icon: Wrench,
+  },
+  {
+    name: "Settings",
+    href: "/admin/settings",
+    icon: Settings,
   },
   {
     name: "Subscriptions",

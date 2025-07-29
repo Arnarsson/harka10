@@ -33,6 +33,8 @@ export function DiscussionPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [newPostTitle, setNewPostTitle] = useState("")
   const [newPostContent, setNewPostContent] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
+  const [showNewPostForm, setShowNewPostForm] = useState(false)
 
   const categories = [
     { id: "all", name: "All Discussions", count: 245 },
@@ -43,7 +45,7 @@ export function DiscussionPage() {
     { id: "help", name: "Help & Support", count: 21 }
   ]
 
-  const discussions = [
+  const mockDiscussions = [
     {
       id: 1,
       title: "Best practices for prompt engineering in production",
@@ -121,6 +123,48 @@ export function DiscussionPage() {
     }
   ]
 
+  const [discussions, setDiscussions] = useState(mockDiscussions)
+
+  const filteredDiscussions = discussions.filter(discussion => {
+    const matchesCategory = selectedCategory === "all" || discussion.category.toLowerCase().replace(' ', '-') === selectedCategory
+    const matchesSearch = discussion.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         discussion.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+    return matchesCategory && matchesSearch
+  })
+
+  const handleCreatePost = () => {
+    if (!newPostTitle.trim() || !newPostContent.trim()) return
+
+    const newDiscussion = {
+      id: discussions.length + 1,
+      title: newPostTitle,
+      author: "Current User",
+      avatar: "/placeholder.svg?height=40&width=40",
+      category: "General",
+      replies: 0,
+      likes: 0,
+      views: 1,
+      timeAgo: "just now",
+      isPinned: false,
+      tags: ["new", "discussion"],
+      lastActivity: "just now",
+      status: "active"
+    }
+
+    setDiscussions(prev => [newDiscussion, ...prev])
+    setNewPostTitle("")
+    setNewPostContent("")
+    setShowNewPostForm(false)
+  }
+
+  const handleLikeDiscussion = (id: number) => {
+    setDiscussions(prev => prev.map(discussion => 
+      discussion.id === id 
+        ? { ...discussion, likes: discussion.likes + 1 }
+        : discussion
+    ))
+  }
+
   const topContributors = [
     { name: "Sarah Chen", posts: 45, likes: 234, avatar: "/placeholder.svg?height=32&width=32" },
     { name: "Dr. Michael Zhang", posts: 38, likes: 198, avatar: "/placeholder.svg?height=32&width=32" },
@@ -164,7 +208,7 @@ export function DiscussionPage() {
           <h1 className="text-3xl font-bold">Discussion</h1>
           <p className="text-muted-foreground mt-2">Connect with the community and share knowledge</p>
         </div>
-        <Button>
+        <Button onClick={() => setShowNewPostForm(!showNewPostForm)}>
           <Plus className="mr-2 h-4 w-4" />
           New Discussion
         </Button>
@@ -182,6 +226,8 @@ export function DiscussionPage() {
                     <Input
                       placeholder="Search discussions..."
                       className="pl-10 w-80"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </div>
                   <Button variant="outline" size="sm">
@@ -205,7 +251,7 @@ export function DiscussionPage() {
 
                 <TabsContent value={selectedCategory} className="mt-6">
                   <div className="space-y-4">
-                    {discussions.map((discussion) => (
+                    {filteredDiscussions.map((discussion) => (
                       <Card key={discussion.id} className="hover:shadow-md transition-shadow cursor-pointer">
                         <CardContent className="p-4">
                           <div className="flex items-start gap-4">
@@ -243,10 +289,15 @@ export function DiscussionPage() {
                                   <MessageSquare className="h-4 w-4" />
                                   <span>{discussion.replies} replies</span>
                                 </div>
-                                <div className="flex items-center gap-1">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-auto p-1 gap-1"
+                                  onClick={() => handleLikeDiscussion(discussion.id)}
+                                >
                                   <ThumbsUp className="h-4 w-4" />
                                   <span>{discussion.likes} likes</span>
-                                </div>
+                                </Button>
                                 <div className="flex items-center gap-1">
                                   <Users className="h-4 w-4" />
                                   <span>{discussion.views} views</span>
@@ -278,39 +329,49 @@ export function DiscussionPage() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Start a New Discussion</CardTitle>
-              <CardDescription>Share your questions, insights, or start a conversation</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Input
-                  placeholder="Discussion title..."
-                  value={newPostTitle}
-                  onChange={(e) => setNewPostTitle(e.target.value)}
-                />
-              </div>
-              <div>
-                <Textarea
-                  placeholder="What's on your mind? Share your thoughts, ask questions, or provide insights..."
-                  className="min-h-[120px]"
-                  value={newPostContent}
-                  onChange={(e) => setNewPostContent(e.target.value)}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">General</Badge>
-                  <Button variant="ghost" size="sm">Add Tags</Button>
+          {showNewPostForm && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Start a New Discussion</CardTitle>
+                <CardDescription>Share your questions, insights, or start a conversation</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Input
+                    placeholder="Discussion title..."
+                    value={newPostTitle}
+                    onChange={(e) => setNewPostTitle(e.target.value)}
+                  />
                 </div>
-                <Button>
-                  <Send className="mr-2 h-4 w-4" />
-                  Post Discussion
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                <div>
+                  <Textarea
+                    placeholder="What's on your mind? Share your thoughts, ask questions, or provide insights..."
+                    className="min-h-[120px]"
+                    value={newPostContent}
+                    onChange={(e) => setNewPostContent(e.target.value)}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">General</Badge>
+                    <Button variant="ghost" size="sm">Add Tags</Button>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" onClick={() => setShowNewPostForm(false)}>
+                      Cancel
+                    </Button>
+                    <Button 
+                      onClick={handleCreatePost}
+                      disabled={!newPostTitle.trim() || !newPostContent.trim()}
+                    >
+                      <Send className="mr-2 h-4 w-4" />
+                      Post Discussion
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <div className="space-y-6">
