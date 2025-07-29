@@ -20,7 +20,11 @@ export interface Course {
   lastUpdated: string
   createdAt: string
   publishedAt: string | null
-  status: 'draft' | 'published' | 'archived'
+  status: 'draft' | 'published' | 'scheduled' | 'private'
+  scheduledDate?: string
+  visibility?: 'public' | 'private' | 'unlisted'
+  enrollmentLimit?: number
+  enrollmentEndDate?: string
 }
 
 export interface Instructor {

@@ -9,9 +9,11 @@ import {
   ChevronLeft, Save, Upload, Plus, X, Trash2, 
   GripVertical, Video, FileText, PenTool, BarChart,
   Globe, DollarSign, Clock, Award, Image as ImageIcon,
-  Play, Edit3, Settings, Eye
+  Play, Edit3, Settings, Eye, Rocket
 } from 'lucide-react'
 import { VideoPlayer } from '@/components/ui/video-player'
+import { LessonEditor } from '@/components/admin/lesson-editor'
+import { CoursePublishModal } from '@/components/admin/course-publish-modal'
 import type { Course, Module, Lesson } from '@/lib/types/course'
 
 function EditCoursePage() {
@@ -22,6 +24,7 @@ function EditCoursePage() {
   const [activeTab, setActiveTab] = useState<'basic' | 'curriculum' | 'pricing' | 'settings'>('basic')
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null)
   const [showLessonEditor, setShowLessonEditor] = useState(false)
+  const [showPublishModal, setShowPublishModal] = useState(false)
 
   useEffect(() => {
     loadCourse()
@@ -125,6 +128,18 @@ function EditCoursePage() {
     setShowLessonEditor(true)
   }
 
+  const handlePublish = async (publishData: any) => {
+    try {
+      // TODO: Update course publish status in Supabase
+      console.log('Publishing course:', publishData)
+      setCourse(prev => prev ? { ...prev, ...publishData } : prev)
+      await new Promise(resolve => setTimeout(resolve, 1500))
+    } catch (error) {
+      console.error('Error publishing course:', error)
+      throw error
+    }
+  }
+
   if (!course) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
@@ -160,6 +175,13 @@ function EditCoursePage() {
                 <Eye size={20} />
                 Preview
               </Link>
+              <button
+                onClick={() => setShowPublishModal(true)}
+                className="flex items-center gap-2 px-4 py-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors"
+              >
+                <Rocket size={20} />
+                Publish
+              </button>
               <button
                 onClick={saveCourse}
                 disabled={loading}
@@ -303,62 +325,40 @@ function EditCoursePage() {
 
       {/* Lesson Editor Modal */}
       {showLessonEditor && selectedLesson && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden"
-          >
-            <div className="p-6 border-b border-zinc-200">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Edit Lesson</h2>
-                <button
-                  onClick={() => setShowLessonEditor(false)}
-                  className="p-2 hover:bg-zinc-100 rounded-lg transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-            </div>
+        <LessonEditor
+          lesson={selectedLesson}
+          moduleId={course.modules.find(m => m.lessons.some(l => l.id === selectedLesson.id))?.id || ''}
+          onSave={(moduleId, updatedLesson) => {
+            // Update the lesson in the course
+            setCourse(prev => {
+              if (!prev) return prev
+              return {
+                ...prev,
+                modules: prev.modules.map(module => 
+                  module.id === moduleId
+                    ? {
+                        ...module,
+                        lessons: module.lessons.map(lesson =>
+                          lesson.id === updatedLesson.id ? updatedLesson : lesson
+                        )
+                      }
+                    : module
+                )
+              }
+            })
+            setShowLessonEditor(false)
+          }}
+          onClose={() => setShowLessonEditor(false)}
+        />
+      )}
 
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
-              {selectedLesson.type === 'video' && selectedLesson.content.video && (
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Video Preview</label>
-                    <VideoPlayer
-                      url={selectedLesson.content.video.url}
-                      title={selectedLesson.title}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Video URL</label>
-                    <input
-                      type="text"
-                      defaultValue={selectedLesson.content.video.url}
-                      className="w-full px-4 py-2 border border-zinc-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="YouTube or Vimeo URL"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="p-6 border-t border-zinc-200">
-              <div className="flex justify-end gap-3">
-                <button
-                  onClick={() => setShowLessonEditor(false)}
-                  className="px-4 py-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors">
-                  Save Changes
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+      {/* Course Publish Modal */}
+      {showPublishModal && (
+        <CoursePublishModal
+          course={course}
+          onClose={() => setShowPublishModal(false)}
+          onPublish={handlePublish}
+        />
       )}
     </div>
   )

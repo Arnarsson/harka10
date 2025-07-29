@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { 
   Plus, Search, Filter, MoreVertical, Edit, Trash2, 
   Eye, Copy, Archive, TrendingUp, Users, DollarSign,
-  Calendar, Clock, ChevronLeft
+  Calendar, Clock, ChevronLeft, Rocket, Lock
 } from 'lucide-react'
 import type { Course } from '@/lib/types/course'
 
@@ -15,7 +15,7 @@ function AdminCoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
-  const [statusFilter, setStatusFilter] = useState<'all' | 'draft' | 'published' | 'archived'>('all')
+  const [statusFilter, setStatusFilter] = useState<'all' | 'draft' | 'published' | 'scheduled' | 'private'>('all')
 
   useEffect(() => {
     loadCourses()
@@ -124,6 +124,40 @@ function AdminCoursesPage() {
           createdAt: '2024-02-01',
           publishedAt: null,
           status: 'draft'
+        },
+        {
+          id: '4',
+          title: 'Introduction to Blockchain',
+          description: 'Learn blockchain fundamentals and smart contracts',
+          thumbnail: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=225&fit=crop',
+          category: 'Technology',
+          level: 'intermediate',
+          duration: 2100,
+          price: 99.99,
+          currency: 'USD',
+          instructor: {
+            id: '4',
+            name: 'Emma Wilson',
+            bio: 'Blockchain Expert',
+            avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
+            title: 'Senior Blockchain Developer',
+            courses: 2,
+            students: 5000,
+            rating: 4.9
+          },
+          modules: [],
+          tags: ['Blockchain', 'Cryptocurrency', 'Smart Contracts'],
+          language: 'English',
+          requirements: [],
+          objectives: [],
+          enrollmentCount: 0,
+          rating: 0,
+          reviewCount: 0,
+          lastUpdated: '2024-02-20',
+          createdAt: '2024-02-15',
+          publishedAt: null,
+          status: 'scheduled',
+          scheduledDate: '2024-03-01T10:00:00Z'
         }
       ]
       setCourses(mockCourses)
@@ -238,7 +272,7 @@ function AdminCoursesPage() {
             />
           </div>
           <div className="flex gap-2">
-            {(['all', 'draft', 'published', 'archived'] as const).map((status) => (
+            {(['all', 'published', 'scheduled', 'draft', 'private'] as const).map((status) => (
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
@@ -302,15 +336,30 @@ function AdminCoursesPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                        course.status === 'published' 
-                          ? 'bg-green-100 text-green-800'
-                          : course.status === 'draft'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-zinc-100 text-zinc-800'
-                      }`}>
-                        {course.status}
-                      </span>
+                      <div className="flex flex-col gap-1">
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full w-fit ${
+                          course.status === 'published' 
+                            ? 'bg-green-100 text-green-800'
+                            : course.status === 'draft'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : course.status === 'scheduled'
+                            ? 'bg-blue-100 text-blue-800'
+                            : course.status === 'private'
+                            ? 'bg-purple-100 text-purple-800'
+                            : 'bg-zinc-100 text-zinc-800'
+                        }`}>
+                          {course.status === 'published' && <Rocket size={12} />}
+                          {course.status === 'draft' && <Edit size={12} />}
+                          {course.status === 'scheduled' && <Clock size={12} />}
+                          {course.status === 'private' && <Lock size={12} />}
+                          {course.status}
+                        </span>
+                        {course.status === 'scheduled' && course.scheduledDate && (
+                          <span className="text-xs text-zinc-600">
+                            {new Date(course.scheduledDate).toLocaleDateString()} at {new Date(course.scheduledDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
