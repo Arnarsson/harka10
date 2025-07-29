@@ -218,11 +218,12 @@ export function ContentManagement() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="pages">Pages</TabsTrigger>
           <TabsTrigger value="blog">Blog Posts</TabsTrigger>
           <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
           <TabsTrigger value="media">Media Library</TabsTrigger>
+          <TabsTrigger value="videos">Video Manager</TabsTrigger>
           <TabsTrigger value="editor">Content Editor</TabsTrigger>
         </TabsList>
 
@@ -466,6 +467,166 @@ export function ContentManagement() {
                     <h4 className="font-semibold text-sm mb-2">Opsamling og konklusion</h4>
                     <div className="text-sm text-muted-foreground">
                       <p>Deltagerne deler erfaringer og planlægger implementering i deres virksomheder.</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="videos" className="space-y-6">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Upload Video</CardTitle>
+                <CardDescription>Upload local video files or add external links</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
+                  <Upload className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-lg font-medium mb-2">Upload Video File</h3>
+                  <p className="text-sm text-gray-500 mb-4">Drag and drop your video file here, or click to browse</p>
+                  <Button variant="outline">
+                    Choose File
+                  </Button>
+                  <p className="text-xs text-gray-400 mt-2">Supports MP4, MOV, AVI up to 500MB</p>
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="video-title">Video Title</Label>
+                    <Input id="video-title" placeholder="Enter video title..." />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="video-source">Video Source</Label>
+                    <select className="w-full p-2 border rounded-md">
+                      <option value="youtube">YouTube</option>
+                      <option value="vimeo">Vimeo</option>
+                      <option value="local">Local Upload</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="video-url">Video URL</Label>
+                    <Input id="video-url" placeholder="https://youtube.com/watch?v=..." />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="video-description">Description</Label>
+                    <Textarea id="video-description" placeholder="Video description..." className="h-20" />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="video-duration">Duration</Label>
+                      <Input id="video-duration" placeholder="e.g., 15:30" />
+                    </div>
+                    <div>
+                      <Label htmlFor="video-category">Category</Label>
+                      <select className="w-full p-2 border rounded-md">
+                        <option value="fundamentals">Fundamentals</option>
+                        <option value="ethics">Ethics & Governance</option>
+                        <option value="implementation">Implementation</option>
+                        <option value="case-studies">Case Studies</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <Button className="w-full">
+                    <Upload className="mr-2 h-4 w-4" />
+                    Add Video
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Video Library</CardTitle>
+                <CardDescription>Manage your uploaded videos</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-start gap-4">
+                      <div className="w-24 h-16 bg-red-100 dark:bg-red-900/20 rounded flex items-center justify-center">
+                        <Video className="h-6 w-6 text-red-500" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium">AI Workshop Day 1 Introduction</h4>
+                        <p className="text-sm text-gray-500">YouTube • 45:23 • Fundamentals</p>
+                        <p className="text-xs text-gray-400 mt-1">https://youtube.com/watch?v=example123</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-start gap-4">
+                      <div className="w-24 h-16 bg-blue-100 dark:bg-blue-900/20 rounded flex items-center justify-center">
+                        <Video className="h-6 w-6 text-blue-500" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium">Advanced Prompt Engineering</h4>
+                        <p className="text-sm text-gray-500">Vimeo • 32:15 • Implementation</p>
+                        <p className="text-xs text-gray-400 mt-1">https://vimeo.com/123456789</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-start gap-4">
+                      <div className="w-24 h-16 bg-purple-100 dark:bg-purple-900/20 rounded flex items-center justify-center">
+                        <Video className="h-6 w-6 text-purple-500" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium">Ethics in AI Implementation</h4>
+                        <p className="text-sm text-gray-500">Local • 28:45 • Ethics</p>
+                        <p className="text-xs text-gray-400 mt-1">Uploaded: Jan 15, 2024</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>

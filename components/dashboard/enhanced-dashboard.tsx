@@ -62,6 +62,17 @@ export function EnhancedDashboard() {
     { title: 'Peer Review', type: 'low', date: 'Due Dec 22' }
   ]
 
+  const achievements = [
+    { title: 'First Steps', icon: '🚀', description: 'Complete your first module', earned: true, date: '2024-01-15' },
+    { title: 'Quick Learner', icon: '⚡', description: 'Complete 3 modules in one day', earned: true, date: '2024-01-18' },
+    { title: 'Team Player', icon: '🤝', description: 'Help 5 team members', earned: true, date: '2024-01-20' },
+    { title: 'Streak Master', icon: '🔥', description: '7-day learning streak', earned: true, date: '2024-01-22' },
+    { title: 'AI Expert', icon: '🧠', description: 'Score 95%+ on final assessment', earned: false, date: null },
+    { title: 'Mentor', icon: '🎓', description: 'Train 10 new team members', earned: false, date: null }
+  ]
+
+  const currentStreak = 12
+
   const recentActivity = [
     { action: 'Completed ML Fundamentals', user: 'with 95% score', time: '2 hours ago' },
     { action: 'Sarah commented on your prompt', desc: 'Customer service automation template', time: '4 hours ago' },
@@ -116,13 +127,13 @@ export function EnhancedDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Certificates Earned</CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Learning Streak</CardTitle>
+            <div className="text-xl">🔥</div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">18</div>
-            <p className="text-xs text-muted-foreground">This month</p>
-            <div className="text-xs text-green-600 mt-2">+6 vs last month</div>
+            <div className="text-2xl font-bold">{currentStreak}</div>
+            <p className="text-xs text-muted-foreground">Days in a row</p>
+            <div className="text-xs text-orange-600 mt-2">Keep it up!</div>
           </CardContent>
         </Card>
       </div>
@@ -287,39 +298,44 @@ export function EnhancedDashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Department Distribution</CardTitle>
-            <CardDescription>AI training adoption across departments</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+              <Award className="h-5 w-5" />
+              Achievements
+            </CardTitle>
+            <CardDescription>Your learning milestones and badges</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={departmentData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
+            <div className="grid grid-cols-2 gap-3">
+              {achievements.map((achievement, index) => (
+                <div 
+                  key={index} 
+                  className={`p-3 rounded-lg border ${
+                    achievement.earned 
+                      ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' 
+                      : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 opacity-60'
+                  }`}
                 >
-                  {departmentData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              {departmentData.map((dept, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full" 
-                    style={{ backgroundColor: dept.color }}
-                  />
-                  <span className="text-sm">{dept.name}: {dept.value}%</span>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">{achievement.icon}</span>
+                    <div className="flex-1">
+                      <h4 className="text-sm font-medium">{achievement.title}</h4>
+                      {achievement.earned && achievement.date && (
+                        <p className="text-xs text-green-600">Earned {achievement.date}</p>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{achievement.description}</p>
                 </div>
               ))}
+            </div>
+            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🎯</span>
+                <div>
+                  <h4 className="text-sm font-medium text-blue-900 dark:text-blue-100">Next Achievement</h4>
+                  <p className="text-xs text-blue-700 dark:text-blue-300">Complete 2 more assessments to unlock "AI Expert"</p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

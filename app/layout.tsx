@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
 import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
         </head>
         <body style={{ fontFamily: 'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            <AnalyticsTracker />
             {children}
             <Toaster />
           </ThemeProvider>
