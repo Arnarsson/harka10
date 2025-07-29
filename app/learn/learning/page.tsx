@@ -1,13 +1,17 @@
 import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
 import { LearningDashboard } from "@/components/learning/learning-dashboard"
-import { PageTransition } from "@/components/layout/page-transition"
+import { PersonalizedRecommendations } from "@/components/ai/personalized-recommendations"
 
 export default function LearningPage() {
   return (
     <DashboardLayoutMinimal>
-      <PageTransition>
+      <div className="space-y-8">
+        {/* AI-Powered Personalized Recommendations */}
+        <PersonalizedRecommendations />
+        
+        {/* Original Learning Dashboard */}
         <LearningDashboard />
-      </PageTransition>
+      </div>
     </DashboardLayoutMinimal>
   )
 }

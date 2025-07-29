@@ -19,8 +19,7 @@ const isPublicRoute = createRouteMatcher([
   "/demo/(.*)",
   "/toolkit",
   "/team",
-  "/workshop",
-  "/analytics"
+  "/workshop"
 ])
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])

@@ -1,10 +1,12 @@
 "use client"
 
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { AILearningAssistant } from "@/components/ai/ai-learning-assistant"
 import { 
   BarChart, 
   Bar, 
@@ -33,6 +35,7 @@ import {
 } from "lucide-react"
 
 export function EnhancedDashboard() {
+  const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false)
   const departmentData = [
     { name: 'Engineering', value: 35, color: '#3b82f6' },
     { name: 'Marketing', value: 25, color: '#f59e0b' },
@@ -390,6 +393,20 @@ export function EnhancedDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Learning Assistant */}
+      <AILearningAssistant
+        isOpen={isAIAssistantOpen}
+        onToggle={() => setIsAIAssistantOpen(!isAIAssistantOpen)}
+        currentCourse="AI Implementation Fundamentals"
+        currentModule="Business Value Creation"
+        learnerProfile={{
+          name: "Professional",
+          level: "Intermediate",
+          progress: 67,
+          goals: ["Implement AI in 48 hours", "Measure business impact", "Scale AI initiatives"]
+        }}
+      />
     </div>
   )
 }
