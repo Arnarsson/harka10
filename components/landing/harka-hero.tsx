@@ -321,43 +321,43 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+        <div className="max-w-6xl mx-auto w-full">
           <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
               {t.heroHeadline}
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
               {t.heroSubheadline}
             </p>
-            <Button size="lg" className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200">
+            <Button size="lg" className="bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 px-8 py-4 text-lg">
               {t.heroCta}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 dark:text-white">2</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">{t.statDays}</div>
+              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">2</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statDays}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 dark:text-white">6</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">{t.statMonths}</div>
+              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">6</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statMonths}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 dark:text-white">75%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">{t.statAdmin}</div>
+              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">75%</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statAdmin}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 dark:text-white">10x</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">{t.statRoi}</div>
+              <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2">10x</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide">{t.statRoi}</div>
             </div>
           </div>
 
           {/* Scroll indicator */}
-          <div className="mt-16 text-center">
+          <div className="mt-20 text-center">
             <ChevronDown className="h-6 w-6 text-gray-400 mx-auto animate-bounce" />
             <div className="text-sm text-gray-500 mt-2">Scroll down</div>
           </div>
