@@ -21,10 +21,6 @@ export default function RootLayout({
   return (
     <ClerkProvider 
       publishableKey={publishableKey}
-      signInUrl="/sign-in"
-      signUpUrl="/sign-up"
-      signInFallbackRedirectUrl="/learn/dashboard"
-      signUpFallbackRedirectUrl="/learn/dashboard"
     >
       <html lang="en" suppressHydrationWarning>
         <head>

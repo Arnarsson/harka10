@@ -15,8 +15,6 @@ export default function Page() {
               card: 'shadow-2xl border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80',
             }
           }}
-          fallbackRedirectUrl="/learn/dashboard"
-          forceRedirectUrl="/learn/dashboard"
         />
       </div>
     </div>

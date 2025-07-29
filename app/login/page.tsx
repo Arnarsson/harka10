@@ -22,8 +22,6 @@ export default function LoginPage() {
                 card: 'shadow-2xl border-0 bg-white',
               }
             }}
-            fallbackRedirectUrl="/learn/dashboard"
-            forceRedirectUrl="/learn/dashboard"
           />
         </div>
       </div>

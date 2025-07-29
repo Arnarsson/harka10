@@ -9,7 +9,9 @@ const isPublicRoute = createRouteMatcher([
   "/blog",
   "/blog/(.*)",
   "/sign-in",
+  "/sign-in/(.*)",
   "/sign-up",
+  "/sign-up/(.*)",
   "/login",
   "/signup",
   "/logout",
@@ -24,23 +26,29 @@ const isPublicRoute = createRouteMatcher([
 ])
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
+const isAuthPage = createRouteMatcher([
+  '/sign-in',
+  '/sign-in/(.*)',
+  '/sign-up', 
+  '/sign-up/(.*)',
+  '/login',
+  '/signup'
+])
 
 export default clerkMiddleware((auth, req) => {
-  // Always allow public routes
-  if (isPublicRoute(req)) {
-    return NextResponse.next()
+  const { userId, sessionClaims } = auth()
+  
+  // If user is authenticated and trying to access auth pages, redirect to dashboard
+  if (userId && isAuthPage(req)) {
+    return NextResponse.redirect(new URL('/learn/dashboard', req.url))
   }
 
-  // Get auth information
-  const { userId, sessionClaims } = auth()
-
-  // Handle admin routes specifically
+  // Handle admin routes
   if (isAdminRoute(req) && !req.nextUrl.pathname.startsWith('/admin/sign-in')) {
     if (!userId) {
       return NextResponse.redirect(new URL('/admin/sign-in', req.url))
     }
 
-    // Check if user is admin (you may need to adjust this based on how you store roles)
     const isAdmin = sessionClaims?.metadata?.role === 'admin' || 
                     sessionClaims?.publicMetadata?.role === 'admin'
     
@@ -49,15 +57,14 @@ export default clerkMiddleware((auth, req) => {
     }
   }
 
-  // For all other protected routes, require authentication
-  if (!userId) {
-    return NextResponse.redirect(new URL('/sign-in', req.url))
+  // Allow public routes
+  if (isPublicRoute(req)) {
+    return NextResponse.next()
   }
 
-  // Redirect authenticated users away from auth pages
-  if (userId && (req.nextUrl.pathname.startsWith('/sign-in') || req.nextUrl.pathname.startsWith('/sign-up') || 
-                 req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/signup')) {
-    return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+  // For all other routes, require authentication
+  if (!userId) {
+    return NextResponse.redirect(new URL('/sign-in', req.url))
   }
 
   return NextResponse.next()
