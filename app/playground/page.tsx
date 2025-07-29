@@ -1,23 +1,13 @@
-import { PlaygroundLayout } from "@/components/playground/playground-layout"
-import { PromptEditor } from "@/components/playground/prompt-editor"
-import { TemplateLibrary } from "@/components/playground/template-library"
-import { PromptHistory } from "@/components/playground/prompt-history"
-import { ExampleGallery } from "@/components/playground/example-gallery"
+import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
+import { PromptPlayground } from "@/components/playground/prompt-playground"
+import { PageTransition } from "@/components/layout/page-transition"
 
 export default function PlaygroundPage() {
   return (
-    <PlaygroundLayout>
-      <div className="grid lg:grid-cols-4 gap-8 h-full">
-        <div className="lg:col-span-3 space-y-6">
-          <PromptEditor />
-          <ExampleGallery />
-        </div>
-
-        <div className="space-y-6">
-          <TemplateLibrary />
-          <PromptHistory />
-        </div>
-      </div>
-    </PlaygroundLayout>
+    <DashboardLayoutMinimal>
+      <PageTransition>
+        <PromptPlayground />
+      </PageTransition>
+    </DashboardLayoutMinimal>
   )
 }

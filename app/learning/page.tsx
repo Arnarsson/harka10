@@ -1,26 +1,13 @@
-import { LearningLayout } from "@/components/learning/learning-layout"
-import { ModuleOverview } from "@/components/learning/module-overview"
-import { LearningPath } from "@/components/learning/learning-path"
-import { CurrentModule } from "@/components/learning/current-module"
-import { ResourceLibrary } from "@/components/learning/resource-library"
+import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
+import { LearningDashboard } from "@/components/learning/learning-dashboard"
+import { PageTransition } from "@/components/layout/page-transition"
 
 export default function LearningPage() {
   return (
-    <LearningLayout>
-      <div className="space-y-8">
-        <ModuleOverview />
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <CurrentModule />
-            <ResourceLibrary />
-          </div>
-
-          <div>
-            <LearningPath />
-          </div>
-        </div>
-      </div>
-    </LearningLayout>
+    <DashboardLayoutMinimal>
+      <PageTransition>
+        <LearningDashboard />
+      </PageTransition>
+    </DashboardLayoutMinimal>
   )
 }
