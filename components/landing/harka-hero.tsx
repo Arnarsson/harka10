@@ -493,7 +493,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <div className="space-y-8">
               <div className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm">
                 <div className="w-2 h-2 rounded-full bg-blue-500 mr-2" />
-                Trusted by 500+ Nordic Companies
+                {language === 'da' ? 'Betroet af 500+ nordiske virksomheder' : 'Trusted by 500+ Nordic Companies'}
               </div>
 
               <div className="space-y-6">
@@ -516,10 +516,10 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                   </Link>
                 ) : (
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => {
-                    trackCTAClick('hero_cta', 'Book Discovery Call')
+                    trackCTAClick('hero_cta', t.heroCta)
                     window.open('https://calendly.com/harka-ai-workshop', '_blank')
                   }}>
-                    Book Discovery Call
+                    {t.heroCta}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 )}
@@ -528,7 +528,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               {!isSignedIn && (
                 <div className="mt-4 p-4 bg-white/60 dark:bg-gray-800/60 rounded-lg border">
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                    🎯 <strong>Free 15-minute consultation</strong> - No obligations, just explore how AI can transform your business
+                    🎯 <strong>{language === 'da' ? 'Gratis 15-minutters konsultation' : 'Free 15-minute consultation'}</strong> - {language === 'da' ? 'Ingen forpligtelser, bare udforsk hvordan AI kan transformere din virksomhed' : 'No obligations, just explore how AI can transform your business'}
                   </p>
                   <p className="text-xs text-gray-500">
                     ✓ Understand your specific use cases ✓ Get implementation timeline ✓ Receive custom recommendations
@@ -541,7 +541,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <div className="relative">
               <Card className="p-8 bg-white dark:bg-gray-800 shadow-xl">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold">Learning Progress</h3>
+                  <h3 className="text-lg font-semibold">{language === 'da' ? 'Læringsforløb' : 'Learning Progress'}</h3>
                   <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm">?</span>
                   </div>
@@ -582,7 +582,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700 mt-6">
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
-                      <div className="text-sm text-gray-500">Next Module</div>
+                      <div className="text-sm text-gray-500">{language === 'da' ? 'Næste Modul' : 'Next Module'}</div>
                       <div className="text-sm font-medium">Project Planning Workshop</div>
                     </div>
                     <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
@@ -597,7 +597,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
           {/* Scroll indicator */}
           <div className="text-center mt-8">
             <ChevronDown className="h-6 w-6 text-gray-400 mx-auto animate-bounce" />
-            <div className="text-sm text-gray-500 mt-2">Scroll down</div>
+            <div className="text-sm text-gray-500 mt-2">{language === 'da' ? 'Scroll ned' : 'Scroll down'}</div>
           </div>
         </div>
       </section>
@@ -792,7 +792,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
           <div className="text-center mt-12">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.open('https://calendly.com/harka-ai-workshop', '_blank')}>
-              Book Discovery Call
+              {t.heroCta}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <p className="text-sm text-gray-500 mt-2">Free consultation - no obligations, just a conversation</p>
@@ -1261,7 +1261,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
           <div className="text-center mt-12">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.open('https://calendly.com/harka-ai-workshop', '_blank')}>
-              Book Discovery Call
+              {t.heroCta}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <p className="text-sm text-gray-500 mt-2">Still have questions? Let's discuss your specific needs</p>
