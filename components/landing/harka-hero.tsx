@@ -498,9 +498,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
               <div className="space-y-6">
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                  <span className="text-gray-900 dark:text-white">AI that delivers</span>
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">real business value</span>
+                  <span className="text-gray-900 dark:text-white">{t.heroHeadline}</span>
                 </h1>
 
                 <p className="text-lg text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed">
