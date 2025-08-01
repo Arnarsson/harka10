@@ -412,28 +412,33 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - Only show for authenticated users */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link href="/learn/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                Dashboard
-              </Link>
-              <Link href="/learn/learning" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                Learning
-              </Link>
-              <Link href="/learn/playground" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                Playground
-              </Link>
-              <Link href="/learn/analytics" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                Analytics
-              </Link>
-              <Link href="/learn/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                Toolkit
-              </Link>
-              {isAdmin && (
-                <Link href="/admin" className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors flex items-center gap-1">
-                  <Shield className="h-4 w-4" />
-                  Admin
-                </Link>
+              {isSignedIn && (
+                // Dashboard navigation for authenticated users
+                <>
+                  <Link href="/learn/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Dashboard
+                  </Link>
+                  <Link href="/learn/learning" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Learning
+                  </Link>
+                  <Link href="/learn/playground" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Playground
+                  </Link>
+                  <Link href="/learn/analytics" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Analytics
+                  </Link>
+                  <Link href="/learn/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Toolkit
+                  </Link>
+                  {isAdmin && (
+                    <Link href="/admin" className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors flex items-center gap-1">
+                      <Shield className="h-4 w-4" />
+                      Admin
+                    </Link>
+                  )}
+                </>
               )}
             </div>
 
@@ -507,8 +512,8 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               )}
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
+            {/* Menu button - now visible on all screen sizes */}
+            <div>
               <Button
                 variant="ghost"
                 size="sm"
@@ -520,30 +525,57 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Navigation Menu - now visible on all screen sizes */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+          <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/learn/dashboard" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                Dashboard
-              </Link>
-              <Link href="/learn/learning" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                Learning
-              </Link>
-              <Link href="/learn/playground" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                Playground
-              </Link>
-              <Link href="/learn/analytics" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                Analytics
-              </Link>
-              <Link href="/learn/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                Toolkit
-              </Link>
-              {isAdmin && (
-                <Link href="/admin" className="block px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  Admin Panel
-                </Link>
+              {!isSignedIn ? (
+                // Landing page navigation with translations
+                <>
+                  <Link href="/workshop" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    {language === 'da' ? 'Workshop' : 'Workshop'}
+                  </Link>
+                  <Link href="/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    {language === 'da' ? 'AI Værktøjskasse' : 'AI Toolkit'}
+                  </Link>
+                  <Link href="/about" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    {language === 'da' ? 'Om' : 'About'}
+                  </Link>
+                  <Link href="/pricing" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    {language === 'da' ? 'Priser' : 'Pricing'}
+                  </Link>
+                  <Link href="/contact" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    {language === 'da' ? 'Kontakt' : 'Contact'}
+                  </Link>
+                  <Link href="/blog" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    {language === 'da' ? 'Blog' : 'Blog'}
+                  </Link>
+                </>
+              ) : (
+                // Dashboard navigation for authenticated users
+                <>
+                  <Link href="/learn/dashboard" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    Dashboard
+                  </Link>
+                  <Link href="/learn/learning" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    Learning
+                  </Link>
+                  <Link href="/learn/playground" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    Playground
+                  </Link>
+                  <Link href="/learn/analytics" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    Analytics
+                  </Link>
+                  <Link href="/learn/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    Toolkit
+                  </Link>
+                  {isAdmin && (
+                    <Link href="/admin" className="block px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 flex items-center gap-2">
+                      <Shield className="h-4 w-4" />
+                      Admin Panel
+                    </Link>
+                  )}
+                </>
               )}
               <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
                 <Button

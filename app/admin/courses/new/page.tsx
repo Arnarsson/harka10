@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -13,15 +12,8 @@ import {
 import type { Course, Module, Lesson } from '@/lib/types/course'
 
 function NewCoursePage() {
-  const { isSignedIn, isLoaded } = useUser()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-
-  // Redirect if not signed in
-  if (isLoaded && !isSignedIn) {
-    router.push('/sign-in')
-    return null
-  }
   const [activeTab, setActiveTab] = useState<'basic' | 'curriculum' | 'pricing' | 'settings'>('basic')
   
   // Form state
