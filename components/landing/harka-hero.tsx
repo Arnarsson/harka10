@@ -155,7 +155,60 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       privacyPolicy: "Privacy policy",
       cookiePolicy: "Cookie policy", 
       terms: "Terms and conditions",
-      allRights: "All rights reserved"
+      allRights: "All rights reserved",
+      
+      // Stats cards
+      fasterRiskAssessment: "hurtigere risikovurdering",
+      reductionInCapital: "reduktion i bundet kapital",
+      speedIncrease: "hastighedsforøgelse i dataanalyse",
+      fromManualToAI: "Fra manuelle inspektioner til intelligent analyse",
+      fromOverstocked: "Fra overfyldt lager til optimeret lager",
+      fromHoursToMinutes: "Fra timers manuel behandling til øjeblikkelig indsigt",
+      
+      // Testimonials
+      testimonialTitle: "Hvad vores kunder siger",
+      testimonialSubtitle: "Virkelige resultater fra virkelige virksomheder, der transformerede deres forretning med AI",
+      fasterAssessments: "85% hurtigere risikovurderinger",
+      testimonialQuote1: "HARKA transformerede vores tekniske analyseproces. Det, der plejede at tage vores eksperter timer, tager nu minutter.",
+      testimonialRole1: "Maritime Company CTO",
+      testimonialQuote2: "HARKA lærte os ikke bare AI - de hjalp os med at gentænke hele vores arbejdsgang.",
+      testimonialRole2: "Energisektorleder",
+      testimonialQuote3: "Workshoppen betalte sig selv, før vi overhovedet var færdige. Vores team er nu AI-drevet.",
+      testimonialRole3: "Produktionsdirektør",
+      roiFirstWeek: "ROI inden for første uge",
+      teamProductivity: "Teamproduktivitet op 60%",
+      
+      // FAQ
+      faqTitle: "Ofte stillede spørgsmål",
+      faqSubtitle: "Alt du behøver at vide om vores AI-workshops",
+      faqQ1: "Hvor realistisk er påstanden om \"ROI inden for første uge\"?",
+      faqA1: "Baseret på 12 kundeimplementeringer i 4. kvartal 2024 ser virksomheder typisk øjeblikkelig værdi gennem automatiseret rapportgenerering og hurtigere dataanalyse. Marine-casestudiet viser 85% tidsbesparelser på risikovurderinger fra dag et.",
+      faqQ2: "Hvad sker der præcist i den 48-timers workshop?",
+      faqA2: "Dag 1 fokuserer på AI-fundamentals, prompt engineering og opbygning af dine første prototyper. Dag 2 dækker etik, GDPR-overholdelse og udvikling af virksomhedsspecifikke AI-løsninger. Du forlader med fungerende værktøjer, ikke bare teori.",
+      faqQ3: "Hvad hvis vores team ikke har teknisk baggrund?",
+      faqA3: "Perfekt! Vores workshops er designet til forretningsprofessionelle, ikke udviklere. Vi lærer praktisk AI-brug gennem brugervenlige værktøjer som ChatGPT og Microsoft Copilot. Ingen kodning påkrævet.",
+      faqQ4: "Hvordan sikrer I GDPR-overholdelse med AI-værktøjer?",
+      faqA4: "Vi implementerer zero-trust sikkerhedsmodeller og lærer dataanonymiseringsteknikker. Alle AI-løsninger inkluderer indbyggede compliance-rammer, der opfylder nordiske regulatoriske standarder.",
+      faqQ5: "Hvilken support får vi efter workshoppen?",
+      faqA5: "Hver workshop inkluderer 90 dages e-mail support, adgang til vores videobibliotek og månedlige Q&A-sessioner. Vi leverer også implementeringsskabeloner og fejlfindingsguider.",
+      faqQ6: "Hvor meget koster workshoppen, og hvad er inkluderet?",
+      faqA6: "Investeringen varierer efter virksomhedsstørrelse og krav. Alle workshops inkluderer materialer, skabeloner, 90-dages support og adgang til vores læringsplatform. Book et discovery call for personlig prissætning.",
+      stillQuestions: "Har du stadig spørgsmål? Lad os diskutere dine specifikke behov",
+      
+      // CTA
+      bookDiscoveryCall: "Book dit Discovery Call",
+      freeConsultation: "Gratis konsultation - ingen forpligtelser, bare en samtale",
+      trustedByNordic: "Betroet af førende nordiske virksomheder",
+      satisfactionRate: "98% Tilfredshedsrate",
+      companiesTrained: "500+ Virksomheder trænet",
+      companiesGrown: "Virksomheder vokset",
+      participantsTrained: "Kursusdeltagere og medarbejdere trænet",
+      viewAllArticles: "Se alle artikler",
+      joinCompanies: "Slut dig til 500+ virksomheder, der allerede transformerer med AI",
+      hours: "Timer",
+      value: "Værdi",
+      potential: "Potentiale",
+      isoCertified: "ISO 27001 Certificeret"
     },
     en: {
       // Navigation
@@ -287,7 +340,60 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       privacyPolicy: "Privacy policy",
       cookiePolicy: "Cookie policy",
       terms: "Terms and conditions", 
-      allRights: "All rights reserved"
+      allRights: "All rights reserved",
+      
+      // Stats cards
+      fasterRiskAssessment: "faster risk assessment",
+      reductionInCapital: "reduction in tied-up capital",
+      speedIncrease: "speed increase in data analysis",
+      fromManualToAI: "From manual inspections to intelligent analysis",
+      fromOverstocked: "From overstocked inventory to optimized stock",
+      fromHoursToMinutes: "From hours of manual processing to instant insight",
+      
+      // Testimonials
+      testimonialTitle: "What Our Clients Say",
+      testimonialSubtitle: "Real results from real companies who transformed their business with AI",
+      fasterAssessments: "85% faster risk assessments",
+      testimonialQuote1: "HARKA transformed our technical analysis process. What used to take our experts hours now takes minutes.",
+      testimonialRole1: "Maritime Company CTO",
+      testimonialQuote2: "HARKA didn't just teach us AI - they helped us reimagine our entire workflow.",
+      testimonialRole2: "Energy Sector Manager",
+      testimonialQuote3: "The workshop paid for itself before we even finished. Our team is now AI-powered.",
+      testimonialRole3: "Manufacturing Director",
+      roiFirstWeek: "ROI within first week",
+      teamProductivity: "Team productivity up 60%",
+      
+      // FAQ
+      faqTitle: "Frequently Asked Questions",
+      faqSubtitle: "Everything you need to know about our AI workshops",
+      faqQ1: "How realistic is the \"ROI within first week\" claim?",
+      faqA1: "Based on 12 client implementations in Q4 2024, companies typically see immediate value through automated report generation and faster data analysis. The marine case study shows 85% time savings on risk assessments starting day one.",
+      faqQ2: "What exactly happens in the 48-hour workshop?",
+      faqA2: "Day 1 focuses on AI fundamentals, prompt engineering, and building your first prototypes. Day 2 covers ethics, GDPR compliance, and developing company-specific AI solutions. You'll leave with working tools, not just theory.",
+      faqQ3: "What if our team has no technical background?",
+      faqA3: "Perfect! Our workshops are designed for business professionals, not developers. We teach practical AI usage through user-friendly tools like ChatGPT and Microsoft Copilot. No coding required.",
+      faqQ4: "How do you ensure GDPR compliance with AI tools?",
+      faqA4: "We implement zero-trust security models and teach data anonymization techniques. All AI solutions include built-in compliance frameworks that meet Nordic regulatory standards.",
+      faqQ5: "What support do we get after the workshop?",
+      faqA5: "Every workshop includes 90 days of email support, access to our video library, and monthly Q&A sessions. We also provide implementation templates and troubleshooting guides.",
+      faqQ6: "How much does the workshop cost and what's included?",
+      faqA6: "Investment varies by company size and requirements. All workshops include materials, templates, 90-day support, and access to our learning platform. Book a discovery call for personalized pricing.",
+      stillQuestions: "Still have questions? Let's discuss your specific needs",
+      
+      // CTA
+      bookDiscoveryCall: "Book Your Discovery Call",
+      freeConsultation: "Free consultation - no obligations, just a conversation",
+      trustedByNordic: "Trusted by leading Nordic companies",
+      satisfactionRate: "98% Satisfaction Rate",
+      companiesTrained: "500+ Companies Trained",
+      companiesGrown: "Companies grown",
+      participantsTrained: "Course participants and employees trained",
+      viewAllArticles: "View all articles",
+      joinCompanies: "Join 500+ companies already transforming with AI",
+      hours: "Hours",
+      value: "Value",
+      potential: "Potential",
+      isoCertified: "ISO 27001 Certified"
     }
   }
 
@@ -493,14 +599,12 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <div className="space-y-8">
               <div className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm">
                 <div className="w-2 h-2 rounded-full bg-blue-500 mr-2" />
-                Trusted by 500+ Nordic Companies
+                {language === 'da' ? 'Betroet af 500+ nordiske virksomheder' : 'Trusted by 500+ Nordic Companies'}
               </div>
 
               <div className="space-y-6">
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                  <span className="text-gray-900 dark:text-white">AI that delivers</span>
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">real business value</span>
+                  <span className="text-gray-900 dark:text-white">{t.heroHeadline}</span>
                 </h1>
 
                 <p className="text-lg text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed">
@@ -518,10 +622,10 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                   </Link>
                 ) : (
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => {
-                    trackCTAClick('hero_cta', 'Book Discovery Call')
+                    trackCTAClick('hero_cta', t.heroCta)
                     window.open('https://calendly.com/harka-ai-workshop', '_blank')
                   }}>
-                    Book Discovery Call
+                    {t.heroCta}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 )}
@@ -530,7 +634,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               {!isSignedIn && (
                 <div className="mt-4 p-4 bg-white/60 dark:bg-gray-800/60 rounded-lg border">
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                    🎯 <strong>Free 15-minute consultation</strong> - No obligations, just explore how AI can transform your business
+                    🎯 <strong>{language === 'da' ? 'Gratis 15-minutters konsultation' : 'Free 15-minute consultation'}</strong> - {language === 'da' ? 'Ingen forpligtelser, bare udforsk hvordan AI kan transformere din virksomhed' : 'No obligations, just explore how AI can transform your business'}
                   </p>
                   <p className="text-xs text-gray-500">
                     ✓ Understand your specific use cases ✓ Get implementation timeline ✓ Receive custom recommendations
@@ -543,7 +647,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <div className="relative">
               <Card className="p-8 bg-white dark:bg-gray-800 shadow-xl">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold">Learning Progress</h3>
+                  <h3 className="text-lg font-semibold">{language === 'da' ? 'Læringsforløb' : 'Learning Progress'}</h3>
                   <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm">?</span>
                   </div>
@@ -584,7 +688,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700 mt-6">
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
-                      <div className="text-sm text-gray-500">Next Module</div>
+                      <div className="text-sm text-gray-500">{language === 'da' ? 'Næste Modul' : 'Next Module'}</div>
                       <div className="text-sm font-medium">Project Planning Workshop</div>
                     </div>
                     <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
@@ -599,7 +703,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
           {/* Scroll indicator */}
           <div className="text-center mt-8">
             <ChevronDown className="h-6 w-6 text-gray-400 mx-auto animate-bounce" />
-            <div className="text-sm text-gray-500 mt-2">Scroll down</div>
+            <div className="text-sm text-gray-500 mt-2">{language === 'da' ? 'Scroll ned' : 'Scroll down'}</div>
           </div>
         </div>
       </section>
@@ -608,7 +712,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
       <section className="py-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Trusted by leading Nordic companies</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t.trustedByNordic}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-8 items-center opacity-60 hover:opacity-80 transition-opacity">
             {/* Maritime Industry */}
@@ -674,7 +778,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span>ISO 27001 Certified</span>
+                <span>{t.isoCertified}</span>
               </div>
             </div>
           </div>
@@ -794,10 +898,10 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
           <div className="text-center mt-12">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.open('https://calendly.com/harka-ai-workshop', '_blank')}>
-              Book Discovery Call
+              {t.heroCta}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <p className="text-sm text-gray-500 mt-2">Free consultation - no obligations, just a conversation</p>
+            <p className="text-sm text-gray-500 mt-2">{t.freeConsultation}</p>
           </div>
         </div>
       </section>
@@ -818,8 +922,8 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <Card className="p-6">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold text-green-600 mb-2">85%</div>
-                <h3 className="text-lg font-semibold mb-2">faster risk assessment</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">From manual inspections to intelligent analysis</p>
+                <h3 className="text-lg font-semibold mb-2">{t.fasterRiskAssessment}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t.fromManualToAI}</p>
                 <p className="text-sm text-gray-500 mt-2">Automated risk analysis based on complex data inputs reduces assessment time and significantly increases precision.</p>
               </CardContent>
             </Card>
@@ -836,8 +940,8 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <Card className="p-6">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold text-purple-600 mb-2">32%</div>
-                <h3 className="text-lg font-semibold mb-2">reduction in tied-up capital</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">From overstocked inventory to optimized stock</p>
+                <h3 className="text-lg font-semibold mb-2">{t.reductionInCapital}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t.fromOverstocked}</p>
                 <p className="text-sm text-gray-500 mt-2">Intelligent inventory analysis identifies patterns and optimizes purchasing, freeing up significant capital without affecting delivery capacity.</p>
               </CardContent>
             </Card>
@@ -845,8 +949,8 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <Card className="p-6">
               <CardContent className="p-0">
                 <div className="text-3xl font-bold text-orange-600 mb-2">60x</div>
-                <h3 className="text-lg font-semibold mb-2">speed increase in data analysis</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">From hours of manual processing to instant insight</p>
+                <h3 className="text-lg font-semibold mb-2">{t.speedIncrease}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t.fromHoursToMinutes}</p>
                 <p className="text-sm text-gray-500 mt-2">Complex documents and technical data are compared and analyzed in minutes instead of hours or days.</p>
               </CardContent>
             </Card>
@@ -1002,10 +1106,10 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              What Our Clients Say
+              {t.testimonialTitle}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Real results from real companies who transformed their business with AI
+              {t.testimonialSubtitle}
             </p>
           </div>
 
@@ -1019,13 +1123,13 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <div className="w-0 h-0 border-l-6 border-l-white border-t-4 border-t-transparent border-b-4 border-b-transparent ml-1"></div>
                     </div>
-                    <p className="text-sm mb-2">"85% faster risk assessments"</p>
-                    <p className="text-xs opacity-80">Maritime Company CTO</p>
+                    <p className="text-sm mb-2">"{t.fasterAssessments}"</p>
+                    <p className="text-xs opacity-80">{t.testimonialRole1}</p>
                   </div>
                 </div>
                 <div className="p-4">
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    "HARKA transformed our technical analysis process. What used to take our experts hours now takes minutes."
+                    {t.testimonialQuote1}
                   </p>
                 </div>
               </CardContent>
@@ -1040,13 +1144,13 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <div className="w-0 h-0 border-l-6 border-l-white border-t-4 border-t-transparent border-b-4 border-b-transparent ml-1"></div>
                     </div>
-                    <p className="text-sm mb-2">"ROI within first week"</p>
-                    <p className="text-xs opacity-80">Manufacturing Director</p>
+                    <p className="text-sm mb-2">"{t.roiFirstWeek}"</p>
+                    <p className="text-xs opacity-80">{t.testimonialRole3}</p>
                   </div>
                 </div>
                 <div className="p-4">
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    "The workshop paid for itself before we even finished. Our team is now AI-powered."
+                    {t.testimonialQuote3}
                   </p>
                 </div>
               </CardContent>
@@ -1061,13 +1165,13 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <div className="w-0 h-0 border-l-6 border-l-white border-t-4 border-t-transparent border-b-4 border-b-transparent ml-1"></div>
                     </div>
-                    <p className="text-sm mb-2">"Team productivity up 60%"</p>
-                    <p className="text-xs opacity-80">Energy Sector Manager</p>
+                    <p className="text-sm mb-2">"{t.teamProductivity}"</p>
+                    <p className="text-xs opacity-80">{t.testimonialRole2}</p>
                   </div>
                 </div>
                 <div className="p-4">
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    "HARKA didn't just teach us AI - they helped us reimagine our entire workflow."
+                    {t.testimonialQuote2}
                   </p>
                 </div>
               </CardContent>
@@ -1076,10 +1180,10 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
           <div className="text-center mt-12">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.open('https://calendly.com/harka-ai-workshop', '_blank')}>
-              Book Your Discovery Call
+              {t.bookDiscoveryCall}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <p className="text-sm text-gray-500 mt-2">Join 500+ companies already transforming with AI</p>
+            <p className="text-sm text-gray-500 mt-2">{t.joinCompanies}</p>
           </div>
         </div>
       </section>
@@ -1188,7 +1292,7 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               {t.blogSubtitle}
             </p>
-            <Button variant="outline">View all articles</Button>
+            <Button variant="outline">{t.viewAllArticles}</Button>
           </div>
         </div>
       </section>
@@ -1198,64 +1302,64 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Frequently Asked Questions
+              {t.faqTitle}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Everything you need to know about our AI workshops
+              {t.faqSubtitle}
             </p>
           </div>
 
           <div className="space-y-6">
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-3">What exactly happens in the 48-hour workshop?</h3>
+                <h3 className="text-lg font-semibold mb-3">{t.faqQ2}</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Day 1 focuses on AI fundamentals, prompt engineering, and building your first prototypes. Day 2 covers ethics, GDPR compliance, and developing company-specific AI solutions. You'll leave with working tools, not just theory.
+                  {t.faqA2}
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-3">How realistic is the "ROI within first week" claim?</h3>
+                <h3 className="text-lg font-semibold mb-3">{t.faqQ1}</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Based on 12 client implementations in Q4 2024, companies typically see immediate value through automated report generation and faster data analysis. The marine case study shows 85% time savings on risk assessments starting day one.
+                  {t.faqA1}
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-3">What if our team has no technical background?</h3>
+                <h3 className="text-lg font-semibold mb-3">{t.faqQ3}</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Perfect! Our workshops are designed for business professionals, not developers. We teach practical AI usage through user-friendly tools like ChatGPT and Microsoft Copilot. No coding required.
+                  {t.faqA3}
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-3">How do you ensure GDPR compliance with AI tools?</h3>
+                <h3 className="text-lg font-semibold mb-3">{t.faqQ4}</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  We implement zero-trust security models and teach data anonymization techniques. All AI solutions include built-in compliance frameworks that meet Nordic regulatory standards.
+                  {t.faqA4}
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-3">What support do we get after the workshop?</h3>
+                <h3 className="text-lg font-semibold mb-3">{t.faqQ5}</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Every workshop includes 90 days of email support, access to our video library, and monthly Q&A sessions. We also provide implementation templates and troubleshooting guides.
+                  {t.faqA5}
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-3">How much does the workshop cost and what's included?</h3>
+                <h3 className="text-lg font-semibold mb-3">{t.faqQ6}</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Investment varies by company size and requirements. All workshops include materials, templates, 90-day support, and access to our learning platform. Book a discovery call for personalized pricing.
+                  {t.faqA6}
                 </p>
               </CardContent>
             </Card>
@@ -1263,10 +1367,10 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
 
           <div className="text-center mt-12">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.open('https://calendly.com/harka-ai-workshop', '_blank')}>
-              Book Discovery Call
+              {t.heroCta}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <p className="text-sm text-gray-500 mt-2">Still have questions? Let's discuss your specific needs</p>
+            <p className="text-sm text-gray-500 mt-2">{t.stillQuestions}</p>
           </div>
         </div>
       </section>
@@ -1281,22 +1385,22 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             {t.footerSubtitle}
           </p>
           <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.open('https://calendly.com/harka-ai-workshop', '_blank')}>
-            Book Discovery Call
+            {t.bookDiscoveryCall}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-gray-900 dark:text-white">48</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Hours</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{t.hours}</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-gray-900 dark:text-white">100%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Value</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{t.value}</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-gray-900 dark:text-white">∞</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Potential</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">{t.potential}</div>
             </div>
           </div>
         </div>
@@ -1329,9 +1433,9 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
             <div>
               <h4 className="font-semibold mb-4">{t.legal}</h4>
               <div className="space-y-2 text-sm text-gray-300">
-                <div>Privacy policy</div>
-                <div>Cookie policy</div>
-                <div>Terms and conditions</div>
+                <div>{t.privacyPolicy}</div>
+                <div>{t.cookiePolicy}</div>
+                <div>{t.terms}</div>
               </div>
             </div>
           </div>
