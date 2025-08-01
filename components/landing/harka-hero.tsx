@@ -412,31 +412,9 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - Only show for authenticated users */}
             <div className="hidden md:flex items-center space-x-8">
-              {!isSignedIn ? (
-                // Landing page navigation with translations
-                <>
-                  <Link href="/workshop" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    {language === 'da' ? 'Workshop' : 'Workshop'}
-                  </Link>
-                  <Link href="/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    {language === 'da' ? 'AI Værktøjskasse' : 'AI Toolkit'}
-                  </Link>
-                  <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    {language === 'da' ? 'Om' : 'About'}
-                  </Link>
-                  <Link href="/pricing" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    {language === 'da' ? 'Priser' : 'Pricing'}
-                  </Link>
-                  <Link href="/contact" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    {language === 'da' ? 'Kontakt' : 'Contact'}
-                  </Link>
-                  <Link href="/blog" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    {language === 'da' ? 'Blog' : 'Blog'}
-                  </Link>
-                </>
-              ) : (
+              {isSignedIn && (
                 // Dashboard navigation for authenticated users
                 <>
                   <Link href="/learn/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
@@ -534,8 +512,8 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
               )}
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
+            {/* Menu button - now visible on all screen sizes */}
+            <div>
               <Button
                 variant="ghost"
                 size="sm"
@@ -547,9 +525,9 @@ export function HarkaHero({ language, onLanguageChange }: HarkaHeroProps) {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Navigation Menu - now visible on all screen sizes */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+          <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {!isSignedIn ? (
                 // Landing page navigation with translations
