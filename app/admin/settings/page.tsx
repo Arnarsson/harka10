@@ -1,55 +1,267 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Switch } from "@/components/ui/switch"
+import { useState, useEffect } from 'react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Switch } from '@/components/ui/switch'
+import { useToast } from '@/components/ui/use-toast'
+import { ErrorBoundary } from '@/components/error/error-boundary'
+import { LoadingSpinner } from '@/components/ui/loading-states'
 import { 
   Settings, 
-  User, 
-  Mail, 
+  Palette,
   Bell, 
   Shield, 
-  Palette, 
-  Globe, 
   Database,
-  Key,
+  CreditCard,
   Save,
-  RefreshCw
-} from "lucide-react"
+  AlertCircle
+} from 'lucide-react'
+import type { AdminSettings, GeneralSettings, AppearanceSettings, NotificationSettings, SecuritySettings, SystemSettings } from '@/lib/types/admin'
+import { adminApi, useAdminApi } from '@/lib/api/admin-api'
+import { sanitizeInput, sanitizeHexColor, sanitizeNumber, sanitizeStringArray } from '@/lib/utils/sanitize'
 
-export default function SettingsPage() {
-  const [loading, setLoading] = useState(false)
+// Default settings values
+const defaultSettings: AdminSettings = {
+  general: {
+    siteName: 'HARKA Learning Platform',
+    siteDescription: 'Advanced learning platform for professionals',
+    defaultLanguage: 'en',
+    timezone: 'UTC',
+    platformName: 'HARKA',
+    companyName: 'HARKA Labs'
+  },
+  appearance: {
+    primaryColor: '#3B82F6',
+    secondaryColor: '#10B981',
+    logoUrl: '/logo.png',
+    faviconUrl: '/favicon.ico',
+    darkMode: false
+  },
+  notifications: {
+    emailNotifications: true,
+    pushNotifications: false,
+    courseCompletions: true,
+    newEnrollments: true,
+    systemUpdates: true,
+    marketingCommunications: false
+  },
+  security: {
+    registrationEnabled: true,
+    requireEmailVerification: true,
+    twoFactorEnabled: false,
+    passwordPolicy: {
+      minLength: 8,
+      requireUppercase: true,
+      requireNumbers: true,
+      requireSymbols: true
+    }
+  },
+  system: {
+    maintenanceMode: false,
+    maxFileUploadSize: 100,
+    allowedFileTypes: ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'mp4', 'mov', 'avi'],
+    apiRateLimit: 100,
+    sessionTimeout: 60
+  }
+}
 
-  const handleSave = async (section: string) => {
-    setLoading(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    setLoading(false)
+function AdminSettingsContent() {
+  const [settings, setSettings] = useState<AdminSettings | null>(null)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const { toast } = useToast()
+  
+  // API hooks
+  const { execute: fetchSettings, loading: loadingSettings } = useAdminApi(adminApi.getSettings.bind(adminApi))
+  const { execute: saveSettings, loading: savingSettings } = useAdminApi(adminApi.updateSettings.bind(adminApi))
+  
+  // Load settings on mount
+  useEffect(() => {
+    fetchSettings().then(data => {
+      setSettings(data)
+    }).catch(error => {
+      toast({
+        title: 'Error',
+        description: 'Failed to load settings',
+        variant: 'destructive'
+      })
+      // Use defaults if API fails
+      setSettings(defaultSettings)
+    })
+  }, [])
+
+  const updateSettings = <K extends keyof AdminSettings>(
+    section: K,
+    field: keyof AdminSettings[K],
+    value: any
+  ) => {
+    if (!settings) return
+
+    // Sanitize value based on field type
+    let sanitizedValue = value
+    
+    switch (section) {
+      case 'general':
+        if (field === 'siteName' || field === 'companyName' || field === 'platformName') {
+          sanitizedValue = sanitizeInput(value, { maxLength: 100 })
+        } else if (field === 'siteDescription') {
+          sanitizedValue = sanitizeInput(value, { maxLength: 500 })
+        }
+        break
+        
+      case 'appearance':
+        if (field === 'primaryColor' || field === 'secondaryColor') {
+          sanitizedValue = sanitizeHexColor(value)
+        } else if (field === 'logoUrl' || field === 'faviconUrl') {
+          sanitizedValue = sanitizeInput(value, { maxLength: 255 })
+        }
+        break
+        
+      case 'system':
+        if (field === 'maxFileUploadSize' || field === 'sessionTimeout' || field === 'apiRateLimit') {
+          sanitizedValue = sanitizeNumber(value, { min: 1, max: 10000, integer: true })
+        } else if (field === 'allowedFileTypes') {
+          sanitizedValue = Array.isArray(value) ? sanitizeStringArray(value, {
+            maxItems: 50,
+            maxItemLength: 10,
+            allowedChars: /[a-z0-9]/
+          }) : value
+        }
+        break
+        
+      case 'security':
+        if (field === 'passwordPolicy' && typeof value === 'object') {
+          sanitizedValue = {
+            ...value,
+            minLength: sanitizeNumber(value.minLength || 8, { min: 6, max: 32, integer: true })
+          }
+        }
+        break
+    }
+
+    setSettings(prev => ({
+      ...prev!,
+      [section]: {
+        ...prev![section],
+        [field]: sanitizedValue
+      }
+    }))
+    
+    // Clear error for this field
+    setErrors(prev => {
+      const newErrors = { ...prev }
+      delete newErrors[`${section}.${String(field)}`]
+      return newErrors
+    })
+  }
+
+  const validateSettings = (section: keyof AdminSettings): boolean => {
+    if (!settings) return false
+    
+    const newErrors: Record<string, string> = {}
+
+    switch (section) {
+      case 'general':
+        if (!settings.general.siteName.trim()) {
+          newErrors['general.siteName'] = 'Site name is required'
+        }
+        if (!settings.general.defaultLanguage) {
+          newErrors['general.defaultLanguage'] = 'Default language is required'
+        }
+        break
+      
+      case 'appearance':
+        if (!settings.appearance.primaryColor.match(/^#[0-9A-F]{6}$/i)) {
+          newErrors['appearance.primaryColor'] = 'Invalid color format'
+        }
+        break
+      
+      case 'system':
+        if (settings.system.maxFileUploadSize < 1 || settings.system.maxFileUploadSize > 1000) {
+          newErrors['system.maxFileUploadSize'] = 'File size must be between 1 and 1000 MB'
+        }
+        if (settings.system.sessionTimeout < 5 || settings.system.sessionTimeout > 1440) {
+          newErrors['system.sessionTimeout'] = 'Session timeout must be between 5 and 1440 minutes'
+        }
+        break
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSave = async (section: keyof AdminSettings) => {
+    if (!settings) return
+    
+    if (!validateSettings(section)) {
+      toast({
+        title: 'Validation Error',
+        description: 'Please fix the errors before saving',
+        variant: 'destructive'
+      })
+      return
+    }
+
+    try {
+      const updatedSettings = await saveSettings(section, settings[section])
+      setSettings(updatedSettings)
+      
+      toast({
+        title: 'Settings Saved',
+        description: `${section} settings have been updated successfully`
+      })
+    } catch (error) {
+      console.error('Failed to save settings:', error)
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to save settings',
+        variant: 'destructive'
+      })
+    }
+  }
+
+  // Show loading state while fetching settings
+  if (loadingSettings || !settings) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+          <p className="text-muted-foreground mt-2">
+            Configure your platform settings and preferences
+          </p>
+        </div>
+        <LoadingSpinner size="lg" text="Loading settings..." />
+      </div>
+    )
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Settings</h1>
-        <p className="text-muted-foreground mt-2">Manage your account and application preferences</p>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+          <p className="text-muted-foreground mt-2">
+            Configure your platform settings and preferences
+          </p>
+        </div>
       </div>
 
       <Tabs defaultValue="general" className="space-y-6">
         <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="appearance">Appearance</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="integrations">Integrations</TabsTrigger>
-          <TabsTrigger value="advanced">Advanced</TabsTrigger>
+          <TabsTrigger value="system">System</TabsTrigger>
+          <TabsTrigger value="billing">Billing</TabsTrigger>
         </TabsList>
 
+        {/* General Settings */}
         <TabsContent value="general" className="space-y-6">
           <Card>
             <CardHeader>
@@ -57,198 +269,244 @@ export default function SettingsPage() {
                 <Settings className="h-5 w-5" />
                 General Settings
               </CardTitle>
-              <CardDescription>Basic configuration for your HARKA platform</CardDescription>
+              <CardDescription>
+                Basic information about your learning platform
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="platform-name">Platform Name</Label>
-                  <Input id="platform-name" defaultValue="HARKA" />
+                <div className="space-y-2">
+                  <Label htmlFor="siteName">Site Name *</Label>
+                  <Input
+                    id="siteName"
+                    value={settings.general.siteName}
+                    onChange={(e) => updateSettings('general', 'siteName', e.target.value)}
+                    className={errors['general.siteName'] ? 'border-destructive' : ''}
+                  />
+                  {errors['general.siteName'] && (
+                    <p className="text-sm text-destructive flex items-center gap-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {errors['general.siteName']}
+                    </p>
+                  )}
                 </div>
-                <div>
-                  <Label htmlFor="company-name">Company Name</Label>
-                  <Input id="company-name" defaultValue="HARKA Labs" />
+                <div className="space-y-2">
+                  <Label htmlFor="defaultLanguage">Default Language *</Label>
+                  <Select 
+                    value={settings.general.defaultLanguage}
+                    onValueChange={(value) => updateSettings('general', 'defaultLanguage', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="da">Danish</SelectItem>
+                      <SelectItem value="es">Spanish</SelectItem>
+                      <SelectItem value="fr">French</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               
-              <div>
-                <Label htmlFor="platform-description">Platform Description</Label>
-                <Textarea 
-                  id="platform-description" 
-                  defaultValue="AI der leverer reel forretningsværdi - Transform your organization through comprehensive AI training"
-                  className="h-20"
+              <div className="space-y-2">
+                <Label htmlFor="siteDescription">Site Description</Label>
+                <Textarea
+                  id="siteDescription"
+                  value={settings.general.siteDescription}
+                  onChange={(e) => updateSettings('general', 'siteDescription', e.target.value)}
+                  rows={3}
                 />
               </div>
-
+              
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="default-language">Default Language</Label>
-                  <select className="w-full p-2 border rounded-md">
-                    <option value="da">Danish</option>
-                    <option value="en">English</option>
-                  </select>
+                <div className="space-y-2">
+                  <Label htmlFor="platformName">Platform Name</Label>
+                  <Input
+                    id="platformName"
+                    value={settings.general.platformName}
+                    onChange={(e) => updateSettings('general', 'platformName', e.target.value)}
+                  />
                 </div>
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="timezone">Timezone</Label>
-                  <select className="w-full p-2 border rounded-md">
-                    <option value="Europe/Copenhagen">Europe/Copenhagen</option>
-                    <option value="Europe/London">Europe/London</option>
-                    <option value="America/New_York">America/New_York</option>
-                  </select>
+                  <Select 
+                    value={settings.general.timezone}
+                    onValueChange={(value) => updateSettings('general', 'timezone', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="UTC">UTC</SelectItem>
+                      <SelectItem value="America/New_York">Eastern Time</SelectItem>
+                      <SelectItem value="America/Los_Angeles">Pacific Time</SelectItem>
+                      <SelectItem value="Europe/London">London</SelectItem>
+                      <SelectItem value="Europe/Copenhagen">Copenhagen</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
-              <Button onClick={() => handleSave('general')} disabled={loading}>
-                <Save className="mr-2 h-4 w-4" />
-                {loading ? 'Saving...' : 'Save General Settings'}
+              <Button 
+                onClick={() => handleSave('general')} 
+                disabled={savingSettings || !settings}
+              >
+                {savingSettings ? <LoadingSpinner size="sm" /> : <Save className="mr-2 h-4 w-4" />}
+                Save General Settings
               </Button>
             </CardContent>
           </Card>
+        </TabsContent>
 
+        {/* Appearance Settings */}
+        <TabsContent value="appearance" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Palette className="h-5 w-5" />
-                Appearance
+                Appearance Settings
               </CardTitle>
-              <CardDescription>Customize the look and feel</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="dark-mode">Dark Mode</Label>
-                  <p className="text-sm text-muted-foreground">Use dark theme across the platform</p>
-                </div>
-                <Switch id="dark-mode" />
-              </div>
-
-              <div>
-                <Label htmlFor="brand-color">Primary Brand Color</Label>
-                <div className="flex gap-2 mt-2">
-                  <Input type="color" defaultValue="#3b82f6" className="w-16 h-10" />
-                  <Input defaultValue="#3b82f6" className="flex-1" />
-                </div>
-              </div>
-
-              <Button onClick={() => handleSave('appearance')} disabled={loading}>
-                <Save className="mr-2 h-4 w-4" />
-                Save Appearance
-              </Button>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="account" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
-                Account Information
-              </CardTitle>
-              <CardDescription>Manage your personal account details</CardDescription>
+              <CardDescription>
+                Customize the look and feel of your platform
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="first-name">First Name</Label>
-                  <Input id="first-name" defaultValue="Sven" />
+                <div className="space-y-2">
+                  <Label htmlFor="primaryColor">Primary Color</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="primaryColorPicker"
+                      type="color"
+                      value={settings.appearance.primaryColor}
+                      onChange={(e) => updateSettings('appearance', 'primaryColor', e.target.value)}
+                      className="w-16 h-10"
+                    />
+                    <Input
+                      id="primaryColor"
+                      value={settings.appearance.primaryColor}
+                      onChange={(e) => updateSettings('appearance', 'primaryColor', e.target.value)}
+                      className={`flex-1 ${errors['appearance.primaryColor'] ? 'border-destructive' : ''}`}
+                    />
+                  </div>
+                  {errors['appearance.primaryColor'] && (
+                    <p className="text-sm text-destructive">{errors['appearance.primaryColor']}</p>
+                  )}
                 </div>
-                <div>
-                  <Label htmlFor="last-name">Last Name</Label>
-                  <Input id="last-name" defaultValue="Arnarsson" />
+                <div className="space-y-2">
+                  <Label htmlFor="secondaryColor">Secondary Color</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="secondaryColorPicker"
+                      type="color"
+                      value={settings.appearance.secondaryColor}
+                      onChange={(e) => updateSettings('appearance', 'secondaryColor', e.target.value)}
+                      className="w-16 h-10"
+                    />
+                    <Input
+                      id="secondaryColor"
+                      value={settings.appearance.secondaryColor}
+                      onChange={(e) => updateSettings('appearance', 'secondaryColor', e.target.value)}
+                      className="flex-1"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" defaultValue="sven@harka.dk" />
-              </div>
-
-              <div>
-                <Label htmlFor="bio">Bio</Label>
-                <Textarea 
-                  id="bio" 
-                  placeholder="Tell us about yourself..."
-                  className="h-20"
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Dark Mode</Label>
+                  <p className="text-sm text-muted-foreground">Enable dark theme across the platform</p>
+                </div>
+                <Switch
+                  checked={settings.appearance.darkMode}
+                  onCheckedChange={(checked) => updateSettings('appearance', 'darkMode', checked)}
                 />
               </div>
 
-              <div>
-                <Label htmlFor="profile-image">Profile Image</Label>
-                <div className="flex items-center gap-4 mt-2">
-                  <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
-                  <Button variant="outline">Upload New Image</Button>
-                </div>
-              </div>
-
-              <Button onClick={() => handleSave('account')}>
-                <Save className="mr-2 h-4 w-4" />
-                Save Account Settings
+              <Button 
+                onClick={() => handleSave('appearance')} 
+                disabled={loading}
+              >
+                {loading ? <LoadingSpinner size="sm" /> : <Save className="mr-2 h-4 w-4" />}
+                Save Appearance Settings
               </Button>
             </CardContent>
           </Card>
         </TabsContent>
 
+        {/* Notification Settings */}
         <TabsContent value="notifications" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Bell className="h-5 w-5" />
-                Notification Preferences
+                Notification Settings
               </CardTitle>
-              <CardDescription>Choose what notifications you want to receive</CardDescription>
+              <CardDescription>
+                Configure how and when notifications are sent
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="space-y-0.5">
                     <Label>Email Notifications</Label>
-                    <p className="text-sm text-muted-foreground">Receive notifications via email</p>
+                    <p className="text-sm text-muted-foreground">Send email notifications to users</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch
+                    checked={settings.notifications.emailNotifications}
+                    onCheckedChange={(checked) => updateSettings('notifications', 'emailNotifications', checked)}
+                  />
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Push Notifications</Label>
+                    <p className="text-sm text-muted-foreground">Send push notifications to users</p>
+                  </div>
+                  <Switch
+                    checked={settings.notifications.pushNotifications}
+                    onCheckedChange={(checked) => updateSettings('notifications', 'pushNotifications', checked)}
+                  />
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="space-y-0.5">
                     <Label>Course Completions</Label>
                     <p className="text-sm text-muted-foreground">Notify when students complete courses</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch
+                    checked={settings.notifications.courseCompletions}
+                    onCheckedChange={(checked) => updateSettings('notifications', 'courseCompletions', checked)}
+                  />
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="space-y-0.5">
                     <Label>New Enrollments</Label>
                     <p className="text-sm text-muted-foreground">Notify when new students enroll</p>
                   </div>
-                  <Switch defaultChecked />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>System Updates</Label>
-                    <p className="text-sm text-muted-foreground">Important platform updates and maintenance</p>
-                  </div>
-                  <Switch defaultChecked />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Marketing Communications</Label>
-                    <p className="text-sm text-muted-foreground">Product updates and educational content</p>
-                  </div>
-                  <Switch />
+                  <Switch
+                    checked={settings.notifications.newEnrollments}
+                    onCheckedChange={(checked) => updateSettings('notifications', 'newEnrollments', checked)}
+                  />
                 </div>
               </div>
 
-              <Button onClick={() => handleSave('notifications')}>
-                <Save className="mr-2 h-4 w-4" />
+              <Button 
+                onClick={() => handleSave('notifications')} 
+                disabled={loading}
+              >
+                {loading ? <LoadingSpinner size="sm" /> : <Save className="mr-2 h-4 w-4" />}
                 Save Notification Settings
               </Button>
             </CardContent>
           </Card>
         </TabsContent>
 
+        {/* Security Settings */}
         <TabsContent value="security" className="space-y-6">
           <Card>
             <CardHeader>
@@ -256,174 +514,222 @@ export default function SettingsPage() {
                 <Shield className="h-5 w-5" />
                 Security Settings
               </CardTitle>
-              <CardDescription>Manage your account security and privacy</CardDescription>
+              <CardDescription>
+                Configure security and access controls
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label>Change Password</Label>
-                <div className="space-y-2 mt-2">
-                  <Input type="password" placeholder="Current password" />
-                  <Input type="password" placeholder="New password" />
-                  <Input type="password" placeholder="Confirm new password" />
-                </div>
-                <Button className="mt-2">Update Password</Button>
-              </div>
-
-              <div className="space-y-4 pt-4 border-t">
+            <CardContent className="space-y-6">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Two-Factor Authentication</Label>
-                    <p className="text-sm text-muted-foreground">Add an extra layer of security</p>
+                  <div className="space-y-0.5">
+                    <Label>Registration Enabled</Label>
+                    <p className="text-sm text-muted-foreground">Allow new users to register</p>
                   </div>
-                  <Badge variant="outline">Not Enabled</Badge>
+                  <Switch
+                    checked={settings.security.registrationEnabled}
+                    onCheckedChange={(checked) => updateSettings('security', 'registrationEnabled', checked)}
+                  />
                 </div>
-                <Button variant="outline">Enable 2FA</Button>
+                
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Require Email Verification</Label>
+                    <p className="text-sm text-muted-foreground">Require users to verify their email address</p>
+                  </div>
+                  <Switch
+                    checked={settings.security.requireEmailVerification}
+                    onCheckedChange={(checked) => updateSettings('security', 'requireEmailVerification', checked)}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Two-Factor Authentication</Label>
+                    <p className="text-sm text-muted-foreground">Require 2FA for all admin users</p>
+                  </div>
+                  <Switch
+                    checked={settings.security.twoFactorEnabled}
+                    onCheckedChange={(checked) => updateSettings('security', 'twoFactorEnabled', checked)}
+                  />
+                </div>
               </div>
 
               <div className="space-y-4 pt-4 border-t">
-                <div>
-                  <Label>Active Sessions</Label>
-                  <p className="text-sm text-muted-foreground">Manage your active login sessions</p>
+                <h4 className="font-medium">Password Policy</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="minPasswordLength">Minimum Password Length</Label>
+                    <Input
+                      id="minPasswordLength"
+                      type="number"
+                      min="6"
+                      max="32"
+                      value={settings.security.passwordPolicy.minLength}
+                      onChange={(e) => updateSettings('security', 'passwordPolicy', {
+                        ...settings.security.passwordPolicy,
+                        minLength: parseInt(e.target.value) || 8
+                      })}
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <p className="font-medium">Current Session</p>
-                      <p className="text-sm text-muted-foreground">Copenhagen, Denmark • Chrome on macOS</p>
-                    </div>
-                    <Badge variant="secondary">Active</Badge>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="requireUppercase"
+                      checked={settings.security.passwordPolicy.requireUppercase}
+                      onCheckedChange={(checked) => updateSettings('security', 'passwordPolicy', {
+                        ...settings.security.passwordPolicy,
+                        requireUppercase: checked
+                      })}
+                    />
+                    <Label htmlFor="requireUppercase">Require uppercase letters</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="requireNumbers"
+                      checked={settings.security.passwordPolicy.requireNumbers}
+                      onCheckedChange={(checked) => updateSettings('security', 'passwordPolicy', {
+                        ...settings.security.passwordPolicy,
+                        requireNumbers: checked
+                      })}
+                    />
+                    <Label htmlFor="requireNumbers">Require numbers</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="requireSymbols"
+                      checked={settings.security.passwordPolicy.requireSymbols}
+                      onCheckedChange={(checked) => updateSettings('security', 'passwordPolicy', {
+                        ...settings.security.passwordPolicy,
+                        requireSymbols: checked
+                      })}
+                    />
+                    <Label htmlFor="requireSymbols">Require special characters</Label>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
 
-        <TabsContent value="integrations" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Key className="h-5 w-5" />
-                API Keys & Integrations
-              </CardTitle>
-              <CardDescription>Manage external service integrations</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label htmlFor="openai-key">OpenAI API Key</Label>
-                <div className="flex gap-2 mt-2">
-                  <Input 
-                    id="openai-key" 
-                    type="password" 
-                    placeholder="sk-..." 
-                    className="flex-1"
-                  />
-                  <Button size="sm">Test Connection</Button>
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="calendly-url">Calendly URL</Label>
-                <Input 
-                  id="calendly-url" 
-                  defaultValue="https://calendly.com/harka-ai-workshop"
-                  placeholder="https://calendly.com/your-link"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="stripe-key">Stripe API Key</Label>
-                <div className="flex gap-2 mt-2">
-                  <Input 
-                    id="stripe-key" 
-                    type="password" 
-                    placeholder="sk_..." 
-                    className="flex-1"
-                  />
-                  <Button size="sm">Test Connection</Button>
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="analytics-id">Google Analytics ID</Label>
-                <Input 
-                  id="analytics-id" 
-                  placeholder="GA-XXXXXXXXX-X"
-                />
-              </div>
-
-              <Button onClick={() => handleSave('integrations')}>
-                <Save className="mr-2 h-4 w-4" />
-                Save Integration Settings
+              <Button 
+                onClick={() => handleSave('security')} 
+                disabled={loading}
+              >
+                {loading ? <LoadingSpinner size="sm" /> : <Save className="mr-2 h-4 w-4" />}
+                Save Security Settings
               </Button>
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="advanced" className="space-y-6">
+        {/* System Settings */}
+        <TabsContent value="system" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Database className="h-5 w-5" />
-                Advanced Settings
+                System Configuration
               </CardTitle>
-              <CardDescription>Advanced configuration options</CardDescription>
+              <CardDescription>
+                Configure system-level settings and limits
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Debug Mode</Label>
-                    <p className="text-sm text-muted-foreground">Enable detailed logging and debugging</p>
-                  </div>
-                  <Switch />
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Maintenance Mode</Label>
+                  <p className="text-sm text-muted-foreground">Put the platform in maintenance mode</p>
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Analytics Tracking</Label>
-                    <p className="text-sm text-muted-foreground">Enable user behavior tracking</p>
-                  </div>
-                  <Switch defaultChecked />
+                <Switch
+                  checked={settings.system.maintenanceMode}
+                  onCheckedChange={(checked) => updateSettings('system', 'maintenanceMode', checked)}
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="maxFileUploadSize">Max File Upload Size (MB)</Label>
+                  <Input
+                    id="maxFileUploadSize"
+                    type="number"
+                    min="1"
+                    max="1000"
+                    value={settings.system.maxFileUploadSize}
+                    onChange={(e) => updateSettings('system', 'maxFileUploadSize', parseInt(e.target.value) || 100)}
+                    className={errors['system.maxFileUploadSize'] ? 'border-destructive' : ''}
+                  />
+                  {errors['system.maxFileUploadSize'] && (
+                    <p className="text-sm text-destructive">{errors['system.maxFileUploadSize']}</p>
+                  )}
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Maintenance Mode</Label>
-                    <p className="text-sm text-muted-foreground">Put platform in maintenance mode</p>
-                  </div>
-                  <Switch />
+                <div className="space-y-2">
+                  <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
+                  <Input
+                    id="sessionTimeout"
+                    type="number"
+                    min="5"
+                    max="1440"
+                    value={settings.system.sessionTimeout}
+                    onChange={(e) => updateSettings('system', 'sessionTimeout', parseInt(e.target.value) || 60)}
+                    className={errors['system.sessionTimeout'] ? 'border-destructive' : ''}
+                  />
+                  {errors['system.sessionTimeout'] && (
+                    <p className="text-sm text-destructive">{errors['system.sessionTimeout']}</p>
+                  )}
                 </div>
               </div>
 
-              <div className="pt-4 border-t">
-                <Label>Data Export</Label>
-                <p className="text-sm text-muted-foreground mb-4">Export your platform data</p>
-                <div className="flex gap-2">
-                  <Button variant="outline">
-                    Export Users
-                  </Button>
-                  <Button variant="outline">
-                    Export Courses
-                  </Button>
-                  <Button variant="outline">
-                    Export Analytics
-                  </Button>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="allowedFileTypes">Allowed File Types</Label>
+                <Input
+                  id="allowedFileTypes"
+                  value={settings.system.allowedFileTypes.join(', ')}
+                  onChange={(e) => updateSettings('system', 'allowedFileTypes', 
+                    e.target.value.split(',').map(t => t.trim()).filter(Boolean)
+                  )}
+                  placeholder="pdf, doc, docx, mp4, etc."
+                />
+                <p className="text-sm text-muted-foreground">Comma-separated list of file extensions</p>
               </div>
 
-              <div className="pt-4 border-t">
-                <Label>Cache Management</Label>
-                <p className="text-sm text-muted-foreground mb-4">Clear application cache</p>
-                <Button variant="outline" className="text-red-600 border-red-200 hover:bg-red-50">
-                  <RefreshCw className="mr-2 h-4 w-4" />
-                  Clear All Cache
-                </Button>
+              <Button 
+                onClick={() => handleSave('system')} 
+                disabled={loading}
+              >
+                {loading ? <LoadingSpinner size="sm" /> : <Save className="mr-2 h-4 w-4" />}
+                Save System Settings
+              </Button>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Billing Settings */}
+        <TabsContent value="billing" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5" />
+                Billing Configuration
+              </CardTitle>
+              <CardDescription>
+                Configure payment and billing settings
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center py-8 text-muted-foreground">
+                <CreditCard className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>Billing configuration coming soon</p>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
+  )
+}
+
+export default function SettingsPage() {
+  return (
+    <ErrorBoundary>
+      <AdminSettingsContent />
+    </ErrorBoundary>
   )
 }
