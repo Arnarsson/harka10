@@ -1,4 +1,4 @@
-import { ContentManagement } from "@/components/admin/lazy-imports"
+import { ContentManagement } from "@/components/admin/content-management"
 
 export default function AdminContentPage() {
   return <ContentManagement />

@@ -1,17 +1,11 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 import { LoadingPage, CardSkeleton } from '@/components/ui/loading-states'
 
 // Lazy load admin components with appropriate loading states
 export const AdminDashboard = dynamic(
   () => import('./admin-dashboard').then(mod => ({ default: mod.AdminDashboard })),
-  {
-    loading: () => <LoadingPage />,
-    ssr: false
-  }
-)
-
-export const AdminUsers = dynamic(
-  () => import('./admin-users').then(mod => ({ default: mod.AdminUsers })),
   {
     loading: () => <LoadingPage />,
     ssr: false
@@ -34,42 +28,42 @@ export const BlogManagement = dynamic(
   }
 )
 
-export const ContentModerationDashboard = dynamic(
-  () => import('./content-moderation-dashboard').then(mod => ({ default: mod.ContentModerationDashboard })),
+export const LessonEditor = dynamic(
+  () => import('./lesson-editor').then(mod => ({ default: mod.LessonEditor })),
   {
     loading: () => <LoadingPage />,
     ssr: false
   }
 )
 
-export const BackupRestore = dynamic(
-  () => import('./backup-restore').then(mod => ({ default: mod.BackupRestore })),
-  {
-    loading: () => <LoadingPage />,
-    ssr: false
-  }
-)
-
-export const AdminToolkit = dynamic(
-  () => import('./admin-toolkit').then(mod => ({ default: mod.AdminToolkit })),
-  {
-    loading: () => <LoadingPage />,
-    ssr: false
-  }
-)
-
-export const AdvancedSearch = dynamic(
-  () => import('./advanced-search').then(mod => ({ default: mod.AdvancedSearch })),
+export const VideoUpload = dynamic(
+  () => import('./video-upload').then(mod => ({ default: mod.VideoUpload })),
   {
     loading: () => <CardSkeleton />,
     ssr: false
   }
 )
 
-export const AuditTrail = dynamic(
-  () => import('./audit-trail').then(mod => ({ default: mod.AuditTrail })),
+export const SubscriptionManagement = dynamic(
+  () => import('./subscription-management').then(mod => ({ default: mod.SubscriptionManagement })),
   {
     loading: () => <LoadingPage />,
+    ssr: false
+  }
+)
+
+export const CourseQuickActions = dynamic(
+  () => import('./course-quick-actions').then(mod => ({ default: mod.CourseQuickActions })),
+  {
+    loading: () => <CardSkeleton />,
+    ssr: false
+  }
+)
+
+export const CoursePublishModal = dynamic(
+  () => import('./course-publish-modal').then(mod => ({ default: mod.CoursePublishModal })),
+  {
+    loading: () => null, // Modals don't need loading state
     ssr: false
   }
 )

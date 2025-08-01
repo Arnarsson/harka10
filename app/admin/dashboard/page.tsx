@@ -1,4 +1,4 @@
-import { AdminDashboard } from "@/components/admin/lazy-imports"
+import { AdminDashboard } from "@/components/admin/admin-dashboard"
 
 export default function AdminDashboardPage() {
   return <AdminDashboard />
