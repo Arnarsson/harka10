@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Settings, HelpCircle, Users, Globe, LogIn, UserPlus } from "lucide-react"
@@ -18,10 +18,22 @@ export function Header() {
   const [currentLanguage, setCurrentLanguage] = useState('en')
   const { user, signOut } = useAuth()
 
+  // Initialize language from localStorage on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem('harka-language')
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'da')) {
+        setCurrentLanguage(savedLanguage)
+      }
+    }
+  }, [])
+
   const toggleLanguage = () => {
     const newLanguage = currentLanguage === 'en' ? 'da' : 'en'
     setCurrentLanguage(newLanguage)
-    localStorage.setItem('harka-language', newLanguage)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('harka-language', newLanguage)
+    }
   }
 
   const translations = {

@@ -13,15 +13,19 @@ export default function LandingPage() {
   const [showOnboarding, setShowOnboarding] = useState(false)
 
   useEffect(() => {
-    // Show onboarding for first-time visitors
-    const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding")
-    if (!hasSeenOnboarding) {
-      setShowOnboarding(true)
+    // Show onboarding for first-time visitors (only on client side)
+    if (typeof window !== 'undefined') {
+      const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding")
+      if (!hasSeenOnboarding) {
+        setShowOnboarding(true)
+      }
     }
   }, [])
 
   const handleOnboardingComplete = () => {
-    localStorage.setItem("hasSeenOnboarding", "true")
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("hasSeenOnboarding", "true")
+    }
     setShowOnboarding(false)
   }
 
