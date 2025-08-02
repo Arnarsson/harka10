@@ -1,26 +1,29 @@
-import { TeamLayout } from "@/components/team/team-layout"
-import { TeamOverview } from "@/components/team/team-overview"
-import { TeamMembers } from "@/components/team/team-members"
-import { TeamProgress } from "@/components/team/team-progress"
-import { TeamSettings } from "@/components/team/team-settings"
+import { auth } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
+import { DashboardLayout } from '@/components/layout/DashboardLayout'
+import { TeamInvitations } from '@/components/team/TeamInvitations'
 
-export default function TeamPage() {
+export default async function TeamPage() {
+  const { userId } = auth()
+  
+  if (!userId) {
+    redirect('/sign-in')
+  }
+
   return (
-    <TeamLayout>
-      <div className="space-y-8">
-        <TeamOverview />
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <TeamMembers />
-            <TeamProgress />
-          </div>
-
-          <div>
-            <TeamSettings />
-          </div>
+    <DashboardLayout>
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Team Administration
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Inviter og administrer dit team. Tildel roller og spor deres fremgang.
+          </p>
         </div>
+
+        <TeamInvitations />
       </div>
-    </TeamLayout>
+    </DashboardLayout>
   )
 }
