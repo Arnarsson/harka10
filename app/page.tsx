@@ -1,25 +1,15 @@
-"use client"
+import { auth } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
+import { HarkaHero } from '@/components/landing/harka-hero'
 
-import { useState, useEffect } from "react"
-import { HarkaHero } from "@/components/landing/harka-hero"
-
-export default function LandingPage() {
-  const [language, setLanguage] = useState<'da' | 'en'>('da')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const handleLanguageChange = (lang: 'da' | 'en') => {
-    console.log('Language changing to:', lang)
-    setLanguage(lang)
+export default async function HomePage() {
+  const { userId } = auth()
+  
+  // If user is logged in, redirect to dashboard
+  if (userId) {
+    redirect('/dashboard')
   }
 
-  return (
-    <HarkaHero 
-      language={language} 
-      onLanguageChange={handleLanguageChange}
-    />
-  )
+  // Otherwise show the landing page
+  return <HarkaHero />
 }
