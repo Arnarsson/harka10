@@ -1,15 +1,28 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, TrendingUp } from "lucide-react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import React from "react"
 
 export function HeroSection() {
+  const ref = React.useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref });
+
+  const yBackground = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section ref={ref} className="relative py-20 lg:py-32 overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"
+        style={{ y: yBackground }}
+      />
 
       <div className="container relative">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 smooth-enter">
+          <motion.div style={{ y: yText }} className="space-y-8 smooth-enter">
             <div className="space-y-6">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-satoshi">
                 <div className="w-2 h-2 rounded-full bg-primary mr-2" />
@@ -52,7 +65,7 @@ export function HeroSection() {
                 <div className="text-sm text-muted-foreground font-satoshi">User Rating</div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           <div className="relative smooth-enter">
             <div className="harka-card p-8 space-y-6">

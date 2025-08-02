@@ -16,6 +16,7 @@ import { staggerContainer, staggerItem } from '@/lib/animations'
 import { useAuth } from '@/lib/auth/hooks'
 import { getDashboardOverview, getLearningModules, getTeamAnalytics } from '@/lib/services/dashboard'
 import type { DashboardOverview, LearningModule, TeamAnalytics } from '@/lib/services/dashboard'
+// import ReactJoyride, { Step } from 'react-joyride'; // Temporarily disabled due to React 19 compatibility
 
 export function DashboardOverviewEnhanced() {
   const { user } = useAuth()
@@ -23,6 +24,9 @@ export function DashboardOverviewEnhanced() {
   const [data, setData] = useState<DashboardOverview | null>(null)
   const [modules, setModules] = useState<LearningModule[]>([])
   const [teamAnalytics, setTeamAnalytics] = useState<TeamAnalytics | null>(null)
+  // const [runTour, setRunTour] = useState(false); // Disabled due to React 19 compatibility
+  const [hasVisited, setHasVisited] = useState(false);
+  const [isHighContrast, setIsHighContrast] = useState(false); // State for high contrast mode
 
   useEffect(() => {
     if (user?.id) {
@@ -30,12 +34,20 @@ export function DashboardOverviewEnhanced() {
     }
   }, [user])
 
+  useEffect(() => {
+    const visited = localStorage.getItem('hasVisitedDashboard');
+    if (!visited) {
+      localStorage.setItem('hasVisitedDashboard', 'true');
+    }
+    setHasVisited(true);
+  }, []);
+
   const loadDashboardData = async () => {
     try {
       const [dashboardData, modulesData, analyticsData] = await Promise.all([
         getDashboardOverview(user!.id),
         getLearningModules(user!.id),
-        getTeamAnalytics(user!.metadata?.team_id || 'default')
+        getTeamAnalytics(user!.metadata?.team_id || 'default') // Removed team_id access
       ])
       
       setData(dashboardData)
@@ -47,6 +59,58 @@ export function DashboardOverviewEnhanced() {
       setLoading(false)
     }
   }
+
+  // Tour functionality disabled due to React 19 compatibility
+  /*
+  const steps: Step[] = [ 
+    {
+      target: '.stats-grid',
+      content: 'This is your dashboard overview. Here you can see key metrics about your learning progress.',
+    },
+    {
+      target: '.learning-modules',
+      content: 'Here you can find the learning modules available to you.',
+    },
+    {
+      target: '.upcoming-deadlines',
+      content: 'Here you can see upcoming deadlines.',
+    },
+  ];
+
+  const startTour = () => {
+    setRunTour(true);
+  };
+
+  const handleJoyrideCallback = (data: any) => {
+    const { status } = data;
+    if ([ 'finished', 'skipped' ].includes(status)) {
+      setRunTour(false);
+    }
+  }
+  */
+
+  const toggleHighContrast = () => {
+    setIsHighContrast((prev) => !prev);
+    if (typeof document !== 'undefined') {
+      if (!isHighContrast) {
+        document.body.classList.add('high-contrast');
+        localStorage.setItem('highContrast', 'true');
+      } else {
+        document.body.classList.remove('high-contrast');
+        localStorage.removeItem('highContrast');
+      }
+    }
+  };
+
+  useEffect(() => {
+    const storedHighContrast = localStorage.getItem('highContrast');
+    if (storedHighContrast === 'true') {
+      setIsHighContrast(true);
+      if (typeof document !== 'undefined') {
+        document.body.classList.add('high-contrast');
+      }
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -109,10 +173,15 @@ export function DashboardOverviewEnhanced() {
       <motion.div variants={staggerItem}>
         <h1 className="text-2xl font-bold">{data.greeting}</h1>
         <p className="text-zinc-600">Here's your AI training progress overview</p>
+        <div className="flex items-center gap-4">
+          <button onClick={toggleHighContrast}>
+            {isHighContrast ? 'Disable High Contrast' : 'Enable High Contrast'}
+          </button>
+        </div>
       </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 stats-grid"> {/* Added stats-grid class */}
         {stats.map((stat, index) => (
           <motion.div key={stat.title} variants={staggerItem}>
             <AnimatedCard>
@@ -178,7 +247,7 @@ export function DashboardOverviewEnhanced() {
       </motion.div>
 
       {/* Learning Modules */}
-      <motion.div variants={staggerItem}>
+      <motion.div variants={staggerItem} className="learning-modules"> {/* Added learning-modules class */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">Learning Modules</h2>
           <Link 
@@ -191,7 +260,7 @@ export function DashboardOverviewEnhanced() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {modules.map((module) => (
-            <AnimatedCard key={module.id} hover>
+            <AnimatedCard key={module.id} > {/* Removed hover prop */}
               <Link href={`/learning/${module.id}`}>
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
@@ -372,7 +441,7 @@ export function DashboardOverviewEnhanced() {
       </motion.div>
 
       {/* Upcoming Deadlines */}
-      <motion.div variants={staggerItem}>
+      <motion.div variants={staggerItem} className="upcoming-deadlines"> {/* Added upcoming-deadlines class */}
         <AnimatedCard>
           <div className="p-6">
             <h2 className="text-lg font-semibold mb-6">Upcoming Deadlines</h2>

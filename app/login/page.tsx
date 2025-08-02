@@ -6,32 +6,40 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Mail, Lock, Eye, EyeOff, Loader2, LogIn } from 'lucide-react'
 import { useAuth } from '@/lib/auth/hooks'
+import { useToast } from '@/hooks/use-toast'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
   
   const { signIn } = useAuth()
   const router = useRouter()
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
     setIsLoading(true)
 
     try {
       await signIn(email, password)
+      toast({
+        title: "Success",
+        description: "Signed in successfully!",
+        variant: "success",
+      });
     } catch (err: any) {
-      setError(err.message || 'Failed to sign in')
+      toast({
+        title: "Error",
+        description: err.message || 'Failed to sign in',
+        variant: "destructive",
+      });
       setIsLoading(false)
     }
   }
 
   const handleDemoLogin = async (role: 'admin' | 'instructor' | 'student') => {
-    setError('')
     setIsLoading(true)
 
     const demoCredentials = {
@@ -43,8 +51,17 @@ export default function LoginPage() {
     try {
       const creds = demoCredentials[role]
       await signIn(creds.email, creds.password)
+      toast({
+        title: "Success",
+        description: `Logged in as ${role} demo user!`,
+        variant: "success",
+      });
     } catch (err: any) {
-      setError('Demo account not available. Please sign up.')
+      toast({
+        title: "Error",
+        description: 'Demo account not available. Please sign up.',
+        variant: "destructive",
+      });
       setIsLoading(false)
     }
   }
@@ -64,17 +81,6 @@ export default function LoginPage() {
               <h1 className="text-3xl font-bold">AI Training Platform</h1>
               <p className="text-zinc-600 mt-2">Welcome back! Please sign in to continue.</p>
             </Link>
-
-            {/* Error message */}
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg"
-              >
-                <p className="text-sm text-red-600">{error}</p>
-              </motion.div>
-            )}
 
             {/* Login form */}
             <form onSubmit={handleSubmit} className="space-y-6">

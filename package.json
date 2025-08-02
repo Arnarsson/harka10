@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev -p 3005",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "test": "playwright test",
+    "test:quick": "playwright test tests/00-quick-assessment.spec.ts",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -56,11 +60,13 @@
     "next-themes": "^0.4.4",
     "qrcode": "^1.5.4",
     "react": "^19",
+    "react-countup": "^6.5.3",
     "react-day-picker": "9.8.0",
     "react-dom": "^19",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.54.1",
     "react-intersection-observer": "^9.16.0",
+    "react-joyride": "^2.9.3",
     "react-loading-skeleton": "^3.5.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "latest",
@@ -72,6 +78,8 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

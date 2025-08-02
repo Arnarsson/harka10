@@ -2,6 +2,7 @@
 
 import { HeroSectionAnimated } from "@/components/landing/hero-section-animated"
 import { FeaturesSectionMinimal } from "@/components/landing/features-section-minimal"
+import { Header } from "@/components/layout/header"
 import Link from "next/link"
 import { PageTransition } from "@/components/layout/page-transition"
 import { OnboardingFlow } from "@/components/onboarding/onboarding-flow"
@@ -30,33 +31,8 @@ export default function LandingPage() {
         <OnboardingFlow onComplete={handleOnboardingComplete} />
       )}
       
-      {/* Animated Header */}
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 100 }}
-        className="border-b sticky top-0 bg-background/80 backdrop-blur-sm z-40"
-      >
-        <div className="container mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="text-lg font-medium">
-            AI Platform
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Features
-            </Link>
-            <Link href="/courses" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Courses
-            </Link>
-            <Link href="/certificates" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Certificates
-            </Link>
-            <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Dashboard
-            </Link>
-          </nav>
-        </div>
-      </motion.header>
+      {/* Use the shared Header component with language switching and proper navigation */}
+      <Header />
 
       <PageTransition>
         <main>

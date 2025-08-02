@@ -87,6 +87,37 @@
     --input: 0 0% 15%;                 /* Dark gray input border */
     --ring: 0 0% 95%;                  /* Off white focus ring */
   }
+
+  /* High Contrast Mode */
+  .high-contrast {
+    --background: 0 0% 0%;           /* Black background */
+    --foreground: 0 0% 100%;         /* White text */
+    
+    --card: 0 0% 0%;                 /* Black cards */
+    --card-foreground: 0 0% 100%;    /* White text */
+    
+    --popover: 0 0% 0%;              /* Black popovers */
+    --popover-foreground: 0 0% 100%; /* White text */
+    
+    --primary: 0 0% 100%;            /* White primary */
+    --primary-foreground: 0 0% 0%;   /* Black on primary */
+    
+    --secondary: 0 0% 10%;           /* Very dark gray */
+    --secondary-foreground: 0 0% 100%;/* White text */
+    
+    --muted: 0 0% 10%;                /* Very dark gray */
+    --muted-foreground: 0 0% 90%;     /* Light gray text */
+    
+    --accent: 0 0% 10%;               /* Very dark gray accent */
+    --accent-foreground: 0 0% 100%;    /* White text */
+    
+    --destructive: 0 0% 100%;          /* White for errors */
+    --destructive-foreground: 0 0% 0%; /* Black text */
+    
+    --border: 0 0% 100%;               /* White border */
+    --input: 0 0% 100%;                /* White input border */
+    --ring: 0 0% 100%;                 /* White focus ring */
+  }
 }
 
 @layer base {

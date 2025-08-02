@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/lib/auth/hooks"
+import { RootLayoutClient } from "./RootLayoutClient" // Import the new client component
 
 export const metadata: Metadata = {
   title: "AI Training Platform",
@@ -23,7 +24,7 @@ export default function RootLayout({
       <body style={{ fontFamily: 'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <AuthProvider>
-            {children}
+            <RootLayoutClient>{children}</RootLayoutClient> {/* Use the client component */}
           </AuthProvider>
           <Toaster />
         </ThemeProvider>

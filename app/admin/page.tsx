@@ -35,7 +35,7 @@ function AdminDashboard() {
             </div>
             <Link
               href="/dashboard"
-              className="text-sm text-zinc-600 hover:text-black transition-colors"
+              className="text-sm text-zinc-600 hover:text-black transition-colors hover:shadow-sm active:scale-95"
             >
               Back to Platform
             </Link>
@@ -78,7 +78,7 @@ function AdminDashboard() {
               <Link
                 key={action.label}
                 href={action.href}
-                className="bg-white p-4 rounded-lg border border-zinc-200 hover:border-zinc-300 transition-colors flex items-center gap-3"
+                className="bg-white p-4 rounded-lg border border-zinc-200 hover:border-zinc-300 transition-colors hover:shadow-md active:scale-95 flex items-center gap-3"
               >
                 <action.icon size={20} />
                 <span className="font-medium">{action.label}</span>

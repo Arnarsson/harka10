@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { withAuth } from '@/lib/auth/hooks'
 import { 
   Trophy, Award, Share2, Download, ArrowRight, 
-  Star, CheckCircle, Sparkles, Gift
+  Star, CheckCircle, Sparkles, Gift, X
 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { CertificateGenerator } from '@/components/certificates/certificate-generator'
@@ -164,7 +164,7 @@ function CourseCompletionPage() {
 
           <button
             onClick={() => setShowCertificateGenerator(true)}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-lg font-semibold text-lg hover:bg-zinc-100 transition-colors"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-lg font-semibold text-lg hover:bg-zinc-100 transition-colors hover:shadow-md active:scale-95"
           >
             <Award size={24} />
             Get Your Certificate
@@ -265,14 +265,14 @@ function CourseCompletionPage() {
           <div className="mt-6 flex flex-wrap gap-4">
             <button
               onClick={() => router.push('/courses')}
-              className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors"
+              className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors hover:shadow-md active:scale-95"
             >
               Browse More Courses
               <ArrowRight size={20} />
             </button>
             <button
               onClick={() => router.push('/profile')}
-              className="flex items-center gap-2 px-6 py-3 border border-zinc-200 rounded-lg hover:bg-white transition-colors"
+              className="flex items-center gap-2 px-6 py-3 border border-zinc-200 rounded-lg hover:bg-white transition-colors hover:shadow-md active:scale-95"
             >
               View Your Profile
             </button>
@@ -292,7 +292,7 @@ function CourseCompletionPage() {
               <h2 className="text-2xl font-bold">Generate Your Certificate</h2>
               <button
                 onClick={() => setShowCertificateGenerator(false)}
-                className="p-2 hover:bg-zinc-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-zinc-100 rounded-lg transition-colors active:scale-95"
               >
                 <X size={24} />
               </button>

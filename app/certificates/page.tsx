@@ -119,7 +119,7 @@ export default function CertificatesPage() {
             </p>
             <Link
               href="/courses"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors hover:shadow-md active:scale-95"
             >
               Browse Courses
               <ExternalLink size={16} />
@@ -191,14 +191,14 @@ export default function CertificatesPage() {
                   <div className="flex gap-2 pt-2">
                     <button
                       onClick={() => handleDownload(certificate)}
-                      className="flex-1 py-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors flex items-center justify-center gap-2 text-sm"
+                      className="flex-1 py-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors hover:shadow-md active:scale-95 flex items-center justify-center gap-2 text-sm"
                     >
                       <Download size={16} />
                       Download
                     </button>
                     <button
                       onClick={() => handleShareLinkedIn(certificate)}
-                      className="flex-1 py-2 bg-[#0077B5] text-white rounded-lg hover:bg-[#006399] transition-colors flex items-center justify-center gap-2 text-sm"
+                      className="flex-1 py-2 bg-[#0077B5] text-white rounded-lg hover:bg-[#006399] transition-colors hover:shadow-md active:scale-95 flex items-center justify-center gap-2 text-sm"
                     >
                       <Share2 size={16} />
                       Share
@@ -210,7 +210,7 @@ export default function CertificatesPage() {
                     href={certificate.verificationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-center text-xs text-zinc-600 hover:text-black transition-colors"
+                    className="block text-center text-xs text-zinc-600 hover:text-black transition-colors hover:underline hover:text-primary active:scale-95"
                   >
                     <CheckCircle size={14} className="inline mr-1" />
                     Verify Certificate

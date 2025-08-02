@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react"
+import { AnimatedCounter } from "@/components/ui/animated-counter"
 
 interface StatsCardProps {
   title: string
@@ -13,7 +14,9 @@ export function StatsCardMinimal({ title, value, change, icon: Icon }: StatsCard
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <p className="text-sm text-muted-foreground">{title}</p>
-          <p className="text-2xl font-medium">{value}</p>
+          <p className="text-2xl font-medium">
+            {typeof value === 'number' ? <AnimatedCounter value={value} /> : value}
+          </p>
           {change && (
             <p className="text-xs text-muted-foreground">{change}</p>
           )}
