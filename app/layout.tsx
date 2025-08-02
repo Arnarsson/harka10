@@ -1,40 +1,67 @@
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
-import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ClerkProvider } from '@clerk/nextjs';
+import { Toaster } from "@/components/ui/sonner";
+import AppLayout from '@/components/layout/AppLayout';
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "HARKA - AI der leverer reel forretningsværdi",
-  description: "Transform your organization through our comprehensive three-phase AI training methodology. From fundamentals to ethical implementation.",
-}
+  title: "HARKA10 - AI Training Platform",
+  description: "Master AI in 48 hours with our intensive training program",
+  keywords: ["AI", "training", "artificial intelligence", "education", "learning"],
+  authors: [{ name: "HARKA10" }],
+  openGraph: {
+    title: "HARKA10 - AI Training Platform",
+    description: "Master AI in 48 hours with our intensive training program",
+    url: "https://harka10.com",
+    siteName: "HARKA10",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "HARKA10 AI Training Platform",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HARKA10 - AI Training Platform",
+    description: "Master AI in 48 hours with our intensive training program",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  // Use real Clerk key in production, fallback for build
-  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_bW9ja2VkLWtleS1mb3ItYnVpbGQtdGltZS5jbGVyay5hY2NvdW50cy5kZXYk'
-  
   return (
-    <ClerkProvider 
-      publishableKey={publishableKey}
-    >
+    <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <head>
-          <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-        </head>
-        <body style={{ fontFamily: 'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <AnalyticsTracker />
+        <body className={inter.className}>
+          <AppLayout>
             {children}
-            <Toaster />
-          </ThemeProvider>
+          </AppLayout>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
-  )
+  );
 }
