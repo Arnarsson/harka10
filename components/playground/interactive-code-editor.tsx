@@ -61,7 +61,9 @@ export function InteractiveCodeEditor({
     }
     setBranches([...branches, newBranch])
     setActiveBranch(newBranch.id)
-    onBranch?.(code)
+    if (onBranch) {
+      onBranch(code)
+    }
   }
 
   const handleRun = async () => {
@@ -81,7 +83,9 @@ export function InteractiveCodeEditor({
   }
 
   const handleSave = () => {
-    onSave?.(code)
+    if (onSave) {
+      onSave(code)
+    }
     // Simulate saving
     setOutput('Progress saved!')
   }
@@ -226,7 +230,7 @@ export function InteractiveCodeEditor({
                   </div>
                   <div className="flex-1">
                     <p className="text-sm">
-                      Hi! I'm your AI pair programmer. I can help you understand this code, 
+                      Hi! I&apos;m your AI pair programmer. I can help you understand this code, 
                       suggest improvements, or work through problems together.
                     </p>
                   </div>
@@ -239,7 +243,7 @@ export function InteractiveCodeEditor({
                     </div>
                     <div className="flex-1">
                       <p className="text-sm">
-                        I see you're editing the code! Here are some things we could work on:
+                        I see you&apos;re editing the code! Here are some things we could work on:
                       </p>
                       <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
                         <li>• Add error handling for edge cases</li>
@@ -257,9 +261,10 @@ export function InteractiveCodeEditor({
                     className="w-full px-3 py-2 text-sm rounded-md border bg-background"
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
-                        setOutput(prev => prev + '\nYou: ' + e.currentTarget.value)
-                        setOutput(prev => prev + '\nAI: I'd be happy to help with that!')
-                        e.currentTarget.value = ''
+                        const target = e.currentTarget
+                        setOutput(prev => prev + '\nYou: ' + target.value)
+                        setOutput(prev => prev + '\nAI: I&apos;d be happy to help with that!')
+                        target.value = ''
                       }
                     }}
                   />
