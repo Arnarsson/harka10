@@ -1,9 +1,9 @@
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { HarkaHero } from '@/components/landing/harka-hero'
 
 export default async function HomePage() {
-  const { userId } = auth()
+  const { userId } = await auth()
   
   // If user is logged in, redirect to dashboard
   if (userId) {
