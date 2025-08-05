@@ -51,7 +51,7 @@ export interface Lesson {
   id: string
   title: string
   description: string
-  type: 'video' | 'text' | 'quiz' | 'assignment'
+  type: 'video' | 'text' | 'quiz' | 'assignment' | 'code'
   content: LessonContent
   duration: number // in minutes
   order: number
@@ -77,6 +77,13 @@ export interface LessonContent {
     instructions: string
     rubric: string[]
     submissionType: 'text' | 'file' | 'url'
+  }
+  code?: {
+    content: string
+    language: string
+    starterCode?: string
+    solution?: string
+    tests?: string[]
   }
 }
 

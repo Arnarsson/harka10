@@ -1,30 +1,34 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, Target, BarChart3, Shield, Zap, Globe } from "lucide-react"
+import { Users, Target, BarChart3, Shield, Zap, Globe, Pause, Code, UserCheck } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
 const features = [
   {
-    icon: Users,
-    title: "Multi-Tenant Architecture",
-    description: "Enterprise-grade platform supporting organizations and individuals with advanced role management.",
-    metric: "500+ Teams",
+    icon: Pause,
+    title: "Pause & Code Anytime",
+    description: "Stop any lesson to experiment with code. Your changes are saved in branches you can return to later.",
+    metric: "Interactive",
+    isNew: true,
+  },
+  {
+    icon: Code,
+    title: "AI Pair Programming",
+    description: "Real-time AI assistance that understands your code and helps you debug, optimize, and learn.",
+    metric: "24/7 Support",
+    isNew: true,
+  },
+  {
+    icon: UserCheck,
+    title: "Power Hour Sessions",
+    description: "Join focused 60-minute learning sessions with the global community. Stay motivated and accountable.",
+    metric: "4x Daily",
+    isNew: true,
   },
   {
     icon: Target,
     title: "Structured Learning Paths",
     description: "Customizable curricula aligned with our proven three-phase methodology for different roles.",
     metric: "95% Success",
-  },
-  {
-    icon: BarChart3,
-    title: "Advanced Analytics",
-    description: "Real-time progress tracking and comprehensive reporting on AI implementation outcomes.",
-    metric: "50+ Metrics",
-  },
-  {
-    icon: Shield,
-    title: "Ethics Framework",
-    description: "Built-in ethical assessment tools and governance frameworks for responsible AI deployment.",
-    metric: "100% Compliant",
   },
   {
     icon: Zap,
@@ -63,8 +67,15 @@ export function FeaturesSection() {
                   <div className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <div className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
-                    {feature.metric}
+                  <div className="flex items-center gap-2">
+                    {feature.isNew && (
+                      <Badge variant="default" className="text-xs">
+                        New
+                      </Badge>
+                    )}
+                    <div className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                      {feature.metric}
+                    </div>
                   </div>
                 </div>
                 <CardTitle className="text-lg">{feature.title}</CardTitle>

@@ -6,9 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ChevronLeft, ChevronRight, Menu, X, CheckCircle, 
   Circle, Lock, PlayCircle, FileText, PenTool, BarChart,
-  MessageSquare, Award, Download
+  MessageSquare, Award, Download, Code
 } from 'lucide-react'
 import { VideoPlayer } from '@/components/ui/video-player'
+import { InteractiveCodeEditor } from '@/components/playground/interactive-code-editor'
 import type { Course, Lesson, Module } from '@/lib/types/course'
 
 export default function LessonViewerPage() {
@@ -202,6 +203,7 @@ Understanding how the web works is fundamental to becoming a web developer. In t
       case 'text': return <FileText size={size} />
       case 'quiz': return <BarChart size={size} />
       case 'assignment': return <PenTool size={size} />
+      case 'code': return <Code size={size} />
       default: return <PlayCircle size={size} />
     }
   }
@@ -443,6 +445,26 @@ Understanding how the web works is fundamental to becoming a web developer. In t
                   <h2 className="text-xl font-semibold mb-4">Assignment</h2>
                   <p className="text-zinc-600">Assignment content would go here...</p>
                 </div>
+              )}
+
+              {currentLesson.type === 'code' && currentLesson.content.code && (
+                <InteractiveCodeEditor
+                  lesson={{
+                    id: currentLesson.id,
+                    title: currentLesson.title,
+                    code: currentLesson.content.code.content,
+                    language: currentLesson.content.code.language || 'javascript',
+                    type: 'code'
+                  }}
+                  onSave={(code) => {
+                    console.log('Code saved:', code)
+                    // Save to backend
+                  }}
+                  onBranch={(code) => {
+                    console.log('Branch created:', code)
+                    // Create branch in backend
+                  }}
+                />
               )}
             </div>
 

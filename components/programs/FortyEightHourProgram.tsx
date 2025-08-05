@@ -1,9 +1,12 @@
 // components/programs/FortyEightHourProgram.tsx
-import React from 'react'
-import { Clock, Zap, Award, Users, CheckCircle, ArrowRight } from 'lucide-react'
+'use client'
+
+import React, { useState } from 'react'
+import { Clock, Zap, Award, Users, CheckCircle, ArrowRight, Play, Code, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { useRouter } from 'next/navigation'
 
 const modules = [
   {
@@ -17,7 +20,9 @@ const modules = [
       "Your first AI integration",
       "Prompt engineering fundamentals"
     ],
-    deliverable: "Working AI chatbot"
+    deliverable: "Working AI chatbot",
+    interactive: true,
+    interactiveFeatures: ["Pause & edit code examples", "AI pair programming", "Live debugging"]
   },
   {
     id: 2,
@@ -30,7 +35,9 @@ const modules = [
       "Data processing and transformation",
       "Error handling and reliability"
     ],
-    deliverable: "Automated workflow for your business"
+    deliverable: "Automated workflow for your business",
+    interactive: true,
+    interactiveFeatures: ["Visual workflow builder", "Test automations live", "Branch & experiment"]
   },
   {
     id: 3,
@@ -43,7 +50,9 @@ const modules = [
       "Multi-step AI workflows",
       "Security and best practices"
     ],
-    deliverable: "Custom AI integration"
+    deliverable: "Custom AI integration",
+    interactive: true,
+    interactiveFeatures: ["API playground", "Real-time testing", "Collaborative debugging"]
   },
   {
     id: 4,
@@ -56,7 +65,9 @@ const modules = [
       "Monitoring and maintenance",
       "Presenting to stakeholders"
     ],
-    deliverable: "Production-ready AI solution"
+    deliverable: "Production-ready AI solution",
+    interactive: true,
+    interactiveFeatures: ["Deploy with one click", "Live monitoring dashboard", "Client presentation mode"]
   }
 ]
 
@@ -79,12 +90,16 @@ const benefits = [
 ]
 
 export function FortyEightHourProgram() {
+  const router = useRouter()
+  const [showInteractiveDemo, setShowInteractiveDemo] = useState(false)
+
   return (
     <div className="py-16 px-4 max-w-7xl mx-auto">
       {/* Header */}
       <div className="text-center mb-12">
         <Badge className="mb-4" variant="secondary">
-          HARKA Signature Program
+          <Sparkles className="h-3 w-3 mr-1" />
+          HARKA Signature Program - Now Interactive!
         </Badge>
         <h1 className="text-4xl font-bold mb-4">
           48-Hour AI Mastery Program
@@ -93,7 +108,38 @@ export function FortyEightHourProgram() {
           Transform from AI beginner to practitioner in just 48 hours. 
           Build real solutions, not just theory.
         </p>
+        <div className="mt-6 flex justify-center gap-4">
+          <Button size="lg" onClick={() => router.push('/demo/interactive-learning')}>
+            <Play className="h-4 w-4 mr-2" />
+            Try Interactive Demo
+          </Button>
+          <Button size="lg" variant="outline" onClick={() => router.push('/community/power-hour')}>
+            <Users className="h-4 w-4 mr-2" />
+            Join Power Hour
+          </Button>
+        </div>
       </div>
+
+      {/* New Interactive Features Banner */}
+      <Card className="mb-12 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
+        <CardContent className="p-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+              <Code className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold mb-1">🎉 New: Interactive Learning Experience</h3>
+              <p className="text-sm text-muted-foreground">
+                Pause any lesson to experiment with code. Get real-time AI assistance. 
+                Join live Power Hours with the community. Learning has never been this engaging!
+              </p>
+            </div>
+            <Button variant="secondary" onClick={() => router.push('/demo/interactive-learning')}>
+              See It In Action
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Benefits */}
       <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -154,6 +200,22 @@ export function FortyEightHourProgram() {
                         </li>
                       ))}
                     </ul>
+                    
+                    {module.interactive && module.interactiveFeatures && (
+                      <div className="mt-4 pt-4 border-t">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Sparkles className="w-4 h-4 text-primary" />
+                          <span className="text-sm font-medium">Interactive Features:</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {module.interactiveFeatures.map((feature, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-xs">
+                              {feature}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </div>
