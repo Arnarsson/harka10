@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { SmartNavigation } from "@/components/navigation/smart-navigation"
 import { MobileNav } from "@/components/navigation/mobile-nav"
 import { QuickSearch } from "@/components/navigation/quick-search"
+import { NotificationBadge } from "@/components/navigation/notification-badge"
 import { getUserRole } from "@/lib/auth/roles"
 
 export function Header() {
@@ -38,6 +39,8 @@ export function Header() {
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
             <span className="text-xs text-muted-foreground font-satoshi">Connected</span>
           </div>
+
+          <NotificationBadge />
 
           <Button variant="ghost" size="icon" className="h-8 w-8">
             <Settings className="h-4 w-4" />
