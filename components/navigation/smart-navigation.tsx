@@ -27,7 +27,7 @@ export function SmartNavigation({ userRole = 'student' }: SmartNavigationProps) 
   const getVisibleItems = () => {
     let categories = ['learning', 'interactive', 'community', 'tools']
     
-    if (userRole === 'teacher') {
+    if (userRole === 'teacher' || userRole === 'admin') {
       categories.push('teacher')
     }
     
@@ -166,7 +166,7 @@ export function SmartNavigation({ userRole = 'student' }: SmartNavigationProps) 
       </DropdownMenu>
 
       {/* Teacher Features (if applicable) */}
-      {userRole === 'teacher' && teacherItems.length > 0 && (
+      {(userRole === 'teacher' || userRole === 'admin') && teacherItems.length > 0 && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="text-sm font-medium font-satoshi border-purple-200 hover:border-purple-300">

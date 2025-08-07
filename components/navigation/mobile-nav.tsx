@@ -20,7 +20,7 @@ export function MobileNav({ userRole = 'student', isOpen, onClose }: MobileNavPr
   const getVisibleItems = () => {
     let categories = ['learning', 'interactive', 'community', 'tools']
     
-    if (userRole === 'teacher') {
+    if (userRole === 'teacher' || userRole === 'admin') {
       categories.push('teacher')
     }
     
@@ -164,7 +164,7 @@ export function MobileNav({ userRole = 'student', isOpen, onClose }: MobileNavPr
           )}
 
           {/* Teacher Features (if applicable) */}
-          {userRole === 'teacher' && teacherItems.length > 0 && (
+          {(userRole === 'teacher' || userRole === 'admin') && teacherItems.length > 0 && (
             <div className="border-t pt-3 mt-3">
               <div className="flex items-center space-x-2 mb-2">
                 <h4 className="text-xs text-muted-foreground uppercase tracking-wide">
