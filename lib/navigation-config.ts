@@ -1,4 +1,4 @@
-import { Play, Users, Code, Zap, BookOpen, BarChart3, Settings, Wrench, GraduationCap, Sparkles } from 'lucide-react'
+import { Play, Users, Code, Zap, BookOpen, BarChart3, Settings, Wrench, GraduationCap, Sparkles, Upload, FileText } from 'lucide-react'
 
 export interface NavigationItem {
   title: string
@@ -93,11 +93,27 @@ export const navigationItems: NavigationItem[] = [
 
   // Teacher Features (for role-based display)
   {
-    title: 'Teach Dashboard',
+    title: 'Teacher Dashboard',
     href: '/teach/dashboard',
-    description: 'Manage your teaching content',
+    description: 'Overview of your teaching activities',
     icon: GraduationCap,
     badge: 'TEACHER',
+    category: 'teacher'
+  },
+  {
+    title: 'Upload Content',
+    href: '/teach/upload',
+    description: 'Upload videos, documents, and interactive content',
+    icon: Upload,
+    badge: 'PRIMARY',
+    category: 'teacher'
+  },
+  {
+    title: 'Interactive Builder',
+    href: '/teach/interactive',
+    description: 'Create hands-on interactive lessons',
+    icon: Sparkles,
+    badge: 'NEW',
     category: 'teacher'
   }
 ]
