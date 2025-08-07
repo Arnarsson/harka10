@@ -2,12 +2,18 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useUser } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Settings, HelpCircle } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { SmartNavigation } from "@/components/navigation/smart-navigation"
+import { MobileNav } from "@/components/navigation/mobile-nav"
+import { getUserRole } from "@/lib/auth/roles"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { user } = useUser()
+  const userRole = getUserRole(user)
 
   return (
     <header className="sticky top-0 z-50 w-full harka-nav">
@@ -16,24 +22,10 @@ export function Header() {
           <div className="text-2xl font-bold font-satoshi tracking-tight">HARKA</div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/dashboard" className="text-sm font-medium font-satoshi hover:text-primary transition-colors">
-            Dashboard
-          </Link>
-          <Link href="/learning" className="text-sm font-medium font-satoshi hover:text-primary transition-colors">
-            Learning
-          </Link>
-          <Link href="/playground" className="text-sm font-medium font-satoshi hover:text-primary transition-colors">
-            Playground
-          </Link>
-          <Link href="/analytics" className="text-sm font-medium font-satoshi hover:text-primary transition-colors">
-            Analytics
-          </Link>
-          <Link href="/toolkit" className="text-sm font-medium font-satoshi hover:text-primary transition-colors">
-            Toolkit
-          </Link>
-        </nav>
+        {/* Desktop Navigation - Smart Navigation */}
+        <div className="hidden md:block">
+          <SmartNavigation userRole={userRole} />
+        </div>
 
         <div className="hidden md:flex items-center space-x-4">
           <div className="flex items-center space-x-2">
@@ -61,28 +53,12 @@ export function Header() {
         </Button>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur">
-          <div className="container py-4 space-y-4">
-            <Link href="/dashboard" className="block py-2 text-sm font-medium font-satoshi">
-              Dashboard
-            </Link>
-            <Link href="/learning" className="block py-2 text-sm font-medium font-satoshi">
-              Learning
-            </Link>
-            <Link href="/playground" className="block py-2 text-sm font-medium font-satoshi">
-              Playground
-            </Link>
-            <Link href="/analytics" className="block py-2 text-sm font-medium font-satoshi">
-              Analytics
-            </Link>
-            <Link href="/toolkit" className="block py-2 text-sm font-medium font-satoshi">
-              Toolkit
-            </Link>
-          </div>
-        </div>
-      )}
+      {/* Mobile Navigation - Smart Mobile Nav */}
+      <MobileNav 
+        userRole={userRole} 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)} 
+      />
     </header>
   )
 }
