@@ -1,10 +1,10 @@
-import { auth } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { DashboardLayout } from '@/components/layout/DashboardLayout'
 import { TeamInvitations } from '@/components/team/TeamInvitations'
 
 export default async function TeamPage() {
-  const { userId } = auth()
+  const { userId } = await auth()
   
   if (!userId) {
     redirect('/sign-in')
