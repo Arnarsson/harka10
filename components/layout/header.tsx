@@ -8,6 +8,7 @@ import { Menu, X, Settings, HelpCircle } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { SmartNavigation } from "@/components/navigation/smart-navigation"
 import { MobileNav } from "@/components/navigation/mobile-nav"
+import { QuickSearch } from "@/components/navigation/quick-search"
 import { getUserRole } from "@/lib/auth/roles"
 
 export function Header() {
@@ -28,6 +29,11 @@ export function Header() {
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
+          {/* Quick Search */}
+          <div className="w-64">
+            <QuickSearch />
+          </div>
+
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
             <span className="text-xs text-muted-foreground font-satoshi">Connected</span>

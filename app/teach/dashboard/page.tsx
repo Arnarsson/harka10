@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -204,16 +205,33 @@ export default function TeachDashboard() {
             </Card>
 
             {/* Quick Actions */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setCurrentTab('upload')}>
                 <CardContent className="p-6 text-center">
                   <Upload className="h-12 w-12 mx-auto text-blue-500 mb-4" />
-                  <h3 className="font-semibold mb-2">Upload New Content</h3>
+                  <h3 className="font-semibold mb-2">Upload Content</h3>
                   <p className="text-sm text-muted-foreground">
-                    Share videos, documents, or interactive lessons
+                    Share videos, documents, or resources
                   </p>
                 </CardContent>
               </Card>
+
+              <Link href="/teach/interactive">
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="relative">
+                      <Play className="h-12 w-12 mx-auto text-purple-500 mb-4" />
+                      <div className="absolute -top-1 -right-1">
+                        <span className="bg-purple-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+                      </div>
+                    </div>
+                    <h3 className="font-semibold mb-2">Interactive Builder</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Create interactive lessons with quizzes and code
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
 
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardContent className="p-6 text-center">
@@ -227,7 +245,7 @@ export default function TeachDashboard() {
 
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
                 <CardContent className="p-6 text-center">
-                  <Users className="h-12 w-12 mx-auto text-purple-500 mb-4" />
+                  <Users className="h-12 w-12 mx-auto text-orange-500 mb-4" />
                   <h3 className="font-semibold mb-2">Student Messages</h3>
                   <p className="text-sm text-muted-foreground">
                     Respond to questions and feedback

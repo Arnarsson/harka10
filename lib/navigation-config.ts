@@ -1,4 +1,4 @@
-import { Play, Users, Code, Zap, BookOpen, BarChart3, Settings, Wrench, GraduationCap } from 'lucide-react'
+import { Play, Users, Code, Zap, BookOpen, BarChart3, Settings, Wrench, GraduationCap, Sparkles } from 'lucide-react'
 
 export interface NavigationItem {
   title: string
@@ -35,6 +35,15 @@ export const navigationItems: NavigationItem[] = [
     description: 'Experience AI-powered interactive lessons',
     icon: Play,
     badge: 'NEW',
+    category: 'interactive',
+    isNew: true
+  },
+  {
+    title: 'Enhanced Interactive',
+    href: '/demo/enhanced-interactive',
+    description: 'Advanced interactive lessons with pause points and quizzes',
+    icon: Sparkles,
+    badge: 'BETA',
     category: 'interactive',
     isNew: true
   },
