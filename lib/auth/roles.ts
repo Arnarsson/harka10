@@ -42,20 +42,32 @@ export type Permission = keyof typeof PERMISSIONS
  * Get user role from Clerk session claims or metadata
  */
 export function getUserRole(user: User | null): UserRole {
-  if (!user) return 'student'
+  if (!user) {
+    console.log(`[ROLE DEBUG] No user provided, defaulting to 'student'`)
+    return 'student'
+  }
+  
+  console.log(`[ROLE DEBUG] User object:`, { 
+    id: user.id, 
+    publicMetadata: user.publicMetadata,
+    sessionClaims: (user as any).sessionClaims 
+  })
   
   // Check public metadata for role (set by admin)
   const roleFromMetadata = user.publicMetadata?.role as UserRole
   if (roleFromMetadata && isValidRole(roleFromMetadata)) {
+    console.log(`[ROLE DEBUG] Found role from metadata: ${roleFromMetadata}`)
     return roleFromMetadata
   }
   
   // Check session claims for role 
   const roleFromClaims = (user as any).sessionClaims?.role as UserRole
   if (roleFromClaims && isValidRole(roleFromClaims)) {
+    console.log(`[ROLE DEBUG] Found role from claims: ${roleFromClaims}`)
     return roleFromClaims
   }
   
+  console.log(`[ROLE DEBUG] No role found, defaulting to 'student'`)
   // Default to student
   return 'student'
 }

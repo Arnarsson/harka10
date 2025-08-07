@@ -43,8 +43,7 @@ const isTeacherRoute = createRouteMatcher([
 ])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { userId } = await auth()
-  const user = userId ? await auth() : null
+  const { userId, user } = await auth()
   
   // 1. Handle authenticated users on auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
@@ -59,9 +58,14 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     
     // Check if user has admin role
     const userRole = getUserRole(user as any)
+    console.log(`[MIDDLEWARE DEBUG] User ID: ${userId}, Role: ${userRole}, User metadata:`, user?.publicMetadata)
+    
     if (userRole !== 'admin') {
+      console.log(`[MIDDLEWARE DEBUG] Access denied - user role "${userRole}" is not admin`)
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
+    
+    console.log(`[MIDDLEWARE DEBUG] Admin access granted for user ${userId}`)
   }
 
   // 3. Handle teacher routes with role-based access control
