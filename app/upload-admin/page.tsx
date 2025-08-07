@@ -20,23 +20,29 @@ export default function DirectUploadPage() {
     e.preventDefault()
     setUploading(true)
     
-    // Your upload logic here - connect to Supabase directly
     const formData = new FormData(e.target as HTMLFormElement)
     
     try {
-      // Direct Supabase upload - bypass all the middleware crap
+      console.log('Starting upload...')
       const response = await fetch('/api/direct-upload', {
         method: 'POST',
         body: formData
       })
       
-      if (response.ok) {
-        alert('Content uploaded successfully!')
-        router.refresh()
+      const result = await response.json()
+      console.log('Upload response:', result)
+      
+      if (response.ok && result.success) {
+        alert(`Content uploaded successfully!\nFile URL: ${result.fileUrl}`)
+        // Reset form
+        ;(e.target as HTMLFormElement).reset()
+      } else {
+        console.error('Upload failed:', result)
+        alert(`Upload failed: ${result.error}\n\nCheck console for details.`)
       }
     } catch (error) {
-      console.error('Upload failed:', error)
-      alert('Upload failed - check console')
+      console.error('Upload error:', error)
+      alert(`Upload error: ${error}\n\nCheck console for details.`)
     } finally {
       setUploading(false)
     }
