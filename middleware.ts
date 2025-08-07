@@ -7,9 +7,11 @@ const isPublicRoute = createRouteMatcher([
   '/',
   '/about', '/pricing', '/contact', '/blog', '/blog/(.*)',
   '/toolkit', '/team', '/workshop',
-  '/api/webhook/(.*)', '/api/stripe/(.*)', '/api/check-role',
+  '/api/webhook/(.*)', '/api/stripe/(.*)', '/api/check-role', '/api/direct-upload',
   '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)',
-  '/teacher-access'  // Direct access page
+  '/teacher-access',  // Direct access page
+  '/upload-admin',    // Direct upload bypass - NO AUTH REQUIRED
+  '/quick-upload'     // Quick upload - stores locally
 ])
 
 const isAuthPage = createRouteMatcher([
