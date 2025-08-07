@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getUserRole, hasPermission, canAccessRoute } from '@/lib/auth/roles'
 
 // Define public routes - accessible without authentication
 const isPublicRoute = createRouteMatcher([
@@ -35,32 +36,53 @@ const isAdminRoute = createRouteMatcher([
   '/admin/(.*)'
 ])
 
+// Define teacher routes  
+const isTeacherRoute = createRouteMatcher([
+  '/teach',
+  '/teach/(.*)'
+])
+
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { userId } = await auth()
+  const user = userId ? await auth() : null
   
   // 1. Handle authenticated users on auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
     return NextResponse.redirect(new URL('/learn/dashboard', req.url))
   }
 
-  // 2. Handle admin routes
+  // 2. Handle admin routes with role-based access control
   if (isAdminRoute(req)) {
     if (!userId) {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
-    // TODO: Add role-based access control for admin
-    // const { sessionClaims } = await auth()
-    // if (sessionClaims?.role !== 'admin') {
-    //   return NextResponse.redirect(new URL('/learn/dashboard', req.url))
-    // }
+    
+    // Check if user has admin role
+    const userRole = getUserRole(user as any)
+    if (userRole !== 'admin') {
+      return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+    }
   }
 
-  // 3. Allow public routes
+  // 3. Handle teacher routes with role-based access control
+  if (isTeacherRoute(req)) {
+    if (!userId) {
+      return NextResponse.redirect(new URL('/sign-in', req.url))
+    }
+    
+    // Check if user has teacher or admin role
+    const userRole = getUserRole(user as any)
+    if (userRole !== 'teacher' && userRole !== 'admin') {
+      return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+    }
+  }
+
+  // 4. Allow public routes
   if (isPublicRoute(req)) {
     return NextResponse.next()
   }
 
-  // 4. Protect all other routes
+  // 5. Protect all other routes
   if (!userId) {
     // Store the attempted URL to redirect after login
     const signInUrl = new URL('/sign-in', req.url)
