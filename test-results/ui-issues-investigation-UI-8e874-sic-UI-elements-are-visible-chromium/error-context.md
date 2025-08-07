@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- navigation:
+  - link "HARKA":
+    - /url: /
+  - link "Dashboard":
+    - /url: /learn/dashboard
+  - link "Learning":
+    - /url: /learn/learning
+  - link "Playground":
+    - /url: /learn/playground
+  - link "Analytics":
+    - /url: /learn/analytics
+  - link "Toolkit":
+    - /url: /learn/toolkit
+  - button:
+    - img
+  - button "EN":
+    - img
+    - text: EN
+  - link "Sign In":
+    - /url: /sign-in
+    - button "Sign In"
+  - link "Sign Up":
+    - /url: /sign-up
+    - button "Sign Up"
+- text: Betroet af 500+ nordiske virksomheder
+- heading "From idea to implementation in just 48 hours." [level=1]
+- paragraph: We turn AI potential into practical solutions that deliver measurable results – without lengthy project cycles or PowerPoints.
+- button "From strategy to action in 2 days - contact us today":
+  - text: From strategy to action in 2 days - contact us today
+  - img
+- paragraph:
+  - text: 🎯
+  - strong: Gratis 15-minutters konsultation
+  - text: "- Ingen forpligtelser, bare udforsk hvordan AI kan transformere din virksomhed"
+- paragraph: ✓ Understand your specific use cases ✓ Get implementation timeline ✓ Receive custom recommendations
+- heading "Læringsforløb" [level=3]
+- text: "? Fundamentals 100% Ethics & Governance 75% Implementation 45% Næste Modul Project Planning Workshop"
+- button "Continue"
+- img
+- text: Scroll ned
+- region "Notifications (F8)":
+  - list
+- button "Open Next.js Dev Tools":
+  - img
+- alert
+```
