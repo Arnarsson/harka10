@@ -70,8 +70,8 @@ export function TeacherDashboardClient() {
     try {
       setLoading(true)
       
-      // Fetch content
-      const contentRes = await fetch('/api/content?limit=50')
+      // Fetch content using secure endpoint
+      const contentRes = await fetch('/api/content/secure?mine=true&limit=50')
       if (contentRes.ok) {
         const contentData = await contentRes.json()
         setContent(contentData.content || [])
@@ -102,7 +102,7 @@ export function TeacherDashboardClient() {
     if (!confirm('Are you sure you want to delete this content?')) return
 
     try {
-      const res = await fetch(`/api/content?id=${id}`, { method: 'DELETE' })
+      const res = await fetch(`/api/content/secure?id=${id}`, { method: 'DELETE' })
       if (res.ok) {
         toast.success('Content deleted successfully')
         setContent(content.filter(c => c.id !== id))
@@ -116,10 +116,10 @@ export function TeacherDashboardClient() {
 
   const handlePublishContent = async (id: string) => {
     try {
-      const res = await fetch('/api/content', {
+      const res = await fetch('/api/content/secure', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status: 'published' })
+        body: JSON.stringify({ id, status: 'published', published: true })
       })
       
       if (res.ok) {

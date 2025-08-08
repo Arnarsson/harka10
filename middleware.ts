@@ -7,21 +7,21 @@ const isPublicRoute = createRouteMatcher([
   '/',
   '/about', '/pricing', '/contact', '/blog', '/blog/(.*)',
   '/toolkit', '/team', '/workshop',
-  '/api/webhook/(.*)', '/api/stripe/(.*)', '/api/check-role', '/api/direct-upload',
-  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)',
-  '/teacher-access',  // Direct access page
-  '/upload-admin'     // Direct upload bypass - NO AUTH REQUIRED
+  '/api/webhook/(.*)', '/api/stripe/(.*)',
+  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)'
+  // REMOVED: '/api/check-role', '/api/direct-upload', '/teacher-access', '/upload-admin'
+  // These routes MUST require authentication
 ])
 
 const isAuthPage = createRouteMatcher([
   '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)'
 ])
 
-const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)'])
-const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)'])
+const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)', '/upload-admin'])
+const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)', '/teacher-access'])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { userId, sessionClaims } = await auth()
+  const { userId, user } = await auth()
   
   // Handle authenticated users on auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
@@ -34,8 +34,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
     
-    // Use sessionClaims for role checking (more reliable than publicMetadata)
-    const role = sessionClaims?.metadata?.role || sessionClaims?.role as string
+    const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'admin') {
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
@@ -47,11 +46,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
     
-    // Use sessionClaims for role checking
-    const role = sessionClaims?.metadata?.role || sessionClaims?.role as string
+    const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'teacher' && role !== 'admin') {
-      // Log for debugging
-      console.log(`[TEACHER ACCESS] User ${userId} denied - role: ${role}`)
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
   }

@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { VideoUpload } from '@/components/admin/video-upload'
+import { VideoUploadSecure } from '@/components/admin/video-upload-secure'
 import { 
   Upload, FileText, Image, Code, BookOpen, 
   Play, Users, Target, Sparkles, Save, 
@@ -246,7 +246,7 @@ export function UploadHub() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <VideoUpload onVideoUploaded={handleVideoUploaded} />
+                  <VideoUploadSecure onVideoUploaded={handleVideoUploaded} />
                 </CardContent>
               </Card>
             )}
