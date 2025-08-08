@@ -21,7 +21,7 @@ const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)'])
 const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)'])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { userId, user } = await auth()
+  const { userId, sessionClaims } = await auth()
   
   // Handle authenticated users on auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
@@ -34,7 +34,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
     
-    const role = user?.publicMetadata?.role as string
+    // Use sessionClaims for role checking (more reliable than publicMetadata)
+    const role = sessionClaims?.metadata?.role || sessionClaims?.role as string
     if (role !== 'admin') {
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
@@ -46,16 +47,11 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
     
-    // TEMPORARY: Allow specific user ID for testing
-    const ALLOWED_TEST_USER = 'user_30YXhnEINgKfSXpNdECrOMmXL0p'
-    if (userId === ALLOWED_TEST_USER) {
-      console.log(`[TEACHER ACCESS] Allowing test user ${userId} to access teacher routes`)
-      return NextResponse.next()
-    }
-    
-    const role = user?.publicMetadata?.role as string
+    // Use sessionClaims for role checking
+    const role = sessionClaims?.metadata?.role || sessionClaims?.role as string
     if (role !== 'teacher' && role !== 'admin') {
-      console.log(`[TEACHER ACCESS] Denying access - user ${userId} has role "${role}"`)
+      // Log for debugging
+      console.log(`[TEACHER ACCESS] User ${userId} denied - role: ${role}`)
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
   }
