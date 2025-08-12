@@ -6,10 +6,11 @@ import { Toaster } from "@/components/ui/toaster"
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
 import { ClerkProvider } from '@clerk/nextjs'
 import { LanguageProvider } from "@/lib/i18n/language-context"
+import { SimpleHeader } from "@/components/layout/simple-header"
 
 export const metadata: Metadata = {
-  title: "HARKA - AI der leverer reel forretningsværdi",
-  description: "Transform your organization through our comprehensive three-phase AI training methodology. From fundamentals to ethical implementation.",
+  title: "HARKA - AI-Powered Learning Platform",
+  description: "Transform your organization with interactive AI-powered learning, personalized paths, and real-time collaboration.",
 }
 
 export default function RootLayout({
@@ -36,7 +37,10 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             <LanguageProvider>
               <AnalyticsTracker />
-              {children}
+              <SimpleHeader />
+              <main className="min-h-screen">
+                {children}
+              </main>
               <Toaster />
             </LanguageProvider>
           </ThemeProvider>
