@@ -39,21 +39,21 @@ export function SimpleHeader() {
 
   // Different navigation items for guests vs authenticated users
   const guestNavItems = [
-    { href: '/', label: t.nav.home, icon: Home },
-    { href: '#features', label: t.nav.features || 'Features', icon: Sparkles },
-    { href: '#pricing', label: t.nav.pricing || 'Pricing', icon: CreditCard },
+    { href: '/', label: language === 'da' ? 'Hjem' : 'Home', icon: Home },
+    { href: '#features', label: language === 'da' ? 'Funktioner' : 'Features', icon: Sparkles },
+    { href: '#pricing', label: language === 'da' ? 'Priser' : 'Pricing', icon: CreditCard },
     { href: '/demo/interactive-learning', label: 'Demo', icon: PlayCircle },
-    { href: '#about', label: t.nav.about || 'About', icon: Info },
+    { href: '#about', label: language === 'da' ? 'Om os' : 'About', icon: Info },
   ]
 
   const authenticatedNavItems = [
-    { href: '/dashboard', label: t.nav.dashboard || 'Dashboard', icon: BookOpen },
-    { href: '/learn/courses', label: t.nav.courses || 'Courses', icon: PlayCircle },
+    { href: '/dashboard', label: language === 'da' ? 'Dashboard' : 'Dashboard', icon: BookOpen },
+    { href: '/learn/courses', label: language === 'da' ? 'Kurser' : 'Courses', icon: PlayCircle },
     { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass },
-    { href: '/community/power-hour', label: t.nav.community || 'Community', icon: Users },
-    { href: '/analytics', label: t.nav.analytics || 'Analytics', icon: BarChart },
-    { href: '/toolkit', label: t.nav.toolkit || 'Toolkit', icon: FileText },
-    { href: '/teach/dashboard', label: t.nav.teach || 'Teach', icon: Upload, requireTeacher: true },
+    { href: '/community/power-hour', label: language === 'da' ? 'Fællesskab' : 'Community', icon: Users },
+    { href: '/analytics', label: language === 'da' ? 'Analyser' : 'Analytics', icon: BarChart },
+    { href: '/toolkit', label: language === 'da' ? 'Værktøjskasse' : 'Toolkit', icon: FileText },
+    { href: '/teach/dashboard', label: language === 'da' ? 'Undervis' : 'Teach', icon: Upload, requireTeacher: true },
     { href: '/admin/dashboard', label: 'Admin', icon: Shield, requireAdmin: true },
   ]
 
@@ -138,12 +138,12 @@ export function SimpleHeader() {
               <>
                 <SignInButton mode="modal">
                   <Button variant="ghost" size="sm">
-                    {t.auth?.signIn || 'Sign In'}
+                    {language === 'da' ? 'Log ind' : 'Sign In'}
                   </Button>
                 </SignInButton>
                 <SignUpButton mode="modal">
                   <Button size="sm">
-                    {t.auth?.signUp || 'Get Started'}
+                    {language === 'da' ? 'Kom i gang' : 'Get Started'}
                   </Button>
                 </SignUpButton>
               </>
@@ -209,12 +209,12 @@ export function SimpleHeader() {
                   <div className="flex flex-col space-y-2 px-3">
                     <SignInButton mode="modal">
                       <Button variant="ghost" className="w-full">
-                        {t.auth?.signIn || 'Sign In'}
+                        {language === 'da' ? 'Log ind' : 'Sign In'}
                       </Button>
                     </SignInButton>
                     <SignUpButton mode="modal">
                       <Button className="w-full">
-                        {t.auth?.signUp || 'Get Started'}
+                        {language === 'da' ? 'Kom i gang' : 'Get Started'}
                       </Button>
                     </SignUpButton>
                   </div>
