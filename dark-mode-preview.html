@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HARKA - Dark Mode Preview</title>
+    <style>
+        :root {
+            /* Light Mode */
+            --bg: #ffffff;
+            --fg: #2c3e50;
+            --card: #ffffff;
+            --border: #e8e9ec;
+            --accent: #4a90e2;
+            --accent-dark: #2563eb;
+            --muted: #6b7280;
+            --gradient-1: #4a90e2;
+            --gradient-2: #8b5cf6;
+            --gradient-3: #ec4899;
+        }
+
+        .dark {
+            /* Enhanced Dark Mode */
+            --bg: #0f172a;
+            --fg: #e2e8f0;
+            --card: #1e293b;
+            --border: #334155;
+            --accent: #60a5fa;
+            --accent-dark: #3b82f6;
+            --muted: #94a3b8;
+            --gradient-1: #60a5fa;
+            --gradient-2: #a78bfa;
+            --gradient-3: #f472b6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--fg);
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        button.primary {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            border: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .abstract-bg {
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle at 30% 30%, var(--gradient-1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, var(--gradient-2) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, var(--gradient-3) 0%, transparent 50%);
+            opacity: 0.1;
+            filter: blur(100px);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+            50% { transform: translateX(-50%) translateY(-20px) scale(1.05); }
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .dark .card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--fg);
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .features {
+            margin-top: 4rem;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(at 40% 20%, hsla(210, 80%, 60%, 0.3) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(270, 70%, 60%, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(320, 70%, 60%, 0.2) 0px, transparent 50%);
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .cards { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="mesh-gradient"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">HARKA</div>
+            <div class="controls">
+                <button onclick="toggleLanguage()" id="langBtn">EN</button>
+                <button onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="abstract-bg"></div>
+            <h1 id="headline">AI that understands you</h1>
+            <p id="description">Experience personalized learning powered by artificial intelligence. Start your journey with our free AI compass assessment.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button class="primary">Start AI Assessment →</button>
+                <button>Learn More</button>
+            </div>
+        </section>
+
+        <section class="cards">
+            <div class="card glass">
+                <h3>🚀 Adaptive Learning</h3>
+                <p>AI adjusts content to match your pace and learning style, ensuring optimal progress.</p>
+            </div>
+            <div class="card glass">
+                <h3>⚡ Instant Feedback</h3>
+                <p>Get immediate responses and guidance as you learn, keeping you engaged and motivated.</p>
+            </div>
+            <div class="card glass">
+                <h3>📊 Track Progress</h3>
+                <p>Monitor your growth with detailed analytics and insights into your learning journey.</p>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem;">Why Choose HARKA?</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Personalized</h4>
+                    <p style="color: var(--muted)">Tailored to your needs</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h4>Multi-language</h4>
+                    <p style="color: var(--muted)">Learn in your language</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Secure</h4>
+                    <p style="color: var(--muted)">Your data is protected</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h4>Responsive</h4>
+                    <p style="color: var(--muted)">Works on all devices</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let isDark = false;
+        let isEnglish = true;
+
+        const translations = {
+            en: {
+                headline: "AI that understands you",
+                description: "Experience personalized learning powered by artificial intelligence. Start your journey with our free AI compass assessment.",
+                langBtn: "EN"
+            },
+            da: {
+                headline: "AI der forstår dig",
+                description: "Oplev personaliseret læring drevet af kunstig intelligens. Start din rejse med vores gratis AI-kompas vurdering.",
+                langBtn: "DA"
+            }
+        };
+
+        function toggleTheme() {
+            isDark = !isDark;
+            document.documentElement.className = isDark ? 'dark' : 'light';
+            document.getElementById('themeBtn').textContent = isDark ? '☀️ Light' : '🌙 Dark';
+            
+            // Visual feedback
+            document.body.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                document.body.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            const lang = isEnglish ? 'en' : 'da';
+            document.getElementById('headline').textContent = translations[lang].headline;
+            document.getElementById('description').textContent = translations[lang].description;
+            document.getElementById('langBtn').textContent = translations[lang].langBtn;
+        }
+
+        // Check system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            toggleTheme();
+        }
+
+        // Smooth scroll animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            entry.target.style.transition = 'all 0.6s ease';
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+            });
+            
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+</body>
+</html>

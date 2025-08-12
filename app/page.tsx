@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { PublicLanding } from '@/components/landing/public-landing-simple'
+import { AbstractMinimalLanding } from '@/components/landing/abstract-minimal-landing'
 
 export default async function HomePage() {
   const { userId } = await auth()
@@ -10,6 +10,6 @@ export default async function HomePage() {
     redirect('/dashboard')
   }
 
-  // Otherwise show the simple public landing page for guests
-  return <PublicLanding />
+  // Otherwise show the abstract minimal landing page for guests
+  return <AbstractMinimalLanding />
 }
