@@ -1,15 +1,15 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { PublicLanding } from '@/components/landing/public-landing'
+import { HarkaStyleLanding } from '@/components/landing/harka-style-landing'
 
 export default async function HomePage() {
   const { userId } = await auth()
   
   // If user is logged in, redirect to dashboard
   if (userId) {
-    redirect('/dashboard')
+    redirect('/learn/dashboard')
   }
 
-  // Otherwise show the public landing page for guests
-  return <PublicLanding />
+  // Otherwise show the harka.dk style landing page for guests
+  return <HarkaStyleLanding />
 }

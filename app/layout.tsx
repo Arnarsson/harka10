@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
 import { ClerkProvider } from '@clerk/nextjs'
 import { LanguageProvider } from "@/lib/i18n/language-context"
-import { SimpleHeader } from "@/components/layout/simple-header"
+import { SimpleHeader } from "@/components/layout/simple-header-fixed"
 
 export const metadata: Metadata = {
   title: "HARKA - AI-Powered Learning Platform",
