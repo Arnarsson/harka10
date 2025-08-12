@@ -7,18 +7,18 @@ const isPublicRoute = createRouteMatcher([
   '/',
   '/about', '/pricing', '/contact', '/blog', '/blog/(.*)',
   '/toolkit', '/team', '/workshop',
-  '/api/webhook/(.*)', '/api/stripe/(.*)', '/api/check-role', '/api/direct-upload',
-  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)',
-  '/teacher-access',  // Direct access page
-  '/upload-admin'     // Direct upload bypass - NO AUTH REQUIRED
+  '/api/webhook/(.*)', '/api/stripe/(.*)',
+  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)'
+  // REMOVED: '/api/check-role', '/api/direct-upload', '/teacher-access', '/upload-admin'
+  // These routes MUST require authentication
 ])
 
 const isAuthPage = createRouteMatcher([
   '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)'
 ])
 
-const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)'])
-const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)'])
+const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)', '/upload-admin'])
+const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)', '/teacher-access'])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { userId, user } = await auth()
@@ -34,7 +34,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
     
-    const role = user?.publicMetadata?.role as string
+    const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'admin') {
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
@@ -46,16 +46,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
     
-    // TEMPORARY: Allow specific user ID for testing
-    const ALLOWED_TEST_USER = 'user_30YXhnEINgKfSXpNdECrOMmXL0p'
-    if (userId === ALLOWED_TEST_USER) {
-      console.log(`[TEACHER ACCESS] Allowing test user ${userId} to access teacher routes`)
-      return NextResponse.next()
-    }
-    
-    const role = user?.publicMetadata?.role as string
+    const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'teacher' && role !== 'admin') {
-      console.log(`[TEACHER ACCESS] Denying access - user ${userId} has role "${role}"`)
       return NextResponse.redirect(new URL('/learn/dashboard', req.url))
     }
   }

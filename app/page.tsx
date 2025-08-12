@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { HarkaHero } from '@/components/landing/harka-hero'
+import { EnhancedHero } from '@/components/landing/enhanced-hero'
 
 export default async function HomePage() {
   const { userId } = await auth()
@@ -10,6 +10,6 @@ export default async function HomePage() {
     redirect('/dashboard')
   }
 
-  // Otherwise show the landing page
-  return <HarkaHero />
+  // Otherwise show the enhanced landing page
+  return <EnhancedHero />
 }

@@ -15,13 +15,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { VideoUploadSecure } from '@/components/admin/video-upload-secure'
+import { VideoUpload } from '@/components/admin/video-upload'
 import { 
   Upload, FileText, Image, Code, BookOpen, 
   Play, Users, Target, Sparkles, Save, 
-  Eye, ChevronRight, Plus, Folder
+  Eye, ChevronRight, Plus, Folder, X,
+  Monitor, Smartphone, Tablet, CheckCircle
 } from 'lucide-react'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 interface UploadMetadata {
   title: string
@@ -86,7 +89,9 @@ const CATEGORIES = [
   'Other'
 ]
 
-export function UploadHub() {
+type PreviewDevice = 'desktop' | 'tablet' | 'mobile'
+
+export function UploadHubEnhanced() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [metadata, setMetadata] = useState<UploadMetadata>({
     title: '',
@@ -98,6 +103,9 @@ export function UploadHub() {
   })
   const [newTag, setNewTag] = useState('')
   const [uploadedContent, setUploadedContent] = useState<any>(null)
+  const [isPublishing, setIsPublishing] = useState(false)
+  const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('desktop')
+  const router = useRouter()
 
   const handleVideoUploaded = (url: string, videoMetadata: any) => {
     setUploadedContent({ url, ...videoMetadata })
@@ -121,7 +129,7 @@ export function UploadHub() {
     }))
   }
 
-  const handleSave = async () => {
+  const handleSave = async (isDraft = false) => {
     if (!metadata.title.trim()) {
       toast.error('Please add a title for your content')
       return
@@ -133,33 +141,46 @@ export function UploadHub() {
     }
 
     try {
-      // TODO: Save to database with teacher's ID
+      setIsPublishing(true)
+      
       const contentData = {
         type: selectedType,
-        metadata,
-        uploadedContent,
-        teacherId: 'current-user-id', // From auth context
-        createdAt: new Date().toISOString()
+        title: metadata.title,
+        description: metadata.description,
+        category: metadata.category,
+        difficulty: metadata.difficulty,
+        tags: metadata.tags,
+        content_url: uploadedContent?.url,
+        metadata: {
+          ...uploadedContent,
+          makeInteractive: metadata.makeInteractive,
+          estimatedDuration: metadata.estimatedDuration
+        },
+        status: isDraft ? 'draft' : 'published'
       }
 
-      console.log('Saving content:', contentData)
-      toast.success('Content saved successfully!')
-
-      // Reset form
-      setSelectedType(null)
-      setMetadata({
-        title: '',
-        description: '',
-        category: '',
-        difficulty: 'beginner',
-        tags: [],
-        makeInteractive: false
+      const response = await fetch('/api/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contentData)
       })
-      setUploadedContent(null)
+
+      if (!response.ok) {
+        throw new Error('Failed to save content')
+      }
+
+      const { content } = await response.json()
+      
+      toast.success(isDraft ? 'Content saved as draft!' : 'Content published successfully!')
+      
+      // Redirect to content library
+      router.push('/teach/dashboard?tab=content')
 
     } catch (error) {
       console.error('Error saving content:', error)
       toast.error('Failed to save content. Please try again.')
+    } finally {
+      setIsPublishing(false)
     }
   }
 
@@ -168,11 +189,10 @@ export function UploadHub() {
       {CONTENT_TYPES.map((type) => (
         <Card
           key={type.id}
-          className={`cursor-pointer transition-all hover:shadow-md ${
-            selectedType === type.id 
-              ? 'ring-2 ring-primary border-primary' 
-              : 'hover:border-gray-300'
-          }`}
+          className={cn(
+            "cursor-pointer transition-all hover:shadow-md",
+            selectedType === type.id && "ring-2 ring-primary border-primary"
+          )}
           onClick={() => setSelectedType(type.id)}
         >
           <CardContent className="p-6">
@@ -199,6 +219,146 @@ export function UploadHub() {
       ))}
     </div>
   )
+
+  const renderPreview = () => {
+    const deviceClasses = {
+      desktop: 'w-full',
+      tablet: 'max-w-md mx-auto',
+      mobile: 'max-w-xs mx-auto'
+    }
+
+    return (
+      <div className="space-y-4">
+        {/* Device Selector */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <Button
+            variant={previewDevice === 'desktop' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setPreviewDevice('desktop')}
+          >
+            <Monitor className="h-4 w-4 mr-1" />
+            Desktop
+          </Button>
+          <Button
+            variant={previewDevice === 'tablet' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setPreviewDevice('tablet')}
+          >
+            <Tablet className="h-4 w-4 mr-1" />
+            Tablet
+          </Button>
+          <Button
+            variant={previewDevice === 'mobile' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setPreviewDevice('mobile')}
+          >
+            <Smartphone className="h-4 w-4 mr-1" />
+            Mobile
+          </Button>
+        </div>
+
+        {/* Preview Content */}
+        <div className={cn("transition-all", deviceClasses[previewDevice])}>
+          <Card className="overflow-hidden">
+            {uploadedContent && selectedType === 'video' && (
+              <div className="aspect-video bg-gray-900 relative">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Play className="h-16 w-16 text-white opacity-80" />
+                </div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="bg-black/60 backdrop-blur rounded px-3 py-2">
+                    <p className="text-white text-sm font-medium">Video Preview</p>
+                    <p className="text-white/80 text-xs">
+                      {uploadedContent.duration || 'Duration not set'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                {/* Title and Description */}
+                <div>
+                  <h3 className="text-lg font-semibold">
+                    {metadata.title || 'Untitled Content'}
+                  </h3>
+                  {metadata.description && (
+                    <p className="text-muted-foreground mt-2">
+                      {metadata.description}
+                    </p>
+                  )}
+                </div>
+                
+                {/* Metadata badges */}
+                <div className="flex flex-wrap gap-2">
+                  {metadata.category && (
+                    <Badge variant="outline">{metadata.category}</Badge>
+                  )}
+                  <Badge variant="secondary" className="capitalize">
+                    {metadata.difficulty}
+                  </Badge>
+                  {metadata.makeInteractive && (
+                    <Badge className="bg-purple-100 text-purple-800">
+                      <Sparkles className="h-3 w-3 mr-1" />
+                      Interactive
+                    </Badge>
+                  )}
+                </div>
+
+                {/* Tags */}
+                {metadata.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {metadata.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                {/* Interactive Preview */}
+                {metadata.makeInteractive && (
+                  <Card className="border-purple-200 bg-purple-50/50 dark:bg-purple-900/20">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="h-4 w-4 text-purple-600" />
+                        <span className="text-sm font-medium">Interactive Elements</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        This content will include interactive quizzes, code exercises, and hands-on activities.
+                      </p>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Learning Outcomes */}
+                <div className="pt-4 border-t">
+                  <h4 className="text-sm font-medium mb-2">What students will learn:</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Core concepts of {metadata.category || 'this topic'}</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Practical examples and real-world applications</span>
+                    </li>
+                    {metadata.makeInteractive && (
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                        <span>Hands-on practice with interactive exercises</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
 
   const renderContentUpload = () => {
     if (!selectedType) return null
@@ -230,7 +390,7 @@ export function UploadHub() {
           <TabsList>
             <TabsTrigger value="upload">Upload Content</TabsTrigger>
             <TabsTrigger value="details">Add Details</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="preview">Preview & Publish</TabsTrigger>
           </TabsList>
 
           <TabsContent value="upload" className="space-y-6">
@@ -246,7 +406,7 @@ export function UploadHub() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <VideoUploadSecure onVideoUploaded={handleVideoUploaded} />
+                  <VideoUpload onVideoUploaded={handleVideoUploaded} />
                 </CardContent>
               </Card>
             )}
@@ -264,12 +424,17 @@ export function UploadHub() {
                 </CardHeader>
                 <CardContent className="text-center p-8">
                   <Code className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="font-semibold mb-2">Interactive Builder Coming Soon</h3>
+                  <h3 className="font-semibold mb-2">Interactive Builder</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    The visual interactive lesson builder is in development. 
-                    For now, you can upload videos and we'll help you add interactive elements.
+                    For now, upload a video and enable "Make Interactive" to add interactive elements.
                   </p>
-                  <Badge variant="secondary">Phase 2 Feature</Badge>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setMetadata(prev => ({ ...prev, makeInteractive: true }))}
+                  >
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    Enable Interactive Mode
+                  </Button>
                 </CardContent>
               </Card>
             )}
@@ -291,6 +456,9 @@ export function UploadHub() {
                     <p className="text-xs text-gray-500">
                       PDF, DOCX, PPTX up to 50MB
                     </p>
+                    <Button variant="outline" className="mt-4">
+                      Select Files
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -377,7 +545,7 @@ export function UploadHub() {
                           onClick={() => removeTag(tag)}
                           className="ml-2 text-gray-500 hover:text-gray-700"
                         >
-                          ×
+                          <X className="h-3 w-3" />
                         </button>
                       </Badge>
                     ))}
@@ -394,6 +562,20 @@ export function UploadHub() {
                     </Button>
                   </div>
                 </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="makeInteractive"
+                    checked={metadata.makeInteractive}
+                    onChange={(e) => setMetadata(prev => ({ ...prev, makeInteractive: e.target.checked }))}
+                    className="rounded"
+                  />
+                  <Label htmlFor="makeInteractive" className="flex items-center gap-2 cursor-pointer">
+                    <Sparkles className="h-4 w-4 text-purple-600" />
+                    Make this content interactive
+                  </Label>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -403,47 +585,11 @@ export function UploadHub() {
               <CardHeader>
                 <CardTitle>Content Preview</CardTitle>
                 <CardDescription>
-                  Review how your content will appear to students
+                  Review how your content will appear to students on different devices
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {metadata.title ? (
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-lg font-semibold">{metadata.title}</h3>
-                      {metadata.description && (
-                        <p className="text-muted-foreground mt-1">{metadata.description}</p>
-                      )}
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2">
-                      {metadata.category && (
-                        <Badge variant="outline">{metadata.category}</Badge>
-                      )}
-                      <Badge variant="secondary" className="capitalize">
-                        {metadata.difficulty}
-                      </Badge>
-                      {metadata.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    {uploadedContent && (
-                      <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                        <p className="text-sm text-gray-600">
-                          {uploadedContent.type === 'upload' 
-                            ? `Uploaded file: ${uploadedContent.filename}` 
-                            : `${uploadedContent.type} video linked`
-                          }
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground">Add content details to see preview</p>
-                )}
+                {renderPreview()}
               </CardContent>
             </Card>
           </TabsContent>
@@ -454,13 +600,29 @@ export function UploadHub() {
             Cancel
           </Button>
           <div className="flex gap-2">
-            <Button variant="outline">
+            <Button 
+              variant="outline" 
+              onClick={() => handleSave(true)}
+              disabled={isPublishing}
+            >
               <Eye className="h-4 w-4 mr-2" />
               Save Draft
             </Button>
-            <Button onClick={handleSave}>
-              <Save className="h-4 w-4 mr-2" />
-              Publish Content
+            <Button 
+              onClick={() => handleSave(false)}
+              disabled={isPublishing}
+            >
+              {isPublishing ? (
+                <>
+                  <div className="animate-spin h-4 w-4 mr-2 border-2 border-white border-t-transparent rounded-full" />
+                  Publishing...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  Publish Content
+                </>
+              )}
             </Button>
           </div>
         </div>

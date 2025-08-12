@@ -1,175 +1,94 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useAuth } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Upload, FileVideo, FileText, Image, Code, Loader2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { AlertTriangle, Lock, ArrowRight } from 'lucide-react'
 
-// DIRECT UPLOAD - NO AUTH BULLSHIT
-export default function DirectUploadPage() {
-  const [uploading, setUploading] = useState(false)
-  const [uploadType, setUploadType] = useState<'video' | 'document' | 'interactive' | 'image'>('video')
+export default function UploadAdminPage() {
+  const { userId, isLoaded } = useAuth()
   const router = useRouter()
 
-  const handleUpload = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setUploading(true)
-    
-    const formData = new FormData(e.target as HTMLFormElement)
-    
-    try {
-      console.log('Starting upload...')
-      const response = await fetch('/api/direct-upload', {
-        method: 'POST',
-        body: formData
-      })
-      
-      const result = await response.json()
-      console.log('Upload response:', result)
-      
-      if (response.ok && result.success) {
-        alert(`Content uploaded successfully!\nFile URL: ${result.fileUrl}`)
-        // Reset form
-        ;(e.target as HTMLFormElement).reset()
-      } else {
-        console.error('Upload failed:', result)
-        alert(`Upload failed: ${result.error}\n\nCheck console for details.`)
-      }
-    } catch (error) {
-      console.error('Upload error:', error)
-      alert(`Upload error: ${error}\n\nCheck console for details.`)
-    } finally {
-      setUploading(false)
+  useEffect(() => {
+    // Redirect to secure upload page if authenticated
+    if (isLoaded && userId) {
+      router.push('/teach/upload')
     }
-  }
+  }, [isLoaded, userId, router])
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl">
-      <Card>
+    <div className="container mx-auto p-6 max-w-2xl">
+      <Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950/20">
         <CardHeader>
-          <CardTitle>Direct Content Upload</CardTitle>
-          <CardDescription>
-            Upload your teaching content directly - no role checks, no BS
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-6 w-6 text-red-600" />
+            <CardTitle className="text-red-900 dark:text-red-100">
+              Security Notice: This Page Has Been Deprecated
+            </CardTitle>
+          </div>
+          <CardDescription className="text-red-700 dark:text-red-300">
+            The direct upload page has been removed for security reasons
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleUpload} className="space-y-6">
-            {/* Content Type Selection */}
-            <div className="grid grid-cols-4 gap-4">
-              {[
-                { type: 'video', icon: FileVideo, label: 'Video' },
-                { type: 'document', icon: FileText, label: 'Document' },
-                { type: 'interactive', icon: Code, label: 'Interactive' },
-                { type: 'image', icon: Image, label: 'Image' }
-              ].map(({ type, icon: Icon, label }) => (
-                <Button
-                  key={type}
-                  type="button"
-                  variant={uploadType === type ? 'default' : 'outline'}
-                  onClick={() => setUploadType(type as any)}
-                  className="h-24 flex-col"
-                >
-                  <Icon className="h-8 w-8 mb-2" />
-                  <span>{label}</span>
-                </Button>
-              ))}
+        <CardContent className="space-y-6">
+          <div className="space-y-4 text-sm">
+            <div className="p-4 bg-white dark:bg-gray-900 rounded-lg border border-red-200 dark:border-red-800">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <Lock className="h-4 w-4" />
+                Why was this page removed?
+              </h3>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>• It allowed unauthenticated uploads</li>
+                <li>• It exposed service keys publicly</li>
+                <li>• It bypassed role-based access control</li>
+                <li>• It created a security vulnerability</li>
+              </ul>
             </div>
 
-            {/* Title */}
-            <div>
-              <Label htmlFor="title">Title</Label>
-              <Input
-                id="title"
-                name="title"
-                required
-                placeholder="Enter content title"
-              />
+            <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
+              <h3 className="font-semibold mb-2">What should you do instead?</h3>
+              <ol className="space-y-2 text-muted-foreground">
+                <li>1. Sign in with your account</li>
+                <li>2. Ensure you have teacher or admin role</li>
+                <li>3. Use the secure upload interface</li>
+              </ol>
             </div>
+          </div>
 
-            {/* Description */}
-            <div>
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                name="description"
-                rows={4}
-                placeholder="Describe your content"
-              />
-            </div>
-
-            {/* File Upload */}
-            <div>
-              <Label htmlFor="file">Upload File</Label>
-              <Input
-                id="file"
-                name="file"
-                type="file"
-                required
-                accept={
-                  uploadType === 'video' ? 'video/*' :
-                  uploadType === 'image' ? 'image/*' :
-                  uploadType === 'document' ? '.pdf,.doc,.docx,.txt' :
-                  '*'
-                }
-              />
-            </div>
-
-            {/* Category */}
-            <div>
-              <Label htmlFor="category">Category</Label>
-              <Select name="category" defaultValue="general">
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="general">General</SelectItem>
-                  <SelectItem value="ai-basics">AI Basics</SelectItem>
-                  <SelectItem value="automation">Automation</SelectItem>
-                  <SelectItem value="coding">Coding</SelectItem>
-                  <SelectItem value="business">Business</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Submit */}
+          <div className="flex flex-col gap-3">
+            {!userId ? (
+              <Button 
+                onClick={() => router.push('/sign-in')}
+                className="w-full"
+              >
+                Sign In to Upload Content
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button 
+                onClick={() => router.push('/teach/upload')}
+                className="w-full"
+              >
+                Go to Secure Upload
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+            
             <Button 
-              type="submit" 
-              disabled={uploading}
-              className="w-full"
+              variant="outline"
+              onClick={() => router.push('/')}
             >
-              {uploading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Uploading...
-                </>
-              ) : (
-                <>
-                  <Upload className="mr-2 h-4 w-4" />
-                  Upload Content
-                </>
-              )}
+              Return to Home
             </Button>
-          </form>
+          </div>
+
+          <div className="text-xs text-muted-foreground text-center">
+            If you need admin access, contact your system administrator
+          </div>
         </CardContent>
       </Card>
-
-      {/* Quick Links */}
-      <div className="mt-8 grid grid-cols-3 gap-4">
-        <Button variant="outline" onClick={() => router.push('/learn/dashboard')}>
-          View Dashboard
-        </Button>
-        <Button variant="outline" onClick={() => router.push('/admin')}>
-          Admin Panel
-        </Button>
-        <Button variant="outline" onClick={() => window.location.reload()}>
-          Refresh
-        </Button>
-      </div>
     </div>
   )
 }
