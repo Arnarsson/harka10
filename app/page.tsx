@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { EnhancedHero } from '@/components/landing/enhanced-hero'
+import { PublicLanding } from '@/components/landing/public-landing'
 
 export default async function HomePage() {
   const { userId } = await auth()
@@ -10,6 +10,6 @@ export default async function HomePage() {
     redirect('/dashboard')
   }
 
-  // Otherwise show the enhanced landing page
-  return <EnhancedHero />
+  // Otherwise show the public landing page for guests
+  return <PublicLanding />
 }
