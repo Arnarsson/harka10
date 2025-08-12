@@ -202,6 +202,16 @@ export function EnhancedDashboard() {
               Continue Learning
               <span className="ml-auto text-xs text-muted-foreground">Resume AI Ethics module</span>
             </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start border-blue-200 bg-blue-50 hover:bg-blue-100" 
+              size="sm"
+              onClick={() => window.location.href = '/learn/ai-kompas'}
+            >
+              <Target className="mr-2 h-4 w-4 text-blue-600" />
+              AI-Kompas
+              <span className="ml-auto text-xs text-blue-600 font-medium">Find jeres AI-potentiale</span>
+            </Button>
             <Button variant="outline" className="w-full justify-start" size="sm">
               <FileText className="mr-2 h-4 w-4" />
               Prompt Playground
