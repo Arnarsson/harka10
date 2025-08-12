@@ -111,7 +111,7 @@ export async function getDashboardOverview(userId: string): Promise<DashboardOve
   } catch (error) {
     console.error('Error fetching dashboard overview:', error)
     // Return mock data for demo
-    return getMockDashboardData(firstName)
+    return getMockDashboardData('there')
   }
 }
 

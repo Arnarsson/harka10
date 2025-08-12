@@ -6,8 +6,8 @@ export function createClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Return a mock client during build time when env vars are not available
-    if (typeof window === 'undefined') {
+    // Allow explicit mock usage when requested, e.g., in certain CI/build scenarios
+    if (process.env.NEXT_PUBLIC_USE_MOCKS === 'true') {
       return {
         auth: {
           getUser: async () => ({ data: { user: null }, error: null }),
@@ -26,9 +26,7 @@ export function createClient() {
         })
       } as any
     }
-    throw new Error(
-      'Missing Supabase environment variables. Please check your .env.local file.'
-    )
+    throw new Error('Missing Supabase env vars. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.')
   }
 
   return createBrowserClient(supabaseUrl, supabaseAnonKey)
