@@ -15,7 +15,11 @@ import {
   Upload,
   Compass,
   Menu,
-  X
+  X,
+  Sparkles,
+  CreditCard,
+  Info,
+  FileText
 } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
@@ -26,19 +30,29 @@ export function SimpleHeader() {
   const isAdmin = user?.publicMetadata?.role === 'admin'
   const isTeacher = user?.publicMetadata?.role === 'teacher' || isAdmin
 
-  const navItems = [
+  // Different navigation items for guests vs authenticated users
+  const guestNavItems = [
     { href: '/', label: 'Home', icon: Home },
-    { href: '/learn/dashboard', label: 'Dashboard', icon: BookOpen, requireAuth: true },
-    { href: '/learn/courses', label: 'Courses', icon: PlayCircle, requireAuth: true },
-    { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass, requireAuth: true },
-    { href: '/community/power-hour', label: 'Community', icon: Users },
-    { href: '/analytics', label: 'Analytics', icon: BarChart, requireAuth: true },
-    { href: '/teach/dashboard', label: 'Teach', icon: Upload, requireAuth: true, requireTeacher: true },
-    { href: '/admin/dashboard', label: 'Admin', icon: Shield, requireAuth: true, requireAdmin: true },
+    { href: '#features', label: 'Features', icon: Sparkles },
+    { href: '#pricing', label: 'Pricing', icon: CreditCard },
+    { href: '/demo/interactive-learning', label: 'Demo', icon: PlayCircle },
+    { href: '#about', label: 'About', icon: Info },
   ]
 
+  const authenticatedNavItems = [
+    { href: '/dashboard', label: 'Dashboard', icon: BookOpen },
+    { href: '/learn/courses', label: 'Courses', icon: PlayCircle },
+    { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass },
+    { href: '/community/power-hour', label: 'Community', icon: Users },
+    { href: '/analytics', label: 'Analytics', icon: BarChart },
+    { href: '/toolkit', label: 'Toolkit', icon: FileText },
+    { href: '/teach/dashboard', label: 'Teach', icon: Upload, requireTeacher: true },
+    { href: '/admin/dashboard', label: 'Admin', icon: Shield, requireAdmin: true },
+  ]
+
+  const navItems = isSignedIn ? authenticatedNavItems : guestNavItems
+
   const visibleItems = navItems.filter(item => {
-    if (item.requireAuth && !isSignedIn) return false
     if (item.requireAdmin && !isAdmin) return false
     if (item.requireTeacher && !isTeacher) return false
     return true

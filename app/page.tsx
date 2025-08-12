@@ -1,15 +1,15 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { SimpleHero } from '@/components/landing/simple-hero'
+import { PublicLanding } from '@/components/landing/public-landing'
 
 export default async function HomePage() {
   const { userId } = await auth()
   
   // If user is logged in, redirect to dashboard
   if (userId) {
-    redirect('/learn/dashboard')
+    redirect('/dashboard')
   }
 
-  // Otherwise show the simple landing page
-  return <SimpleHero />
+  // Otherwise show the public landing page for guests
+  return <PublicLanding />
 }
