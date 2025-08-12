@@ -1,45 +1,10 @@
-import { createClient } from '@/lib/supabase/client'
-import type { Course, Enrollment, CourseProgress } from '@/lib/types/course'
+import type { Course } from '@/lib/types/course'
+import type { CourseFilters } from '@/lib/repositories/course-repository'
+import { getCourseRepository } from '@/lib/infrastructure/supabase'
 
-export async function getCourses(filters?: {
-  category?: string
-  level?: string
-  search?: string
-  limit?: number
-  offset?: number
-}) {
-  const supabase = createClient()
-  
-  let query = supabase
-    .from('courses')
-    .select('*')
-    .eq('status', 'published')
-    .order('enrollmentCount', { ascending: false })
-
-  if (filters?.category) {
-    query = query.eq('category', filters.category)
-  }
-
-  if (filters?.level) {
-    query = query.eq('level', filters.level)
-  }
-
-  if (filters?.search) {
-    query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%`)
-  }
-
-  if (filters?.limit) {
-    query = query.limit(filters.limit)
-  }
-
-  if (filters?.offset) {
-    query = query.range(filters.offset, filters.offset + (filters.limit || 10) - 1)
-  }
-
-  const { data, error } = await query
-
-  if (error) throw error
-  return data as Course[]
+export async function getCourses(filters?: CourseFilters): Promise<Course[]> {
+  const repo = getCourseRepository()
+  return repo.getCourses(filters)
 }
 
 export async function getCourse(id: string) {

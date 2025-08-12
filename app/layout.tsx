@@ -19,6 +19,7 @@ export default function RootLayout({
 }) {
   // Use real Clerk key in production, fallback for build
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_bW9ja2VkLWtleS1mb3ItYnVpbGQtdGltZS5jbGVyay5hY2NvdW50cy5kZXYk'
+  const disableAnimations = process.env.NEXT_PUBLIC_DISABLE_ANIMATIONS === 'true'
   
   return (
     <ClerkProvider 
@@ -28,7 +29,10 @@ export default function RootLayout({
         <head>
           <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
         </head>
-        <body style={{ fontFamily: 'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+        <body 
+          style={{ fontFamily: 'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+          data-disable-animations={disableAnimations ? 'true' : undefined}
+        >
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             <LanguageProvider>
               <AnalyticsTracker />

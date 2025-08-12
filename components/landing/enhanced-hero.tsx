@@ -148,6 +148,8 @@ const FloatingDashboard = ({ language }: { language: string }) => {
 
 export function EnhancedHero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [animationsDisabled, setAnimationsDisabled] = useState(false)
   const { theme, setTheme } = useTheme()
   const { isSignedIn, user } = useUser()
   const { trackCTAClick } = useAnalytics()
@@ -161,8 +163,23 @@ export function EnhancedHero() {
     setLanguage(language === 'da' ? 'en' : 'da')
   }
 
+  // Mark mounted to avoid SSR/CSR random mismatch for visuals
+  useEffect(() => {
+    setMounted(true)
+    // Determine whether animations should be disabled
+    try {
+      const envDisabled = process.env.NEXT_PUBLIC_DISABLE_ANIMATIONS === 'true'
+      const mediaReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const attrDisabled = typeof document !== 'undefined' && document.body?.dataset?.disableAnimations === 'true'
+      setAnimationsDisabled(Boolean(envDisabled || mediaReduced || attrDisabled))
+    } catch {
+      setAnimationsDisabled(false)
+    }
+  }, [])
+
   // Scroll animations
   useEffect(() => {
+    if (animationsDisabled) return
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -178,7 +195,7 @@ export function EnhancedHero() {
     elements.forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
-  }, [])
+  }, [animationsDisabled])
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 relative">
@@ -349,7 +366,7 @@ export function EnhancedHero() {
 
       {/* Enhanced Hero Section */}
       <section ref={heroRef} className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 min-h-screen relative overflow-hidden">
-        <AnimatedBackground />
+        {mounted && !animationsDisabled && <AnimatedBackground />}
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-6rem)]">
@@ -364,10 +381,16 @@ export function EnhancedHero() {
 
               <div className="space-y-6">
                 <h1 className="text-4xl lg:text-7xl font-bold leading-tight">
-                  <TypewriterText 
-                    text={t.heroHeadline}
-                    className="bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
-                  />
+                  {animationsDisabled ? (
+                    <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
+                      {t.heroHeadline}
+                    </span>
+                  ) : (
+                    <TypewriterText 
+                      text={t.heroHeadline}
+                      className="bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent"
+                    />
+                  )}
                 </h1>
 
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed animate-fade-in-up" style={{ animationDelay: '2s', animationFillMode: 'both' }}>
