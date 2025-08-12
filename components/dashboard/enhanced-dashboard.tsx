@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useLanguage } from '@/lib/i18n/language-context'
+import { getTranslations } from '@/lib/i18n/translations'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
@@ -36,6 +38,8 @@ import {
 
 export function EnhancedDashboard() {
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false)
+  const { language } = useLanguage()
+  const t = getTranslations(language)
   const departmentData = [
     { name: 'Engineering', value: 35, color: '#3b82f6' },
     { name: 'Marketing', value: 25, color: '#f59e0b' },
@@ -201,6 +205,18 @@ export function EnhancedDashboard() {
               <PlayCircle className="mr-2 h-4 w-4" />
               Continue Learning
               <span className="ml-auto text-xs text-muted-foreground">Resume AI Ethics module</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start border-blue-200 bg-blue-50 hover:bg-blue-100" 
+              size="sm"
+              onClick={() => window.location.href = '/learn/ai-kompas'}
+            >
+              <Target className="mr-2 h-4 w-4 text-blue-600" />
+              {t.aiKompas}
+              <span className="ml-auto text-xs text-blue-600 font-medium">
+                {language === 'da' ? 'Find jeres AI-potentiale' : 'Find your AI potential'}
+              </span>
             </Button>
             <Button variant="outline" className="w-full justify-start" size="sm">
               <FileText className="mr-2 h-4 w-4" />

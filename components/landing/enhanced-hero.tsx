@@ -14,8 +14,8 @@ import { useLanguage } from "@/lib/i18n/language-context"
 // Animated gradient background component
 const AnimatedBackground = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-gradient-x"></div>
+    <div className="absolute inset-0 overflow-hidden hero-background">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-gradient-x hero-gradient"></div>
       <div className="absolute inset-0">
         {/* Floating particles */}
         {[...Array(20)].map((_, i) => (

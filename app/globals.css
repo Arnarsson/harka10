@@ -208,7 +208,7 @@
   animation: pulse-minimal 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Remove all decorative elements */
+/* Remove specific decorative elements (but allow animated backgrounds) */
 .nordic-gradient,
 .glass-effect,
 .stella-gradient,
@@ -218,9 +218,19 @@
 .harka-lines,
 .harka-card,
 .harka-nav,
-.hex-pattern,
-.text-gradient {
+.hex-pattern {
   display: none !important;
+}
+
+/* Allow animated backgrounds and landing page gradients */
+.animate-gradient-x {
+  display: block !important;
+}
+
+/* Ensure Tailwind gradient utilities work on landing page */
+section .bg-gradient-to-br,
+.bg-gradient-radial {
+  display: block !important;
 }
 
 /* High Contrast Mode Styles */
@@ -347,6 +357,23 @@
 .animate-gradient-x {
   animation: gradient-x 15s ease infinite;
   background-size: 400% 400%;
+}
+
+/* Ensure hero background gradients are visible */
+.hero-background,
+.hero-background .hero-gradient,
+.hero-background .animate-gradient-x {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Force hero gradient backgrounds to show */
+.hero-gradient.bg-gradient-to-br {
+  background: linear-gradient(to bottom right, 
+    rgba(37, 99, 235, 0.2), 
+    rgba(147, 51, 234, 0.2), 
+    rgba(236, 72, 153, 0.2)) !important;
 }
 
 .animate-float {
