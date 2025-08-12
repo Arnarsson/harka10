@@ -148,6 +148,7 @@ const FloatingDashboard = ({ language }: { language: string }) => {
 
 export function EnhancedHero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const { isSignedIn, user } = useUser()
   const { trackCTAClick } = useAnalytics()
@@ -160,6 +161,11 @@ export function EnhancedHero() {
   const handleLanguageToggle = () => {
     setLanguage(language === 'da' ? 'en' : 'da')
   }
+
+  // Mark mounted to avoid SSR/CSR random mismatch for visuals
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Scroll animations
   useEffect(() => {
@@ -349,7 +355,7 @@ export function EnhancedHero() {
 
       {/* Enhanced Hero Section */}
       <section ref={heroRef} className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 min-h-screen relative overflow-hidden">
-        <AnimatedBackground />
+        {mounted && <AnimatedBackground />}
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-6rem)]">
