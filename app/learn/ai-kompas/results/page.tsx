@@ -17,6 +17,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/lib/i18n/language-context';
+import { getTranslations } from '@/lib/i18n/translations';
 
 interface AIOpportunity {
   id: string;
@@ -99,6 +101,8 @@ const mockProcessAreas: ProcessArea[] = [
 ];
 
 export default function AIKompasResultsPage() {
+  const { language } = useLanguage();
+  const t = getTranslations(language);
   const [isLoading, setIsLoading] = useState(true);
   const [assessmentData, setAssessmentData] = useState<any>(null);
 
@@ -183,17 +187,17 @@ export default function AIKompasResultsPage() {
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Jeres AI-Kompas Rapport
+            {t.aiKompasReport}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Vi har analyseret jeres virksomhed og identificeret de bedste AI-muligheder
+            {t.aiKompasReportDesc}
           </p>
         </div>
 
         {/* Executive Summary */}
         <Card className="mb-8 border-blue-200 bg-blue-50">
           <CardHeader>
-            <CardTitle className="text-2xl text-blue-900">Executive Summary</CardTitle>
+            <CardTitle className="text-2xl text-blue-900">{t.executiveSummary}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-6 mb-6">
@@ -201,26 +205,29 @@ export default function AIKompasResultsPage() {
                 <div className="text-3xl font-bold text-blue-600 mb-2">
                   {assessmentData?.summary?.totalOpportunities || 5}
                 </div>
-                <p className="text-gray-700">Top AI-muligheder identificeret</p>
+                <p className="text-gray-700">{t.topOpportunitiesIdentified}</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600 mb-2">
                   {assessmentData?.summary?.expectedEfficiencyGain || '25-40%'}
                 </div>
-                <p className="text-gray-700">Forventet effektivitetsforøgelse</p>
+                <p className="text-gray-700">{t.expectedEfficiencyIncrease}</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-600 mb-2">
                   ROI {assessmentData?.summary?.roiRange || '200-600%'}
                 </div>
-                <p className="text-gray-700">På prioriterede projekter</p>
+                <p className="text-gray-700">{t.onPriorityProjects}</p>
               </div>
             </div>
             <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">Vores anbefaling til jer:</h3>
+              <h3 className="font-semibold mb-2">{t.ourRecommendation}</h3>
               <p className="text-gray-600">
                 {assessmentData?.summary?.recommendation || 
-                 'Start med kundeservice chatbot og automatisk fakturabehandling - disse giver hurtig værdi og bygger tillid til AI i organisationen.'}
+                 (language === 'da' 
+                   ? 'Start med kundeservice chatbot og automatisk fakturabehandling - disse giver hurtig værdi og bygger tillid til AI i organisationen.'
+                   : 'Start with customer service chatbot and automatic invoice processing - these provide quick value and build trust in AI within the organization.'
+                 )}
               </p>
             </div>
           </CardContent>

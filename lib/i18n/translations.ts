@@ -48,6 +48,87 @@ export interface Translations {
   contactToday: string;
   noObligations: string;
   
+  // AI-Kompas
+  aiKompas: string;
+  aiKompasTagline: string;
+  aiKompasDescription: string;
+  aiKompasStartAssessment: string;
+  
+  // AI-Kompas Value Props
+  aiKompasIdentifyPotential: string;
+  aiKompasIdentifyPotentialDesc: string;
+  aiKompasExpectedRoi: string;
+  aiKompasExpectedRoiDesc: string;
+  aiKompasQuickWins: string;
+  aiKompasQuickWinsDesc: string;
+  
+  // AI-Kompas Assessment
+  aiKompasAssessment: string;
+  aiKompasAssessmentSubtitle: string;
+  aiKompasReadinessAssessment: string;
+  aiKompasGetConcreteInsights: string;
+  aiKompasStartReadinessAssessment: string;
+  aiKompasOutputsTitle: string;
+  aiKompasPerfectIfTitle: string;
+  aiKompasReadyToMap: string;
+  aiKompasReadyToMapDesc: string;
+  
+  // Assessment Questions
+  assessmentCompanySize: string;
+  assessmentCompanySizeDesc: string;
+  assessmentIndustry: string;
+  assessmentIndustryDesc: string;
+  assessmentAiExperience: string;
+  assessmentAiExperienceDesc: string;
+  assessmentMainChallenges: string;
+  assessmentMainChallengesDesc: string;
+  assessmentTimeConsumingTasks: string;
+  assessmentTimeConsumingTasksDesc: string;
+  assessmentBudgetRange: string;
+  assessmentBudgetRangeDesc: string;
+  assessmentImplementationTimeline: string;
+  assessmentImplementationTimelineDesc: string;
+  assessmentContactInfo: string;
+  assessmentContactInfoDesc: string;
+  
+  // Assessment Results
+  aiKompasReport: string;
+  aiKompasReportDesc: string;
+  executiveSummary: string;
+  topOpportunitiesIdentified: string;
+  expectedEfficiencyIncrease: string;
+  onPriorityProjects: string;
+  ourRecommendation: string;
+  processHeatMap: string;
+  processHeatMapDesc: string;
+  topOpportunities: string;
+  implementationRoadmap: string;
+  recommendedImplementationRoadmap: string;
+  structuredApproachToTransformation: string;
+  
+  // Process Areas
+  currentEfficiency: string;
+  quickWins: string;
+  
+  // CTA Sections
+  getPersonalReport: string;
+  getPersonalReportDesc: string;
+  downloadFullReport: string;
+  bookStrategyMeeting: string;
+  bookStrategyMeetingDesc: string;
+  bookFreeConsultation: string;
+  nextStepChooseJourney: string;
+  
+  // Service Packages
+  aiTransformation: string;
+  aiTransformationDesc: string;
+  aiCompetenceLift: string;
+  aiCompetenceLiftDesc: string;
+  aiAccelerator: string;
+  aiAcceleratorDesc: string;
+  readMore: string;
+  recommended: string;
+  
   // Results section
   resultsTitle: string;
   resultsSubtitle: string;
@@ -333,7 +414,88 @@ export const translations: Record<Language, Translations> = {
     hours: "Timer",
     value: "Værdi",
     potential: "Potentiale",
-    isoCertified: "ISO 27001 Certificeret"
+    isoCertified: "ISO 27001 Certificeret",
+    
+    // AI-Kompas
+    aiKompas: "AI-Kompas",
+    aiKompasTagline: "Find jeres vej ind i AI-revolutionen",
+    aiKompasDescription: "Fra uklarhed til konkret handleplan.",
+    aiKompasStartAssessment: "Start AI-Parathedsvurdering",
+    
+    // AI-Kompas Value Props
+    aiKompasIdentifyPotential: "Identificer AI-Potentiale",
+    aiKompasIdentifyPotentialDesc: "Kortlægning af alle processer med heat-map visualisering af AI-muligheder",
+    aiKompasExpectedRoi: "Forventet ROI",
+    aiKompasExpectedRoiDesc: "Top 10 AI-muligheder rangeret efter return on investment",
+    aiKompasQuickWins: "Quick Wins",
+    aiKompasQuickWinsDesc: "Hurtige gevinster du kan implementere allerede i morgen",
+    
+    // AI-Kompas Assessment
+    aiKompasAssessment: "AI-Parathedsvurdering",
+    aiKompasAssessmentSubtitle: "8 spørgsmål - ca. 15 minutter",
+    aiKompasReadinessAssessment: "Start AI-Parathedsvurdering",
+    aiKompasGetConcreteInsights: "få konkrete indsigter på 15 minutter",
+    aiKompasStartReadinessAssessment: "Start AI-Parathedsvurdering",
+    aiKompasOutputsTitle: "Konkrete Outputs:",
+    aiKompasPerfectIfTitle: "Perfekt hvis du:",
+    aiKompasReadyToMap: "Klar til at kortlægge jeres AI-potentiale?",
+    aiKompasReadyToMapDesc: "Start med vores AI-parathedsvurdering - få konkrete indsigter på 15 minutter",
+    
+    // Assessment Questions
+    assessmentCompanySize: "Hvor stor er jeres virksomhed?",
+    assessmentCompanySizeDesc: "Dette hjælper os med at tilpasse anbefalingerne til jeres skala",
+    assessmentIndustry: "Hvilken branche arbejder I i?",
+    assessmentIndustryDesc: "Forskellige brancher har forskellige AI-muligheder",
+    assessmentAiExperience: "Hvor meget erfaring har I med AI-værktøjer?",
+    assessmentAiExperienceDesc: "Dette hjælper os med at vurdere jeres nuværende modenhed",
+    assessmentMainChallenges: "Hvad er jeres største udfordringer lige nu?",
+    assessmentMainChallengesDesc: "Beskriv de områder hvor I bruger mest tid eller har største frustrationer",
+    assessmentTimeConsumingTasks: "Hvilke opgaver tager mest tid i jeres hverdag?",
+    assessmentTimeConsumingTasksDesc: "Tænk på gentagne, manuelle opgaver der kunne automatiseres",
+    assessmentBudgetRange: "Hvad er jeres estimerede budget for AI-initiativer?",
+    assessmentBudgetRangeDesc: "Dette hjælper os med at prioritere løsninger efter jeres investeringsramme",
+    assessmentImplementationTimeline: "Hvor hurtigt vil I gerne implementere AI-løsninger?",
+    assessmentImplementationTimelineDesc: "Dette påvirker hvilke løsninger vi anbefaler",
+    assessmentContactInfo: "Kontaktoplysninger",
+    assessmentContactInfoDesc: "Så vi kan sende jeres personlige AI-Kompas rapport",
+    
+    // Assessment Results
+    aiKompasReport: "Jeres AI-Kompas Rapport",
+    aiKompasReportDesc: "Vi har analyseret jeres virksomhed og identificeret de bedste AI-muligheder",
+    executiveSummary: "Executive Summary",
+    topOpportunitiesIdentified: "Top AI-muligheder identificeret",
+    expectedEfficiencyIncrease: "Forventet effektivitetsforøgelse",
+    onPriorityProjects: "På prioriterede projekter",
+    ourRecommendation: "Vores anbefaling til jer:",
+    processHeatMap: "Proces Heat-Map: AI-Potentiale",
+    processHeatMapDesc: "Rød = Høj prioritet, Gul = Medium prioritet, Grøn = Lav prioritet",
+    topOpportunities: "Top 5 AI-Muligheder (Rangeret efter ROI)",
+    implementationRoadmap: "Anbefalet Implementerings-Roadmap",
+    recommendedImplementationRoadmap: "Anbefalet Implementerings-Roadmap",
+    structuredApproachToTransformation: "Struktureret tilgang til jeres AI-transformation",
+    
+    // Process Areas
+    currentEfficiency: "Nuværende effektivitet",
+    quickWins: "Quick Wins:",
+    
+    // CTA Sections
+    getPersonalReport: "Få jeres personlige rapport som PDF",
+    getPersonalReportDesc: "Download den komplette analyse med detaljerede anbefalinger og budget-estimater",
+    downloadFullReport: "Download Fuld Rapport",
+    bookStrategyMeeting: "Book 90-minutters strategimøde",
+    bookStrategyMeetingDesc: "Få personlig rådgivning og detaljeret implementeringsplan fra vores AI-eksperter",
+    bookFreeConsultation: "Book Gratis Konsultation",
+    nextStepChooseJourney: "Næste skridt: Vælg jeres AI-rejse",
+    
+    // Service Packages
+    aiTransformation: "AI-Transformation",
+    aiTransformationDesc: "Implementer jeres top 3 muligheder",
+    aiCompetenceLift: "AI-Kompetenceløft",
+    aiCompetenceLiftDesc: "Gør jeres team AI-klar",
+    aiAccelerator: "AI Accelerator",
+    aiAcceleratorDesc: "Komplet transformation (alle pakker)",
+    readMore: "Læs mere",
+    recommended: "Anbefalet"
   },
   en: {
     // Navigation
@@ -518,7 +680,88 @@ export const translations: Record<Language, Translations> = {
     hours: "Hours",
     value: "Value",
     potential: "Potential",
-    isoCertified: "ISO 27001 Certified"
+    isoCertified: "ISO 27001 Certified",
+    
+    // AI-Kompas
+    aiKompas: "AI-Kompas",
+    aiKompasTagline: "Navigate your way into the AI revolution",
+    aiKompasDescription: "From uncertainty to concrete action plan.",
+    aiKompasStartAssessment: "Start AI Readiness Assessment",
+    
+    // AI-Kompas Value Props
+    aiKompasIdentifyPotential: "Identify AI Potential",
+    aiKompasIdentifyPotentialDesc: "Process mapping with heat-map visualization of AI opportunities",
+    aiKompasExpectedRoi: "Expected ROI",
+    aiKompasExpectedRoiDesc: "Top 10 AI opportunities ranked by return on investment",
+    aiKompasQuickWins: "Quick Wins",
+    aiKompasQuickWinsDesc: "Fast gains you can implement tomorrow",
+    
+    // AI-Kompas Assessment
+    aiKompasAssessment: "AI Readiness Assessment",
+    aiKompasAssessmentSubtitle: "8 questions - approximately 15 minutes",
+    aiKompasReadinessAssessment: "Start AI Readiness Assessment",
+    aiKompasGetConcreteInsights: "get concrete insights in 15 minutes",
+    aiKompasStartReadinessAssessment: "Start AI Readiness Assessment",
+    aiKompasOutputsTitle: "Concrete Outputs:",
+    aiKompasPerfectIfTitle: "Perfect if you:",
+    aiKompasReadyToMap: "Ready to map your AI potential?",
+    aiKompasReadyToMapDesc: "Start with our AI readiness assessment - get concrete insights in 15 minutes",
+    
+    // Assessment Questions
+    assessmentCompanySize: "How large is your company?",
+    assessmentCompanySizeDesc: "This helps us tailor recommendations to your scale",
+    assessmentIndustry: "What industry do you work in?",
+    assessmentIndustryDesc: "Different industries have different AI opportunities",
+    assessmentAiExperience: "How much experience do you have with AI tools?",
+    assessmentAiExperienceDesc: "This helps us assess your current maturity level",
+    assessmentMainChallenges: "What are your biggest challenges right now?",
+    assessmentMainChallengesDesc: "Describe the areas where you spend most time or have biggest frustrations",
+    assessmentTimeConsumingTasks: "Which tasks take the most time in your daily work?",
+    assessmentTimeConsumingTasksDesc: "Think about repetitive, manual tasks that could be automated",
+    assessmentBudgetRange: "What is your estimated budget for AI initiatives?",
+    assessmentBudgetRangeDesc: "This helps us prioritize solutions according to your investment framework",
+    assessmentImplementationTimeline: "How quickly would you like to implement AI solutions?",
+    assessmentImplementationTimelineDesc: "This affects which solutions we recommend",
+    assessmentContactInfo: "Contact Information",
+    assessmentContactInfoDesc: "So we can send your personal AI-Kompas report",
+    
+    // Assessment Results
+    aiKompasReport: "Your AI-Kompas Report",
+    aiKompasReportDesc: "We have analyzed your company and identified the best AI opportunities",
+    executiveSummary: "Executive Summary",
+    topOpportunitiesIdentified: "Top AI opportunities identified",
+    expectedEfficiencyIncrease: "Expected efficiency increase",
+    onPriorityProjects: "On priority projects",
+    ourRecommendation: "Our recommendation for you:",
+    processHeatMap: "Process Heat-Map: AI Potential",
+    processHeatMapDesc: "Red = High priority, Yellow = Medium priority, Green = Low priority",
+    topOpportunities: "Top 5 AI Opportunities (Ranked by ROI)",
+    implementationRoadmap: "Recommended Implementation Roadmap",
+    recommendedImplementationRoadmap: "Recommended Implementation Roadmap",
+    structuredApproachToTransformation: "Structured approach to your AI transformation",
+    
+    // Process Areas
+    currentEfficiency: "Current efficiency",
+    quickWins: "Quick Wins:",
+    
+    // CTA Sections
+    getPersonalReport: "Get your personal report as PDF",
+    getPersonalReportDesc: "Download the complete analysis with detailed recommendations and budget estimates",
+    downloadFullReport: "Download Full Report",
+    bookStrategyMeeting: "Book 90-minute strategy meeting",
+    bookStrategyMeetingDesc: "Get personal advice and detailed implementation plan from our AI experts",
+    bookFreeConsultation: "Book Free Consultation",
+    nextStepChooseJourney: "Next step: Choose your AI journey",
+    
+    // Service Packages
+    aiTransformation: "AI-Transformation",
+    aiTransformationDesc: "Implement your top 3 opportunities",
+    aiCompetenceLift: "AI-Competence Lift",
+    aiCompetenceLiftDesc: "Make your team AI-ready",
+    aiAccelerator: "AI Accelerator",
+    aiAcceleratorDesc: "Complete transformation (all packages)",
+    readMore: "Read more",
+    recommended: "Recommended"
   }
 };
 

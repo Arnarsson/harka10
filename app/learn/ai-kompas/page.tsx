@@ -5,8 +5,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Compass, Target, TrendingUp, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/lib/i18n/language-context';
+import { getTranslations } from '@/lib/i18n/translations';
 
 export default function AIKompasPage() {
+  const { language } = useLanguage();
+  const t = getTranslations(language);
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
       <div className="max-w-6xl mx-auto">
@@ -16,10 +20,10 @@ export default function AIKompasPage() {
             <Compass className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            AI-Kompas
+            {t.aiKompas}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Find jeres vej ind i AI-revolutionen. Fra uklarhed til konkret handleplan.
+            {t.aiKompasTagline}. {t.aiKompasDescription}
           </p>
         </div>
 
@@ -28,11 +32,11 @@ export default function AIKompasPage() {
           <Card className="text-center">
             <CardHeader>
               <Target className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <CardTitle>Identificer AI-Potentiale</CardTitle>
+              <CardTitle>{t.aiKompasIdentifyPotential}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
-                Kortlægning af alle processer med heat-map visualisering af AI-muligheder
+                {t.aiKompasIdentifyPotentialDesc}
               </p>
             </CardContent>
           </Card>
@@ -40,11 +44,11 @@ export default function AIKompasPage() {
           <Card className="text-center">
             <CardHeader>
               <TrendingUp className="w-12 h-12 text-green-600 mx-auto mb-4" />
-              <CardTitle>Forventet ROI</CardTitle>
+              <CardTitle>{t.aiKompasExpectedRoi}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
-                Top 10 AI-muligheder rangeret efter return on investment
+                {t.aiKompasExpectedRoiDesc}
               </p>
             </CardContent>
           </Card>
@@ -52,11 +56,11 @@ export default function AIKompasPage() {
           <Card className="text-center">
             <CardHeader>
               <Zap className="w-12 h-12 text-yellow-600 mx-auto mb-4" />
-              <CardTitle>Quick Wins</CardTitle>
+              <CardTitle>{t.aiKompasQuickWins}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
-                Hurtige gevinster du kan implementere allerede i morgen
+                {t.aiKompasQuickWinsDesc}
               </p>
             </CardContent>
           </Card>
@@ -127,14 +131,14 @@ export default function AIKompasPage() {
           <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
             <CardContent className="py-12">
               <h2 className="text-3xl font-bold mb-4">
-                Klar til at kortlægge jeres AI-potentiale?
+                {t.aiKompasReadyToMap}
               </h2>
               <p className="text-xl mb-8 opacity-90">
-                Start med vores AI-parathedsvurdering - få konkrete indsigter på 15 minutter
+                {t.aiKompasReadyToMapDesc}
               </p>
               <Link href="/learn/ai-kompas/assessment">
                 <Button size="lg" variant="secondary" className="bg-white text-blue-600 hover:bg-gray-100">
-                  Start AI-Parathedsvurdering
+                  {t.aiKompasStartAssessment}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
