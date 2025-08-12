@@ -40,6 +40,7 @@ export function SimpleHeader() {
   // Different navigation items for guests vs authenticated users
   const guestNavItems = [
     { href: '/', label: language === 'da' ? 'Hjem' : 'Home', icon: Home },
+    { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass, highlight: true },
     { href: '#features', label: language === 'da' ? 'Funktioner' : 'Features', icon: Sparkles },
     { href: '#pricing', label: language === 'da' ? 'Priser' : 'Pricing', icon: CreditCard },
     { href: '/demo/interactive-learning', label: 'Demo', icon: PlayCircle },
@@ -48,8 +49,8 @@ export function SimpleHeader() {
 
   const authenticatedNavItems = [
     { href: '/dashboard', label: language === 'da' ? 'Dashboard' : 'Dashboard', icon: BookOpen },
+    { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass, highlight: true },
     { href: '/learn/courses', label: language === 'da' ? 'Kurser' : 'Courses', icon: PlayCircle },
-    { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass },
     { href: '/community/power-hour', label: language === 'da' ? 'Fællesskab' : 'Community', icon: Users },
     { href: '/analytics', label: language === 'da' ? 'Analyser' : 'Analytics', icon: BarChart },
     { href: '/toolkit', label: language === 'da' ? 'Værktøjskasse' : 'Toolkit', icon: FileText },
@@ -86,10 +87,20 @@ export function SimpleHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
+                className={cn(
+                  "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                  item.highlight 
+                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700" 
+                    : "hover:bg-accent hover:text-accent-foreground"
+                )}
               >
                 <item.icon className="h-4 w-4" />
                 <span>{item.label}</span>
+                {item.highlight && (
+                  <span className="ml-1 text-xs bg-white/20 px-1.5 py-0.5 rounded">
+                    FREE
+                  </span>
+                )}
               </Link>
             ))}
           </nav>
@@ -193,11 +204,21 @@ export function SimpleHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium hover:bg-accent"
+                  className={cn(
+                    "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
+                    item.highlight 
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white" 
+                      : "hover:bg-accent"
+                  )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <item.icon className="h-4 w-4" />
                   <span>{item.label}</span>
+                  {item.highlight && (
+                    <span className="ml-auto text-xs bg-white/20 px-1.5 py-0.5 rounded">
+                      FREE
+                    </span>
+                  )}
                 </Link>
               ))}
               <div className="pt-4 border-t">

@@ -145,9 +145,15 @@ export function PublicLanding() {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               {t.heroSubheadline}
             </p>
-            <div className="flex gap-4 justify-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Link href="/learn/ai-kompas">
+                <Button size="lg" className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                  <Compass className="h-4 w-4" />
+                  {language === 'da' ? 'Start Gratis AI-Vurdering' : 'Start Free AI Assessment'}
+                </Button>
+              </Link>
               <SignUpButton mode="modal">
-                <Button size="lg" className="gap-2">
+                <Button size="lg" variant="outline" className="gap-2">
                   {t.heroCta}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
@@ -159,6 +165,12 @@ export function PublicLanding() {
                 </Button>
               </Link>
             </div>
+            <p className="text-center text-sm text-muted-foreground mb-6">
+              <Sparkles className="inline h-4 w-4 mr-1 text-purple-600" />
+              {language === 'da' ? 
+                'Prøv vores AI Compass - ingen tilmelding påkrævet!' : 
+                'Try our AI Compass - no signup required!'}
+            </p>
             <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />

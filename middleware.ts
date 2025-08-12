@@ -8,7 +8,14 @@ const isPublicRoute = createRouteMatcher([
   '/about', '/pricing', '/contact', '/blog', '/blog/(.*)',
   '/toolkit', '/team', '/workshop',
   '/api/webhook/(.*)', '/api/stripe/(.*)',
-  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)'
+  '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)',
+  // AI Compass is a lead magnet - publicly accessible
+  '/learn/ai-kompas', '/learn/ai-kompas/(.*)', 
+  '/api/ai-kompas/(.*)',
+  // Community Power Hour - publicly accessible
+  '/community/power-hour',
+  // Demo routes
+  '/demo', '/demo/(.*)'
   // REMOVED: '/api/check-role', '/api/direct-upload', '/teacher-access', '/upload-admin'
   // These routes MUST require authentication
 ])
