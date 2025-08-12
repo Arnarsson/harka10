@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
 import { ClerkProvider } from '@clerk/nextjs'
+import { LanguageProvider } from "@/lib/i18n/language-context"
 
 export const metadata: Metadata = {
   title: "HARKA - AI der leverer reel forretningsværdi",
@@ -29,9 +30,11 @@ export default function RootLayout({
         </head>
         <body style={{ fontFamily: 'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <AnalyticsTracker />
-            {children}
-            <Toaster />
+            <LanguageProvider>
+              <AnalyticsTracker />
+              {children}
+              <Toaster />
+            </LanguageProvider>
           </ThemeProvider>
         </body>
       </html>
