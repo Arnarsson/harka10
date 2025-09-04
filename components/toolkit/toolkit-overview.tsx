@@ -71,7 +71,7 @@ export function ToolkitOverview() {
         {toolCategories.map((category, index) => (
           <Card
             key={index}
-            className="stella-card border-primary/10 hover:border-primary/20 transition-all cursor-pointer"
+            className="bg-card/50 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-all cursor-pointer"
           >
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">

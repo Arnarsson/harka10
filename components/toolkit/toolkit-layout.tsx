@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ArrowLeft, Settings, Target, Download, Share } from "lucide-react"
@@ -13,12 +14,12 @@ export function ToolkitLayout({ children }: ToolkitLayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Toolkit Header */}
-      <header className="stella-nav h-16 flex items-center justify-between px-6 border-b border-white/5">
+      <header className="bg-background/80 backdrop-blur-md h-16 flex items-center justify-between px-6 border-b border-border/40">
         <div className="flex items-center space-x-4">
           <Button variant="ghost" size="icon" asChild>
-            <a href="/dashboard">
+            <Link href="/">
               <ArrowLeft className="h-4 w-4" />
-            </a>
+            </Link>
           </Button>
 
           <div className="flex items-center space-x-3">
