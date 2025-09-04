@@ -19,6 +19,15 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/learn/toolkit',
+        destination: '/toolkit',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig
