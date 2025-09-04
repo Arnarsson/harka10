@@ -1,3 +1,9 @@
+import { DashboardSkeleton } from "@/components/ui/skeleton-loaders/dashboard-skeleton"
+
 export default function Loading() {
-  return null
+  return (
+    <div className="min-h-screen">
+      <DashboardSkeleton />
+    </div>
+  )
 }
