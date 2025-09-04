@@ -182,7 +182,7 @@ export function UltraCleanHeader() {
         </div>
 
         {/* Mobile Navigation - Slide Down */}
-        {mobileMenuOpen && (
+        {mounted && mobileMenuOpen && (
           <nav className="md:hidden py-4 border-t animate-in slide-in-from-top-2">
             <div className="flex flex-col space-y-3">
               {navItems.map((item) => (
