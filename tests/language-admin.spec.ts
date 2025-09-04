@@ -148,7 +148,7 @@ test.describe('Language Switch and Admin Access', () => {
       '/learn/learning',
       '/learn/playground', 
       '/learn/analytics',
-      '/learn/toolkit'
+      '/toolkit'
     ];
     
     for (const link of learnLinks) {
