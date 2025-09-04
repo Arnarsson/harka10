@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { withAuth } from '@/lib/auth/hooks'
 import { 
   Trophy, Award, Share2, Download, ArrowRight, 
-  Star, CheckCircle, Sparkles, Gift
+  Star, CheckCircle, Sparkles, Gift, X
 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { CertificateGenerator } from '@/components/certificates/certificate-generator'
