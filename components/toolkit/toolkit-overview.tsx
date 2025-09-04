@@ -50,17 +50,24 @@ const toolCategories = [
 
 export function ToolkitOverview() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Implementation Toolkit</h1>
-          <p className="text-muted-foreground">Comprehensive resources for successful AI implementation</p>
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium">
+            <Target className="w-4 h-4" />
+            <span>AI Project Resources</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+            <span className="text-gray-900">Implementation</span>{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Toolkit</span>
+          </h1>
+          <p className="text-gray-600">Comprehensive resources for successful AI implementation</p>
         </div>
-        <div className="flex items-center space-x-3">
-          <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+        <div className="flex items-center gap-3">
+          <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
             42 Tools Available
           </Badge>
-          <Button>
+          <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
             <Target className="mr-2 h-4 w-4" />
             Start Project
           </Button>
@@ -71,7 +78,7 @@ export function ToolkitOverview() {
         {toolCategories.map((category, index) => (
           <Card
             key={index}
-            className="bg-card/50 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-all cursor-pointer"
+            className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-100"
           >
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
@@ -85,8 +92,8 @@ export function ToolkitOverview() {
               <CardTitle className="text-lg">{category.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
-              <Button variant="ghost" className="w-full justify-start p-0 h-auto text-primary hover:text-primary/80">
+              <p className="text-sm text-gray-600 mb-4">{category.description}</p>
+              <Button variant="ghost" className="w-full justify-start p-0 h-auto text-blue-600 hover:text-blue-700">
                 Explore Tools →
               </Button>
             </CardContent>

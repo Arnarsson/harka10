@@ -44,14 +44,14 @@ const industryColors = {
 
 export function ProjectTemplates() {
   return (
-    <Card className="bg-card/50 backdrop-blur-sm border-primary/10">
+    <Card className="bg-white rounded-2xl shadow-sm border border-gray-100">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center space-x-2">
-            <FileText className="h-5 w-5 text-primary" />
+            <FileText className="h-5 w-5 text-blue-600" />
             <span>Project Templates</span>
           </CardTitle>
-          <Button variant="outline" size="sm" className="border-primary/20 bg-transparent">
+          <Button variant="outline" size="sm" className="border-blue-200 bg-white">
             Browse All
           </Button>
         </div>
@@ -60,7 +60,7 @@ export function ProjectTemplates() {
         {projectTemplates.map((template, index) => (
           <div
             key={index}
-            className="p-6 rounded-lg border border-white/10 bg-muted/20 hover:border-primary/20 transition-colors"
+            className="p-6 rounded-xl border border-gray-100 bg-white/80 hover:shadow-md transition-shadow"
           >
             <div className="space-y-4">
               <div className="space-y-2">
@@ -73,10 +73,10 @@ export function ProjectTemplates() {
                     {template.complexity}
                   </Badge>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{template.description}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{template.description}</p>
               </div>
 
-              <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-6 text-sm text-gray-600">
                 <span>Timeline: {template.timeline}</span>
               </div>
 
@@ -84,7 +84,7 @@ export function ProjectTemplates() {
                 <h4 className="font-medium text-sm">Includes:</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {template.includes.map((item, itemIndex) => (
-                    <div key={itemIndex} className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <div key={itemIndex} className="flex items-center space-x-2 text-sm text-gray-600">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                       <span>{item}</span>
                     </div>
@@ -94,16 +94,16 @@ export function ProjectTemplates() {
 
               <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
                     <Eye className="mr-2 h-4 w-4" />
                     Preview
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
                     <Copy className="mr-2 h-4 w-4" />
                     Customize
                   </Button>
                 </div>
-                <Button size="sm">
+                <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
                   <Download className="mr-2 h-4 w-4" />
                   Use Template
                 </Button>

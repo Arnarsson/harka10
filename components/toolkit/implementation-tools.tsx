@@ -54,14 +54,14 @@ const categoryColors = {
 
 export function ImplementationTools() {
   return (
-    <Card className="bg-card/50 backdrop-blur-sm border-primary/10">
+    <Card className="bg-white rounded-2xl shadow-sm border border-gray-100">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center space-x-2">
-            <Target className="h-5 w-5 text-primary" />
+            <Target className="h-5 w-5 text-blue-600" />
             <span>Implementation Tools</span>
           </CardTitle>
-          <Button variant="outline" size="sm" className="border-primary/20 bg-transparent">
+          <Button variant="outline" size="sm" className="border-blue-200 bg-white">
             View All Tools
           </Button>
         </div>
@@ -70,7 +70,7 @@ export function ImplementationTools() {
         {implementationTools.map((tool, index) => (
           <div
             key={index}
-            className="p-6 rounded-lg border border-white/10 bg-muted/20 hover:border-primary/20 transition-colors"
+            className="p-6 rounded-xl border border-gray-100 bg-white/80 hover:shadow-md transition-shadow"
           >
             <div className="space-y-4">
               <div className="flex items-start justify-between">
@@ -81,16 +81,16 @@ export function ImplementationTools() {
                       {tool.category}
                     </Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{tool.description}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">{tool.description}</p>
                 </div>
                 <div className="flex items-center space-x-1 text-sm">
-                  <Star className="h-4 w-4 fill-primary text-primary" />
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
                   <span className="font-medium">{tool.rating}</span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+                <div className="flex items-center space-x-6 text-sm text-gray-600">
                   <span>{tool.format}</span>
                   <span>•</span>
                   <span>{tool.duration}</span>
@@ -99,11 +99,11 @@ export function ImplementationTools() {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
                     <ExternalLink className="mr-2 h-4 w-4" />
                     Preview
                   </Button>
-                  <Button size="sm">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
                     <Download className="mr-2 h-4 w-4" />
                     Download
                   </Button>

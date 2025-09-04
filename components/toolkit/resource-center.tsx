@@ -51,10 +51,10 @@ const categoryColors = {
 
 export function ResourceCenter() {
   return (
-    <Card className="bg-card/50 backdrop-blur-sm border-primary/10">
+    <Card className="bg-white rounded-2xl shadow-sm border border-gray-100">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <BookOpen className="h-5 w-5 text-primary" />
+          <BookOpen className="h-5 w-5 text-blue-600" />
           <span>Resource Center</span>
         </CardTitle>
       </CardHeader>
@@ -62,17 +62,17 @@ export function ResourceCenter() {
         {resources.map((resource, index) => (
           <div
             key={index}
-            className="p-4 rounded-lg border border-white/10 bg-muted/20 hover:border-primary/20 transition-colors"
+            className="p-4 rounded-xl border border-gray-100 bg-white/80 hover:shadow-md transition-shadow"
           >
             <div className="space-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-start space-x-3">
                   <div className="p-2 rounded-lg bg-primary/10">
-                    <resource.icon className="h-4 w-4 text-primary" />
+                    <resource.icon className="h-4 w-4 text-blue-600" />
                   </div>
                   <div className="space-y-1">
                     <h4 className="font-medium text-sm">{resource.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{resource.description}</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">{resource.description}</p>
                   </div>
                 </div>
                 <Badge className={categoryColors[resource.category as keyof typeof categoryColors]}>
@@ -81,16 +81,16 @@ export function ResourceCenter() {
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                <div className="flex items-center space-x-2 text-xs text-gray-600">
                   <span>{resource.format}</span>
                   <span>•</span>
                   <span>{resource.size || resource.duration}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm" className="h-8 px-3">
+                  <Button variant="ghost" size="sm" className="h-8 px-3 text-blue-600 hover:text-blue-700">
                     <ExternalLink className="h-3 w-3" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 px-3">
+                  <Button variant="ghost" size="sm" className="h-8 px-3 text-blue-600 hover:text-blue-700">
                     <Download className="h-3 w-3" />
                   </Button>
                 </div>
@@ -99,7 +99,7 @@ export function ResourceCenter() {
           </div>
         ))}
 
-        <Button variant="outline" className="w-full border-primary/20 bg-transparent">
+        <Button variant="outline" className="w-full border-blue-200 bg-white">
           Browse All Resources
         </Button>
       </CardContent>
