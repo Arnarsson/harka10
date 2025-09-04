@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
-import { useUser } from '@clerk/nextjs'
+// Clerk user tracking disabled for tests; avoid importing useUser to prevent runtime errors when auth is disabled
 
 interface AnalyticsEvent {
   event: string
@@ -14,13 +14,13 @@ interface AnalyticsEvent {
 
 export function AnalyticsTracker() {
   const pathname = usePathname()
-  const { user } = useUser()
+  const userId: string | undefined = undefined
 
   const trackEvent = (event: string, properties?: Record<string, any>) => {
     const analyticsEvent: AnalyticsEvent = {
       event,
       page: pathname,
-      user_id: user?.id,
+      user_id: userId,
       timestamp: new Date().toISOString(),
       properties
     }

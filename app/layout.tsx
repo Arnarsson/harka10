@@ -21,6 +21,7 @@ export default function RootLayout({
   // Use real Clerk key in production, fallback for build
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_bW9ja2VkLWtleS1mb3ItYnVpbGQtdGltZS5jbGVyay5hY2NvdW50cy5kZXYk'
   const disableAnimations = process.env.NEXT_PUBLIC_DISABLE_ANIMATIONS === 'true'
+  const disableClerk = process.env.DISABLE_CLERK === 'true'
   
   // Check if we have a valid Clerk key
   const hasValidClerkKey = publishableKey && !publishableKey.includes('mocked')
@@ -29,10 +30,7 @@ export default function RootLayout({
     console.warn('⚠️ Clerk authentication not configured. Please set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY in your environment variables.')
   }
   
-  return (
-    <ClerkProvider 
-      publishableKey={publishableKey}
-    >
+  const AppShell = (
       <html lang="en" suppressHydrationWarning>
         <head>
           <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
@@ -60,6 +58,15 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
+  )
+
+  if (disableClerk) {
+    return AppShell
+  }
+
+  return (
+    <ClerkProvider publishableKey={publishableKey}>
+      {AppShell}
     </ClerkProvider>
   )
 }

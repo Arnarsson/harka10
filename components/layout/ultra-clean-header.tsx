@@ -15,7 +15,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function UltraCleanHeader() {
-  const { isSignedIn, user } = useUser()
+  const clerkDisabled = process.env.NEXT_PUBLIC_DISABLE_CLERK === 'true'
+  let isSignedIn = false
+  let user: any = undefined
+  if (!clerkDisabled) {
+    const clerk = useUser()
+    isSignedIn = clerk.isSignedIn
+    user = clerk.user
+  }
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isAdmin = user?.publicMetadata?.role === 'admin'
   const isTeacher = user?.publicMetadata?.role === 'teacher' || isAdmin
@@ -114,7 +121,7 @@ export function UltraCleanHeader() {
 
           {/* Right Section - Clean CTAs */}
           <div className="hidden md:flex items-center space-x-3">
-            {isSignedIn ? (
+            {isSignedIn && !clerkDisabled ? (
               <UserButton 
                 afterSignOutUrl="/"
                 appearance={{
@@ -125,23 +132,45 @@ export function UltraCleanHeader() {
               />
             ) : (
               <>
-                <SignInButton mode="modal">
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    className="text-gray-700 hover:text-violet-600"
-                  >
-                    Sign In
-                  </Button>
-                </SignInButton>
-                <SignUpButton mode="modal">
-                  <Button 
-                    size="sm"
-                    className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-sm"
-                  >
-                    Get Started
-                  </Button>
-                </SignUpButton>
+                {clerkDisabled ? (
+                  <>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="text-gray-700 hover:text-violet-600"
+                      asChild
+                    >
+                      <a href="/sign-in">Sign In</a>
+                    </Button>
+                    <Button 
+                      size="sm"
+                      className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-sm"
+                      asChild
+                    >
+                      <a href="/sign-up">Get Started</a>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <SignInButton mode="modal">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-gray-700 hover:text-violet-600"
+                      >
+                        Sign In
+                      </Button>
+                    </SignInButton>
+                    <SignUpButton mode="modal">
+                      <Button 
+                        size="sm"
+                        className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-sm"
+                      >
+                        Get Started
+                      </Button>
+                    </SignUpButton>
+                  </>
+                )}
               </>
             )}
           </div>

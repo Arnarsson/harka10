@@ -58,8 +58,16 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const pathname = usePathname()
-  const { user, isLoaded } = useUser()
-  const { signOut } = useClerk()
+  const clerkDisabled = process.env.NEXT_PUBLIC_DISABLE_CLERK === 'true'
+  let user: any = undefined
+  let isLoaded = true
+  let signOut = () => {}
+  if (!clerkDisabled) {
+    const clerkUser = useUser()
+    user = clerkUser.user
+    isLoaded = clerkUser.isLoaded
+    signOut = useClerk().signOut
+  }
   
   // Check user roles from metadata
   const isAdmin = user?.publicMetadata?.role === 'admin'
