@@ -445,7 +445,7 @@ export function HarkaHero() {
               <Link href="/learn/analytics" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Analytics
               </Link>
-              <Link href="/learn/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <Link href="/toolkit" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Toolkit
               </Link>
               {isAdmin && (
@@ -555,7 +555,7 @@ export function HarkaHero() {
               <Link href="/learn/analytics" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                 Analytics
               </Link>
-              <Link href="/learn/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+              <Link href="/toolkit" className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                 Toolkit
               </Link>
               {isAdmin && (

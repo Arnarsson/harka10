@@ -1,10 +1,6 @@
-import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
-import { AIToolkit } from "@/components/toolkit/ai-toolkit"
+import { redirect } from "next/navigation"
 
 export default function ToolkitPage() {
-  return (
-    <DashboardLayoutMinimal>
-      <AIToolkit />
-    </DashboardLayoutMinimal>
-  )
+  // Consolidate toolkit routes: redirect to unified page
+  redirect("/toolkit")
 }

@@ -44,7 +44,7 @@ const navigation = [
   { name: "Learning", href: "/learn/learning", icon: GraduationCap },
   { name: "Playground", href: "/learn/playground", icon: Target },
   { name: "Analytics", href: "/learn/analytics", icon: BarChart3 },
-  { name: "Toolkit", href: "/learn/toolkit", icon: Wrench },
+  { name: "Toolkit", href: "/toolkit", icon: Wrench },
   { name: "Discussion", href: "/learn/discussion", icon: MessageSquare },
   { name: "Resources", href: "/learn/resources", icon: FileText },
   { name: "Certificates", href: "/learn/certificates", icon: Award },
