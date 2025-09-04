@@ -44,7 +44,7 @@ const industryColors = {
 
 export function ProjectTemplates() {
   return (
-    <Card className="stella-card border-primary/10">
+    <Card className="bg-card/50 backdrop-blur-sm border-primary/10">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center space-x-2">

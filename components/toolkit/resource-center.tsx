@@ -51,7 +51,7 @@ const categoryColors = {
 
 export function ResourceCenter() {
   return (
-    <Card className="stella-card border-primary/10">
+    <Card className="bg-card/50 backdrop-blur-sm border-primary/10">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <BookOpen className="h-5 w-5 text-primary" />
