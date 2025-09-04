@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { PublicLanding } from '@/components/landing/public-landing'
+import { DanishB2BLanding } from '@/components/landing/danish-b2b-landing'
 
 export default async function HomePage() {
   const { userId } = await auth()
@@ -10,6 +10,6 @@ export default async function HomePage() {
     redirect('/dashboard')
   }
 
-  // Otherwise show the public landing page for guests
-  return <PublicLanding />
+  // Otherwise show the Danish B2B landing page for enterprise customers
+  return <DanishB2BLanding />
 }
