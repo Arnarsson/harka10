@@ -28,9 +28,9 @@ function useCounter(end: number, duration: number = 2000) {
 }
 
 export function PublicLanding() {
-  const learnerCount = useCounter(12847, 2500)
-  const courseCount = useCounter(156, 2000)
-  const completionRate = useCounter(94, 1500)
+  const companiesTrained = useCounter(60, 2500)
+  const workshopsDelivered = useCounter(25, 2000)
+  const hoursToValue = useCounter(48, 1500)
   
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
