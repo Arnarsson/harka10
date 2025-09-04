@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
 import { ClerkProvider } from '@clerk/nextjs'
 import { LanguageProvider } from "@/lib/i18n/language-context"
-import { SimpleHeader } from "@/components/layout/simple-header"
+import { UltraCleanHeader } from "@/components/layout/ultra-clean-header"
 
 export const metadata: Metadata = {
   title: "HARKA - AI-Powered Learning Platform",
@@ -51,7 +51,7 @@ export default function RootLayout({
                   ⚠️ Development Mode: Clerk authentication not configured. See .env.example for setup instructions.
                 </div>
               )}
-              <SimpleHeader />
+              <UltraCleanHeader />
               <main className="min-h-screen">
                 {children}
               </main>
