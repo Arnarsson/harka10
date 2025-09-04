@@ -1,0 +1,33 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "H HARKA" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7] [cursor=pointer]: H
+        - generic [ref=e8] [cursor=pointer]: HARKA
+      - navigation [ref=e9]:
+        - link "Demo" [ref=e10] [cursor=pointer]:
+          - /url: /demo/interactive-learning
+        - link "Resources" [ref=e11] [cursor=pointer]:
+          - /url: /toolkit
+        - link "Pricing" [ref=e12] [cursor=pointer]:
+          - /url: "#pricing"
+      - generic [ref=e13]:
+        - button "EN" [ref=e14] [cursor=pointer]:
+          - img
+          - text: EN
+        - button "Sign In" [ref=e15] [cursor=pointer]
+        - button "Get Started" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - generic [ref=e20]:
+      - heading "HARKA" [level=1] [ref=e21]
+      - paragraph [ref=e22]: Sign in to your learning platform
+  - region "Notifications (F8)":
+    - list
+  - button "Open Next.js Dev Tools" [ref=e28] [cursor=pointer]:
+    - img [ref=e29] [cursor=pointer]
+  - alert [ref=e32]
+```

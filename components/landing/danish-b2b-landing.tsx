@@ -6,6 +6,8 @@ import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle, Users, Clock, TrendingUp, Brain, Zap, Target, Calendar, BarChart, Building2, Rocket, Shield, Award } from "lucide-react"
 import { useEffect, useState } from "react"
 import { SignInButton } from "@clerk/nextjs"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { getTranslations } from "@/lib/i18n/translations"
 
 // Animated counter hook
 function useCounter(end: number, duration: number = 2000) {
@@ -28,6 +30,8 @@ function useCounter(end: number, duration: number = 2000) {
 }
 
 export function DanishB2BLanding() {
+  const { language } = useLanguage()
+  const t = getTranslations(language)
   const adoptionRate = useCounter(30, 2000)
   const efficiencyGain = useCounter(70, 2000)
   const hoursToMinutes = useCounter(85, 2500)
@@ -68,15 +72,13 @@ export function DanishB2BLanding() {
               <span>70% af danske virksomheder går glip af AI-muligheder</span>
             </motion.div>
 
-            {/* Main headline - Danish */}
+            {/* Main headline - Translated */}
             <motion.h1 
               variants={fadeInUp}
               className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight"
             >
-              <span className="text-gray-900">Fra idé til implementering</span>
-              <br />
               <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                på kun 48 timer
+                {t.heroHeadline}
               </span>
             </motion.h1>
 
@@ -85,8 +87,7 @@ export function DanishB2BLanding() {
               variants={fadeInUp}
               className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto"
             >
-              Vi omdanner AI-potentiale til praktiske løsninger, der leverer målbare resultater
-              – uden lange projektforløb eller PowerPoints.
+              {t.heroSubheadline}
             </motion.p>
 
             {/* Key value props */}

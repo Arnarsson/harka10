@@ -1,0 +1,225 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "H HARKA" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7] [cursor=pointer]: H
+        - generic [ref=e8] [cursor=pointer]: HARKA
+      - navigation [ref=e9]:
+        - link "Demo" [ref=e10] [cursor=pointer]:
+          - /url: /demo/interactive-learning
+        - link "Resources" [ref=e11] [cursor=pointer]:
+          - /url: /toolkit
+        - link "Pricing" [ref=e12] [cursor=pointer]:
+          - /url: "#pricing"
+      - generic [ref=e13]:
+        - button "DA" [active] [ref=e14] [cursor=pointer]:
+          - img
+          - text: DA
+        - button "Sign In" [ref=e15] [cursor=pointer]
+        - button "Get Started" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - img [ref=e23]
+          - generic [ref=e26]: 70% af danske virksomheder går glip af AI-muligheder
+        - heading "From idea to implementation in just 48 hours." [level=1] [ref=e27]:
+          - generic [ref=e28]: From idea to implementation in just 48 hours.
+        - paragraph [ref=e29]: We turn AI potential into practical solutions that deliver measurable results – without lengthy project cycles or PowerPoints.
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - img [ref=e32]
+            - generic [ref=e35]: Praktisk hands-on workshop
+          - generic [ref=e36]:
+            - img [ref=e37]
+            - generic [ref=e40]: ROI inden for første uge
+          - generic [ref=e41]:
+            - img [ref=e42]
+            - generic [ref=e45]: GDPR-compliant
+        - generic [ref=e46]:
+          - link "Book 2-dages workshop" [ref=e47] [cursor=pointer]:
+            - /url: /workshop/booking
+            - button "Book 2-dages workshop" [ref=e48] [cursor=pointer]:
+              - text: Book 2-dages workshop
+              - img
+          - link "Tag AI-parathedsvurdering" [ref=e49] [cursor=pointer]:
+            - /url: /ai-kompas
+            - button "Tag AI-parathedsvurdering" [ref=e50] [cursor=pointer]:
+              - img
+              - text: Tag AI-parathedsvurdering
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - heading "Udfordringen & muligheden" [level=2] [ref=e54]
+          - paragraph [ref=e55]: En ny rapport fra Digitaliseringsstyrelsen viser, at selvom kun 30% af danske virksomheder anvender AI i dag, oplever 70% markante effektivitetsgevinster.
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: 30%
+            - generic [ref=e59]: Bruger AI i dag
+          - generic [ref=e60]:
+            - generic [ref=e61]: 70%
+            - generic [ref=e62]: Oplever effektivitetsgevinster
+          - generic [ref=e63]:
+            - generic [ref=e64]: "48"
+            - generic [ref=e65]: Timer til værdi
+          - generic [ref=e66]:
+            - generic [ref=e67]: 60+
+            - generic [ref=e68]: Virksomheder trænet
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - img [ref=e75]
+            - generic [ref=e78]: "Kundecase: VMS Group"
+          - heading "Fra 60 minutter til 5 minutter" [level=3] [ref=e79]
+          - paragraph [ref=e80]: VMS Group automatiserede deres motordata-analyse og frigav hundredvis af timer. Servicerapporter der tog timer tager nu minutter. Risikoanalyser udføres 85% hurtigere.
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - img [ref=e83]
+              - generic [ref=e86]: Service-rapport automation
+            - generic [ref=e87]:
+              - img [ref=e88]
+              - generic [ref=e91]: Turbo-risikoanalyse på 10 minutter
+            - generic [ref=e92]:
+              - img [ref=e93]
+              - generic [ref=e96]: Frigjort kapital fra lageroptimering
+        - generic [ref=e99]:
+          - generic [ref=e100]: 85%
+          - generic [ref=e101]: Hurtigere analyser
+          - generic [ref=e102]: "\"HARKA leverede ikke konsulentrapporter, men ægte værktøjer vi bruger hver dag.\""
+          - generic [ref=e103]: "- Thomas Fisker-Jepsen, IT Manager"
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - heading "Vælg jeres AI-rejse" [level=2] [ref=e107]
+          - paragraph [ref=e108]: Skræddersyede workshops designet til danske virksomheders behov
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - generic [ref=e111]: Mest populære
+            - img [ref=e112]
+            - heading "2-dages AI Workshop" [level=3] [ref=e122]
+            - paragraph [ref=e123]: Komplet AI-transformation for jeres team. Fra grundlæggende til avanceret implementering.
+            - generic [ref=e124]:
+              - generic [ref=e125]:
+                - img [ref=e126]
+                - generic [ref=e129]: "Dag 1: AI-fundamentals & prototyper"
+              - generic [ref=e130]:
+                - img [ref=e131]
+                - generic [ref=e134]: "Dag 2: GDPR & virksomhedsspecifikke løsninger"
+              - generic [ref=e135]:
+                - img [ref=e136]
+                - generic [ref=e139]: 90 dages support inkluderet
+            - generic [ref=e140]:
+              - generic [ref=e141]: DKK 30.000
+              - generic [ref=e142]: / virksomhed
+            - button "Book workshop" [ref=e143] [cursor=pointer]
+          - generic [ref=e144]:
+            - img [ref=e145]
+            - heading "VibeCoding Workshop" [level=3] [ref=e150]
+            - paragraph [ref=e151]: Fra idé til fungerende MVP på én dag med Loveable.dev og no-code AI.
+            - generic [ref=e152]:
+              - generic [ref=e153]:
+                - img [ref=e154]
+                - generic [ref=e157]: 65% fokus på Loveable.dev
+              - generic [ref=e158]:
+                - img [ref=e159]
+                - generic [ref=e162]: Byg fungerende prototype
+              - generic [ref=e163]:
+                - img [ref=e164]
+                - generic [ref=e167]: Perfekt til startups
+            - generic [ref=e168]:
+              - generic [ref=e169]: DKK 28.000
+              - generic [ref=e170]: / dag
+            - button "Læs mere" [ref=e171] [cursor=pointer]
+          - generic [ref=e172]:
+            - img [ref=e173]
+            - heading "Erhvervsrådgiver Training" [level=3] [ref=e175]
+            - paragraph [ref=e176]: Specialdesignet forløb for erhvervsrådgivere og konsulenter.
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - img [ref=e179]
+                - generic [ref=e182]: 3 x 2 sessioner
+              - generic [ref=e183]:
+                - img [ref=e184]
+                - generic [ref=e187]: Streaming til 50+ deltagere
+              - generic [ref=e188]:
+                - img [ref=e189]
+                - generic [ref=e192]: Train-the-trainer model
+            - generic [ref=e193]:
+              - generic [ref=e194]: DKK 74.000
+              - generic [ref=e195]: / forløb
+            - button "Kontakt os" [ref=e196] [cursor=pointer]
+      - generic [ref=e198]:
+        - 'heading "Resultatet: Fra strategi til handling på 48 timer" [level=2] [ref=e200]'
+        - generic [ref=e201]:
+          - generic [ref=e202]:
+            - generic [ref=e203]:
+              - generic [ref=e205]: "1"
+              - 'heading "Dag 1: Muligheder & Prototyper" [level=3] [ref=e206]'
+            - list [ref=e207]:
+              - listitem [ref=e208]:
+                - img [ref=e209]
+                - generic [ref=e212]: Identifikation af processer med AI-potentiale
+              - listitem [ref=e213]:
+                - img [ref=e214]
+                - generic [ref=e217]: Hands-on træning i relevante værktøjer
+              - listitem [ref=e218]:
+                - img [ref=e219]
+                - generic [ref=e222]: Udvikling af prototypeløsninger
+              - listitem [ref=e223]:
+                - img [ref=e224]
+                - generic [ref=e227]: Opbygning af AI-kompetencer i dit team
+          - generic [ref=e228]:
+            - generic [ref=e229]:
+              - generic [ref=e231]: "2"
+              - 'heading "Dag 2: Implementering & Overdragelse" [level=3] [ref=e232]'
+            - list [ref=e233]:
+              - listitem [ref=e234]:
+                - img [ref=e235]
+                - generic [ref=e238]: Færdiggørelse og integration af løsninger
+              - listitem [ref=e239]:
+                - img [ref=e240]
+                - generic [ref=e243]: Tilpasning til jeres workflows
+              - listitem [ref=e244]:
+                - img [ref=e245]
+                - generic [ref=e248]: Kompetenceoverførsel og dokumentation
+              - listitem [ref=e249]:
+                - img [ref=e250]
+                - generic [ref=e253]: Handlingsplan for de næste 90 dage
+      - generic [ref=e255]:
+        - paragraph [ref=e257]: Betroet af førende danske virksomheder
+        - generic [ref=e258]:
+          - generic [ref=e260]: VMS Group
+          - generic [ref=e262]: Seven Oceans
+          - generic [ref=e264]: Pouchy
+          - generic [ref=e266]: Startup Bootcamp
+          - generic [ref=e268]: Beyond Beta
+      - generic [ref=e272]:
+        - heading "Klar til at transformere jeres virksomhed med AI?" [level=2] [ref=e273]
+        - paragraph [ref=e274]: Bliv en del af de 30% danske virksomheder der allerede høster AI's fordele. Start med en uforpligtende samtale.
+        - generic [ref=e275]:
+          - link "Book workshop" [ref=e276] [cursor=pointer]:
+            - /url: /workshop/booking
+            - button "Book workshop" [ref=e277] [cursor=pointer]:
+              - text: Book workshop
+              - img
+          - link "Kontakt os" [ref=e278] [cursor=pointer]:
+            - /url: /contact
+            - button "Kontakt os" [ref=e279] [cursor=pointer]
+        - paragraph [ref=e280]: Ingen forpligtelser • Gratis konsultation • ROI inden for første uge
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e285] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e286] [cursor=pointer]:
+      - img [ref=e287] [cursor=pointer]
+    - generic [ref=e290] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e291] [cursor=pointer]:
+        - generic [ref=e292] [cursor=pointer]:
+          - generic [ref=e293] [cursor=pointer]: "0"
+          - generic [ref=e294] [cursor=pointer]: "1"
+        - generic [ref=e295] [cursor=pointer]: Issue
+      - button "Collapse issues badge" [ref=e296] [cursor=pointer]:
+        - img [ref=e297] [cursor=pointer]
+  - alert [ref=e299]
+```
