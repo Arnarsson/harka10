@@ -3,9 +3,10 @@
 import Link from "next/link"
 import { useUser, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
-import { Menu, X, ChevronDown, Sparkles, PlayCircle, LayoutDashboard } from "lucide-react"
+import { Menu, X, ChevronDown, Sparkles, PlayCircle, LayoutDashboard, Globe } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/i18n/language-context"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,9 +17,14 @@ import {
 
 export function UltraCleanHeader() {
   const { isSignedIn, user } = useUser()
+  const { language, setLanguage } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isAdmin = user?.publicMetadata?.role === 'admin'
   const isTeacher = user?.publicMetadata?.role === 'teacher' || isAdmin
+
+  const handleLanguageToggle = () => {
+    setLanguage(language === 'da' ? 'en' : 'da')
+  }
 
   // Ultra-minimal navigation - 3 items max
   const guestNavItems = [
@@ -114,6 +120,17 @@ export function UltraCleanHeader() {
 
           {/* Right Section - Clean CTAs */}
           <div className="hidden md:flex items-center space-x-3">
+            {/* Language Switcher */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLanguageToggle}
+              className="text-gray-700 hover:text-violet-600 flex items-center gap-2"
+            >
+              <Globe className="h-4 w-4" />
+              {language === 'da' ? 'EN' : 'DA'}
+            </Button>
+
             {isSignedIn ? (
               <UserButton 
                 afterSignOutUrl="/"
@@ -192,6 +209,19 @@ export function UltraCleanHeader() {
               )}
 
               <div className="border-t pt-3">
+                {/* Language Switcher */}
+                <div className="px-2 pb-3">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLanguageToggle}
+                    className="w-full justify-start text-gray-700 hover:text-violet-600"
+                  >
+                    <Globe className="mr-2 h-4 w-4" />
+                    {language === 'da' ? 'Switch to English' : 'Skift til dansk'}
+                  </Button>
+                </div>
+
                 {isSignedIn ? (
                   <div className="px-2">
                     <UserButton afterSignOutUrl="/" />
