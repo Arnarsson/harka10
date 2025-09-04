@@ -1,0 +1,39 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "H HARKA" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7] [cursor=pointer]: H
+        - generic [ref=e8] [cursor=pointer]: HARKA
+      - navigation [ref=e9]:
+        - link "Demo" [ref=e10] [cursor=pointer]:
+          - /url: /demo/interactive-learning
+        - link "Resources" [ref=e11] [cursor=pointer]:
+          - /url: /toolkit
+        - link "Pricing" [ref=e12] [cursor=pointer]:
+          - /url: "#pricing"
+      - generic [ref=e13]:
+        - button "EN" [ref=e14] [cursor=pointer]:
+          - img
+          - text: EN
+        - button "Sign In" [ref=e15] [cursor=pointer]
+        - button "Get Started" [ref=e16] [cursor=pointer]
+  - main [ref=e17]
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e39] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e40] [cursor=pointer]:
+      - img [ref=e41] [cursor=pointer]
+    - generic [ref=e44] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e45] [cursor=pointer]:
+        - generic [ref=e46] [cursor=pointer]:
+          - generic [ref=e47] [cursor=pointer]: "0"
+          - generic [ref=e48] [cursor=pointer]: "1"
+        - generic [ref=e49] [cursor=pointer]: Issue
+      - button "Collapse issues badge" [ref=e50] [cursor=pointer]:
+        - img [ref=e51] [cursor=pointer]
+  - alert [ref=e53]
+```

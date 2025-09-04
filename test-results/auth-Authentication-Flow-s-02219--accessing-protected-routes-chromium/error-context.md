@@ -1,0 +1,122 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "H HARKA" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7] [cursor=pointer]: H
+        - generic [ref=e8] [cursor=pointer]: HARKA
+      - navigation [ref=e9]:
+        - link "Demo" [ref=e10] [cursor=pointer]:
+          - /url: /demo/interactive-learning
+        - link "Resources" [ref=e11] [cursor=pointer]:
+          - /url: /toolkit
+        - link "Pricing" [ref=e12] [cursor=pointer]:
+          - /url: "#pricing"
+      - generic [ref=e13]:
+        - button "EN" [ref=e14] [cursor=pointer]:
+          - img
+          - text: EN
+        - button "Sign In" [ref=e15] [cursor=pointer]
+        - button "Get Started" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - heading "Welcome back, Learner 👋" [level=1] [ref=e21]
+        - paragraph [ref=e22]: Ready to continue your learning journey?
+      - generic [ref=e26]:
+        - heading "Continue where you left off" [level=2] [ref=e27]
+        - paragraph [ref=e28]: Advanced React Patterns
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]: "Lesson: Custom Hooks Deep Dive"
+            - generic [ref=e32]: 65% complete
+          - progressbar [ref=e33]
+        - generic [ref=e35]:
+          - button "Resume Learning" [ref=e36] [cursor=pointer]:
+            - img
+            - text: Resume Learning
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: 23 min to complete
+      - generic [ref=e41]:
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - paragraph [ref=e46]: Learning Streak
+            - paragraph [ref=e47]: 12 days 🔥
+          - img [ref=e48]
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - paragraph [ref=e55]: Courses Completed
+            - paragraph [ref=e56]: "3"
+          - img [ref=e57]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - paragraph [ref=e65]: Hours Learned
+            - paragraph [ref=e66]: "24.5"
+          - img [ref=e67]
+      - generic [ref=e70]:
+        - link "Browse Courses Explore new topics and expand your knowledge" [ref=e71] [cursor=pointer]:
+          - /url: /learn/courses
+          - generic [ref=e73] [cursor=pointer]:
+            - generic [ref=e74] [cursor=pointer]:
+              - img [ref=e75] [cursor=pointer]
+              - img [ref=e77] [cursor=pointer]
+            - heading "Browse Courses" [level=3] [ref=e79] [cursor=pointer]
+            - paragraph [ref=e80] [cursor=pointer]: Explore new topics and expand your knowledge
+        - link "AI Recommendations Get personalized learning paths tailored to you" [ref=e81] [cursor=pointer]:
+          - /url: /learn/ai-kompas
+          - generic [ref=e83] [cursor=pointer]:
+            - generic [ref=e84] [cursor=pointer]:
+              - img [ref=e85] [cursor=pointer]
+              - img [ref=e88] [cursor=pointer]
+            - heading "AI Recommendations" [level=3] [ref=e90] [cursor=pointer]
+            - paragraph [ref=e91] [cursor=pointer]: Get personalized learning paths tailored to you
+        - link "Join Community Connect with peers and learn together" [ref=e92] [cursor=pointer]:
+          - /url: /community/power-hour
+          - generic [ref=e94] [cursor=pointer]:
+            - generic [ref=e95] [cursor=pointer]:
+              - img [ref=e96] [cursor=pointer]
+              - img [ref=e101] [cursor=pointer]
+            - heading "Join Community" [level=3] [ref=e103] [cursor=pointer]
+            - paragraph [ref=e104] [cursor=pointer]: Connect with peers and learn together
+      - generic [ref=e105]:
+        - heading "Recommended for you" [level=2] [ref=e106]
+        - generic [ref=e107]:
+          - generic [ref=e110] [cursor=pointer]:
+            - heading "Python Fundamentals" [level=3] [ref=e111] [cursor=pointer]
+            - generic [ref=e112] [cursor=pointer]:
+              - generic [ref=e113] [cursor=pointer]: 4 hours
+              - generic [ref=e114] [cursor=pointer]: Beginner
+          - generic [ref=e117] [cursor=pointer]:
+            - heading "Machine Learning Basics" [level=3] [ref=e118] [cursor=pointer]
+            - generic [ref=e119] [cursor=pointer]:
+              - generic [ref=e120] [cursor=pointer]: 8 hours
+              - generic [ref=e121] [cursor=pointer]: Intermediate
+          - generic [ref=e124] [cursor=pointer]:
+            - heading "Web Development" [level=3] [ref=e125] [cursor=pointer]
+            - generic [ref=e126] [cursor=pointer]:
+              - generic [ref=e127] [cursor=pointer]: 12 hours
+              - generic [ref=e128] [cursor=pointer]: Beginner
+          - generic [ref=e131] [cursor=pointer]:
+            - heading "Data Visualization" [level=3] [ref=e132] [cursor=pointer]
+            - generic [ref=e133] [cursor=pointer]:
+              - generic [ref=e134] [cursor=pointer]: 6 hours
+              - generic [ref=e135] [cursor=pointer]: Intermediate
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e140] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e141] [cursor=pointer]:
+      - img [ref=e142] [cursor=pointer]
+    - generic [ref=e145] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e146] [cursor=pointer]:
+        - generic [ref=e147] [cursor=pointer]:
+          - generic [ref=e148] [cursor=pointer]: "0"
+          - generic [ref=e149] [cursor=pointer]: "1"
+        - generic [ref=e150] [cursor=pointer]: Issue
+      - button "Collapse issues badge" [ref=e151] [cursor=pointer]:
+        - img [ref=e152] [cursor=pointer]
+  - alert [ref=e154]
+```
