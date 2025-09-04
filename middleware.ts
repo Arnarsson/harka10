@@ -20,7 +20,12 @@ const isAuthPage = createRouteMatcher([
 const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)', '/upload-admin'])
 const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)', '/teacher-access'])
 
-export default clerkMiddleware(async (auth, req: NextRequest) => {
+// Choose middleware handler based on env (allows Playwright runs without Clerk)
+const middlewareHandler = process.env.DISABLE_CLERK === 'true'
+  ? (async (_req: NextRequest) => {
+      return NextResponse.next()
+    })
+  : clerkMiddleware(async (auth, req: NextRequest) => {
   const { userId, user } = await auth()
   
   // Handle authenticated users on auth pages (prevent loops)
@@ -65,10 +70,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   }
 
   return NextResponse.next()
-})
+  })
 
 export const config = {
   matcher: [
     '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|public/).*)',
   ],
 }
+
+export default middlewareHandler

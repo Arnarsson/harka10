@@ -30,8 +30,8 @@ export function DanishCurriculum() {
 
   const content = {
     da: {
-      title: "HARKA AI Workshop",
-      subtitle: "2-dages intensiv AI træning for danske virksomheder",
+      title: "Strategisk AI-workshop (2 dage)",
+      subtitle: "Skræddersyet til VMS Group: to undervisere, ChatGPT & Copilot, strategi og hands-on",
       day: "Dag",
       overview: "Oversigt",
       modules: "Moduler",
@@ -43,16 +43,16 @@ export function DanishCurriculum() {
       language: "Sprog",
       certificate: "Certifikat",
       getStarted: "Kom i gang",
-      bookWorkshop: "Book workshop",
-      day1Title: "Grundlæggende AI-værktøjer og -teknikker",
-      day2Title: "Etik og praktisk anvendelse",
+      bookWorkshop: "Book intro-kald",
+      day1Title: "ChatGPT & Microsoft Copilot – effektiv anvendelse",
+      day2Title: "Strategi, ansvarlig brug og praktisk workshop",
       break: "Pause",
       lunch: "Frokostpause",
       coffee: "Kaffepause"
     },
     en: {
-      title: "HARKA AI Workshop",
-      subtitle: "2-day intensive AI training for Danish companies",
+      title: "Strategic AI Workshop (2 days)",
+      subtitle: "Tailored for VMS Group: two instructors, ChatGPT & Copilot, strategy and hands-on",
       day: "Day",
       overview: "Overview",
       modules: "Modules",
@@ -64,9 +64,9 @@ export function DanishCurriculum() {
       language: "Language",
       certificate: "Certificate",
       getStarted: "Get started",
-      bookWorkshop: "Book workshop",
-      day1Title: "Basic AI Tools & Techniques",
-      day2Title: "Ethics & Practical Application",
+      bookWorkshop: "Book intro call",
+      day1Title: "ChatGPT & Microsoft Copilot – effective use",
+      day2Title: "Strategy, responsible use and hands-on workshop",
       break: "Break",
       lunch: "Lunch break",
       coffee: "Coffee break"
@@ -76,128 +76,74 @@ export function DanishCurriculum() {
   const t = content[language]
 
   const workshopOverview = {
-    duration: "2 dage / 2 days",
-    participants: "8-12 personer",
+    duration: "2 dage (3 timer pr. session)",
+    participants: "Maks. 10-15 pr. hold",
     level: "Begynder til mellemliggende",
-    language: "Dansk / English",
-    certificate: "HARKA AI Certification",
-    price: "DKK 12.500 per deltager"
+    language: "Dansk",
+    certificate: "HARKA AI-certifikat",
+    price: "30.000 DKK ekskl. moms (≈1.000 DKK pr. medarbejder)"
   }
 
   const day1Schedule = [
     {
-      time: "09:00-09:30",
-      title: "Velkomst og Bullseye-Introduktion",
-      titleEn: "Welcome & Bullseye Introduction",
+      time: "09:00-09:15",
+      title: "Velkomst og mål",
+      titleEn: "Welcome & objectives",
       type: "welcome",
       icon: Users,
-      description: "Velkomst, præsentationer og introduktion til Bullseye-metaforen",
-      descriptionEn: "Welcome, presentations and introduction to the Bullseye metaphor"
+      description: "Introduktion til forløbet og fokus på praktisk værdi for VMS",
+      descriptionEn: "Introduction and focus on practical value for VMS"
     },
     {
-      time: "09:30-10:15",
-      title: "Model-overblik",
-      titleEn: "Model Overview", 
-      type: "lecture",
-      icon: BookOpen,
-      description: "Oversigt over AI-modeller og deres anvendelser",
-      descriptionEn: "Overview of AI models and their applications"
-    },
-    {
-      time: "10:15-10:30",
-      title: "Kaffepause",
-      titleEn: "Coffee Break",
-      type: "break",
-      icon: Coffee,
-      description: "Kort pause til afslapning og netværk",
-      descriptionEn: "Short break for relaxation and networking"
-    },
-    {
-      time: "10:30-12:00",
-      title: "Prompt Engineering & Custom Instructions",
-      titleEn: "Prompt Engineering & Custom Instructions",
-      type: "workshop", 
+      time: "09:15-12:15",
+      title: "Formiddag (Hold A): ChatGPT – Effektiv anvendelse",
+      titleEn: "Morning (Group A): ChatGPT – Effective use",
+      type: "workshop",
       icon: Settings,
-      description: "Hands-on træning i effektive prompts og custom instructions",
-      descriptionEn: "Hands-on training in effective prompts and custom instructions"
+      description: "Introduktion til ChatGPT, prompt engineering og praktiske øvelser i optimering af interne processer (servicerapporter, dokumentation, kommunikation)",
+      descriptionEn: "Intro to ChatGPT, prompt engineering and practical exercises focused on internal processes (service reports, documentation, communication)"
     },
     {
-      time: "12:00-13:00",
+      time: "09:15-12:15",
+      title: "Formiddag (Hold B): Microsoft Copilot – Effektiv anvendelse",
+      titleEn: "Morning (Group B): Microsoft Copilot – Effective use",
+      type: "workshop",
+      icon: Settings,
+      description: "Copilot i Word, Excel, PowerPoint og Teams – praktiske øvelser i dokumentoprettelse, dataanalyse og samarbejde",
+      descriptionEn: "Copilot in Word, Excel, PowerPoint and Teams – practical exercises in document creation, data analysis and collaboration"
+    },
+    {
+      time: "12:15-13:00",
       title: "Frokostpause",
       titleEn: "Lunch Break",
       type: "lunch",
       icon: Utensils,
-      description: "Netværk og diskussion over frokost",
-      descriptionEn: "Networking and discussion over lunch"
+      description: "Netværk og diskussion",
+      descriptionEn: "Networking and discussion"
     },
     {
-      time: "13:00-14:30",
-      title: "Hallucination & Bias",
-      titleEn: "Hallucination & Bias",
-      type: "lecture",
-      icon: Shield,
-      description: "Forståelse af AI-begrænsninger og bias-problematikker",
-      descriptionEn: "Understanding AI limitations and bias issues"
-    },
-    {
-      time: "14:30-16:00", 
-      title: "Projekter & 'Deep Research'",
-      titleEn: "Projects & 'Deep Research'",
+      time: "13:00-16:00",
+      title: "Eftermiddag: Hold A og Hold B bytter moduler",
+      titleEn: "Afternoon: Groups swap modules",
       type: "workshop",
       icon: Target,
-      description: "Arbejde med store datasæt og dybdegående analyser",
-      descriptionEn: "Working with large datasets and in-depth analysis"
-    },
-    {
-      time: "16:00-16:30",
-      title: "Spørgsmål & Opsamling",
-      titleEn: "Q&A & Summary",
-      type: "discussion",
-      icon: Lightbulb,
-      description: "Åben diskussion og næste skridt",
-      descriptionEn: "Open discussion and next steps"
+      description: "Hold A: Microsoft Copilot · Hold B: ChatGPT – med fokus på virksomhedens egne dokumenter og flows",
+      descriptionEn: "Group A: Microsoft Copilot · Group B: ChatGPT – applied to the company’s documents and flows"
     }
   ]
 
   const day2Schedule = [
     {
-      time: "09:00-09:30",
-      title: "Opsummering af dag 1",
-      titleEn: "Day 1 Summary",
-      type: "review",
-      icon: BookOpen,
-      description: "Gennemgang med AI-genereret resumé",
-      descriptionEn: "Review with AI-generated summary"
-    },
-    {
-      time: "09:30-11:00",
-      title: "Etiske overvejelser",  
-      titleEn: "Ethical Considerations",
+      time: "09:00-12:00",
+      title: "Strategi og struktur – Effektiv anvendelse",
+      titleEn: "Strategy & structure – Effective use",
       type: "lecture",
-      icon: Shield,
-      description: "GDPR, datasikkerhed og Zero Trust principper",
-      descriptionEn: "GDPR, data security and Zero Trust principles"
+      icon: BookOpen,
+      description: "Identifikation af workflows med AI-potentiale, effektivisering/automatisering og retningslinjer for ansvarlig brug (etik, kvalitet, governance)",
+      descriptionEn: "Identify workflows with AI potential, efficiency/automation and guidelines for responsible use (ethics, quality, governance)"
     },
     {
-      time: "11:00-11:15",
-      title: "Kaffepause",
-      titleEn: "Coffee Break", 
-      type: "break",
-      icon: Coffee,
-      description: "Kort pause og diskussion",
-      descriptionEn: "Short break and discussion"
-    },
-    {
-      time: "11:15-13:00",
-      title: "Workshops med virksomhedsspecifikke use cases",
-      titleEn: "Company-specific Use Case Workshops",
-      type: "workshop",
-      icon: Target,
-      description: "Udvikling af AI-løsninger til reelle scenarier",
-      descriptionEn: "Development of AI solutions for real scenarios"
-    },
-    {
-      time: "13:00-14:00", 
+      time: "12:00-13:00",
       title: "Frokostpause",
       titleEn: "Lunch Break",
       type: "lunch",
@@ -206,31 +152,22 @@ export function DanishCurriculum() {
       descriptionEn: "Networking and reflection"
     },
     {
-      time: "14:00-15:00",
-      title: "Pitching-øvelse",
-      titleEn: "Pitching Exercise", 
+      time: "13:00-15:00",
+      title: "Praktisk anvendelse & workshop",
+      titleEn: "Practical application & workshop",
       type: "workshop",
-      icon: Users,
-      description: "Præsentation af AI-løsninger til stakeholders",
-      descriptionEn: "Presentation of AI solutions to stakeholders"
+      icon: Target,
+      description: "Deltagerne arbejder med virksomhedens egne cases og udvikler klar-til-brug løsninger",
+      descriptionEn: "Participants work on company-specific cases and develop ready-to-use solutions"
     },
     {
-      time: "15:00-15:45",
-      title: "Identifikation af automatiseringsmuligheder",
-      titleEn: "Automation Opportunity Identification",
-      type: "workshop", 
-      icon: Settings,
-      description: "Refleksion over processer til automatisering",
-      descriptionEn: "Reflection on processes for automation"
-    },
-    {
-      time: "15:45-16:30",
-      title: "Opsamling og konklusion",
-      titleEn: "Summary & Conclusion",
+      time: "15:00-16:00",
+      title: "Præsentation og opsamling",
+      titleEn: "Presentations & wrap-up",
       type: "discussion",
       icon: Award,
-      description: "Erfaring deling og implementeringsplaner",
-      descriptionEn: "Experience sharing and implementation plans"
+      description: "Gruppepræsentationer, fælles diskussion om implementering og næste skridt",
+      descriptionEn: "Group presentations, discussion on implementation and next steps"
     }
   ]
 
@@ -366,19 +303,44 @@ export function DanishCurriculum() {
         </CardContent>
       </Card>
 
+      {/* Practical Details */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Users className="h-5 w-5" />
+            {language === 'da' ? 'Praktiske detaljer' : 'Practical details'}
+          </CardTitle>
+          <CardDescription>
+            {language === 'da'
+              ? 'To undervisere – større værdi. Fokus på målbare forbedringer og klar-til-brug løsninger.'
+              : 'Two instructors – higher value. Focus on measurable improvements and ready-to-use solutions.'}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2 text-sm">
+            <li>• {language === 'da' ? 'Deltagere: maks. 10–15 pr. hold' : 'Participants: max 10–15 per group'}</li>
+            <li>• {language === 'da' ? 'Varighed: 3 timer pr. session (formiddag/eftermiddag)' : 'Duration: 3 hours per session (morning/afternoon)'}</li>
+            <li>• {language === 'da' ? 'Tidspunkt: tilpasses jeres behov (inkl. pauser)' : 'Timing: tailored to your needs (incl. breaks)'}</li>
+            <li>• {language === 'da' ? 'Sted: VMS hovedkontor eller efter aftale' : 'Location: VMS HQ or by agreement'}</li>
+            <li>• {language === 'da' ? 'Pris: 30.000 DKK ekskl. moms' : 'Price: 30,000 DKK excl. VAT'}</li>
+            <li>• {language === 'da' ? 'Inkluderer: forberedelse og afholdelse, materialer (videoer, slides, vejledninger) samt 1 års opfølgende support' : 'Includes: preparation and delivery, materials (videos, slides, guides) and 1 year of follow-up support'}</li>
+          </ul>
+        </CardContent>
+      </Card>
+
       {/* Day Selection */}
       <div className="flex items-center gap-4">
         <Button
           variant={selectedDay === 1 ? "default" : "outline"}
           onClick={() => setSelectedDay(1)}
         >
-          {t.day} 1: {language === 'da' ? t.day1Title : 'Basic AI Tools & Techniques'}
+          {t.day} 1: {language === 'da' ? t.day1Title : 'ChatGPT & Microsoft Copilot – effective use'}
         </Button>
         <Button
           variant={selectedDay === 2 ? "default" : "outline"}
           onClick={() => setSelectedDay(2)}
         >
-          {t.day} 2: {language === 'da' ? t.day2Title : 'Ethics & Practical Application'}
+          {t.day} 2: {language === 'da' ? t.day2Title : 'Strategy, responsible use and hands-on workshop'}
         </Button>
       </div>
 
@@ -388,11 +350,11 @@ export function DanishCurriculum() {
           <CardTitle>
             {t.day} {selectedDay}: {language === 'da' ? 
               (selectedDay === 1 ? t.day1Title : t.day2Title) :
-              (selectedDay === 1 ? 'Basic AI Tools & Techniques' : 'Ethics & Practical Application')
+              (selectedDay === 1 ? 'ChatGPT & Microsoft Copilot – effective use' : 'Strategy, responsible use and hands-on workshop')
             }
           </CardTitle>
           <CardDescription>
-            Detaljeret program for dag {selectedDay} af HARKA AI Workshop
+            Detaljeret program for dag {selectedDay} af Strategisk AI-workshop
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -438,17 +400,15 @@ export function DanishCurriculum() {
           <CardContent>
             <ul className="space-y-2">
               {selectedDay === 1 ? [
-                "Forstå Bullseye-metaforen for prompt progression",
-                "Mestre grundlæggende prompt engineering teknikker", 
-                "Implementere custom instructions effektivt",
-                "Identificere og håndtere AI hallucination og bias",
-                "Arbejde med store datasæt og dybdegående analyser"
+                "Anvende ChatGPT effektivt til daglige processer",
+                "Udnytte Microsoft Copilot i O365 (Word/Excel/PP/Teams)",
+                "Skrive præcise prompts til kvalitet og konsistens",
+                "Omsætte viden til konkrete forbedringer i egne workflows"
               ] : [
-                "Navigere GDPR compliance i AI-projekter",
-                "Implementere Zero Trust sikkerhedsmodeller",
-                "Udvikle virksomhedsspecifikke AI use cases",
-                "Præsentere AI-løsninger overbevisende",
-                "Identificere automatiseringsmuligheder i organisationen"
+                "Identificere højværdiprocesser for AI-optimering",
+                "Udarbejde retningslinjer for ansvarlig AI-brug",
+                "Bygge klar-til-brug løsninger på egne cases",
+                "Planlægge implementering og næste skridt"
               ].map((outcome, index) => (
                 <li key={index} className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
@@ -469,17 +429,15 @@ export function DanishCurriculum() {
           <CardContent>
             <ul className="space-y-2">
               {selectedDay === 1 ? [
-                "Bullseye Prompt Framework Template",
-                "AI Model Comparison Guide",
-                "Custom Instructions Library",
-                "Bias Detection Checklist",
-                "Data Analysis Toolkit"
+                "ChatGPT Prompt Toolkit (øvelser og skabeloner)",
+                "Microsoft Copilot øvelser (Word/Excel/PP/Teams)",
+                "Procescheckliste til interne forbedringer",
+                "Videomateriale og slides (efterfølgende adgang)"
               ] : [
-                "GDPR AI Compliance Checklist", 
-                "Zero Trust Implementation Guide",
-                "Use Case Development Template",
-                "Pitch Deck Framework",
-                "Automation Assessment Tool"
+                "Skabelon: Retningslinjer for ansvarlig AI-brug",
+                "Kravspec og use case-ramme til workshop",
+                "Implementeringscheckliste og næste skridt",
+                "Adgang til opdaterede ressourcer i 12 måneder"
               ].map((resource, index) => (
                 <li key={index} className="flex items-center gap-2">
                   <FileText className="h-4 w-4 text-blue-500 flex-shrink-0" />
@@ -494,10 +452,11 @@ export function DanishCurriculum() {
       {/* CTA Section */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50">
         <CardContent className="p-8 text-center">
-          <h3 className="text-2xl font-bold mb-4">Klar til at transformere din organisation med AI?</h3>
+          <h3 className="text-2xl font-bold mb-4">{language === 'da' ? 'Klar til at accelerere AI hos VMS?' : 'Ready to accelerate AI at VMS?'}</h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Tilmeld dig HARKA AI Workshop og få hands-on erfaring med de nyeste AI-værktøjer og -teknikker. 
-            Perfekt til teams der vil implementere AI på en ansvarlig og effektiv måde.
+            {language === 'da'
+              ? 'To undervisere – større værdi. Skræddersyet 2-dages forløb med ChatGPT & Copilot, strategi og hands-on. Inkluderer materialer og 1 års opfølgende support.'
+              : 'Two instructors – higher value. Tailored 2-day program with ChatGPT & Copilot, strategy and hands-on. Includes materials and 1 year of follow-up support.'}
           </p>
           <div className="flex items-center justify-center gap-4">
             <Button size="lg">
@@ -505,7 +464,7 @@ export function DanishCurriculum() {
             </Button>
             <Button size="lg" variant="outline">
               <Calendar className="mr-2 h-4 w-4" />
-              Se ledige datoer
+              {language === 'da' ? 'Se ledige datoer' : 'See available dates'}
             </Button>
           </div>
         </CardContent>
