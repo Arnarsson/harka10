@@ -334,13 +334,13 @@ export function DanishCurriculum() {
           variant={selectedDay === 1 ? "default" : "outline"}
           onClick={() => setSelectedDay(1)}
         >
-          {t.day} 1: {language === 'da' ? t.day1Title : 'Basic AI Tools & Techniques'}
+          {t.day} 1: {language === 'da' ? t.day1Title : 'ChatGPT & Microsoft Copilot – effective use'}
         </Button>
         <Button
           variant={selectedDay === 2 ? "default" : "outline"}
           onClick={() => setSelectedDay(2)}
         >
-          {t.day} 2: {language === 'da' ? t.day2Title : 'Ethics & Practical Application'}
+          {t.day} 2: {language === 'da' ? t.day2Title : 'Strategy, responsible use and hands-on workshop'}
         </Button>
       </div>
 
@@ -354,7 +354,7 @@ export function DanishCurriculum() {
             }
           </CardTitle>
           <CardDescription>
-            Detaljeret program for dag {selectedDay} af HARKA AI Workshop
+            Detaljeret program for dag {selectedDay} af Strategisk AI-workshop
           </CardDescription>
         </CardHeader>
         <CardContent>
