@@ -1,10 +1,5 @@
-import { SimpleDashboard } from "@/app/dashboard/simple-dashboard"
-import { ErrorBoundary } from "@/components/error-boundary"
+import { redirect } from 'next/navigation'
 
-export default function DashboardPage() {
-  return (
-    <ErrorBoundary>
-      <SimpleDashboard />
-    </ErrorBoundary>
-  )
+export default function LearnDashboardRedirect() {
+  redirect('/dashboard')
 }

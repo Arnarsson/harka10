@@ -33,19 +33,17 @@ export function SimpleHeader() {
   // Different navigation items for guests vs authenticated users
   const guestNavItems = [
     { href: '/', label: 'Home', icon: Home },
-    { href: '#features', label: 'Features', icon: Sparkles },
-    { href: '#pricing', label: 'Pricing', icon: CreditCard },
     { href: '/demo/interactive-learning', label: 'Demo', icon: PlayCircle },
-    { href: '#about', label: 'About', icon: Info },
+    { href: '/toolkit', label: 'Toolkit', icon: FileText },
+    { href: '#pricing', label: 'Pricing', icon: CreditCard },
   ]
 
   const authenticatedNavItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: BookOpen },
+    { href: '/dashboard', label: 'Dashboard', icon: Home },
     { href: '/learn/courses', label: 'Courses', icon: PlayCircle },
     { href: '/learn/ai-kompas', label: 'AI Compass', icon: Compass },
     { href: '/community/power-hour', label: 'Community', icon: Users },
     { href: '/analytics', label: 'Analytics', icon: BarChart },
-    { href: '/toolkit', label: 'Toolkit', icon: FileText },
     { href: '/teach/dashboard', label: 'Teach', icon: Upload, requireTeacher: true },
     { href: '/admin/dashboard', label: 'Admin', icon: Shield, requireAdmin: true },
   ]
@@ -85,7 +83,7 @@ export function SimpleHeader() {
           <div className="hidden md:flex items-center space-x-4">
             {isSignedIn ? (
               <>
-                <Link href="/learn/dashboard">
+                <Link href="/dashboard">
                   <Button variant="ghost" size="icon">
                     <Settings className="h-5 w-5" />
                   </Button>
