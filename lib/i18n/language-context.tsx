@@ -13,11 +13,9 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('da')
-  const [mounted, setMounted] = useState(false)
 
+  // Load persisted language on client after first paint
   useEffect(() => {
-    setMounted(true)
-    // Load language from localStorage
     const savedLang = localStorage.getItem('harka-language') as Language
     if (savedLang && (savedLang === 'da' || savedLang === 'en')) {
       setLanguageState(savedLang)
@@ -32,19 +30,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   const t = getTranslations(language)
-
-  if (!mounted) {
-    // Return a minimal provider to avoid hydration mismatch
-    return (
-      <LanguageContext.Provider value={{
-        language: 'da',
-        setLanguage: () => {},
-        t: getTranslations('da')
-      }}>
-        {children}
-      </LanguageContext.Provider>
-    )
-  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
