@@ -1,10 +1,10 @@
-import { SimpleDashboard } from "./simple-dashboard"
+import { UltraCleanDashboard } from "./ultra-clean-dashboard"
 import { ErrorBoundary } from "@/components/error-boundary"
 
 export default function DashboardPage() {
   return (
     <ErrorBoundary>
-      <SimpleDashboard />
+      <UltraCleanDashboard />
     </ErrorBoundary>
   )
 }

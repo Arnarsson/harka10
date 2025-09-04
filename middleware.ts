@@ -25,7 +25,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   
   // Handle authenticated users on auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
-    return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+    return NextResponse.redirect(new URL('/dashboard', req.url))
   }
 
   // Admin routes
@@ -36,7 +36,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     
     const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'admin') {
-      return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+      return NextResponse.redirect(new URL('/dashboard', req.url))
     }
   }
 
@@ -48,7 +48,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     
     const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'teacher' && role !== 'admin') {
-      return NextResponse.redirect(new URL('/learn/dashboard', req.url))
+      return NextResponse.redirect(new URL('/dashboard', req.url))
     }
   }
 
