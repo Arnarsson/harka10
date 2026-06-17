@@ -1,10 +1,10 @@
-import { auth } from '@clerk/nextjs/server'
+import { safeAuth } from '@/lib/safe-auth'
 import { redirect } from 'next/navigation'
 import { DashboardLayout } from '@/components/layout/DashboardLayout'
 import { BookmarkNotes } from '@/components/learning/BookmarkNotes'
 
 export default async function NotesPage() {
-  const { userId } = await auth()
+  const { userId } = await safeAuth()
   
   if (!userId) {
     redirect('/sign-in')
