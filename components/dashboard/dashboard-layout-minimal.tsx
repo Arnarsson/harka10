@@ -1,46 +1,27 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useUser, useClerk } from "@clerk/nextjs"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   LayoutDashboard,
-  BookOpen,
-  Users,
-  BarChart3,
-  Settings,
-  MessageSquare,
-  Target,
-  Menu,
-  X,
-  LogOut,
-  Award,
   GraduationCap,
+  Target,
+  BarChart3,
+  MessageSquare,
+  FileText,
+  Award,
+  Wrench,
+  Shield,
   Moon,
   Sun,
-  FileText,
-  TrendingUp,
-  HelpCircle,
-  ChevronLeft,
-  ChevronRight,
-  Wrench,
-  Shield
 } from "lucide-react"
 import { useTheme } from "next-themes"
 
 const navigation = [
-  { name: "Dashboard", href: "/learn/dashboard", icon: LayoutDashboard },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Learning", href: "/learn/learning", icon: GraduationCap },
   { name: "Playground", href: "/learn/playground", icon: Target },
   { name: "Analytics", href: "/learn/analytics", icon: BarChart3 },
@@ -56,192 +37,433 @@ interface DashboardLayoutProps {
 
 export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false)
+  const avatarRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const { user, isLoaded } = useUser()
   const { signOut } = useClerk()
-  
-  // Check user roles from metadata
-  const isAdmin = user?.publicMetadata?.role === 'admin'
-  const isInstructor = user?.publicMetadata?.role === 'instructor'
   const { theme, setTheme } = useTheme()
 
-  // Add admin navigation if user is admin
-  const navItems = isAdmin 
+  const isAdmin = user?.publicMetadata?.role === "admin"
+
+  const navItems = isAdmin
     ? [...navigation, { name: "Admin", href: "/admin", icon: Shield }]
     : navigation
 
+  // Close avatar menu on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (avatarRef.current && !avatarRef.current.contains(e.target as Node)) {
+        setAvatarMenuOpen(false)
+      }
+    }
+    if (avatarMenuOpen) document.addEventListener("mousedown", handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
+  }, [avatarMenuOpen])
+
+  const userInitial =
+    user?.firstName?.[0]?.toUpperCase() ||
+    user?.fullName?.[0]?.toUpperCase() ||
+    "U"
+
+  const userName = user?.firstName || user?.fullName || "User"
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Mobile sidebar */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="fixed inset-0 bg-black/20" onClick={() => setSidebarOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-64 bg-background border-r">
-            <div className="flex h-14 items-center justify-between px-6">
-              <Link href="/dashboard" className="text-xl font-bold">
-                HEKLA
-              </Link>
-              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            <nav className="px-3 py-4">
+    <div style={{ minHeight: "100vh", background: "var(--paper)" }}>
+      {/* ── TOPBAR ─────────────────────────────────────────────────────── */}
+      <header
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 60,
+          height: 60,
+          width: "100%",
+          background: "rgba(245,245,243,0.92)",
+          backdropFilter: "blur(8px)",
+          borderBottom: "1px solid var(--black)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 24px",
+          boxSizing: "border-box",
+        }}
+      >
+        {/* LEFT: hamburger (mobile) + brand */}
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          {/* Hamburger — mobile only */}
+          <button
+            aria-label="Open sidebar"
+            onClick={() => setSidebarOpen(true)}
+            style={{
+              display: "none",
+              width: 30,
+              height: 30,
+              border: "1px solid var(--black)",
+              background: "transparent",
+              cursor: "pointer",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 5,
+              padding: 0,
+              flexShrink: 0,
+            }}
+            className="hekla-hamburger"
+          >
+            <span style={{ display: "block", width: 16, height: 1.5, background: "var(--black)" }} />
+            <span style={{ display: "block", width: 16, height: 1.5, background: "var(--black)" }} />
+            <span style={{ display: "block", width: 16, height: 1.5, background: "var(--black)" }} />
+          </button>
+
+          {/* Brand */}
+          <Link
+            href="/dashboard"
+            style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
+          >
+            {/* Violet square with H */}
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 30,
+                height: 30,
+                background: "var(--violet)",
+                flexShrink: 0,
+              }}
+            >
+              <span
+                className="mark"
+                style={{ fontSize: 17, color: "#fff", lineHeight: 1 }}
+              >
+                H
+              </span>
+            </span>
+            <span
+              className="mark"
+              style={{ fontSize: 19, color: "var(--black)", letterSpacing: "0.04em" }}
+            >
+              HEKLA
+            </span>
+          </Link>
+        </div>
+
+        {/* RIGHT: theme toggle + avatar */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          {/* Theme toggle */}
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              color: "var(--ash)",
+            }}
+            title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+          >
+            {theme === "dark" ? (
+              <Sun size={16} color="var(--ash)" />
+            ) : (
+              <Moon size={16} color="var(--ash)" />
+            )}
+          </button>
+
+          {/* Avatar + dropdown */}
+          <div ref={avatarRef} style={{ position: "relative" }}>
+            <button
+              onClick={() => setAvatarMenuOpen((v) => !v)}
+              aria-label="User menu"
+              style={{
+                width: 30,
+                height: 30,
+                background: "var(--black)",
+                color: "var(--paper)",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 12,
+                fontWeight: 700,
+                fontFamily: "Inter, sans-serif",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              {userInitial}
+            </button>
+
+            {avatarMenuOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 6px)",
+                  right: 0,
+                  background: "var(--white)",
+                  border: "1px solid var(--black)",
+                  minWidth: 160,
+                  zIndex: 100,
+                  fontFamily: "Inter, sans-serif",
+                }}
+              >
+                <Link
+                  href="/settings"
+                  onClick={() => setAvatarMenuOpen(false)}
+                  style={{
+                    display: "block",
+                    padding: "10px 16px",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: "var(--black)",
+                    textDecoration: "none",
+                    letterSpacing: "0.02em",
+                  }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLElement).style.background = "var(--smoke)")
+                  }
+                  onMouseLeave={(e) =>
+                    ((e.currentTarget as HTMLElement).style.background = "transparent")
+                  }
+                >
+                  Settings
+                </Link>
+
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setAvatarMenuOpen(false)}
+                    style={{
+                      display: "block",
+                      padding: "10px 16px",
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: "var(--black)",
+                      textDecoration: "none",
+                      letterSpacing: "0.02em",
+                    }}
+                    onMouseEnter={(e) =>
+                      ((e.currentTarget as HTMLElement).style.background = "var(--smoke)")
+                    }
+                    onMouseLeave={(e) =>
+                      ((e.currentTarget as HTMLElement).style.background = "transparent")
+                    }
+                  >
+                    Admin
+                  </Link>
+                )}
+
+                <div style={{ borderTop: "1px solid var(--smoke)" }} />
+
+                <button
+                  onClick={() => { setAvatarMenuOpen(false); signOut() }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    padding: "10px 16px",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: "var(--black)",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    letterSpacing: "0.02em",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLElement).style.background = "var(--smoke)")
+                  }
+                  onMouseLeave={(e) =>
+                    ((e.currentTarget as HTMLElement).style.background = "transparent")
+                  }
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* ── BODY GRID ──────────────────────────────────────────────────── */}
+      <div className="hekla-body-grid">
+        {/* ── SIDEBAR ──────────────────────────────────────────────────── */}
+        <>
+          {/* Mobile backdrop */}
+          {sidebarOpen && (
+            <div
+              onClick={() => setSidebarOpen(false)}
+              style={{
+                position: "fixed",
+                inset: 0,
+                zIndex: 54,
+                background: "rgba(0,0,0,0.2)",
+              }}
+            />
+          )}
+
+          <aside
+            className={`hekla-sidebar${sidebarOpen ? " hekla-sidebar--open" : ""}`}
+            style={{
+              background: "var(--paper)",
+              borderRight: "1px solid var(--black)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              padding: "22px 0",
+            }}
+          >
+            {/* Nav */}
+            <nav>
               {navItems.map((item) => {
-                const isActive = pathname === item.href
+                const isActive =
+                  pathname === item.href || pathname.startsWith(item.href + "/")
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2 text-sm rounded-[var(--radius)] transition-colors ${
-                      isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "11px 24px",
+                      fontWeight: 600,
+                      fontSize: 13,
+                      fontFamily: "Inter, sans-serif",
+                      textDecoration: "none",
+                      color: isActive ? "var(--black)" : "var(--ash)",
+                      borderLeft: isActive
+                        ? "3px solid var(--violet)"
+                        : "3px solid transparent",
+                      background: isActive ? "var(--white)" : "transparent",
+                      transition: "color 0.1s",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive)
+                        (e.currentTarget as HTMLElement).style.color = "var(--black)"
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive)
+                        (e.currentTarget as HTMLElement).style.color = "var(--ash)"
+                    }}
                   >
-                    <item.icon className="h-4 w-4" />
+                    <item.icon size={15} color="currentColor" />
                     <span>{item.name}</span>
                   </Link>
                 )
               })}
             </nav>
-          </div>
-        </div>
-      )}
 
-      {/* Desktop sidebar */}
-      <div className={`hidden lg:fixed lg:inset-y-0 lg:left-0 lg:block transition-all duration-300 ${sidebarCollapsed ? 'lg:w-16' : 'lg:w-64'}`}>
-        <div className="h-full bg-background border-r">
-          <div className="flex h-14 items-center justify-between px-6">
-            <Link href="/learn/dashboard" className={`text-xl font-bold transition-opacity ${sidebarCollapsed ? 'opacity-0' : 'opacity-100'}`}>
-              HEKLA
-            </Link>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="hidden lg:flex"
+            {/* Me box */}
+            <div
+              style={{
+                margin: "0 16px",
+                border: "1px solid var(--smoke)",
+                padding: 12,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+              }}
             >
-              {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-            </Button>
-          </div>
-
-          <nav className="px-3 py-4 space-y-1">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 text-sm rounded-[var(--radius)] transition-colors group relative ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                  }`}
-                  title={sidebarCollapsed ? item.name : undefined}
+              {/* Mini avatar */}
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 28,
+                  height: 28,
+                  background: "var(--black)",
+                  color: "var(--paper)",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Inter, sans-serif",
+                  flexShrink: 0,
+                }}
+              >
+                {userInitial}
+              </span>
+              <div style={{ minWidth: 0 }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: "var(--black)",
+                    fontFamily: "Inter, sans-serif",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
                 >
-                  <item.icon className="h-4 w-4 flex-shrink-0" />
-                  <span className={`transition-opacity ${sidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
-                    {item.name}
-                  </span>
-                  {sidebarCollapsed && (
-                    <div className="absolute left-12 bg-background border rounded-md px-2 py-1 text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50 shadow-lg">
-                      {item.name}
-                    </div>
-                  )}
-                </Link>
-              )
-            })}
-          </nav>
-
-          <div className="absolute bottom-0 left-0 right-0 p-3">
-            <div className="border rounded-[var(--radius)] p-4">
-              <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8 flex-shrink-0">
-                  <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                  <AvatarFallback className="text-xs">S</AvatarFallback>
-                </Avatar>
-                <div className={`flex-1 min-w-0 transition-opacity ${sidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
-                  <p className="text-sm font-medium truncate">Sven</p>
-                  <p className="text-xs text-muted-foreground truncate">View Profile</p>
+                  {userName}
                 </div>
+                <Link
+                  href="/settings"
+                  style={{
+                    fontSize: 11,
+                    color: "var(--ash)",
+                    textDecoration: "none",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  View profile →
+                </Link>
               </div>
             </div>
-          </div>
-        </div>
+          </aside>
+        </>
+
+        {/* ── MAIN ─────────────────────────────────────────────────────── */}
+        <main style={{ minWidth: 0 }}>{children}</main>
       </div>
 
-      {/* Main content */}
-      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
-        {/* Top header */}
-        <header className="h-14 border-b flex items-center justify-between px-6">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setSidebarOpen(true)}>
-              <Menu className="h-4 w-4" />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="hidden lg:flex" 
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            >
-              <Menu className="h-4 w-4" />
-            </Button>
-            <h1 className="text-lg font-medium capitalize">
-              {pathname.split('/')[1] || 'Dashboard'}
-            </h1>
-          </div>
+      {/* ── Layout styles ─────────────────────────────────────────────── */}
+      <style>{`
+        /* Body grid: sidebar + main */
+        .hekla-body-grid {
+          display: grid;
+          grid-template-columns: 248px 1fr;
+        }
 
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            </Button>
+        /* Sidebar: sticky on desktop */
+        .hekla-sidebar {
+          position: sticky;
+          top: 60px;
+          align-self: start;
+          height: calc(100vh - 60px);
+          overflow-y: auto;
+        }
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={user?.imageUrl || "/placeholder.svg?height=32&width=32"} alt={user?.fullName || "User"} />
-                    <AvatarFallback className="text-xs">
-                      {user?.fullName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </DropdownMenuItem>
-                {isAdmin && (
-                  <>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link href="/admin">
-                        <Shield className="mr-2 h-4 w-4" />
-                        Admin Panel
-                      </Link>
-                    </DropdownMenuItem>
-                  </>
-                )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => signOut()}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </header>
+        /* Mobile: fixed drawer */
+        @media (max-width: 1023px) {
+          .hekla-body-grid {
+            grid-template-columns: 1fr;
+          }
 
-        {/* Page content */}
-        <main className="p-6">{children}</main>
-      </div>
+          .hekla-sidebar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 240px;
+            height: calc(100vh - 60px);
+            z-index: 55;
+            transform: translateX(-100%);
+            transition: transform 0.22s ease;
+          }
+
+          .hekla-sidebar--open {
+            transform: translateX(0);
+          }
+
+          .hekla-hamburger {
+            display: flex !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

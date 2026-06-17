@@ -1,4 +1,6 @@
-export default function ToolkitPage() {
+import { DashboardLayoutMinimal } from "@/components/dashboard/dashboard-layout-minimal"
+
+function ToolkitContent() {
   return (
     <div
       style={{
@@ -257,5 +259,13 @@ export default function ToolkitPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ToolkitPage() {
+  return (
+    <DashboardLayoutMinimal>
+      <ToolkitContent />
+    </DashboardLayoutMinimal>
   )
 }
