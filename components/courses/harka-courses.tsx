@@ -93,19 +93,19 @@ export function HarkaCourses() {
 
   const bookmarkedResources = [
     {
-      title: "React Fundamentals",
-      description: "Core concepts and hooks",
-      type: "Documentation"
-    },
-    {
-      title: "Next.js App Router",
-      description: "Server and Client Components",
+      title: "Prompt Engineering Guide",
+      description: "Patterns for reliable prompts",
       type: "Guide"
     },
     {
-      title: "Tailwind CSS Guide",
-      description: "Utility-first CSS framework",
-      type: "Documentation"
+      title: "LLM Glossary",
+      description: "Key terms, explained simply",
+      type: "Reference"
+    },
+    {
+      title: "AI Governance Checklist",
+      description: "GDPR & responsible AI use",
+      type: "Template"
     }
   ]
 
