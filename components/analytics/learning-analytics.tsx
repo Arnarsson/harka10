@@ -1,396 +1,271 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import { 
-  BarChart3, 
-  TrendingUp, 
-  Clock, 
-  Target, 
-  Award, 
-  Users, 
-  Brain,
-  Calendar,
-  Download,
-  Filter
-} from "lucide-react"
 
 export function LearningAnalytics() {
-  const [timeRange, setTimeRange] = useState("7d")
+  const [_timeRange] = useState("7d")
 
-  const metrics = {
-    totalHours: 42.5,
-    coursesCompleted: 8,
-    skillsAcquired: 15,
-    averageScore: 87,
-    streakDays: 12,
-    rank: 3
-  }
-
-  const skillProgress = [
-    { skill: "Prompt Engineering", progress: 85, change: +12 },
-    { skill: "AI Implementation", progress: 72, change: +8 },
-    { skill: "Data Analysis", progress: 90, change: +5 },
-    { skill: "Machine Learning", progress: 65, change: +15 },
-    { skill: "Python Programming", progress: 78, change: +3 }
+  const skillGaps = [
+    { skill: "Prompt Engineering", score: 85, industry: 75, target: 90 },
+    { skill: "AI Implementation", score: 72, industry: 68, target: 85 },
+    { skill: "Data Analysis", score: 90, industry: 80, target: 90 },
+    { skill: "Machine Learning", score: 65, industry: 70, target: 88 },
+    { skill: "Python Programming", score: 78, industry: 72, target: 85 },
   ]
 
-  const weeklyActivity = [
-    { day: "Mon", hours: 2.5, completed: 3 },
-    { day: "Tue", hours: 1.8, completed: 2 },
-    { day: "Wed", hours: 3.2, completed: 4 },
-    { day: "Thu", hours: 2.1, completed: 2 },
-    { day: "Fri", hours: 4.0, completed: 5 },
-    { day: "Sat", hours: 1.5, completed: 1 },
-    { day: "Sun", hours: 2.8, completed: 3 }
+  const weeklyEngagement = [
+    { label: "W1", pct: 62, type: "v" },
+    { label: "W2", pct: 48, type: "a" },
+    { label: "W3", pct: 75, type: "v" },
+    { label: "W4", pct: 55, type: "a" },
+    { label: "W5", pct: 88, type: "v" },
+    { label: "W6", pct: 70, type: "v" },
+    { label: "W7", pct: 92, type: "v" },
   ]
 
-  const achievements = [
-    { name: "Speed Learner", description: "Complete 5 lessons in one day", earned: true },
-    { name: "Consistent Student", description: "7-day learning streak", earned: true },
-    { name: "AI Pioneer", description: "Complete first AI implementation", earned: true },
-    { name: "Knowledge Seeker", description: "Complete 10 courses", earned: false },
-    { name: "Mentor", description: "Help 5 other students", earned: false }
+  const phaseCompletion = [
+    { label: "Phase 1", pct: 100, type: "m" },
+    { label: "Phase 2", pct: 78, type: "v" },
+    { label: "Phase 3", pct: 32, type: "a" },
+  ]
+
+  const perfVsTarget = [
+    { skill: "Prompt Engineering", score: 85, target: 90, done: false },
+    { skill: "Data Analysis", score: 90, target: 90, done: true },
+    { skill: "Python Programming", score: 78, target: 85, done: false },
+    { skill: "AI Implementation", score: 72, target: 85, done: false },
+    { skill: "Machine Learning", score: 65, target: 88, done: false },
+    { skill: "AI Fundamentals", score: 95, target: 80, done: true },
+  ]
+
+  const monthStats = [
+    { eyebrow: "Hours logged", num: "42.5", delta: "+12%", accent: "" },
+    { eyebrow: "Courses done", num: "8", delta: "+2", accent: "" },
+    { eyebrow: "Avg score", num: "87%", delta: "+5%", accent: "" },
+    { eyebrow: "Streak days", num: "12", delta: "+4", accent: "edge-moss-b" },
   ]
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Learning Analytics</h1>
-          <p className="text-muted-foreground">Track your progress and insights</p>
+    <div style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 32px 90px" }}>
+
+      {/* Page head */}
+      <div style={{ marginBottom: 40 }}>
+        <div className="cut" style={{ marginBottom: 18 }}>
+          <span className="v" />
+          <span className="m" />
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <Filter className="h-4 w-4 mr-2" />
-            Filter
-          </Button>
-          <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 mr-2" />
-            Export
-          </Button>
+        <h1 className="display" style={{ fontSize: 52 }}>Analytics</h1>
+        <p className="muted" style={{ marginTop: 10, fontSize: 16 }}>
+          Where the program is, and where to step in.
+        </p>
+      </div>
+
+      {/* FORECAST card */}
+      <div className="card card--ink" style={{ marginBottom: 20 }}>
+        <div className="eyebrow" style={{ marginBottom: 14 }}>Forecast</div>
+        <div className="display" style={{ fontSize: 24, color: "var(--paper)", marginBottom: 10 }}>
+          Projected completion, with the moves that change it
+        </div>
+        <p className="muted" style={{ fontSize: 13, marginBottom: 28, color: "#9a9a9a" }}>
+          At current velocity, on track to complete 6 weeks ahead of cohort average.
+        </p>
+
+        {/* Inline SVG line chart */}
+        <div style={{ marginBottom: 12 }}>
+          <svg viewBox="0 0 680 160" width="100%" height="160" style={{ display: "block" }}>
+            {/* Grid lines */}
+            {[0, 40, 80, 120].map((y) => (
+              <line
+                key={y}
+                x1="0" y1={y} x2="680" y2={y}
+                stroke="#333" strokeWidth="1" strokeDasharray="4 4"
+              />
+            ))}
+            {[0, 97, 194, 291, 388, 485, 582, 679].map((x) => (
+              <line
+                key={x}
+                x1={x} y1="0" x2={x} y2="160"
+                stroke="#222" strokeWidth="1" strokeDasharray="2 6"
+              />
+            ))}
+            {/* Violet polyline */}
+            <polyline
+              points="0,140 97,120 194,100 291,85 388,60 485,45 582,30 679,18"
+              fill="none"
+              stroke="#5708D8"
+              strokeWidth="2.5"
+              strokeLinejoin="round"
+            />
+            {/* Data points */}
+            {[
+              [0, 140], [194, 100], [388, 60], [582, 30], [679, 18],
+            ].map(([cx, cy]) => (
+              <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4" fill="#5708D8" />
+            ))}
+            {/* Highlighted point */}
+            <circle cx="388" cy="60" r="6" fill="none" stroke="#6FC15E" strokeWidth="2" />
+          </svg>
+        </div>
+
+        {/* Week labels */}
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: 11,
+          color: "#9a9a9a",
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          marginBottom: 28,
+        }}>
+          {["Wk 1", "Wk 2", "Wk 3", "Wk 4", "Wk 5", "Wk 6", "Wk 7", "Wk 8"].map((w) => (
+            <span key={w}>{w}</span>
+          ))}
+        </div>
+
+        {/* Three bordered forecast boxes */}
+        <div className="row r3">
+          <div style={{ border: "1px solid #333", padding: 16 }}>
+            <div className="num" style={{ fontSize: 30, color: "#6FC15E", marginBottom: 8 }}>+6 wk</div>
+            <div className="eyebrow">Ahead of cohort</div>
+          </div>
+          <div style={{ border: "1px solid #333", padding: 16 }}>
+            <div className="num" style={{ fontSize: 30, color: "var(--paper)", marginBottom: 8 }}>Sep 14</div>
+            <div className="eyebrow">Projected finish</div>
+          </div>
+          <div style={{ border: "1px solid #333", padding: 16 }}>
+            <div className="num" style={{ fontSize: 30, color: "#5708D8", marginBottom: 8 }}>87%</div>
+            <div className="eyebrow">Confidence</div>
+          </div>
         </div>
       </div>
 
-      {/* Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-blue-500" />
-              <div>
-                <p className="text-sm text-muted-foreground">Total Hours</p>
-                <p className="text-2xl font-bold">{metrics.totalHours}</p>
+      {/* Skill gap + Risk assessment */}
+      <div className="row r2" style={{ marginBottom: 20 }}>
+        {/* Skill gap */}
+        <div className="card">
+          <div className="eyebrow" style={{ marginBottom: 18 }}>Skill gap vs. industry</div>
+          {skillGaps.map((s) => (
+            <div key={s.skill} className="skillbar">
+              <div className="top">
+                <span>{s.skill}</span>
+                <b>{s.score} / {s.target}</b>
+              </div>
+              <div className="bar">
+                <i style={{ width: `${s.score}%` }} />
+              </div>
+              <div className="meta">
+                <span>Industry avg {s.industry}</span>
+                <span>Target {s.target}</span>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
 
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Award className="h-4 w-4 text-green-500" />
-              <div>
-                <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-2xl font-bold">{metrics.coursesCompleted}</p>
+        {/* Risk assessment */}
+        <div className="card">
+          <div className="eyebrow" style={{ marginBottom: 18 }}>Risk assessment</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div className="card--hair" style={{ border: "1px solid var(--smoke)", padding: 16 }}>
+              <div style={{ marginBottom: 10 }}>
+                <span className="chip">
+                  <span>High · 72%</span>
+                </span>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Brain className="h-4 w-4 text-purple-500" />
-              <div>
-                <p className="text-sm text-muted-foreground">Skills</p>
-                <p className="text-2xl font-bold">{metrics.skillsAcquired}</p>
+              <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
+                Machine Learning gap
               </div>
+              <p className="muted" style={{ fontSize: 13 }}>
+                Current score is 5 pts below industry average. Requires focused sprint this week.
+              </p>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Target className="h-4 w-4 text-orange-500" />
-              <div>
-                <p className="text-sm text-muted-foreground">Avg Score</p>
-                <p className="text-2xl font-bold">{metrics.averageScore}%</p>
+            <div className="card--hair" style={{ border: "1px solid var(--smoke)", padding: 16 }}>
+              <div style={{ marginBottom: 10 }}>
+                <span className="chip chip--ghost">
+                  <span>Medium · 45%</span>
+                </span>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-red-500" />
-              <div>
-                <p className="text-sm text-muted-foreground">Streak</p>
-                <p className="text-2xl font-bold">{metrics.streakDays}</p>
+              <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 6 }}>
+                Engagement drop W2
               </div>
+              <p className="muted" style={{ fontSize: 13 }}>
+                A 14-point dip in week 2 may recur. Cohort comparison shows similar pattern.
+              </p>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-cyan-500" />
-              <div>
-                <p className="text-sm text-muted-foreground">Rank</p>
-                <p className="text-2xl font-bold">#{metrics.rank}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
-      <Tabs defaultValue="progress" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="progress">Progress</TabsTrigger>
-          <TabsTrigger value="activity">Activity</TabsTrigger>
-          <TabsTrigger value="achievements">Achievements</TabsTrigger>
-          <TabsTrigger value="insights">Insights</TabsTrigger>
-        </TabsList>
+      {/* Section label: This month */}
+      <div className="section-label">
+        <span className="n">→</span>
+        <h2>This month</h2>
+        <span className="act">
+          <a href="#">Export report →</a>
+        </span>
+      </div>
 
-        <TabsContent value="progress" className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Skill Progress</CardTitle>
-                <CardDescription>Your development across key AI skills</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {skillProgress.map((skill) => (
-                  <div key={skill.skill} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">{skill.skill}</span>
-                      <div className="flex items-center gap-2">
-                        <Badge variant={skill.change > 0 ? "default" : "secondary"} className="text-xs">
-                          {skill.change > 0 ? "+" : ""}{skill.change}%
-                        </Badge>
-                        <span className="text-sm text-muted-foreground">{skill.progress}%</span>
-                      </div>
-                    </div>
-                    <Progress value={skill.progress} className="h-2" />
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Learning Path</CardTitle>
-                <CardDescription>Your journey through AI mastery</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <div>
-                      <p className="font-medium">AI Fundamentals</p>
-                      <p className="text-sm text-muted-foreground">Completed • 8 lessons</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                    <div>
-                      <p className="font-medium">Prompt Engineering</p>
-                      <p className="text-sm text-muted-foreground">In Progress • 6/10 lessons</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-                    <div>
-                      <p className="font-medium">AI Implementation</p>
-                      <p className="text-sm text-muted-foreground">Locked</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-                    <div>
-                      <p className="font-medium">Advanced AI</p>
-                      <p className="text-sm text-muted-foreground">Locked</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+      {/* 4 stat cards */}
+      <div className="row r4" style={{ marginBottom: 20 }}>
+        {monthStats.map((s) => (
+          <div key={s.eyebrow} className={`card stat${s.accent ? ` ${s.accent}` : ""}`}>
+            <span className="eyebrow">{s.eyebrow}</span>
+            <div className="num" style={{ fontSize: 46 }}>{s.num}</div>
+            <div className="delta"><b>{s.delta}</b> vs last month</div>
           </div>
-        </TabsContent>
+        ))}
+      </div>
 
-        <TabsContent value="activity" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Weekly Activity</CardTitle>
-              <CardDescription>Your learning activity over the past week</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-7 gap-4">
-                {weeklyActivity.map((day) => (
-                  <div key={day.day} className="text-center space-y-2">
-                    <p className="text-sm font-medium">{day.day}</p>
-                    <div className="bg-blue-100 dark:bg-blue-900 rounded-lg p-3">
-                      <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{day.hours}h</p>
-                      <p className="text-xs text-muted-foreground">{day.completed} lessons</p>
-                    </div>
-                  </div>
-                ))}
+      {/* Two bar charts */}
+      <div className="row r2" style={{ marginBottom: 20 }}>
+        {/* Weekly engagement */}
+        <div className="card">
+          <div className="eyebrow" style={{ marginBottom: 18 }}>Weekly engagement</div>
+          <div className="bars">
+            {weeklyEngagement.map((bar) => (
+              <div key={bar.label} className={`b ${bar.type}`}>
+                <i style={{ height: `${bar.pct}%` }} />
+                <span>{bar.label}</span>
               </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Time Distribution</CardTitle>
-                <CardDescription>How you spend your learning time</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Video Lessons</span>
-                    <span className="text-sm font-medium">45%</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Hands-on Practice</span>
-                    <span className="text-sm font-medium">30%</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Reading</span>
-                    <span className="text-sm font-medium">15%</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Discussions</span>
-                    <span className="text-sm font-medium">10%</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Performance Trends</CardTitle>
-                <CardDescription>Your learning performance over time</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
-                    <span className="text-sm">Completion Rate: 92% (+5%)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
-                    <span className="text-sm">Average Score: 87% (+3%)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-blue-500" />
-                    <span className="text-sm">Time per Lesson: 15min (-2min)</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            ))}
           </div>
-        </TabsContent>
+        </div>
 
-        <TabsContent value="achievements" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Achievements</CardTitle>
-              <CardDescription>Your learning milestones and badges</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {achievements.map((achievement) => (
-                  <div
-                    key={achievement.name}
-                    className={`p-4 rounded-lg border ${
-                      achievement.earned
-                        ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
-                        : "bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <Award className={`h-6 w-6 ${achievement.earned ? "text-yellow-500" : "text-gray-400"}`} />
-                      <div>
-                        <h3 className="font-medium">{achievement.name}</h3>
-                        <p className="text-sm text-muted-foreground">{achievement.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+        {/* Phase completion */}
+        <div className="card">
+          <div className="eyebrow" style={{ marginBottom: 18 }}>Phase completion</div>
+          <div className="bars">
+            {phaseCompletion.map((bar) => (
+              <div key={bar.label} className={`b ${bar.type}`}>
+                <i style={{ height: `${bar.pct}%` }} />
+                <span>{bar.label}</span>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="insights" className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>AI-Powered Insights</CardTitle>
-                <CardDescription>Personalized recommendations for your learning</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <h4 className="font-medium text-blue-900 dark:text-blue-100">📈 Strength</h4>
-                  <p className="text-sm text-blue-800 dark:text-blue-200">
-                    You excel at hands-on implementation tasks. Consider taking on more complex projects.
-                  </p>
-                </div>
-                <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                  <h4 className="font-medium text-orange-900 dark:text-orange-100">⚠️ Focus Area</h4>
-                  <p className="text-sm text-orange-800 dark:text-orange-200">
-                    Theory comprehension could be improved. Spend more time on conceptual materials.
-                  </p>
-                </div>
-                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                  <h4 className="font-medium text-green-900 dark:text-green-100">💡 Suggestion</h4>
-                  <p className="text-sm text-green-800 dark:text-green-200">
-                    Your learning velocity is optimal at 2-3 lessons per day. Maintain this pace.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Next Steps</CardTitle>
-                <CardDescription>Recommended actions to accelerate your progress</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">Complete Machine Learning Basics</p>
-                    <p className="text-sm text-muted-foreground">Unlock advanced AI implementation path</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">Join Study Group</p>
-                    <p className="text-sm text-muted-foreground">Improve collaboration skills and network</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">Practice in Playground</p>
-                    <p className="text-sm text-muted-foreground">Apply concepts in real-world scenarios</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            ))}
           </div>
-        </TabsContent>
-      </Tabs>
+        </div>
+      </div>
+
+      {/* Performance vs. target */}
+      <div className="card">
+        <div className="eyebrow" style={{ marginBottom: 18 }}>Performance vs. target</div>
+        {perfVsTarget.map((s) => (
+          <div key={s.skill} className="skillbar">
+            <div className="top">
+              <span>{s.skill}</span>
+              <b>{s.score} / {s.target}</b>
+            </div>
+            <div className={`bar${s.done ? " is-done" : ""}`}>
+              <i style={{ width: `${s.score}%` }} />
+            </div>
+            <div className="meta">
+              <span>Target {s.target}</span>
+              <span style={{ color: s.done ? "var(--moss)" : "var(--ash)" }}>
+                {s.done ? "Above target" : `Gap ${s.target - s.score} pts`}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   )
 }

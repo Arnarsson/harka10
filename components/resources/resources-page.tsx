@@ -1,171 +1,66 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { 
-  Search,
-  Download,
-  FileText,
-  Video,
-  BookOpen,
-  ExternalLink,
-  Filter,
-  Star,
-  Clock,
-  Eye,
-  TrendingUp,
-  Calendar,
-  Users,
-  Link as LinkIcon,
-  Image as ImageIcon,
-  Code,
-  PlayCircle,
-  Heart,
-  Share2,
-  Upload
-} from "lucide-react"
 
 export function ResourcesPage() {
-  const [selectedCategory, setSelectedCategory] = useState("all")
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [activeTab, setActiveTab] = useState("all")
 
-  const categories = [
-    { id: "all", name: "All Resources", count: 156 },
-    { id: "guides", name: "Guides", count: 45 },
-    { id: "templates", name: "Templates", count: 32 },
-    { id: "tools", name: "Tools", count: 28 },
-    { id: "videos", name: "Videos", count: 34 },
-    { id: "datasets", name: "Datasets", count: 17 }
+  const tabs = [
+    { id: "all", label: "All" },
+    { id: "guides", label: "Guides" },
+    { id: "templates", label: "Templates" },
+    { id: "tools", label: "Tools" },
+    { id: "videos", label: "Videos" },
   ]
 
   const resources = [
     {
       id: 1,
+      badge: "PDF",
       title: "AI Ethics Framework Guide",
-      description: "Comprehensive guide to implementing ethical AI practices in your organization",
-      type: "PDF",
-      category: "Guides",
-      size: "2.4 MB",
-      downloads: 1247,
-      rating: 4.8,
-      tags: ["ethics", "framework", "implementation"],
-      dateAdded: "2024-01-15",
-      author: "HEKLA Team",
-      thumbnail: "/placeholder.svg?height=200&width=300",
-      isFeatured: true,
-      isPremium: false
+      chip: "Guide",
+      chipVariant: "ghost",
+      meta: "by HEKLA Team · 1,247 downloads · ★ 4.8",
     },
     {
       id: 2,
+      badge: "DOC",
       title: "Prompt Engineering Template Library",
-      description: "Collection of proven prompt templates for various AI applications",
-      type: "ZIP",
-      category: "Templates",
-      size: "5.1 MB",
-      downloads: 892,
-      rating: 4.6,
-      tags: ["prompts", "templates", "engineering"],
-      dateAdded: "2024-01-12",
-      author: "Sarah Chen",
-      thumbnail: "/placeholder.svg?height=200&width=300",
-      isFeatured: false,
-      isPremium: false
+      chip: "Template",
+      chipVariant: "ghost",
+      meta: "by Sarah Chen · 892 downloads · ★ 4.6",
     },
     {
       id: 3,
+      badge: "MP4",
       title: "Bias Detection Workshop Video",
-      description: "Interactive 45-minute workshop on identifying and mitigating AI bias",
-      type: "MP4",
-      category: "Videos",
-      duration: "45 min",
-      downloads: 634,
-      rating: 4.9,
-      tags: ["bias", "detection", "workshop"],
-      dateAdded: "2024-01-10",
-      author: "Dr. Michael Zhang",
-      thumbnail: "/placeholder.svg?height=200&width=300",
-      isFeatured: true,
-      isPremium: true
+      chip: "Premium",
+      chipVariant: "violet",
+      meta: "by Dr. Michael Zhang · 634 downloads · ★ 4.9",
     },
     {
       id: 4,
+      badge: "XLS",
       title: "ROI Calculator Spreadsheet",
-      description: "Template for calculating return on investment for AI projects",
-      type: "XLSX",
-      category: "Tools",
-      size: "856 KB",
-      downloads: 458,
-      rating: 4.5,
-      tags: ["roi", "calculator", "business"],
-      dateAdded: "2024-01-08",
-      author: "Emma Wilson",
-      thumbnail: "/placeholder.svg?height=200&width=300",
-      isFeatured: false,
-      isPremium: false
+      chip: "Tool",
+      chipVariant: "ghost",
+      meta: "by Emma Wilson · 458 downloads · ★ 4.5",
     },
     {
       id: 5,
+      badge: "CSV",
       title: "Customer Service AI Training Dataset",
-      description: "Curated dataset of customer service interactions for AI training",
-      type: "CSV",
-      category: "Datasets",
-      size: "125 MB",
-      downloads: 289,
-      rating: 4.7,
-      tags: ["dataset", "customer-service", "training"],
-      dateAdded: "2024-01-05",
-      author: "Alex Rivera",
-      thumbnail: "/placeholder.svg?height=200&width=300",
-      isFeatured: false,
-      isPremium: true
+      chip: "Dataset",
+      chipVariant: "ghost",
+      meta: "by Alex Rivera · 289 downloads · ★ 4.7",
     },
-    {
-      id: 6,
-      title: "Machine Learning Implementation Checklist",
-      description: "Step-by-step checklist for implementing ML projects successfully",
-      type: "PDF",
-      category: "Guides",
-      size: "1.2 MB",
-      downloads: 723,
-      rating: 4.4,
-      tags: ["checklist", "ml", "implementation"],
-      dateAdded: "2024-01-03",
-      author: "David Kim",
-      thumbnail: "/placeholder.svg?height=200&width=300",
-      isFeatured: false,
-      isPremium: false
-    }
   ]
 
-  const featuredResources = resources.filter(r => r.isFeatured)
-
-  const getFileIcon = (type: string) => {
-    switch (type.toLowerCase()) {
-      case 'pdf':
-        return <FileText className="h-8 w-8 text-red-500" />
-      case 'mp4':
-        return <Video className="h-8 w-8 text-blue-500" />
-      case 'zip':
-        return <Code className="h-8 w-8 text-purple-500" />
-      case 'xlsx':
-        return <FileText className="h-8 w-8 text-green-500" />
-      case 'csv':
-        return <FileText className="h-8 w-8 text-orange-500" />
-      default:
-        return <FileText className="h-8 w-8 text-gray-500" />
-    }
-  }
-
-  const recentDownloads = [
-    { title: "AI Ethics Framework Guide", user: "Sven", time: "2 hours ago" },
-    { title: "Prompt Templates", user: "Lisa", time: "4 hours ago" },
-    { title: "ROI Calculator", user: "John", time: "6 hours ago" },
-    { title: "Bias Detection Video", user: "Maria", time: "8 hours ago" }
+  const stats = [
+    { label: "Total Resources", value: "156" },
+    { label: "Downloads Today", value: "89" },
+    { label: "Popular This Week", value: "23" },
+    { label: "Contributors", value: "12" },
   ]
 
   const popularTags = [
@@ -174,291 +69,135 @@ export function ResourcesPage() {
     { name: "implementation", count: 23 },
     { name: "templates", count: 19 },
     { name: "bias", count: 16 },
-    { name: "business", count: 14 }
+    { name: "business", count: 14 },
+  ]
+
+  const recentDownloads = [
+    { title: "AI Ethics Framework Guide", user: "Sven", time: "2h ago" },
+    { title: "Prompt Templates", user: "Lisa", time: "4h ago" },
+    { title: "ROI Calculator", user: "John", time: "6h ago" },
+    { title: "Bias Detection Video", user: "Maria", time: "8h ago" },
   ]
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div>
+      {/* PAGE HEAD */}
+      <div className="page-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
         <div>
-          <h1 className="text-3xl font-bold">Resources</h1>
-          <p className="text-muted-foreground mt-2">Access guides, templates, tools, and learning materials</p>
+          <span className="cut"><span className="v" /><span className="m" /></span>
+          <h1 className="display">Resources</h1>
+          <p className="sub muted">Guides, templates, tools and datasets.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline">
-            <Upload className="mr-2 h-4 w-4" />
-            Upload Resource
-          </Button>
-          <Button>
-            <BookOpen className="mr-2 h-4 w-4" />
-            Request Resource
-          </Button>
+        <div style={{ display: "flex", gap: "8px", paddingTop: "4px" }}>
+          <button className="btn">Upload →</button>
+          <button className="btn btn--primary">Request →</button>
         </div>
       </div>
 
-      {/* Featured Resources */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-yellow-500" />
-            Featured Resources
-          </CardTitle>
-          <CardDescription>Handpicked resources recommended by our experts</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {featuredResources.map((resource) => (
-              <Card key={resource.id} className="group cursor-pointer hover:shadow-lg transition-all">
-                <CardContent className="p-4">
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between">
-                      {getFileIcon(resource.type)}
-                      {resource.isPremium && (
-                        <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-                          Premium
-                        </Badge>
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold group-hover:text-primary transition-colors">
-                        {resource.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                        {resource.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>{resource.type} • {resource.size || resource.duration}</span>
-                      <div className="flex items-center gap-1">
-                        <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                        <span>{resource.rating}</span>
-                      </div>
-                    </div>
-                    <Button className="w-full" size="sm">
-                      <Download className="mr-2 h-3 w-3" />
-                      Download
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+      {/* FEATURED */}
+      <div className="row r2" style={{ marginTop: "32px" }}>
+        {/* Featured card 1 */}
+        <div className="card">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+            <span className="badge-file">PDF</span>
+            <span className="eyebrow">★ 4.8</span>
           </div>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-6 lg:grid-cols-4">
-        <div className="lg:col-span-3 space-y-6">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle>All Resources</CardTitle>
-                <div className="flex items-center gap-2">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search resources..."
-                      className="pl-10 w-80"
-                    />
-                  </div>
-                  <Button variant="outline" size="sm">
-                    <Filter className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
-                <TabsList className="grid w-full grid-cols-6">
-                  {categories.map((category) => (
-                    <TabsTrigger key={category.id} value={category.id} className="text-xs">
-                      {category.name}
-                      <Badge variant="secondary" className="ml-1 text-xs">
-                        {category.count}
-                      </Badge>
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-
-                <TabsContent value={selectedCategory} className="mt-6">
-                  <div className="space-y-4">
-                    {resources.map((resource) => (
-                      <Card key={resource.id} className="hover:shadow-md transition-shadow">
-                        <CardContent className="p-4">
-                          <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0">
-                              {getFileIcon(resource.type)}
-                            </div>
-                            <div className="flex-1 space-y-2">
-                              <div className="flex items-start justify-between">
-                                <div>
-                                  <div className="flex items-center gap-2">
-                                    <h3 className="font-semibold hover:text-primary transition-colors cursor-pointer">
-                                      {resource.title}
-                                    </h3>
-                                    {resource.isPremium && (
-                                      <Badge variant="outline" className="text-xs">Premium</Badge>
-                                    )}
-                                  </div>
-                                  <p className="text-sm text-muted-foreground mt-1">
-                                    {resource.description}
-                                  </p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Button variant="ghost" size="sm">
-                                    <Heart className="h-4 w-4" />
-                                  </Button>
-                                  <Button variant="ghost" size="sm">
-                                    <Share2 className="h-4 w-4" />
-                                  </Button>
-                                  <Button size="sm">
-                                    <Download className="mr-2 h-3 w-3" />
-                                    Download
-                                  </Button>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                <span>by {resource.author}</span>
-                                <Badge variant="outline" className="text-xs">
-                                  {resource.category}
-                                </Badge>
-                                <div className="flex items-center gap-1">
-                                  <Download className="h-3 w-3" />
-                                  <span>{resource.downloads} downloads</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                                  <span>{resource.rating}</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Calendar className="h-3 w-3" />
-                                  <span>{resource.dateAdded}</span>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-2">
-                                {resource.tags.map((tag, index) => (
-                                  <Badge key={index} variant="secondary" className="text-xs">
-                                    #{tag}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
+          <h3>AI Ethics Framework Guide</h3>
+          <p className="muted" style={{ margin: "6px 0 16px" }}>
+            Comprehensive guide to implementing ethical AI practices in your organisation.
+          </p>
+          <button className="btn btn--primary" style={{ width: "100%" }}>Download ↓</button>
         </div>
 
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Resource Stats</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Total Resources</span>
-                </div>
-                <span className="font-semibold">156</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Download className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Downloads Today</span>
-                </div>
-                <span className="font-semibold">89</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Popular This Week</span>
-                </div>
-                <span className="font-semibold">23</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm">Contributors</span>
-                </div>
-                <span className="font-semibold">12</span>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Featured card 2 — edge accent */}
+        <div className="card edge-moss-b">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+            <span className="badge-file">MP4</span>
+            <span className="chip chip--violet"><span>Premium</span></span>
+          </div>
+          <h3>Bias Detection Workshop Video</h3>
+          <p className="muted" style={{ margin: "6px 0 16px" }}>
+            Interactive 45-minute workshop on identifying and mitigating AI bias.
+          </p>
+          <button className="btn btn--primary" style={{ width: "100%" }}>Download ↓</button>
+        </div>
+      </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Popular Tags</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {popularTags.map((tag, index) => (
-                  <Badge 
-                    key={index} 
-                    variant="secondary" 
-                    className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
-                  >
-                    #{tag.name} ({tag.count})
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      {/* SPLIT: list + sidebar */}
+      <div className="split" style={{ marginTop: "32px" }}>
+        {/* LEFT — resource list */}
+        <div>
+          <div className="card">
+            <p className="eyebrow" style={{ marginBottom: "12px" }}>All resources · 156</p>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Recent Downloads</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[200px]">
-                <div className="space-y-4">
-                  {recentDownloads.map((download, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <div className="flex-1">
-                        <p className="text-sm">
-                          <span className="font-medium">{download.user}</span>{' '}
-                          <span className="text-muted-foreground">downloaded</span>{' '}
-                          <span className="font-medium">{download.title}</span>
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">{download.time}</p>
-                      </div>
-                    </div>
-                  ))}
+            {/* Tabs */}
+            <div className="tabs" style={{ marginBottom: "20px" }}>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  className={activeTab === tab.id ? "on" : undefined}
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* List */}
+            <div className="list">
+              {resources.map((r) => (
+                <div className="li" key={r.id}>
+                  <span className="badge-file">{r.badge}</span>
+                  <div>
+                    <h3>{r.title}</h3>
+                    <span className={`chip chip--${r.chipVariant}`}><span>{r.chip}</span></span>
+                    <p className="d muted">{r.meta}</p>
+                  </div>
+                  <button className="btn btn--sm btn--primary">Download ↓</button>
                 </div>
-              </ScrollArea>
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+          </div>
+        </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Quick Links</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start" size="sm">
-                <BookOpen className="mr-2 h-4 w-4" />
-                Learning Guides
-              </Button>
-              <Button variant="ghost" className="w-full justify-start" size="sm">
-                <Code className="mr-2 h-4 w-4" />
-                Code Examples
-              </Button>
-              <Button variant="ghost" className="w-full justify-start" size="sm">
-                <Video className="mr-2 h-4 w-4" />
-                Video Tutorials
-              </Button>
-              <Button variant="ghost" className="w-full justify-start" size="sm">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                External Resources
-              </Button>
-            </CardContent>
-          </Card>
+        {/* RIGHT sidebar */}
+        <div className="right-col">
+          {/* Resource stats */}
+          <div className="card">
+            <p className="section-label" style={{ marginBottom: "12px" }}>Resource stats</p>
+            {stats.map((s) => (
+              <div className="mini" key={s.label} style={{ display: "flex", justifyContent: "space-between" }}>
+                <span className="muted">{s.label}</span>
+                <strong>{s.value}</strong>
+              </div>
+            ))}
+          </div>
+
+          {/* Popular tags */}
+          <div className="card">
+            <p className="section-label" style={{ marginBottom: "12px" }}>Popular tags</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+              {popularTags.map((tag) => (
+                <span className="chip chip--ghost" key={tag.name}>
+                  <span>{tag.name} {tag.count}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent downloads */}
+          <div className="card">
+            <p className="section-label" style={{ marginBottom: "12px" }}>Recent downloads</p>
+            {recentDownloads.map((d, i) => (
+              <div className="mini" key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div>
+                  <span>{d.user}</span>
+                  <span className="muted" style={{ marginLeft: "4px" }}>{d.title}</span>
+                </div>
+                <span className="muted" style={{ color: "var(--ash, #888)", whiteSpace: "nowrap", marginLeft: "8px" }}>{d.time}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

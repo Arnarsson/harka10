@@ -115,6 +115,27 @@
 .mini:first-child{border-top:0}
 .mini b{font-weight:600}
 
+/* ---------- key-value list ---------- */
+.kv{border-top:1px solid var(--black)}
+.kv .r{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--smoke)}
+.kv .k{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.08em}
+.kv .v{font-size:15px}
+
+/* ---------- monochrome charts ---------- */
+.bars{display:flex;align-items:flex-end;gap:14px;height:170px;padding-top:8px}
+.bars .b{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.bars .b i{width:100%;background:var(--black)}
+.bars .b.v i{background:var(--violet)}
+.bars .b.m i{background:var(--moss)}
+.bars .b.a i{background:var(--ash)}
+.bars .b span{font-size:11px;color:var(--ash)}
+.skillbar{padding:12px 0;border-top:1px solid var(--smoke)}
+.skillbar:first-child{border-top:0}
+.skillbar .top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
+.skillbar .top b{font-weight:600}
+.skillbar .meta{display:flex;justify-content:space-between;font-size:11px;color:var(--ash);margin-top:6px}
+
+@media(max-width:640px){.kv .r{grid-template-columns:1fr;gap:4px}}
 @media(max-width:1080px){.r4{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
 @media(max-width:640px){.r2,.r3{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){.btn{transition:none}}
