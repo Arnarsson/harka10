@@ -1,34 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { 
-  Search,
-  PlayCircle,
-  CheckCircle2,
-  Clock,
-  BookOpen,
-  Award,
-  Grid3X3,
-  List,
-  Filter,
-  Star,
-  Eye,
-  Calendar,
-  User,
-  BarChart3,
-  Target,
-  TrendingUp
-} from "lucide-react"
-
 export function HarkaCourses() {
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list')
-
   const currentCourse = {
     title: "AI Fundamentals",
     progress: 38,
@@ -93,224 +65,172 @@ export function HarkaCourses() {
 
   const bookmarkedResources = [
     {
-      title: "React Fundamentals",
-      description: "Core concepts and hooks",
-      type: "Documentation"
-    },
-    {
-      title: "Next.js App Router",
-      description: "Server and Client Components",
+      title: "Prompt Engineering Guide",
+      description: "Patterns for reliable prompts",
       type: "Guide"
     },
     {
-      title: "Tailwind CSS Guide",
-      description: "Utility-first CSS framework",
-      type: "Documentation"
+      title: "LLM Glossary",
+      description: "Key terms, explained simply",
+      type: "Reference"
+    },
+    {
+      title: "AI Governance Checklist",
+      description: "GDPR & responsible AI use",
+      type: "Template"
     }
   ]
 
-  const stats = {
-    totalProgress: 38,
-    activeCourses: 5,
-    hoursSpent: 25.5,
-    achievements: 12
-  }
+  const currentModule = modules.find((m) => m.current) ?? modules[0]
+
+  // Derive subtitle: "AI Fundamentals. Module 3 of 4."
+  const currentModuleIndex = modules.findIndex((m) => m.current)
+  const currentModuleNumber = currentModuleIndex >= 0 ? currentModuleIndex + 1 : currentCourse.completedModules + 1
+
+  // Quick stats (static per spec)
+  const quickStats = [
+    { label: "Total progress", value: "38%" },
+    { label: "Active courses", value: "5" },
+    { label: "Hours spent", value: "25.5" },
+    { label: "Achievements", value: "12" },
+  ]
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Welcome back, Sven!</h1>
-          <p className="text-muted-foreground mt-1">Continue your learning journey</p>
-        </div>
-        <div className="relative w-80">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search courses..."
-            className="pl-10"
-          />
+    <div>
+      {/* PAGE HEAD */}
+      <div className="cut">
+        <span className="v" />
+        <span className="m" />
+        <h1 className="display">Learn</h1>
+        <p className="sub muted">
+          {currentCourse.title}. Module {currentModuleNumber} of {currentCourse.modules}.
+        </p>
+      </div>
+
+      {/* CURRENT COURSE BANNER */}
+      <div className="card" style={{ marginTop: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 24, alignItems: "center" }}>
+          <div>
+            <p className="eyebrow">Current course</p>
+            <h2 className="display" style={{ fontSize: 26, marginTop: 6, marginBottom: 12 }}>
+              {currentCourse.title}
+            </h2>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+              <span className="muted" style={{ fontSize: 13 }}>Overall progress</span>
+              <span style={{ fontSize: 13, fontWeight: 600 }}>{currentCourse.progress}%</span>
+            </div>
+            <div className="bar">
+              <i style={{ width: currentCourse.progress + "%" }} />
+            </div>
+          </div>
+          <div>
+            <button className="btn btn--primary">
+              Continue <span className="arrow">→</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-xl">Current Course: {currentCourse.title}</CardTitle>
-              <CardDescription className="text-base mt-1">
-                Module {currentCourse.completedModules + 1} of {currentCourse.modules}
-              </CardDescription>
+      {/* SPLIT LAYOUT */}
+      <div className="split" style={{ marginTop: 30 }}>
+        {/* LEFT: Module list */}
+        <div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="section-label">Modules</span>
+            <div className="tabs act">
+              <button className="on">List</button>
+              <button>Grid</button>
             </div>
-            <Button>
-              <PlayCircle className="mr-2 h-4 w-4" />
-              Continue Learning
-            </Button>
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Overall Progress</span>
-              <span className="text-sm font-medium">{currentCourse.progress}%</span>
-            </div>
-            <Progress value={currentCourse.progress} className="h-2" />
-          </div>
-        </CardContent>
-      </Card>
 
-      <div className="grid gap-6 lg:grid-cols-4">
-        <div className="lg:col-span-3">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" />
-                  Modules
-                </CardTitle>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant={viewMode === 'list' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setViewMode('list')}
-                  >
-                    <List className="h-4 w-4" />
-                    List View
-                  </Button>
-                  <Button
-                    variant={viewMode === 'grid' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setViewMode('grid')}
-                  >
-                    <Grid3X3 className="h-4 w-4" />
-                    Grid View
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Filter className="h-4 w-4" />
-                    Filter
-                  </Button>
+          {modules.map((module) => {
+            const completedCount = module.lessons.filter((l) => l.completed).length
+            const totalCount = module.lessons.length
+            const pct = Math.round((completedCount / totalCount) * 100)
+            const hasStarted = completedCount > 0
+            const isNotStarted = completedCount === 0 && !module.current
+
+            const cardClass = [
+              "card",
+              isNotStarted ? "card--hair" : "",
+              module.current ? "edge-moss" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")
+
+            const cardStyle = module.current
+              ? { borderColor: "var(--violet)", marginBottom: 18 }
+              : { marginBottom: 18 }
+
+            return (
+              <div key={module.id} className={cardClass} style={cardStyle}>
+                {/* Module header */}
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>
+                      Module {module.id} — {module.title}
+                    </h3>
+                    <p className="muted" style={{ marginTop: 3, fontSize: 13 }}>{module.subtitle}</p>
+                  </div>
+                  {module.current && (
+                    <span className="chip chip--violet">
+                      <span>Current</span>
+                    </span>
+                  )}
+                </div>
+
+                {/* Lessons */}
+                <div className="lessons">
+                  {module.lessons.map((lesson, idx) => (
+                    <div key={idx} className={lesson.completed ? "lesson done" : "lesson"}>
+                      <span className="tick" />
+                      {lesson.title}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Module footer */}
+                <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 14 }}>
+                  <span className="eyebrow">{completedCount} of {totalCount} done</span>
+                  {hasStarted && (
+                    <div className="bar" style={{ width: 120 }}>
+                      <i style={{ width: pct + "%" }} />
+                    </div>
+                  )}
                 </div>
               </div>
-            </CardHeader>
-            <CardContent>
-              <div className={viewMode === 'grid' ? 'grid gap-4 md:grid-cols-2' : 'space-y-4'}>
-                {modules.map((module) => (
-                  <Card 
-                    key={module.id} 
-                    className={`cursor-pointer hover:shadow-md transition-all ${
-                      module.current ? 'ring-2 ring-primary bg-primary/5' : ''
-                    }`}
-                  >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <CardTitle className="text-base">
-                            Module {module.id}: {module.title}
-                          </CardTitle>
-                          <CardDescription className="mt-1">
-                            {module.subtitle}
-                          </CardDescription>
-                        </div>
-                        {module.completed && (
-                          <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
-                        )}
-                        {module.current && (
-                          <Badge className="flex-shrink-0">Current</Badge>
-                        )}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        {module.lessons.map((lesson, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm">
-                            {lesson.completed ? (
-                              <CheckCircle2 className="h-3 w-3 text-green-500" />
-                            ) : (
-                              <div className="w-3 h-3 rounded-full border border-muted-foreground" />
-                            )}
-                            <span className={lesson.completed ? 'text-muted-foreground' : ''}>
-                              {lesson.title}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-4 flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {module.lessons.filter(l => l.completed).length} of {module.lessons.length} completed
-                        </span>
-                        <Progress 
-                          value={(module.lessons.filter(l => l.completed).length / module.lessons.length) * 100} 
-                          className="w-20 h-1"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            )
+          })}
         </div>
 
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Quick Stats</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Target className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">Total Progress</span>
-                  </div>
-                  <span className="font-semibold">{stats.totalProgress}%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">Active Courses</span>
-                  </div>
-                  <span className="font-semibold">{stats.activeCourses}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">Hours Spent</span>
-                  </div>
-                  <span className="font-semibold">{stats.hoursSpent}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Award className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">Achievements</span>
-                  </div>
-                  <span className="font-semibold">{stats.achievements}</span>
-                </div>
+        {/* RIGHT: sidebar */}
+        <div className="right-col">
+          {/* Quick stats */}
+          <div className="card" style={{ marginBottom: 18 }}>
+            <p className="eyebrow" style={{ marginBottom: 12 }}>Quick stats</p>
+            {quickStats.map((stat) => (
+              <div key={stat.label} className="mini" style={{ marginBottom: 10 }}>
+                {stat.label}
+                <b>{stat.value}</b>
               </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Bookmarked Resources</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {bookmarkedResources.map((resource, index) => (
-                  <Card key={index} className="cursor-pointer hover:bg-accent">
-                    <CardContent className="p-3">
-                      <div className="space-y-1">
-                        <h4 className="font-medium text-sm">{resource.title}</h4>
-                        <p className="text-xs text-muted-foreground">{resource.description}</p>
-                        <Badge variant="outline" className="text-xs">
-                          {resource.type}
-                        </Badge>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          {/* Bookmarked */}
+          <div className="card">
+            <p className="eyebrow" style={{ marginBottom: 12 }}>Bookmarked</p>
+            <div className="list">
+              {bookmarkedResources.map((resource, idx) => (
+                <div key={idx} className="li" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 10, alignItems: "start" }}>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2 }}>{resource.title}</div>
+                    <div className="d muted" style={{ fontSize: 12 }}>{resource.description}</div>
+                  </div>
+                  <span className="chip chip--ghost">{resource.type}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

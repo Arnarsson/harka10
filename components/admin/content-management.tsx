@@ -341,7 +341,7 @@ export function ContentManagement() {
                       <Label htmlFor="testimonial-1-desc">Description</Label>
                       <Textarea 
                         id="testimonial-1-desc" 
-                        defaultValue="HARKA transformed our technical analysis process. What used to take our experts hours now takes minutes."
+                        defaultValue="HEKLA transformed our technical analysis process. What used to take our experts hours now takes minutes."
                         className="h-16"
                       />
                     </div>
@@ -385,7 +385,7 @@ export function ContentManagement() {
                       <Label htmlFor="testimonial-3-desc">Description</Label>
                       <Textarea 
                         id="testimonial-3-desc" 
-                        defaultValue="HARKA didn't just teach us AI - they helped us reimagine our entire workflow."
+                        defaultValue="HEKLA didn't just teach us AI - they helped us reimagine our entire workflow."
                         className="h-16"
                       />
                     </div>

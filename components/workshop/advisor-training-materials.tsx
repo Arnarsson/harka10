@@ -41,7 +41,7 @@ const trainingModules: TrainingModule[] = [
     title: "Workshop Facilitation & Metodologi",
     duration: "2 x 4 timer",
     topics: [
-      "HARKA workshop framework",
+      "HEKLA workshop framework",
       "Bullseye Prompt metodologi",
       "Hands-on øvelser design",
       "Change management strategier"
@@ -418,7 +418,7 @@ export function AdvisorTrainingMaterials() {
                 <h3 className="font-semibold text-lg mb-2">Success Story: Thomas Nielsen</h3>
                 <p className="text-muted-foreground mb-3">
                   "Efter certificeringen har jeg leveret 18 workshops på 8 måneder og 
-                  bygget en praksis med over DKK 600.000 i årlig omsætning. HARKA's 
+                  bygget en praksis med over DKK 600.000 i årlig omsætning. HEKLA's 
                   materialer og support har været afgørende for min succes."
                 </p>
                 <p className="text-sm font-medium">

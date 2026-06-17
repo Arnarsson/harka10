@@ -57,17 +57,17 @@ export default function SettingsPage() {
                 <Settings className="h-5 w-5" />
                 General Settings
               </CardTitle>
-              <CardDescription>Basic configuration for your HARKA platform</CardDescription>
+              <CardDescription>Basic configuration for your HEKLA platform</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="platform-name">Platform Name</Label>
-                  <Input id="platform-name" defaultValue="HARKA" />
+                  <Input id="platform-name" defaultValue="HEKLA" />
                 </div>
                 <div>
                   <Label htmlFor="company-name">Company Name</Label>
-                  <Input id="company-name" defaultValue="HARKA Labs" />
+                  <Input id="company-name" defaultValue="HEKLA Labs" />
                 </div>
               </div>
               

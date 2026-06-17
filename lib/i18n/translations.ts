@@ -258,7 +258,7 @@ export const translations: Record<Language, Translations> = {
     valueSubtitle: "De fleste virksomheder kæmper med at omdanne AI-løfter til forretningsværdi. Vi gør det anderledes.",
     
     accelerated: "Accelereret implementering",
-    acceleratedDesc: "Traditionelle AI-implementeringer tager måneder eller år. HARKA leverer brugbare løsninger på kun 48 timer.",
+    acceleratedDesc: "Traditionelle AI-implementeringer tager måneder eller år. HEKLA leverer brugbare løsninger på kun 48 timer.",
     
     competency: "Kompetenceoverførsel fra dag ét", 
     competencyDesc: "I stedet for at skabe løbende konsulentforhold overfører vi færdigheder til dit team fra dag ét.",
@@ -307,7 +307,7 @@ export const translations: Record<Language, Translations> = {
     caseStudySubtitle: "Om kunden",
     caseStudyDescription: "En ledende aktør inden for marine services og kraftløsninger med speciale i vedligeholdelse af skibsmotorer, kraftværker og industrielle anlæg.",
     challengeTitle: "Udfordringen",
-    challengeDesc: "Før samarbejdet med HARKA havde kunden en række ressourcekrævende processer:",
+    challengeDesc: "Før samarbejdet med HEKLA havde kunden en række ressourcekrævende processer:",
     challengeItems: [
       "Servicerapporter krævede mange timers manuel indtastning per rapport.",
       "Risikoanalyser af turbosystemer tog dage at udarbejde.",
@@ -333,17 +333,17 @@ export const translations: Record<Language, Translations> = {
     valueItems: [
       "AI-governance på plads: Medarbejderne implementerede en skræddersyet etisk kontrolramme, som nu fungerer som standard for alle nye teknologiprojekter.",
       "Kompetenceløft: Hele teamet mestrer nu både ChatGPT og Microsoft Copilot i deres daglige arbejde.",
-      "Kontinuerlig læring: Adgang til HARKAs videobibliotek og et helt års sparring sikrer, at kompetencerne fortsat udvikles.",
+      "Kontinuerlig læring: Adgang til HEKLAs videobibliotek og et helt års sparring sikrer, at kompetencerne fortsat udvikles.",
       "Selvkørende AI-kultur: Virksomheden har etableret månedlige \"AI-dage\", hvor nye use cases identificeres og prototyper bygges."
     ],
     customerExperienceTitle: "Kundeoplevelsen",
-    customerQuote: "Det mest overraskende var ikke bare, at vi fik konkrete løsninger på to dage – men at løsningerne faktisk fungerer i vores hverdag og allerede har sparet os for hundredvis af arbejdstimer. HARKA leverede ikke konsulentrapporter, men ægte værktøjer vi bruger hver dag.",
+    customerQuote: "Det mest overraskende var ikke bare, at vi fik konkrete løsninger på to dage – men at løsningerne faktisk fungerer i vores hverdag og allerede har sparet os for hundredvis af arbejdstimer. HEKLA leverede ikke konsulentrapporter, men ægte værktøjer vi bruger hver dag.",
     customerRole: "Afdelingsleder",
     nextStepsTitle: "Næste skridt",
-    nextStepsDesc: "Virksomheden arbejder nu på permanente versioner af prototypeløsningerne med fortsat sparring fra HARKA.",
+    nextStepsDesc: "Virksomheden arbejder nu på permanente versioner af prototypeløsningerne med fortsat sparring fra HEKLA.",
     
     // Team section
-    teamTitle: "Teamet bag HARKA",
+    teamTitle: "Teamet bag HEKLA",
     teamSubtitle: "Mød de to eksperter, der på kun 48 timer omdanner din virksomheds AI-potentiale til praktiske løsninger og konkrete resultater.",
     
     // Blog section
@@ -375,9 +375,9 @@ export const translations: Record<Language, Translations> = {
     testimonialTitle: "Hvad vores kunder siger",
     testimonialSubtitle: "Virkelige resultater fra virkelige virksomheder, der transformerede deres forretning med AI",
     fasterAssessments: "85% hurtigere risikovurderinger",
-    testimonialQuote1: "HARKA transformerede vores tekniske analyseproces. Det, der plejede at tage vores eksperter timer, tager nu minutter.",
+    testimonialQuote1: "HEKLA transformerede vores tekniske analyseproces. Det, der plejede at tage vores eksperter timer, tager nu minutter.",
     testimonialRole1: "Maritime Company CTO",
-    testimonialQuote2: "HARKA lærte os ikke bare AI - de hjalp os med at gentænke hele vores arbejdsgang.",
+    testimonialQuote2: "HEKLA lærte os ikke bare AI - de hjalp os med at gentænke hele vores arbejdsgang.",
     testimonialRole2: "Energisektorleder",
     testimonialQuote3: "Workshoppen betalte sig selv, før vi overhovedet var færdige. Vores team er nu AI-drevet.",
     testimonialRole3: "Produktionsdirektør",
@@ -524,7 +524,7 @@ export const translations: Record<Language, Translations> = {
     valueSubtitle: "Most companies struggle to convert AI promises into business value. We do it differently.",
     
     accelerated: "Accelerated implementation",
-    acceleratedDesc: "Traditional AI implementations take months or years. HARKA delivers usable solutions in just 48 hours.",
+    acceleratedDesc: "Traditional AI implementations take months or years. HEKLA delivers usable solutions in just 48 hours.",
     
     competency: "Competency transfer from day one",
     competencyDesc: "Instead of creating ongoing consulting relationships, we transfer skills to your team from day one.",
@@ -573,7 +573,7 @@ export const translations: Record<Language, Translations> = {
     caseStudySubtitle: "About the Customer",
     caseStudyDescription: "A leading player in marine services and power solutions specializing in maintenance of ship engines, power plants and industrial facilities.",
     challengeTitle: "The Challenge",
-    challengeDesc: "Before working with HARKA, the customer had several resource-intensive processes:",
+    challengeDesc: "Before working with HEKLA, the customer had several resource-intensive processes:",
     challengeItems: [
       "Service reports required many hours of manual entry per report.",
       "Risk analyses of turbo systems took days to complete.",
@@ -599,17 +599,17 @@ export const translations: Record<Language, Translations> = {
     valueItems: [
       "AI governance in place: Employees implemented a tailored ethical control framework that now serves as the standard for all new technology projects.",
       "Competency boost: The entire team now masters both ChatGPT and Microsoft Copilot in their daily work.",
-      "Continuous learning: Access to HARKA's video library and a full year of sparring ensures skills continue to develop.",
+      "Continuous learning: Access to HEKLA's video library and a full year of sparring ensures skills continue to develop.",
       "Self-driving AI culture: The company has established monthly \"AI days\" where new use cases are identified and prototypes built."
     ],
     customerExperienceTitle: "Customer Experience",
-    customerQuote: "The most surprising thing was not just that we got concrete solutions in two days – but that the solutions actually work in our everyday life and have already saved us hundreds of working hours. HARKA delivered not consultant reports, but real tools we use every day.",
+    customerQuote: "The most surprising thing was not just that we got concrete solutions in two days – but that the solutions actually work in our everyday life and have already saved us hundreds of working hours. HEKLA delivered not consultant reports, but real tools we use every day.",
     customerRole: "Department Manager",
     nextStepsTitle: "Next Steps",
-    nextStepsDesc: "The company is now working on permanent versions of the prototype solutions with continued sparring from HARKA.",
+    nextStepsDesc: "The company is now working on permanent versions of the prototype solutions with continued sparring from HEKLA.",
     
     // Team section
-    teamTitle: "The team behind HARKA",
+    teamTitle: "The team behind HEKLA",
     teamSubtitle: "Meet the two experts who, in just 48 hours, transform your company's AI potential into practical solutions and concrete results.",
     
     // Blog section
@@ -641,9 +641,9 @@ export const translations: Record<Language, Translations> = {
     testimonialTitle: "What Our Clients Say",
     testimonialSubtitle: "Real results from real companies who transformed their business with AI",
     fasterAssessments: "85% faster risk assessments",
-    testimonialQuote1: "HARKA transformed our technical analysis process. What used to take our experts hours now takes minutes.",
+    testimonialQuote1: "HEKLA transformed our technical analysis process. What used to take our experts hours now takes minutes.",
     testimonialRole1: "Maritime Company CTO",
-    testimonialQuote2: "HARKA didn't just teach us AI - they helped us reimagine our entire workflow.",
+    testimonialQuote2: "HEKLA didn't just teach us AI - they helped us reimagine our entire workflow.",
     testimonialRole2: "Energy Sector Manager",
     testimonialQuote3: "The workshop paid for itself before we even finished. Our team is now AI-powered.",
     testimonialRole3: "Manufacturing Director",

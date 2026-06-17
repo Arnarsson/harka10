@@ -206,7 +206,7 @@ export function EnhancedHero() {
             {/* Logo with gradient */}
             <div className="flex items-center">
               <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
-                HARKA
+                HEKLA
               </Link>
             </div>
 
@@ -859,7 +859,7 @@ export function EnhancedHero() {
           <div className="grid md:grid-cols-4 gap-12">
             <div className="col-span-2">
               <div className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                HARKA
+                HEKLA
               </div>
               <p className="text-gray-300 mb-6 text-lg leading-relaxed max-w-md">
                 {t.footerDescription}
@@ -904,7 +904,7 @@ export function EnhancedHero() {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p className="text-gray-400">© 2024 HARKA. {t.allRights}</p>
+            <p className="text-gray-400">© 2024 HEKLA. {t.allRights}</p>
           </div>
         </div>
       </footer>

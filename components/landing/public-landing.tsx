@@ -289,7 +289,7 @@ export function PublicLanding() {
               {
                 name: "Sarah Chen",
                 role: "ML Engineer at Google",
-                content: "HARKA transformed my career. I went from knowing nothing about AI to landing my dream job in just 6 months.",
+                content: "HEKLA transformed my career. I went from knowing nothing about AI to landing my dream job in just 6 months.",
                 rating: 5
               },
               {

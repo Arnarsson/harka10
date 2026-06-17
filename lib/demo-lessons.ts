@@ -5,7 +5,7 @@ export const demoLessons = [
     description: 'Learn the basics of AI-powered automation with hands-on examples',
     language: 'javascript',
     type: 'code' as const,
-    code: `// Welcome to HARKA Interactive Learning!
+    code: `// Welcome to HEKLA Interactive Learning!
 // This is your first AI automation script
 
 // Step 1: Import the AI library

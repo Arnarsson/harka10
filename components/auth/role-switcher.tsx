@@ -159,7 +159,7 @@ export function RoleSwitcher() {
               <DialogHeader>
                 <DialogTitle>Apply for Teacher Status</DialogTitle>
                 <DialogDescription>
-                  Tell us about your teaching experience and why you'd like to become a teacher on HARKA.
+                  Tell us about your teaching experience and why you'd like to become a teacher on HEKLA.
                 </DialogDescription>
               </DialogHeader>
               
@@ -193,10 +193,10 @@ export function RoleSwitcher() {
                 </div>
 
                 <div>
-                  <Label htmlFor="reason">Why HARKA? *</Label>
+                  <Label htmlFor="reason">Why HEKLA? *</Label>
                   <Textarea
                     id="reason"
-                    placeholder="Why do you want to teach on HARKA? What value would you bring?"
+                    placeholder="Why do you want to teach on HEKLA? What value would you bring?"
                     value={teacherApplication.reason}
                     onChange={(e) => setTeacherApplication(prev => ({ 
                       ...prev, 

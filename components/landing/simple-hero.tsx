@@ -69,7 +69,7 @@ export function SimpleHero() {
       <section className="container mx-auto px-4 py-20">
         <div className="text-center max-w-3xl mx-auto">
           <h1 className="text-5xl font-bold mb-6">
-            Welcome to HARKA
+            Welcome to HEKLA
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Transform your organization with AI-powered learning. 
@@ -137,7 +137,7 @@ export function SimpleHero() {
             <Sparkles className="h-12 w-12 mx-auto mb-4" />
             <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Learning?</h2>
             <p className="text-lg mb-8 opacity-90">
-              Join thousands of learners and educators using HARKA
+              Join thousands of learners and educators using HEKLA
             </p>
             <div className="flex gap-4 justify-center">
               <SignUpButton mode="modal">
@@ -160,7 +160,7 @@ export function SimpleHero() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-muted-foreground">
-              © 2024 HARKA. All rights reserved.
+              © 2024 HEKLA. All rights reserved.
             </div>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link href="/learn/courses" className="text-sm hover:underline">Courses</Link>

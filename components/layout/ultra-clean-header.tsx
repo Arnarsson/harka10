@@ -2,10 +2,8 @@
 
 import Link from "next/link"
 import { useUser, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs"
-import { Button } from "@/components/ui/button"
-import { Menu, X, ChevronDown, Sparkles, PlayCircle, LayoutDashboard, Globe } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
-import { cn } from "@/lib/utils"
 import { useLanguage } from "@/lib/i18n/language-context"
 import {
   DropdownMenu,
@@ -20,7 +18,7 @@ export function UltraCleanHeader() {
   const { language, setLanguage } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
-  
+
   const isAdmin = user?.publicMetadata?.role === 'admin'
   const isTeacher = user?.publicMetadata?.role === 'teacher' || isAdmin
 
@@ -33,229 +31,368 @@ export function UltraCleanHeader() {
     setLanguage(language === 'da' ? 'en' : 'da')
   }
 
-  // Ultra-minimal navigation - 3 items max
+  // User initial for avatar
+  const userInitial = user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ?? '?'
+
   const guestNavItems = [
-    { href: '/demo/interactive-learning', label: 'Demo', icon: PlayCircle },
-    { href: '/toolkit', label: 'Resources', icon: Sparkles },
+    { href: '/demo/interactive-learning', label: 'Demo' },
+    { href: '/toolkit', label: 'Resources' },
     { href: '#pricing', label: 'Pricing' },
   ]
 
-  // For authenticated users - just 3 primary items, rest in user menu
   const authenticatedNavItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/dashboard', label: 'Dashboard' },
     { href: '/learn/courses', label: 'Learn' },
     { href: '/community/power-hour', label: 'Community' },
   ]
 
   const navItems = isSignedIn ? authenticatedNavItems : guestNavItems
 
+  // Nav link style: 600 weight, 11px, uppercase, ash → black on hover/active
+  const navLinkStyle: React.CSSProperties = {
+    fontWeight: 600,
+    fontSize: 11,
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: 'var(--ash)',
+    textDecoration: 'none',
+    transition: 'color 0.15s',
+  }
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex h-14 items-center justify-between">
-          {/* Logo - more prominent */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">H</span>
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-              HARKA
-            </span>
+    <header
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        width: '100%',
+        height: 60,
+        background: 'rgba(245,245,243,0.92)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        borderBottom: '1px solid var(--black)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 24px',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Brand */}
+      <Link
+        href="/"
+        style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}
+      >
+        {/* Violet tile — flat square, no border-radius */}
+        <span
+          style={{
+            width: 30,
+            height: 30,
+            background: 'var(--violet)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <span
+            className="mark"
+            style={{ fontSize: 17, color: 'white', lineHeight: 1 }}
+          >
+            H
+          </span>
+        </span>
+        {/* Wordmark */}
+        <span
+          className="mark"
+          style={{ fontSize: 19, color: 'var(--black)' }}
+        >
+          HEKLA
+        </span>
+      </Link>
+
+      {/* Center navigation — desktop */}
+      <nav
+        style={{ display: 'flex', alignItems: 'center', gap: 32 }}
+        className="hidden-mobile"
+      >
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            style={navLinkStyle}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--black)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--ash)')}
+          >
+            {item.label}
           </Link>
+        ))}
 
-          {/* Center Navigation - Ultra Clean */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors"
+        {/* More dropdown — authenticated only */}
+        {isSignedIn && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                style={{ ...navLinkStyle, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--black)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--ash)')}
               >
-                {item.label}
-              </Link>
-            ))}
+                More
+                <ChevronDown style={{ width: 12, height: 12 }} />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              style={{
+                background: 'var(--paper)',
+                border: '1px solid var(--black)',
+                borderRadius: 0,
+                minWidth: 180,
+              }}
+            >
+              <DropdownMenuItem asChild>
+                <Link href="/learn/ai-kompas" className="cursor-pointer">AI Compass</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/analytics" className="cursor-pointer">Analytics</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/learn/resources" className="cursor-pointer">Resources</Link>
+              </DropdownMenuItem>
 
-            {/* More menu for secondary items (only for authenticated users) */}
-            {isSignedIn && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors">
-                    More
-                    <ChevronDown className="ml-1 h-3 w-3" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem asChild>
-                    <Link href="/learn/ai-kompas" className="cursor-pointer">
-                      AI Compass
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/analytics" className="cursor-pointer">
-                      Analytics
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/learn/resources" className="cursor-pointer">
-                      Resources
-                    </Link>
-                  </DropdownMenuItem>
-                  
-                  {(isTeacher || isAdmin) && (
-                    <>
-                      <DropdownMenuSeparator />
-                      {isTeacher && (
-                        <DropdownMenuItem asChild>
-                          <Link href="/teach/dashboard" className="cursor-pointer">
-                            Teaching Portal
-                          </Link>
-                        </DropdownMenuItem>
-                      )}
-                      {isAdmin && (
-                        <DropdownMenuItem asChild>
-                          <Link href="/admin/dashboard" className="cursor-pointer">
-                            Admin Panel
-                          </Link>
-                        </DropdownMenuItem>
-                      )}
-                    </>
+              {(isTeacher || isAdmin) && (
+                <>
+                  <DropdownMenuSeparator />
+                  {isTeacher && (
+                    <DropdownMenuItem asChild>
+                      <Link href="/teach/dashboard" className="cursor-pointer">Teaching Portal</Link>
+                    </DropdownMenuItem>
                   )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </nav>
+                  {isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin/dashboard" className="cursor-pointer">Admin Panel</Link>
+                    </DropdownMenuItem>
+                  )}
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+      </nav>
 
-          {/* Right Section - Clean CTAs */}
-          <div className="hidden md:flex items-center space-x-3">
-            {/* Language Switcher - Always show */}
-            {mounted && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLanguageToggle}
-                className="text-gray-700 hover:text-violet-600 flex items-center gap-2"
+      {/* Right section — desktop */}
+      <div
+        style={{ display: 'flex', alignItems: 'center', gap: 20 }}
+        className="hidden-mobile"
+      >
+        {/* Language toggle: "EN →" or "DA →", ash uppercase */}
+        {mounted && (
+          <button
+            onClick={handleLanguageToggle}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: 11,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'var(--ash)',
+              padding: 0,
+              transition: 'color 0.15s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--black)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--ash)')}
+          >
+            {language === 'da' ? 'EN →' : 'DA →'}
+          </button>
+        )}
+
+        {isSignedIn ? (
+          /* Avatar: 30×30 black square, paper text, user initial */
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <UserButton
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: {
+                    width: 30,
+                    height: 30,
+                    borderRadius: 0,
+                    background: 'var(--black)',
+                    color: 'var(--paper)',
+                  },
+                },
+              }}
+            />
+          </div>
+        ) : (
+          <>
+            {/* Sign In — plain ash uppercase link */}
+            <SignInButton mode="modal">
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  fontSize: 11,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'var(--ash)',
+                  padding: 0,
+                  transition: 'color 0.15s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--black)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--ash)')}
               >
-                <Globe className="h-4 w-4" />
-                {language === 'da' ? 'EN' : 'DA'}
-              </Button>
+                Sign In
+              </button>
+            </SignInButton>
+            {/* Get Started — btn btn--primary btn--sm */}
+            <SignUpButton mode="modal">
+              <button className="btn btn--primary btn--sm">
+                Get Started
+              </button>
+            </SignUpButton>
+          </>
+        )}
+      </div>
+
+      {/* Mobile hamburger */}
+      <button
+        style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: 'var(--black)',
+          padding: 4,
+          display: 'none',
+        }}
+        className="show-mobile"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <X style={{ width: 20, height: 20 }} /> : <Menu style={{ width: 20, height: 20 }} />}
+      </button>
+
+      {/* Mobile nav — rendered below the bar via a portal-like wrapper */}
+      {mounted && mobileMenuOpen && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 60,
+            left: 0,
+            right: 0,
+            background: 'var(--paper)',
+            borderBottom: '1px solid var(--black)',
+            padding: '16px 24px 24px',
+            zIndex: 49,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+          }}
+        >
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              style={navLinkStyle}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          {isSignedIn && (
+            <>
+              <div style={{ borderTop: '1px solid var(--black)', paddingTop: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <Link
+                  href="/learn/ai-kompas"
+                  style={navLinkStyle}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  AI Compass
+                </Link>
+                <Link
+                  href="/analytics"
+                  style={navLinkStyle}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Analytics
+                </Link>
+              </div>
+            </>
+          )}
+
+          <div style={{ borderTop: '1px solid var(--black)', paddingTop: 12, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {mounted && (
+              <button
+                onClick={handleLanguageToggle}
+                style={{
+                  ...navLinkStyle,
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  padding: 0,
+                }}
+              >
+                {language === 'da' ? 'EN →' : 'DA →'}
+              </button>
             )}
 
             {isSignedIn ? (
-              <UserButton 
+              <UserButton
                 afterSignOutUrl="/"
                 appearance={{
                   elements: {
-                    avatarBox: "w-8 h-8"
-                  }
+                    avatarBox: {
+                      width: 30,
+                      height: 30,
+                      borderRadius: 0,
+                    },
+                  },
                 }}
               />
             ) : (
-              <>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <SignInButton mode="modal">
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    className="text-gray-700 hover:text-violet-600"
+                  <button
+                    style={{
+                      ...navLinkStyle,
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      padding: 0,
+                    }}
                   >
                     Sign In
-                  </Button>
+                  </button>
                 </SignInButton>
                 <SignUpButton mode="modal">
-                  <Button 
-                    size="sm"
-                    className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-sm"
-                  >
+                  <button className="btn btn--primary btn--sm" style={{ alignSelf: 'flex-start' }}>
                     Get Started
-                  </Button>
+                  </button>
                 </SignUpButton>
-              </>
+              </div>
             )}
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-gray-700"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </div>
+      )}
 
-        {/* Mobile Navigation - Slide Down */}
-        {mounted && mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t animate-in slide-in-from-top-2">
-            <div className="flex flex-col space-y-3">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm font-medium text-gray-700 hover:text-violet-600 px-2 py-1"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              
-              {isSignedIn && (
-                <>
-                  <div className="border-t pt-3 mt-3">
-                    <Link
-                      href="/learn/ai-kompas"
-                      className="block text-sm text-gray-600 px-2 py-1"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      AI Compass
-                    </Link>
-                    <Link
-                      href="/analytics"
-                      className="block text-sm text-gray-600 px-2 py-1"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Analytics
-                    </Link>
-                  </div>
-                </>
-              )}
-
-              <div className="border-t pt-3">
-                {/* Language Switcher */}
-                {mounted && (
-                  <div className="px-2 pb-3">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={handleLanguageToggle}
-                      className="w-full justify-start text-gray-700 hover:text-violet-600"
-                    >
-                      <Globe className="mr-2 h-4 w-4" />
-                      {language === 'da' ? 'Switch to English' : 'Skift til dansk'}
-                    </Button>
-                  </div>
-                )}
-
-                {isSignedIn ? (
-                  <div className="px-2">
-                    <UserButton afterSignOutUrl="/" />
-                  </div>
-                ) : (
-                  <div className="flex flex-col space-y-2">
-                    <SignInButton mode="modal">
-                      <Button variant="ghost" size="sm" className="w-full">
-                        Sign In
-                      </Button>
-                    </SignInButton>
-                    <SignUpButton mode="modal">
-                      <Button size="sm" className="w-full bg-gradient-to-r from-violet-600 to-indigo-600">
-                        Get Started
-                      </Button>
-                    </SignUpButton>
-                  </div>
-                )}
-              </div>
-            </div>
-          </nav>
-        )}
-      </div>
+      {/* Inline responsive helpers — avoids adding a global CSS file */}
+      <style>{`
+        @media (min-width: 768px) {
+          .hidden-mobile { display: flex !important; }
+          .show-mobile { display: none !important; }
+        }
+        @media (max-width: 767px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: block !important; }
+        }
+      `}</style>
     </header>
   )
 }

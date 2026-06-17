@@ -48,7 +48,7 @@ export function DanishB2BLanding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-white via-hekla-orange/5 to-white">
       
       {/* Hero Section - Danish B2B Focus */}
       <section className="relative pt-20 pb-16 px-4">
@@ -62,7 +62,7 @@ export function DanishB2BLanding() {
             {/* Danish market insight */}
             <motion.div 
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full text-sm font-medium text-blue-700"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-hekla-orange/10 rounded-full text-sm font-medium text-hekla-orange"
             >
               <TrendingUp className="w-4 h-4" />
               <span>70% af danske virksomheder går glip af AI-muligheder</span>
@@ -75,7 +75,7 @@ export function DanishB2BLanding() {
             >
               <span className="text-gray-900">Fra idé til implementering</span>
               <br />
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="text-hekla-orange">
                 på kun 48 timer
               </span>
             </motion.h1>
@@ -116,7 +116,7 @@ export function DanishB2BLanding() {
               <Link href="/workshop/booking">
                 <Button 
                   size="lg" 
-                  className="h-14 px-8 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xl hover:shadow-2xl transition-all duration-200"
+                  className="h-14 px-8 text-lg bg-hekla-orange text-white hover:bg-hekla-orange-lt shadow-xl hover:shadow-2xl transition-all duration-200"
                 >
                   Book 2-dages workshop
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -157,7 +157,7 @@ export function DanishB2BLanding() {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-blue-600">{adoptionRate}%</div>
+              <div className="text-4xl font-bold text-hekla-orange">{adoptionRate}%</div>
               <div className="text-gray-600">Bruger AI i dag</div>
             </div>
             <div className="space-y-2">
@@ -165,7 +165,7 @@ export function DanishB2BLanding() {
               <div className="text-gray-600">Oplever effektivitetsgevinster</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-purple-600">48</div>
+              <div className="text-4xl font-bold text-hekla-orange">48</div>
               <div className="text-gray-600">Timer til værdi</div>
             </div>
             <div className="space-y-2">
@@ -183,7 +183,7 @@ export function DanishB2BLanding() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-12 text-white"
+            className="bg-gradient-to-br from-hekla-bg to-hekla-card rounded-3xl p-8 md:p-12 text-white"
           >
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
@@ -194,7 +194,7 @@ export function DanishB2BLanding() {
                 <h3 className="text-3xl font-bold mb-4">
                   Fra 60 minutter til 5 minutter
                 </h3>
-                <p className="text-lg mb-6 text-blue-100">
+                <p className="text-lg mb-6 text-hekla-body">
                   VMS Group automatiserede deres motordata-analyse og frigav hundredvis af timer. 
                   Servicerapporter der tog timer tager nu minutter. Risikoanalyser udføres {hoursToMinutes}% hurtigere.
                 </p>
@@ -218,8 +218,8 @@ export function DanishB2BLanding() {
                   <div className="text-center space-y-4">
                     <div className="text-5xl font-bold">{hoursToMinutes}%</div>
                     <div className="text-xl">Hurtigere analyser</div>
-                    <div className="text-sm text-blue-200">
-                      "HARKA leverede ikke konsulentrapporter, 
+                    <div className="text-sm text-hekla-body">
+                      "HEKLA leverede ikke konsulentrapporter, 
                       men ægte værktøjer vi bruger hver dag."
                     </div>
                     <div className="text-sm font-medium">- Thomas Fisker-Jepsen, IT Manager</div>
@@ -256,10 +256,10 @@ export function DanishB2BLanding() {
               viewport={{ once: true }}
               className="bg-white rounded-2xl shadow-lg p-8 relative"
             >
-              <div className="absolute -top-4 left-8 px-4 py-1 bg-blue-600 text-white text-sm rounded-full">
+              <div className="absolute -top-4 left-8 px-4 py-1 bg-hekla-orange text-white text-sm rounded-full">
                 Mest populære
               </div>
-              <Brain className="w-12 h-12 text-blue-600 mb-4" />
+              <Brain className="w-12 h-12 text-hekla-orange mb-4" />
               <h3 className="text-2xl font-bold mb-2">2-dages AI Workshop</h3>
               <p className="text-gray-600 mb-6">
                 Komplet AI-transformation for jeres team. Fra grundlæggende til avanceret implementering.
@@ -282,7 +282,7 @@ export function DanishB2BLanding() {
                 <span className="text-3xl font-bold">DKK 30.000</span>
                 <span className="text-gray-600"> / virksomhed</span>
               </div>
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button className="w-full bg-hekla-orange hover:bg-hekla-orange-lt text-white">
                 Book workshop
               </Button>
             </motion.div>
@@ -295,7 +295,7 @@ export function DanishB2BLanding() {
               transition={{ delay: 0.1 }}
               className="bg-white rounded-2xl shadow-lg p-8"
             >
-              <Rocket className="w-12 h-12 text-purple-600 mb-4" />
+              <Rocket className="w-12 h-12 text-hekla-orange mb-4" />
               <h3 className="text-2xl font-bold mb-2">VibeCoding Workshop</h3>
               <p className="text-gray-600 mb-6">
                 Fra idé til fungerende MVP på én dag med Loveable.dev og no-code AI.
@@ -384,8 +384,8 @@ export function DanishB2BLanding() {
               className="bg-white rounded-2xl p-8"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-xl font-bold text-blue-600">1</span>
+                <div className="w-12 h-12 bg-hekla-orange/10 rounded-full flex items-center justify-center">
+                  <span className="text-xl font-bold text-hekla-orange">1</span>
                 </div>
                 <h3 className="text-xl font-bold">Dag 1: Muligheder & Prototyper</h3>
               </div>
@@ -469,13 +469,13 @@ export function DanishB2BLanding() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-12 md:p-16 text-center"
+            className="bg-gradient-to-br from-hekla-bg to-hekla-card rounded-3xl p-12 md:p-16 text-center"
           >
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Klar til at transformere jeres virksomhed med AI?
               </h2>
-              <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              <p className="text-xl text-hekla-body max-w-2xl mx-auto">
                 Bliv en del af de 30% danske virksomheder der allerede høster AI's fordele. 
                 Start med en uforpligtende samtale.
               </p>
@@ -483,7 +483,7 @@ export function DanishB2BLanding() {
                 <Link href="/workshop/booking">
                   <Button 
                     size="lg" 
-                    className="h-14 px-8 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-xl"
+                    className="h-14 px-8 text-lg bg-hekla-orange text-white hover:bg-hekla-orange-lt shadow-xl"
                   >
                     Book workshop
                     <Calendar className="ml-2 w-5 h-5" />
@@ -499,7 +499,7 @@ export function DanishB2BLanding() {
                   </Button>
                 </Link>
               </div>
-              <p className="text-sm text-blue-200">
+              <p className="text-sm text-hekla-dim">
                 Ingen forpligtelser • Gratis konsultation • ROI inden for første uge
               </p>
             </div>

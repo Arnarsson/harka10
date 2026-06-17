@@ -70,7 +70,7 @@ export function InteractiveCodeEditor({
     setOutput('Running code...\n')
     // Simulate code execution
     setTimeout(() => {
-      setOutput(prev => prev + 'Hello from HARKA Interactive Learning!\n')
+      setOutput(prev => prev + 'Hello from HEKLA Interactive Learning!\n')
       setOutput(prev => prev + 'Code executed successfully!')
     }, 1000)
   }
