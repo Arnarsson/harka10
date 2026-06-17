@@ -27,47 +27,41 @@ const isAuthPage = createRouteMatcher([
 const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)', '/upload-admin'])
 const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)', '/teacher-access'])
 
+// PUBLIC SHOWCASE MODE: the whole UI is viewable without logging in (so it can
+// be shared with the team). Clerk still runs so the sign-in/up pages work and
+// logged-in users get personalised state — but no route is gated.
+// To re-enable gating, set HEKLA_REQUIRE_AUTH=true and restore the role checks.
+const requireAuth = process.env.HEKLA_REQUIRE_AUTH === 'true'
+
 const protect = clerkMiddleware(async (auth, req: NextRequest) => {
   const { userId, sessionClaims } = await auth()
   const role = ((sessionClaims?.metadata as { role?: string } | undefined)?.role) || 'student'
 
-  // Handle authenticated users on auth pages (prevent loops)
+  // Keep logged-in users off the auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
     return NextResponse.redirect(new URL('/dashboard', req.url))
   }
 
-  // Admin routes
-  if (isAdminRoute(req)) {
-    if (!userId) {
-      return NextResponse.redirect(new URL('/sign-in', req.url))
-    }
-    if (role !== 'admin') {
-      return NextResponse.redirect(new URL('/dashboard', req.url))
-    }
-  }
-
-  // Teacher routes - allow both teacher and admin roles
-  if (isTeacherRoute(req)) {
-    if (!userId) {
-      return NextResponse.redirect(new URL('/sign-in', req.url))
-    }
-    if (role !== 'teacher' && role !== 'admin') {
-      return NextResponse.redirect(new URL('/dashboard', req.url))
-    }
-  }
-
-  // Allow public routes
-  if (isPublicRoute(req)) {
+  if (!requireAuth) {
+    // Showcase: everyone can see everything.
     return NextResponse.next()
   }
 
-  // Protect all other routes
+  // --- gated mode (HEKLA_REQUIRE_AUTH=true) ---
+  if (isAdminRoute(req)) {
+    if (!userId) return NextResponse.redirect(new URL('/sign-in', req.url))
+    if (role !== 'admin') return NextResponse.redirect(new URL('/dashboard', req.url))
+  }
+  if (isTeacherRoute(req)) {
+    if (!userId) return NextResponse.redirect(new URL('/sign-in', req.url))
+    if (role !== 'teacher' && role !== 'admin') return NextResponse.redirect(new URL('/dashboard', req.url))
+  }
+  if (isPublicRoute(req)) return NextResponse.next()
   if (!userId) {
     const signInUrl = new URL('/sign-in', req.url)
     signInUrl.searchParams.set('redirect_url', req.url)
     return NextResponse.redirect(signInUrl)
   }
-
   return NextResponse.next()
 })
 
