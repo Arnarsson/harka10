@@ -485,6 +485,20 @@ export function DanishB2BLanding() {
           </motion.div>
         </div>
       </section>
+
+      {/* HEKLA wordmark footer band — the editorial signature (hekla-site / site-navy) */}
+      <footer style={{ background: "var(--black)", padding: "64px 32px 52px" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", flexDirection: "column", gap: 26 }}>
+          <div className="cut"><span className="v" /><span className="m" /></div>
+          <div className="mark" style={{ color: "var(--paper)", fontSize: "clamp(60px,15vw,184px)", lineHeight: 0.88 }}>
+            HEKLA
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 16, borderTop: "1px solid rgba(255,255,255,0.12)", paddingTop: 22, color: "var(--ash)", fontSize: 13 }}>
+            <span>Danmarks praktiske AI-træningsplatform</span>
+            <span>© 2026 HEKLA · Culture × Commerce × Technology</span>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
