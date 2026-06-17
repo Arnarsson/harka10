@@ -77,7 +77,7 @@ export default function Page() {
                 </span>
                 <div>
                   <p className="font-semibold text-white">{b.title}</p>
-                  <p className="text-sm text-white/70">{b.desc}</p>
+                  <p className="text-sm text-white/75">{b.desc}</p>
                 </div>
               </li>
             ))}
@@ -88,45 +88,58 @@ export default function Page() {
           {t.stats.map((s) => (
             <div key={s.label}>
               <p className="text-2xl font-bold text-white">{s.value}</p>
-              <p className="text-xs leading-snug text-white/70">{s.label}</p>
+              <p className="text-xs leading-snug text-white/80">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Auth panel */}
-      <div className="flex flex-col justify-center bg-background px-6 py-12 sm:px-12">
+      <div className="flex flex-col justify-start lg:justify-center bg-background px-6 pt-8 pb-12 sm:px-12 lg:py-12">
         <div className="mx-auto w-full max-w-md">
-          {/* compact brand header (mobile + reassurance on desktop) */}
-          <div className="mb-8 lg:hidden">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          {/* compact ink brand block — mobile only */}
+          <div className="lg:hidden mb-8 rounded-xl bg-gradient-to-br from-slate-900 to-indigo-950 p-5 text-white block">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white/90 ring-1 ring-inset ring-white/20">
               <Sparkles className="h-3.5 w-3.5" />
               {t.badge}
             </span>
+            <h1 className="mt-4 text-2xl font-bold leading-tight">{t.headline}</h1>
+            <ul className="mt-4 space-y-2 text-sm text-white/85">
+              {t.benefits.map((b) => (
+                <li key={b.title} className="flex items-center gap-2">
+                  <b.icon className="h-4 w-4 text-white flex-shrink-0" />
+                  {b.title}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">{t.cardTitle}</h2>
-            <p className="mt-1 text-muted-foreground">{t.cardSub}</p>
-          </div>
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">{t.cardTitle}</h2>
+              <p className="mt-1 text-muted-foreground">{t.cardSub}</p>
+            </div>
 
-          <SignIn
-            appearance={{
-              elements: {
-                rootBox: 'w-full',
-                card: 'shadow-none border-0 bg-transparent p-0 w-full',
-                header: 'hidden',
-                formButtonPrimary:
-                  'bg-primary hover:bg-primary/90 text-primary-foreground text-sm normal-case',
-                footerAction: 'text-sm',
-                socialButtonsBlockButton: 'border-border',
-              },
-            }}
-          />
+            <div className="min-h-[18rem]">
+              <SignIn
+                appearance={{
+                  elements: {
+                    rootBox: 'w-full',
+                    card: 'shadow-none border-0 bg-transparent p-0 w-full',
+                    header: 'hidden',
+                    formButtonPrimary:
+                      'bg-primary hover:bg-primary/90 text-primary-foreground text-sm normal-case',
+                    footerAction: 'text-sm',
+                    socialButtonsBlockButton: 'border-border',
+                  },
+                }}
+              />
+            </div>
+          </div>
 
           <Link
             href="/"
-            className="mt-8 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             {t.back}
