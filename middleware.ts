@@ -2,6 +2,13 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// Is Clerk actually configured in this environment? On a preview/demo deploy
+// without env vars, clerkMiddleware throws at runtime (MIDDLEWARE_INVOCATION_FAILED).
+// In that case we pass requests through instead of 500-ing the whole site.
+const pk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || ''
+const sk = process.env.CLERK_SECRET_KEY || ''
+const clerkConfigured = Boolean(sk) && Boolean(pk) && !pk.includes('mock')
+
 // Define public routes - accessible without authentication
 const isPublicRoute = createRouteMatcher([
   '/',
@@ -20,9 +27,10 @@ const isAuthPage = createRouteMatcher([
 const isAdminRoute = createRouteMatcher(['/admin', '/admin/(.*)', '/upload-admin'])
 const isTeacherRoute = createRouteMatcher(['/teach', '/teach/(.*)', '/teacher-access'])
 
-export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { userId, user } = await auth()
-  
+const protect = clerkMiddleware(async (auth, req: NextRequest) => {
+  const { userId, sessionClaims } = await auth()
+  const role = ((sessionClaims?.metadata as { role?: string } | undefined)?.role) || 'student'
+
   // Handle authenticated users on auth pages (prevent loops)
   if (userId && isAuthPage(req)) {
     return NextResponse.redirect(new URL('/dashboard', req.url))
@@ -33,8 +41,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     if (!userId) {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
-    
-    const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', req.url))
     }
@@ -45,8 +51,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     if (!userId) {
       return NextResponse.redirect(new URL('/sign-in', req.url))
     }
-    
-    const role = (user?.publicMetadata?.role as string) || 'student'
     if (role !== 'teacher' && role !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', req.url))
     }
@@ -66,6 +70,13 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
   return NextResponse.next()
 })
+
+// Pass-through middleware when Clerk isn't configured (preview deploys).
+function passthrough(_req: NextRequest) {
+  return NextResponse.next()
+}
+
+export default clerkConfigured ? protect : passthrough
 
 export const config = {
   matcher: [
