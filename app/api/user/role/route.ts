@@ -1,6 +1,9 @@
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 // POST - Request or update user role
 export async function POST(request: NextRequest) {
   const { userId } = await auth()

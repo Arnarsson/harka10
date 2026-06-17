@@ -3,6 +3,9 @@ import { currentUser } from '@clerk/nextjs/server'
 import { PLANS } from '@/lib/stripe'
 import Stripe from 'stripe'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function POST(req: NextRequest) {
   try {
     // Check if Stripe is properly configured
