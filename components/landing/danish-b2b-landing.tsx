@@ -48,97 +48,76 @@ export function DanishB2BLanding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-hekla-orange/5 to-white">
-      
-      {/* Hero Section - Danish B2B Focus */}
-      <section className="relative pt-20 pb-16 px-4">
-        <div className="container max-w-6xl mx-auto">
-          <motion.div 
+    <div className="min-h-screen bg-[#F5F5F3]">
+
+      {/* Hero — editorial, hekla-site voice (black ground, violet/moss emphasis) */}
+      <section className="bg-[#0B0B0B] text-[#F5F5F3]">
+        <div className="container max-w-5xl mx-auto px-6 py-28 md:py-36">
+          <motion.div
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="text-center space-y-6"
           >
-            {/* Danish market insight */}
-            <motion.div 
-              variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-hekla-orange/10 rounded-full text-sm font-medium text-hekla-orange"
-            >
-              <TrendingUp className="w-4 h-4" />
-              <span>70% af danske virksomheder går glip af AI-muligheder</span>
+            {/* the cut */}
+            <motion.div variants={fadeInUp} className="cut mb-10">
+              <span className="v"></span><span className="m"></span>
             </motion.div>
 
-            {/* Main headline - Danish */}
-            <motion.h1 
+            {/* Main headline — Danish, editorial emphasis */}
+            <motion.h1
               variants={fadeInUp}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight"
+              className="display max-w-4xl text-[#F5F5F3] text-[clamp(2.5rem,6.5vw,5.25rem)]"
             >
-              <span className="text-gray-900">Fra idé til implementering</span>
-              <br />
-              <span className="text-hekla-orange">
-                på kun 48 timer
-              </span>
+              Fra idé til <span className="em-violet">AI i praksis</span> — på <span className="em-moss">48 timer</span>.
             </motion.h1>
 
             {/* Subheadline */}
-            <motion.p 
+            <motion.p
               variants={fadeInUp}
-              className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto"
+              className="mt-8 max-w-2xl text-lg leading-relaxed text-[#b8afa2]"
             >
               Vi omdanner AI-potentiale til praktiske løsninger, der leverer målbare resultater
-              – uden lange projektforløb eller PowerPoints.
+              — uden lange projektforløb eller PowerPoints.
             </motion.p>
 
-            {/* Key value props */}
-            <motion.div 
-              variants={fadeInUp}
-              className="flex flex-wrap items-center justify-center gap-6 text-sm md:text-base pt-4"
-            >
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-gray-700">Praktisk hands-on workshop</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-gray-700">ROI inden for første uge</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-gray-700">GDPR-compliant</span>
-              </div>
-            </motion.div>
-
             {/* CTA Buttons */}
-            <motion.div 
+            <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6"
+              className="mt-10 flex flex-col sm:flex-row gap-3"
             >
               <Link href="/workshop/booking">
-                <Button 
-                  size="lg" 
-                  className="h-14 px-8 text-lg bg-hekla-orange text-white hover:bg-hekla-orange-lt shadow-xl hover:shadow-2xl transition-all duration-200"
-                >
-                  Book 2-dages workshop
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <button className="btn btn--primary">
+                  Book 2-dages workshop <span className="arrow">→</span>
+                </button>
               </Link>
               <Link href="/ai-kompas">
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="h-14 px-8 text-lg border-2"
-                >
-                  <Target className="mr-2 h-5 w-5" />
-                  Tag AI-parathedsvurdering
-                </Button>
+                <button className="btn btn--ghost-paper">
+                  Tag AI-parathedsvurdering <span className="arrow">→</span>
+                </button>
               </Link>
+            </motion.div>
+
+            {/* Key value props */}
+            <motion.div
+              variants={fadeInUp}
+              className="mt-14 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[#b8afa2]"
+            >
+              <span className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-[#6FC15E]" /> Praktisk hands-on workshop
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-[#6FC15E]" /> ROI inden for første uge
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-[#6FC15E]" /> GDPR-compliant
+              </span>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Danish Market Stats */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-white">
         <div className="container max-w-6xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -146,10 +125,10 @@ export function DanishB2BLanding() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-[#0B0B0B] mb-4">
               Udfordringen & muligheden
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-[#6b6b6b] max-w-3xl mx-auto">
               En ny rapport fra Digitaliseringsstyrelsen viser, at selvom kun {adoptionRate}% af danske virksomheder 
               anvender AI i dag, oplever {efficiencyGain}% markante effektivitetsgevinster.
             </p>
@@ -157,20 +136,20 @@ export function DanishB2BLanding() {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-hekla-orange">{adoptionRate}%</div>
-              <div className="text-gray-600">Bruger AI i dag</div>
+              <div className="text-4xl font-bold text-[#5708D8]">{adoptionRate}%</div>
+              <div className="text-[#6b6b6b]">Bruger AI i dag</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-green-600">{efficiencyGain}%</div>
-              <div className="text-gray-600">Oplever effektivitetsgevinster</div>
+              <div className="text-4xl font-bold text-[#6FC15E]">{efficiencyGain}%</div>
+              <div className="text-[#6b6b6b]">Oplever effektivitetsgevinster</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-hekla-orange">48</div>
-              <div className="text-gray-600">Timer til værdi</div>
+              <div className="text-4xl font-bold text-[#5708D8]">48</div>
+              <div className="text-[#6b6b6b]">Timer til værdi</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-orange-600">{companiesTrained}+</div>
-              <div className="text-gray-600">Virksomheder trænet</div>
+              <div className="text-4xl font-bold text-[#5708D8]">{companiesTrained}+</div>
+              <div className="text-[#6b6b6b]">Virksomheder trænet</div>
             </div>
           </div>
         </div>
@@ -200,15 +179,15 @@ export function DanishB2BLanding() {
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <CheckCircle className="w-5 h-5 text-[#6FC15E]" />
                     <span>Service-rapport automation</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <CheckCircle className="w-5 h-5 text-[#6FC15E]" />
                     <span>Turbo-risikoanalyse på 10 minutter</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <CheckCircle className="w-5 h-5 text-[#6FC15E]" />
                     <span>Frigjort kapital fra lageroptimering</span>
                   </div>
                 </div>
@@ -240,10 +219,10 @@ export function DanishB2BLanding() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-[#0B0B0B] mb-4">
               Vælg jeres AI-rejse
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-[#6b6b6b]">
               Skræddersyede workshops designet til danske virksomheders behov
             </p>
           </motion.div>
@@ -256,33 +235,33 @@ export function DanishB2BLanding() {
               viewport={{ once: true }}
               className="bg-white rounded-2xl shadow-lg p-8 relative"
             >
-              <div className="absolute -top-4 left-8 px-4 py-1 bg-hekla-orange text-white text-sm rounded-full">
+              <div className="absolute -top-4 left-8 px-4 py-1 bg-[#5708D8] text-white text-sm rounded-full">
                 Mest populære
               </div>
-              <Brain className="w-12 h-12 text-hekla-orange mb-4" />
+              <Brain className="w-12 h-12 text-[#5708D8] mb-4" />
               <h3 className="text-2xl font-bold mb-2">2-dages AI Workshop</h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-[#6b6b6b] mb-6">
                 Komplet AI-transformation for jeres team. Fra grundlæggende til avanceret implementering.
               </p>
               <div className="space-y-3 mb-6">
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">Dag 1: AI-fundamentals & prototyper</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">Dag 2: GDPR & virksomhedsspecifikke løsninger</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">90 dages support inkluderet</span>
                 </div>
               </div>
               <div className="mb-4">
                 <span className="text-3xl font-bold">DKK 30.000</span>
-                <span className="text-gray-600"> / virksomhed</span>
+                <span className="text-[#6b6b6b]"> / virksomhed</span>
               </div>
-              <Button className="w-full bg-hekla-orange hover:bg-hekla-orange-lt text-white">
+              <Button className="w-full bg-[#5708D8] hover:bg-[#6d28d9] text-white">
                 Book workshop
               </Button>
             </motion.div>
@@ -295,28 +274,28 @@ export function DanishB2BLanding() {
               transition={{ delay: 0.1 }}
               className="bg-white rounded-2xl shadow-lg p-8"
             >
-              <Rocket className="w-12 h-12 text-hekla-orange mb-4" />
+              <Rocket className="w-12 h-12 text-[#5708D8] mb-4" />
               <h3 className="text-2xl font-bold mb-2">VibeCoding Workshop</h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-[#6b6b6b] mb-6">
                 Fra idé til fungerende MVP på én dag med Loveable.dev og no-code AI.
               </p>
               <div className="space-y-3 mb-6">
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">65% fokus på Loveable.dev</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">Byg fungerende prototype</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">Perfekt til startups</span>
                 </div>
               </div>
               <div className="mb-4">
                 <span className="text-3xl font-bold">DKK 28.000</span>
-                <span className="text-gray-600"> / dag</span>
+                <span className="text-[#6b6b6b]"> / dag</span>
               </div>
               <Button className="w-full" variant="outline">
                 Læs mere
@@ -331,28 +310,28 @@ export function DanishB2BLanding() {
               transition={{ delay: 0.2 }}
               className="bg-white rounded-2xl shadow-lg p-8"
             >
-              <Shield className="w-12 h-12 text-green-600 mb-4" />
+              <Shield className="w-12 h-12 text-[#6FC15E] mb-4" />
               <h3 className="text-2xl font-bold mb-2">Erhvervsrådgiver Training</h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-[#6b6b6b] mb-6">
                 Specialdesignet forløb for erhvervsrådgivere og konsulenter.
               </p>
               <div className="space-y-3 mb-6">
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">3 x 2 sessioner</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">Streaming til 50+ deltagere</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">Train-the-trainer model</span>
                 </div>
               </div>
               <div className="mb-4">
                 <span className="text-3xl font-bold">DKK 74.000</span>
-                <span className="text-gray-600"> / forløb</span>
+                <span className="text-[#6b6b6b]"> / forløb</span>
               </div>
               <Button className="w-full" variant="outline">
                 Kontakt os
@@ -363,7 +342,7 @@ export function DanishB2BLanding() {
       </section>
 
       {/* Process Overview */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="py-16 px-4 bg-white">
         <div className="container max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -371,7 +350,7 @@ export function DanishB2BLanding() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-[#0B0B0B] mb-4">
               Resultatet: Fra strategi til handling på 48 timer
             </h2>
           </motion.div>
@@ -384,26 +363,26 @@ export function DanishB2BLanding() {
               className="bg-white rounded-2xl p-8"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-hekla-orange/10 rounded-full flex items-center justify-center">
-                  <span className="text-xl font-bold text-hekla-orange">1</span>
+                <div className="w-12 h-12 bg-[#5708D8]/10 rounded-full flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#5708D8]">1</span>
                 </div>
                 <h3 className="text-xl font-bold">Dag 1: Muligheder & Prototyper</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Identifikation af processer med AI-potentiale</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Hands-on træning i relevante værktøjer</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Udvikling af prototypeløsninger</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Opbygning af AI-kompetencer i dit team</span>
                 </li>
               </ul>
@@ -417,25 +396,25 @@ export function DanishB2BLanding() {
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-xl font-bold text-green-600">2</span>
+                  <span className="text-xl font-bold text-[#6FC15E]">2</span>
                 </div>
                 <h3 className="text-xl font-bold">Dag 2: Implementering & Overdragelse</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Færdiggørelse og integration af løsninger</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Tilpasning til jeres workflows</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Kompetenceoverførsel og dokumentation</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span>Handlingsplan for de næste 90 dage</span>
                 </li>
               </ul>
@@ -448,14 +427,14 @@ export function DanishB2BLanding() {
       <section className="py-16 px-4">
         <div className="container max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">
+            <p className="text-sm font-medium text-[#8A8A8A] uppercase tracking-wider">
               Betroet af førende danske virksomheder
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center opacity-60">
             {["VMS Group", "Seven Oceans", "Pouchy", "Startup Bootcamp", "Beyond Beta"].map((company) => (
               <div key={company} className="flex items-center justify-center">
-                <span className="text-xl font-bold text-gray-400">{company}</span>
+                <span className="text-xl font-bold text-[#8A8A8A]">{company}</span>
               </div>
             ))}
           </div>
@@ -483,7 +462,7 @@ export function DanishB2BLanding() {
                 <Link href="/workshop/booking">
                   <Button 
                     size="lg" 
-                    className="h-14 px-8 text-lg bg-hekla-orange text-white hover:bg-hekla-orange-lt shadow-xl"
+                    className="h-14 px-8 text-lg bg-[#5708D8] text-white hover:bg-[#6d28d9] shadow-xl"
                   >
                     Book workshop
                     <Calendar className="ml-2 w-5 h-5" />
