@@ -3,6 +3,9 @@ import { headers } from 'next/headers'
 import { clerkClient } from '@clerk/nextjs/server'
 import Stripe from 'stripe'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function POST(req: NextRequest) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
   
