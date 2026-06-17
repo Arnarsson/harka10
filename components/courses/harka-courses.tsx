@@ -96,13 +96,15 @@ export function HarkaCourses() {
   ]
 
   return (
-    <div>
+    <div style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 32px 90px" }}>
       {/* PAGE HEAD */}
-      <div className="cut">
-        <span className="v" />
-        <span className="m" />
-        <h1 className="display">Learn</h1>
-        <p className="sub muted">
+      <div style={{ marginBottom: 34 }}>
+        <div className="cut" style={{ marginBottom: 18 }}>
+          <span className="v" />
+          <span className="m" />
+        </div>
+        <h1 className="display" style={{ fontSize: "clamp(32px,4vw,46px)" }}>Learn</h1>
+        <p className="sub muted" style={{ marginTop: 6 }}>
           {currentCourse.title}. Module {currentModuleNumber} of {currentCourse.modules}.
         </p>
       </div>
@@ -136,8 +138,8 @@ export function HarkaCourses() {
         {/* LEFT: Module list */}
         <div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-            <span className="section-label">Modules</span>
-            <div className="tabs act">
+            <h2 style={{ fontWeight: 600, fontSize: 18, letterSpacing: "-0.01em" }}>Modules</h2>
+            <div className="tabs">
               <button className="on">List</button>
               <button>Grid</button>
             </div>
