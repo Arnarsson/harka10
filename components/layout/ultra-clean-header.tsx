@@ -4,7 +4,12 @@ import Link from "next/link"
 import { useUser, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { useLanguage } from "@/lib/i18n/language-context"
+
+// App surfaces render their own brandbook shell (topbar + sidebar via
+// DashboardLayoutMinimal); the marketing header must not double up there.
+const APP_SHELL_ROUTE = /^\/(dashboard|learn|toolkit|analytics|certificates|community|workshop|teach|admin|profile|notes)(\/|$)/
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,10 +27,15 @@ export function UltraCleanHeader() {
   const isAdmin = user?.publicMetadata?.role === 'admin'
   const isTeacher = user?.publicMetadata?.role === 'teacher' || isAdmin
 
+  const pathname = usePathname()
+
   // Ensure client-side only for language toggle
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Hide the marketing header on app surfaces (they have the brandbook shell)
+  if (APP_SHELL_ROUTE.test(pathname || "")) return null
 
   const handleLanguageToggle = () => {
     setLanguage(language === 'da' ? 'en' : 'da')
