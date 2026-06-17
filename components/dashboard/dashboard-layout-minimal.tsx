@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation"
 import { useUser, useClerk } from "@clerk/nextjs"
 import {
   LayoutDashboard,
+  BookOpen,
+  Zap,
   GraduationCap,
   Target,
   BarChart3,
@@ -20,15 +22,15 @@ import {
 } from "lucide-react"
 import { useTheme } from "next-themes"
 
+// Matches the HEKLA brandbook sidebar exactly
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Learning", href: "/learn/learning", icon: GraduationCap },
-  { name: "Playground", href: "/learn/playground", icon: Target },
+  { name: "Learn", href: "/learn/courses", icon: BookOpen },
   { name: "Analytics", href: "/learn/analytics", icon: BarChart3 },
   { name: "Toolkit", href: "/toolkit", icon: Wrench },
-  { name: "Discussion", href: "/learn/discussion", icon: MessageSquare },
   { name: "Resources", href: "/learn/resources", icon: FileText },
   { name: "Certificates", href: "/learn/certificates", icon: Award },
+  { name: "Power Hours", href: "/community/power-hour", icon: Zap },
 ]
 
 interface DashboardLayoutProps {
