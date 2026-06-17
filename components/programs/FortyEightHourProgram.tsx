@@ -80,7 +80,7 @@ const benefits = [
   {
     icon: <Award className="w-5 h-5" />,
     title: "Certificate & Portfolio",
-    description: "HARKA AI Practitioner Certificate + 3 working projects"
+    description: "HEKLA AI Practitioner Certificate + 3 working projects"
   },
   {
     icon: <Users className="w-5 h-5" />,
@@ -99,7 +99,7 @@ export function FortyEightHourProgram() {
       <div className="text-center mb-12">
         <Badge className="mb-4" variant="secondary">
           <Sparkles className="h-3 w-3 mr-1" />
-          HARKA Signature Program - Now Interactive!
+          HEKLA Signature Program - Now Interactive!
         </Badge>
         <h1 className="text-4xl font-bold mb-4">
           48-Hour AI Mastery Program

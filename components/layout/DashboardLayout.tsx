@@ -126,7 +126,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             {!collapsed && (
               <Link href="/dashboard" className="flex items-center gap-2">
                 <Sparkles className="h-8 w-8 text-blue-600" />
-                <span className="text-xl font-bold">HARKA AI</span>
+                <span className="text-xl font-bold">HEKLA AI</span>
               </Link>
             )}
             <Button
@@ -226,7 +226,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           
           <div className="flex flex-1 items-center justify-between">
             <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-              {navigation.find(item => item.current)?.name || 'HARKA AI'}
+              {navigation.find(item => item.current)?.name || 'HEKLA AI'}
             </h1>
             
             {/* Language toggle for mobile */}

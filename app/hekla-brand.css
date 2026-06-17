@@ -1,0 +1,120 @@
+/* ============================================================
+   HEKLA DESIGN TOKENS  (brandbook v1.2)
+   Ported verbatim from hekla-learn.html. Global primitives.
+   60 paper / 25 black / 10 violet / 5 moss.
+   ============================================================ */
+:root{
+  --paper:#F5F5F3;   /* default ground            */
+  --white:#FFFFFF;   /* cards, UI surfaces        */
+  --black:#0B0B0B;   /* type, marks, frames       */
+  --ash:#8A8A8A;     /* labels, secondary meta    */
+  --smoke:#E6E6E4;   /* hairline dividers (minor) */
+  --violet:#5708D8;  /* the eruption: decisions, links, live, primary */
+  --moss:#6FC15E;    /* underlines, one edge, live/done states         */
+  --slant:-10deg;    /* the family signature       */
+}
+
+/* ---------- type roles ---------- */
+.hk .mark,.mark{font-weight:900;font-style:italic;letter-spacing:-0.04em;text-transform:uppercase;line-height:1}
+.display{font-weight:200;letter-spacing:-0.03em;line-height:1.04}
+.eyebrow{font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ash)}
+.num{font-weight:200;letter-spacing:-0.03em;line-height:1}
+.arrow{font-weight:600}
+
+/* ---------- the cut: violet slant bar with moss follower ---------- */
+.cut{display:flex;gap:7px;align-items:center}
+.cut .v{width:46px;height:11px;background:var(--violet);transform:skewX(var(--slant))}
+.cut .m{width:16px;height:11px;background:var(--moss);transform:skewX(var(--slant))}
+
+/* ---------- chips ---------- */
+.chip{display:inline-block;transform:skewX(var(--slant));padding:6px 13px;background:var(--black)}
+.chip > span{display:inline-block;transform:skewX(10deg);font-weight:600;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--paper)}
+.chip--violet{background:var(--violet)}.chip--violet > span{color:#fff}
+.chip--moss{background:var(--moss)}.chip--moss > span{color:var(--black)}
+.chip--ghost{background:transparent;box-shadow:inset 0 0 0 1px var(--black)}
+.chip--ghost > span{color:var(--black)}
+
+/* ---------- cards ---------- */
+.card{background:var(--white);border:1px solid var(--black);padding:26px}
+.card--hair{border-color:var(--smoke)}
+.card--ink{background:var(--black);color:var(--paper);border-color:var(--black)}
+.card--ink .eyebrow{color:#9a9a9a}
+.edge-moss{box-shadow:inset 5px 0 0 var(--moss)}
+.edge-moss-b{box-shadow:inset 0 -5px 0 var(--moss)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;font-weight:600;font-size:13px;border:1px solid var(--black);background:var(--white);color:var(--black);transition:transform .12s ease;cursor:pointer}
+.btn:hover{transform:translateY(-1px)}
+.btn--primary{background:var(--violet);border-color:var(--violet);color:#fff}
+.btn--ink{background:var(--black);border-color:var(--black);color:var(--paper)}
+.btn--sm{padding:9px 15px;font-size:12px}
+
+/* ---------- grids ---------- */
+.row{display:grid;gap:20px}
+.r2{grid-template-columns:1fr 1fr}
+.r3{grid-template-columns:repeat(3,1fr)}
+.r4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+
+/* ---------- stat block ---------- */
+.stat .eyebrow{display:block;margin-bottom:14px}
+.stat .num{font-size:46px;color:var(--black)}
+.stat .delta{font-size:12px;color:var(--ash);margin-top:8px}
+.stat .delta b{color:var(--violet);font-weight:600}
+
+/* ---------- progress bar ---------- */
+.bar{height:6px;background:var(--smoke);position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--violet);transform-origin:left}
+.bar.is-done i{background:var(--moss)}
+.bar--ink{background:rgba(255,255,255,0.16)}
+
+/* ---------- section label row ---------- */
+.section-label{display:flex;align-items:baseline;gap:14px;margin:46px 0 18px}
+.section-label h2{font-weight:600;font-size:18px;letter-spacing:-0.01em}
+.section-label .n{font-weight:600;font-size:11px;letter-spacing:0.12em;color:var(--ash)}
+.section-label .act{margin-left:auto}
+.section-label .act a{font-weight:600;font-size:12px;color:var(--violet)}
+
+/* ---------- course tile with the HEKLA cut ---------- */
+.tile{background:var(--white);border:1px solid var(--black);display:flex;flex-direction:column}
+.tile .shot{height:140px;clip-path:polygon(0 0,100% 0,100% 88%,0 100%);display:flex;align-items:flex-start;padding:14px;position:relative}
+.tile .shot .mono{font-weight:900;font-style:italic;font-size:15px;line-height:1}
+.tile .shot.s1{background:linear-gradient(155deg,#101418,#26303B)}.tile .shot.s1 .mono{color:var(--paper)}
+.tile .shot.s2{background:linear-gradient(150deg,#E9E4DA,#BBB2A2)}.tile .shot.s2 .mono{color:var(--black)}
+.tile .shot.s3{background:linear-gradient(150deg,#2A0E5E,#5708D8)}.tile .shot.s3 .mono{color:#fff}
+.tile .shot.s4{background:linear-gradient(120deg,#0B0B0B,#22140A,#0B0B0B)}.tile .shot.s4 .mono{color:var(--paper)}
+.tile .body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tile .body h3{font-weight:600;font-size:15px}
+.tile .body .meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.tile .body .meta .t{font-size:12px;color:var(--ash)}
+
+/* ---------- lessons checklist ---------- */
+.lessons{display:flex;flex-direction:column;margin-top:14px}
+.lesson{display:flex;align-items:center;gap:11px;padding:9px 0;border-top:1px solid var(--smoke);font-size:14px}
+.lesson:first-child{border-top:0}
+.lesson .tick{width:15px;height:15px;flex-shrink:0;border:1.5px solid var(--ash);border-radius:50%}
+.lesson.done .tick{border-color:var(--moss);background:var(--moss);position:relative}
+.lesson.done .tick::after{content:"";position:absolute;left:4px;top:1.5px;width:4px;height:8px;border:solid var(--black);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.lesson.done{color:var(--ash)}
+
+/* ---------- small list rows ---------- */
+.list .li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--smoke)}
+.list .li:first-child{border-top:0}
+.list .li h3{font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.list .li .d{font-size:13px;color:var(--ash);margin-top:3px}
+.list .li .badge-file{width:34px;height:34px;border:1px solid var(--black);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:9px;letter-spacing:0.06em}
+
+/* ---------- misc ---------- */
+.tabs{display:flex;border:1px solid var(--black);width:max-content}
+.tabs button{padding:9px 16px;font-weight:600;font-size:12px;border-right:1px solid var(--black);color:var(--ash);background:none;cursor:pointer}
+.tabs button:last-child{border-right:0}
+.tabs button.on{background:var(--violet);color:#fff}
+.muted{color:var(--ash)}
+.right-col{display:flex;flex-direction:column;gap:20px}
+.mini{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--smoke);font-size:13px}
+.mini:first-child{border-top:0}
+.mini b{font-weight:600}
+
+@media(max-width:1080px){.r4{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
+@media(max-width:640px){.r2,.r3{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){.btn{transition:none}}

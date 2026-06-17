@@ -75,7 +75,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">H</span>
               </div>
-              <span className="font-semibold">HARKA Admin</span>
+              <span className="font-semibold">HEKLA Admin</span>
             </div>
           )}
           <Button

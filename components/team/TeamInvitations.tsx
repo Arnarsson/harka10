@@ -160,7 +160,7 @@ export function TeamInvitations() {
             Invite Team Member
           </CardTitle>
           <CardDescription>
-            Send an invitation to join your HARKA AI training team
+            Send an invitation to join your HEKLA AI training team
           </CardDescription>
         </CardHeader>
         <CardContent>

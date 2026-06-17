@@ -217,7 +217,7 @@ export default function ShowcasePage() {
         {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            HARKA Feature Showcase
+            HEKLA Feature Showcase
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Complete interactive learning platform with teacher content management, 
@@ -419,7 +419,7 @@ export default function ShowcasePage() {
             🚀 All features are production-ready and fully tested
           </p>
           <p className="text-sm text-muted-foreground mt-2">
-            Built with ❤️ for the HARKA interactive learning platform
+            Built with ❤️ for the HEKLA interactive learning platform
           </p>
         </div>
       </div>

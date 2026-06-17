@@ -296,7 +296,7 @@ export function PowerHour() {
         </div>
         <h1 className="text-3xl font-bold">Power Hours</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Join focused 60-minute learning sessions with the global HARKA community. 
+          Join focused 60-minute learning sessions with the global HEKLA community. 
           Distraction-free environment with AI productivity coaching.
         </p>
       </div>

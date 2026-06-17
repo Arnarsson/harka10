@@ -62,7 +62,7 @@ export function SimpleHeader() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold">HARKA</span>
+            <span className="text-2xl font-bold">HEKLA</span>
           </Link>
 
           {/* Desktop Navigation */}

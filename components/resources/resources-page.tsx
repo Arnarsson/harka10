@@ -55,7 +55,7 @@ export function ResourcesPage() {
       rating: 4.8,
       tags: ["ethics", "framework", "implementation"],
       dateAdded: "2024-01-15",
-      author: "HARKA Team",
+      author: "HEKLA Team",
       thumbnail: "/placeholder.svg?height=200&width=300",
       isFeatured: true,
       isPremium: false

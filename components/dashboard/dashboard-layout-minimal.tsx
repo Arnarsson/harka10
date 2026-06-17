@@ -80,7 +80,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
           <div className="fixed inset-y-0 left-0 w-64 bg-background border-r">
             <div className="flex h-14 items-center justify-between px-6">
               <Link href="/dashboard" className="text-xl font-bold">
-                HARKA
+                HEKLA
               </Link>
               <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
                 <X className="h-4 w-4" />
@@ -114,7 +114,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
         <div className="h-full bg-background border-r">
           <div className="flex h-14 items-center justify-between px-6">
             <Link href="/learn/dashboard" className={`text-xl font-bold transition-opacity ${sidebarCollapsed ? 'opacity-0' : 'opacity-100'}`}>
-              HARKA
+              HEKLA
             </Link>
             <Button 
               variant="ghost" 

@@ -30,7 +30,7 @@ export function DanishCurriculum() {
 
   const content = {
     da: {
-      title: "HARKA AI Workshop",
+      title: "HEKLA AI Workshop",
       subtitle: "2-dages intensiv AI træning for danske virksomheder",
       day: "Dag",
       overview: "Oversigt",
@@ -51,7 +51,7 @@ export function DanishCurriculum() {
       coffee: "Kaffepause"
     },
     en: {
-      title: "HARKA AI Workshop",
+      title: "HEKLA AI Workshop",
       subtitle: "2-day intensive AI training for Danish companies",
       day: "Day",
       overview: "Overview",
@@ -80,7 +80,7 @@ export function DanishCurriculum() {
     participants: "8-12 personer",
     level: "Begynder til mellemliggende",
     language: "Dansk / English",
-    certificate: "HARKA AI Certification",
+    certificate: "HEKLA AI Certification",
     price: "DKK 12.500 per deltager"
   }
 
@@ -392,7 +392,7 @@ export function DanishCurriculum() {
             }
           </CardTitle>
           <CardDescription>
-            Detaljeret program for dag {selectedDay} af HARKA AI Workshop
+            Detaljeret program for dag {selectedDay} af HEKLA AI Workshop
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -496,7 +496,7 @@ export function DanishCurriculum() {
         <CardContent className="p-8 text-center">
           <h3 className="text-2xl font-bold mb-4">Klar til at transformere din organisation med AI?</h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Tilmeld dig HARKA AI Workshop og få hands-on erfaring med de nyeste AI-værktøjer og -teknikker. 
+            Tilmeld dig HEKLA AI Workshop og få hands-on erfaring med de nyeste AI-værktøjer og -teknikker. 
             Perfekt til teams der vil implementere AI på en ansvarlig og effektiv måde.
           </p>
           <div className="flex items-center justify-center gap-4">

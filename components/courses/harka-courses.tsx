@@ -1,16 +1,5 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import {
-  PlayCircle,
-  CheckCircle2,
-  BookOpen,
-  Star,
-} from "lucide-react"
-
 export function HarkaCourses() {
   const currentCourse = {
     title: "AI Fundamentals",
@@ -93,146 +82,155 @@ export function HarkaCourses() {
   ]
 
   const currentModule = modules.find((m) => m.current) ?? modules[0]
-  const nextLesson = currentModule.lessons.find((l) => !l.completed)?.title ?? "Review"
+
+  // Derive subtitle: "AI Fundamentals. Module 3 of 4."
+  const currentModuleIndex = modules.findIndex((m) => m.current)
+  const currentModuleNumber = currentModuleIndex >= 0 ? currentModuleIndex + 1 : currentCourse.completedModules + 1
+
+  // Quick stats (static per spec)
+  const quickStats = [
+    { label: "Total progress", value: "38%" },
+    { label: "Active courses", value: "5" },
+    { label: "Hours spent", value: "25.5" },
+    { label: "Achievements", value: "12" },
+  ]
 
   return (
-    <div className="space-y-8">
-      {/* Demoted eyebrow greeting — no big h1, no search bar */}
-      <p className="text-sm text-muted-foreground">Welcome back, Sven</p>
+    <div>
+      {/* PAGE HEAD */}
+      <div className="cut">
+        <span className="v" />
+        <span className="m" />
+        <h1 className="display">Learn</h1>
+        <p className="sub muted">
+          {currentCourse.title}. Module {currentModuleNumber} of {currentCourse.modules}.
+        </p>
+      </div>
 
-      {/* INK hero card — the single dominant action */}
-      <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white">
-        {/* Emerald ambient glow */}
-        <div className="pointer-events-none absolute -top-16 -right-10 h-48 w-48 rounded-full bg-emerald-400/15 blur-3xl" />
-
-        <CardContent className="relative p-6 sm:p-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div className="space-y-3">
-              <p className="text-xs text-white/70">Continue learning</p>
-              <h2 className="text-2xl font-bold text-white">{currentCourse.title}</h2>
-              <p className="text-sm text-white/80">
-                Module {currentCourse.completedModules + 1} of {currentCourse.modules} · {currentModule.title}
-              </p>
-              <p className="text-sm font-medium text-white/90">
-                Up next: {nextLesson}
-              </p>
-              <div className="space-y-1.5 pt-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-white/60">Overall progress</span>
-                  <span className="text-xs font-semibold text-white/90">{currentCourse.progress}%</span>
-                </div>
-                <Progress value={currentCourse.progress} className="h-2 bg-white/15" />
-              </div>
+      {/* CURRENT COURSE BANNER */}
+      <div className="card" style={{ marginTop: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 24, alignItems: "center" }}>
+          <div>
+            <p className="eyebrow">Current course</p>
+            <h2 className="display" style={{ fontSize: 26, marginTop: 6, marginBottom: 12 }}>
+              {currentCourse.title}
+            </h2>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+              <span className="muted" style={{ fontSize: 13 }}>Overall progress</span>
+              <span style={{ fontSize: 13, fontWeight: 600 }}>{currentCourse.progress}%</span>
             </div>
-            <Button
-              size="lg"
-              className="shrink-0 bg-white text-slate-900 hover:bg-white/90"
-            >
-              <PlayCircle className="mr-2 h-5 w-5" />
-              Continue Learning
-            </Button>
+            <div className="bar">
+              <i style={{ width: currentCourse.progress + "%" }} />
+            </div>
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <button className="btn btn--primary">
+              Continue <span className="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-      {/* Main content: modules (3 cols) + bookmarked resources sidebar (1 col) */}
-      <div className="grid gap-6 lg:grid-cols-4">
-        <div className="lg:col-span-3">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                Modules
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {modules.map((module) => (
-                  <Card
-                    key={module.id}
-                    className={`cursor-pointer hover:shadow-md transition-all ${
-                      module.current ? "ring-2 ring-primary bg-primary/5" : ""
-                    }`}
-                  >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <CardTitle className="text-base">
-                            Module {module.id}: {module.title}
-                          </CardTitle>
-                          <p className="mt-1 text-sm text-muted-foreground">{module.subtitle}</p>
-                        </div>
-                        {module.completed && (
-                          <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0" />
-                        )}
-                        {module.current && (
-                          <Badge className="flex-shrink-0">Current</Badge>
-                        )}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        {module.lessons.map((lesson, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm">
-                            {lesson.completed ? (
-                              <CheckCircle2 className="h-3 w-3 text-accent" />
-                            ) : (
-                              <div className="w-3 h-3 rounded-full border border-muted-foreground" />
-                            )}
-                            <span className={lesson.completed ? "text-muted-foreground" : ""}>
-                              {lesson.title}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-4 flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {module.lessons.filter((l) => l.completed).length} of {module.lessons.length} completed
-                        </span>
-                        <Progress
-                          value={
-                            (module.lessons.filter((l) => l.completed).length /
-                              module.lessons.length) *
-                            100
-                          }
-                          className="w-20 h-1"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+      {/* SPLIT LAYOUT */}
+      <div className="split" style={{ marginTop: 30 }}>
+        {/* LEFT: Module list */}
+        <div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <span className="section-label">Modules</span>
+            <div className="tabs act">
+              <button className="on">List</button>
+              <button>Grid</button>
+            </div>
+          </div>
+
+          {modules.map((module) => {
+            const completedCount = module.lessons.filter((l) => l.completed).length
+            const totalCount = module.lessons.length
+            const pct = Math.round((completedCount / totalCount) * 100)
+            const hasStarted = completedCount > 0
+            const isNotStarted = completedCount === 0 && !module.current
+
+            const cardClass = [
+              "card",
+              isNotStarted ? "card--hair" : "",
+              module.current ? "edge-moss" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")
+
+            const cardStyle = module.current
+              ? { borderColor: "var(--violet)", marginBottom: 18 }
+              : { marginBottom: 18 }
+
+            return (
+              <div key={module.id} className={cardClass} style={cardStyle}>
+                {/* Module header */}
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>
+                      Module {module.id} — {module.title}
+                    </h3>
+                    <p className="muted" style={{ marginTop: 3, fontSize: 13 }}>{module.subtitle}</p>
+                  </div>
+                  {module.current && (
+                    <span className="chip chip--violet">
+                      <span>Current</span>
+                    </span>
+                  )}
+                </div>
+
+                {/* Lessons */}
+                <div className="lessons">
+                  {module.lessons.map((lesson, idx) => (
+                    <div key={idx} className={lesson.completed ? "lesson done" : "lesson"}>
+                      <span className="tick" />
+                      {lesson.title}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Module footer */}
+                <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 14 }}>
+                  <span className="eyebrow">{completedCount} of {totalCount} done</span>
+                  {hasStarted && (
+                    <div className="bar" style={{ width: 120 }}>
+                      <i style={{ width: pct + "%" }} />
+                    </div>
+                  )}
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            )
+          })}
         </div>
 
-        {/* Sidebar: Bookmarked Resources only (Quick Stats removed) */}
-        <div>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Star className="h-4 w-4" />
-                Bookmarked Resources
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {bookmarkedResources.map((resource, index) => (
-                  <Card key={index} className="cursor-pointer hover:bg-accent">
-                    <CardContent className="p-3">
-                      <div className="space-y-1">
-                        <h4 className="font-medium text-sm">{resource.title}</h4>
-                        <p className="text-xs text-muted-foreground">{resource.description}</p>
-                        <Badge variant="outline" className="text-xs">
-                          {resource.type}
-                        </Badge>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+        {/* RIGHT: sidebar */}
+        <div className="right-col">
+          {/* Quick stats */}
+          <div className="card" style={{ marginBottom: 18 }}>
+            <p className="eyebrow" style={{ marginBottom: 12 }}>Quick stats</p>
+            {quickStats.map((stat) => (
+              <div key={stat.label} className="mini" style={{ marginBottom: 10 }}>
+                {stat.label}
+                <b>{stat.value}</b>
               </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
+
+          {/* Bookmarked */}
+          <div className="card">
+            <p className="eyebrow" style={{ marginBottom: 12 }}>Bookmarked</p>
+            <div className="list">
+              {bookmarkedResources.map((resource, idx) => (
+                <div key={idx} className="li" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 10, alignItems: "start" }}>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2 }}>{resource.title}</div>
+                    <div className="d muted" style={{ fontSize: 12 }}>{resource.description}</div>
+                  </div>
+                  <span className="chip chip--ghost">{resource.type}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

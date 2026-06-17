@@ -13,6 +13,16 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+  			hekla: {
+  				bg: '#131110',
+  				card: '#1e1d1b',
+  				'card-hi': '#2a2826',
+  				cream: '#f0e6d3',
+  				body: '#b8afa2',
+  				dim: '#807a72',
+  				orange: '#d4643a',
+  				'orange-lt': '#e8805a'
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

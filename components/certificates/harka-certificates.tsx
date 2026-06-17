@@ -35,13 +35,13 @@ export function HarkaCertificates() {
       title: "AI Fundamentals Certification",
       course: "AI Fundamentals",
       completedDate: "2024-01-15",
-      certificateNumber: "HARKA-AI-2024-001",
+      certificateNumber: "HEKLA-AI-2024-001",
       instructor: "Dr. Sarah Chen",
       duration: "40 hours",
       skills: ["Machine Learning", "Neural Networks", "AI Ethics", "Data Processing"],
       grade: "A+",
       score: 95,
-      verificationUrl: "https://verify.harka.com/cert/HARKA-AI-2024-001",
+      verificationUrl: "https://verify.harka.com/cert/HEKLA-AI-2024-001",
       status: "issued",
       creditsEarned: 4.0
     },
@@ -50,13 +50,13 @@ export function HarkaCertificates() {
       title: "Machine Learning Specialist",
       course: "Advanced Machine Learning",
       completedDate: "2023-12-20",
-      certificateNumber: "HARKA-ML-2023-078",
+      certificateNumber: "HEKLA-ML-2023-078",
       instructor: "Prof. Michael Zhang",
       duration: "60 hours", 
       skills: ["Deep Learning", "TensorFlow", "Model Optimization", "Computer Vision"],
       grade: "A",
       score: 88,
-      verificationUrl: "https://verify.harka.com/cert/HARKA-ML-2023-078",
+      verificationUrl: "https://verify.harka.com/cert/HEKLA-ML-2023-078",
       status: "issued",
       creditsEarned: 6.0
     },
@@ -65,13 +65,13 @@ export function HarkaCertificates() {
       title: "AI Ethics & Governance",
       course: "Ethics & Governance",
       completedDate: "2023-11-10", 
-      certificateNumber: "HARKA-ETH-2023-156",
+      certificateNumber: "HEKLA-ETH-2023-156",
       instructor: "Dr. Emma Wilson",
       duration: "25 hours",
       skills: ["Ethical AI", "Bias Detection", "Regulatory Compliance", "Risk Assessment"],
       grade: "A+",
       score: 92,
-      verificationUrl: "https://verify.harka.com/cert/HARKA-ETH-2023-156", 
+      verificationUrl: "https://verify.harka.com/cert/HEKLA-ETH-2023-156", 
       status: "issued",
       creditsEarned: 3.0
     }
@@ -85,7 +85,7 @@ export function HarkaCertificates() {
   }
 
   const achievements = [
-    { name: "First Certificate", description: "Earned your first HARKA certificate", icon: "🏆", date: "2023-11-10" },
+    { name: "First Certificate", description: "Earned your first HEKLA certificate", icon: "🏆", date: "2023-11-10" },
     { name: "High Achiever", description: "Scored 90+ on 3 certificates", icon: "⭐", date: "2024-01-15" },
     { name: "Ethics Champion", description: "Completed AI Ethics certification", icon: "🛡️", date: "2023-11-10" },
     { name: "ML Expert", description: "Mastered Machine Learning fundamentals", icon: "🧠", date: "2023-12-20" }
@@ -102,7 +102,7 @@ export function HarkaCertificates() {
   }
 
   const handleShare = (certificate: any) => {
-    const shareText = `I just earned my ${certificate.title} from HARKA! Verify at: ${certificate.verificationUrl}`
+    const shareText = `I just earned my ${certificate.title} from HEKLA! Verify at: ${certificate.verificationUrl}`
     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certificate.verificationUrl)}&summary=${encodeURIComponent(shareText)}`
     window.open(linkedInUrl, '_blank')
   }
@@ -128,7 +128,7 @@ export function HarkaCertificates() {
             <Award className="h-8 w-8 text-primary" />
             Certificates
           </h1>
-          <p className="text-muted-foreground mt-2">Your HARKA certification achievements and credentials</p>
+          <p className="text-muted-foreground mt-2">Your HEKLA certification achievements and credentials</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline">
@@ -368,7 +368,7 @@ export function HarkaCertificates() {
           {/* Certificate Benefits */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Why HARKA Certificates?</CardTitle>
+              <CardTitle className="text-lg">Why HEKLA Certificates?</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-3">

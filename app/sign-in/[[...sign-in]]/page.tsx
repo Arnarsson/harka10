@@ -3,7 +3,6 @@
 import { SignIn } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { Sparkles, Clock, ShieldCheck, ArrowLeft } from 'lucide-react'
 
 const COPY = {
   da: {
@@ -11,9 +10,9 @@ const COPY = {
     headline: 'Fra idé til AI i praksis',
     sub: 'Log ind og fortsæt der, hvor du slap. Din næste lektion, dit forløb og dit hold venter.',
     benefits: [
-      { icon: Sparkles, title: 'Praktisk hands-on træning', desc: 'Rigtige opgaver, ikke slides.' },
-      { icon: Clock, title: 'Værdi inden for 48 timer', desc: 'Kom i gang med det samme.' },
-      { icon: ShieldCheck, title: 'GDPR-compliant og sikker', desc: 'Dine data bliver i Europa.' },
+      { title: 'Praktisk hands-on træning', desc: 'Rigtige opgaver, ikke slides.' },
+      { title: 'Værdi inden for 48 timer', desc: 'Kom i gang med det samme.' },
+      { title: 'GDPR-compliant og sikker', desc: 'Dine data bliver i Europa.' },
     ],
     stats: [
       { value: '34+', label: 'virksomheder trænet' },
@@ -29,9 +28,9 @@ const COPY = {
     headline: 'From idea to AI in practice',
     sub: 'Sign in and pick up where you left off. Your next lesson, your track, and your team are waiting.',
     benefits: [
-      { icon: Sparkles, title: 'Hands-on, practical training', desc: 'Real tasks, not slides.' },
-      { icon: Clock, title: 'Value within 48 hours', desc: 'Get started right away.' },
-      { icon: ShieldCheck, title: 'GDPR-compliant and secure', desc: 'Your data stays in Europe.' },
+      { title: 'Hands-on, practical training', desc: 'Real tasks, not slides.' },
+      { title: 'Value within 48 hours', desc: 'Get started right away.' },
+      { title: 'GDPR-compliant and secure', desc: 'Your data stays in Europe.' },
     ],
     stats: [
       { value: '34+', label: 'companies trained' },
@@ -50,77 +49,121 @@ export default function Page() {
 
   return (
     <div className="grid min-h-[calc(100vh-4rem)] lg:grid-cols-2">
-      {/* Brand panel — what HARKA is + why trust it */}
-      <div className="relative hidden overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 lg:flex lg:flex-col lg:justify-between p-12 text-white">
-        {/* soft glow accents */}
-        <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
-
-        <div className="relative">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white/90 ring-1 ring-inset ring-white/20">
-            <Sparkles className="h-3.5 w-3.5" />
+      {/* LEFT brand panel — desktop only */}
+      <div className="card card--ink hidden lg:flex lg:flex-col lg:justify-between p-12">
+        {/* Cut motif */}
+        <div>
+          <div className="cut mb-8" style={{ fontSize: '1.5rem' }}>
+            <span className="v" />
+            <span className="m" />
+          </div>
+          <span className="chip chip--violet" style={{ marginBottom: '2rem', display: 'inline-block' }}>
             {t.badge}
           </span>
-        </div>
-
-        <div className="relative max-w-md">
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white">
+          <h1 className="display" style={{ color: 'var(--paper)', marginTop: '1.5rem', fontSize: '2.5rem', lineHeight: 1.1 }}>
             {t.headline}
           </h1>
-          <p className="mt-4 text-lg leading-relaxed text-white/80">{t.sub}</p>
-
-          <ul className="mt-10 space-y-5">
-            {t.benefits.map((b) => (
-              <li key={b.title} className="flex items-start gap-4">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-inset ring-white/20">
-                  <b.icon className="h-5 w-5 text-white" />
-                </span>
-                <div>
-                  <p className="font-semibold text-white">{b.title}</p>
-                  <p className="text-sm text-white/75">{b.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <p className="muted" style={{ color: 'var(--ash)', marginTop: '1rem' }}>{t.sub}</p>
         </div>
 
-        <div className="relative grid grid-cols-3 gap-4 border-t border-white/15 pt-8">
-          {t.stats.map((s) => (
-            <div key={s.label}>
-              <p className="text-2xl font-bold text-white">{s.value}</p>
-              <p className="text-xs leading-snug text-white/80">{s.label}</p>
+        {/* Benefits list */}
+        <ul style={{ margin: '2.5rem 0', listStyle: 'none', padding: 0 }}>
+          {t.benefits.map((b, i) => (
+            <li
+              key={b.title}
+              style={{
+                paddingTop: i === 0 ? 0 : '1.25rem',
+                paddingBottom: '1.25rem',
+                borderBottom: 'none',
+                borderTop: i > 0 ? '1px solid rgba(255,255,255,.12)' : undefined,
+              }}
+            >
+              <p className="eyebrow" style={{ color: 'var(--paper)', marginBottom: '0.25rem' }}>{b.title}</p>
+              <p className="muted" style={{ color: 'var(--ash)', fontSize: '0.875rem' }}>{b.desc}</p>
+            </li>
+          ))}
+        </ul>
+
+        {/* Stats row */}
+        <div
+          style={{
+            borderTop: '1px solid rgba(255,255,255,.12)',
+            paddingTop: '2rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1rem',
+          }}
+        >
+          {t.stats.map((s, i) => (
+            <div
+              key={s.label}
+              style={{
+                borderLeft: i > 0 ? '1px solid rgba(255,255,255,.12)' : undefined,
+                paddingLeft: i > 0 ? '1rem' : undefined,
+              }}
+            >
+              <p
+                className="mark"
+                style={{
+                  color: 'var(--paper)',
+                  fontSize: '2rem',
+                  fontWeight: 100,
+                  fontStyle: 'normal',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1,
+                }}
+              >
+                {s.value}
+              </p>
+              <p className="eyebrow" style={{ color: 'var(--ash)', marginTop: '0.25rem' }}>{s.label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Auth panel */}
-      <div className="flex flex-col justify-start lg:justify-center bg-background px-6 pt-8 pb-12 sm:px-12 lg:py-12">
-        <div className="mx-auto w-full max-w-md">
-          {/* compact ink brand block — mobile only */}
-          <div className="lg:hidden mb-8 rounded-xl bg-gradient-to-br from-slate-900 to-indigo-950 p-5 text-white block">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white/90 ring-1 ring-inset ring-white/20">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t.badge}
+      {/* RIGHT auth column */}
+      <div
+        className="flex flex-col justify-start lg:justify-center px-6 pt-8 pb-12 sm:px-12 lg:py-12"
+        style={{ background: 'var(--paper)' }}
+      >
+        <div className="mx-auto w-full" style={{ maxWidth: '28rem' }}>
+          {/* Mobile compact ink block */}
+          <div className="card card--ink lg:hidden" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
+            <div className="cut" style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>
+              <span className="v" />
+              <span className="m" />
+            </div>
+            <span className="mark" style={{ color: 'var(--paper)', display: 'block', marginBottom: '0.75rem' }}>
+              HEKLA
             </span>
-            <h1 className="mt-4 text-2xl font-bold leading-tight">{t.headline}</h1>
-            <ul className="mt-4 space-y-2 text-sm text-white/85">
+            <h1 className="display" style={{ color: 'var(--paper)', fontSize: '1.5rem', lineHeight: 1.2, marginBottom: '1rem' }}>
+              {t.headline}
+            </h1>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {t.benefits.map((b) => (
-                <li key={b.title} className="flex items-center gap-2">
-                  <b.icon className="h-4 w-4 text-white flex-shrink-0" />
+                <li key={b.title} className="eyebrow" style={{ color: 'var(--ash)', marginBottom: '0.375rem' }}>
                   {b.title}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold tracking-tight text-foreground">{t.cardTitle}</h2>
-              <p className="mt-1 text-muted-foreground">{t.cardSub}</p>
-            </div>
+          {/* Auth card */}
+          <div
+            className="card"
+            style={{
+              background: 'var(--white)',
+              border: '1px solid var(--black)',
+              padding: '2rem',
+            }}
+          >
+            <p className="eyebrow" style={{ marginBottom: '0.5rem' }}>Account</p>
+            <h2 className="display" style={{ fontSize: '1.75rem', lineHeight: 1.1, marginBottom: '0.5rem' }}>
+              {t.cardTitle}
+            </h2>
+            <p className="muted" style={{ marginBottom: '1.5rem' }}>{t.cardSub}</p>
 
-            <div className="min-h-[18rem]">
+            <div style={{ minHeight: '24rem' }}>
               <SignIn
                 appearance={{
                   elements: {
@@ -128,20 +171,28 @@ export default function Page() {
                     card: 'shadow-none border-0 bg-transparent p-0 w-full',
                     header: 'hidden',
                     formButtonPrimary:
-                      'bg-primary hover:bg-primary/90 text-primary-foreground text-sm normal-case',
+                      'bg-[#5708D8] hover:bg-[#4a07b8] text-white rounded-none',
                     footerAction: 'text-sm',
-                    socialButtonsBlockButton: 'border-border',
+                    socialButtonsBlockButton: 'rounded-none border border-black',
                   },
                 }}
               />
             </div>
           </div>
 
+          {/* Back link */}
           <Link
             href="/"
-            className="mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="muted"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.375rem',
+              marginTop: '1.25rem',
+              textDecoration: 'none',
+            }}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <span className="arrow" style={{ transform: 'rotate(180deg)', display: 'inline-block' }}>→</span>
             {t.back}
           </Link>
         </div>

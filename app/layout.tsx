@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import "./hekla-brand.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker"
@@ -9,7 +10,7 @@ import { LanguageProvider } from "@/lib/i18n/language-context"
 import { UltraCleanHeader } from "@/components/layout/ultra-clean-header"
 
 export const metadata: Metadata = {
-  title: "HARKA - AI-Powered Learning Platform",
+  title: "HEKLA - AI-Powered Learning Platform",
   description: "Transform your organization with interactive AI-powered learning, personalized paths, and real-time collaboration.",
 }
 
@@ -36,7 +37,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head>
           <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,400;0,500;0,600;0,800;1,900&display=swap" rel="stylesheet" />
         </head>
         <body 
           className="font-sans antialiased"
