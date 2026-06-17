@@ -36,6 +36,8 @@ export default function RootLayout({
     >
       <html lang="en" suppressHydrationWarning>
         <head>
+          {/* HEKLA brandbook is light-only */}
+          <meta name="color-scheme" content="light only" />
           <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,400;0,500;0,600;0,800;1,900&display=swap" rel="stylesheet" />
         </head>
@@ -44,7 +46,7 @@ export default function RootLayout({
           style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
           data-disable-animations={disableAnimations ? 'true' : undefined}
         >
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" forcedTheme="light" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
             <LanguageProvider>
               <AnalyticsTracker />
               {!hasValidClerkKey && process.env.NODE_ENV === 'development' && (

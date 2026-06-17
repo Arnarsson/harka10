@@ -150,30 +150,8 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
           </Link>
         </div>
 
-        {/* RIGHT: theme toggle + avatar */}
+        {/* RIGHT: avatar (brandbook is light-only — no theme toggle) */}
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          {/* Theme toggle */}
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Toggle theme"
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              display: "flex",
-              alignItems: "center",
-              color: "var(--ash)",
-            }}
-            title={theme === "dark" ? "Switch to light" : "Switch to dark"}
-          >
-            {theme === "dark" ? (
-              <Sun size={16} color="var(--ash)" />
-            ) : (
-              <Moon size={16} color="var(--ash)" />
-            )}
-          </button>
-
           {/* Avatar + dropdown */}
           <div ref={avatarRef} style={{ position: "relative" }}>
             <button
