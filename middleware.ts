@@ -14,6 +14,7 @@ const isPublicRoute = createRouteMatcher([
   '/',
   '/about', '/pricing', '/contact', '/blog', '/blog/(.*)',
   '/toolkit', '/team', '/workshop',
+  '/kurser', '/kurser/(.*)', '/ordbog', '/ordbog/(.*)', '/programs',
   '/api/webhook/(.*)', '/api/stripe/(.*)',
   '/sign-in', '/sign-in/(.*)', '/sign-up', '/sign-up/(.*)'
   // REMOVED: '/api/check-role', '/api/direct-upload', '/teacher-access', '/upload-admin'

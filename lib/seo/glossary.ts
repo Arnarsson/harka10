@@ -181,6 +181,50 @@ export const GLOSSARY: GlossaryTerm[] = [
     ],
   },
   {
+    slug: "cursor",
+    term: "Cursor",
+    aka: "AI-kodeassistent",
+    short:
+      "Cursor er en kode-editor med en indbygget AI-assistent, der kan skrive, rette og forklare kode for dig. Den er bygget oven på VS Code, men sætter AI'en i centrum: du beskriver, hvad du vil have, på almindeligt sprog, og Cursor foreslår ændringer, du kan godkende.",
+    body: [
+      "Cursor adskiller sig fra en almindelig editor ved at forstå din hensigt. Du kan markere kode og skrive „gør dette hurtigere og tilføj fejlhåndtering“, hvorefter Cursor viser en diff — en før/efter-visning — du godkender eller afviser. AI'en kan se dine filer og arbejde på tværs af dem.",
+      "Det gør Cursor brugbart også for nybegyndere: AI'en fungerer som en makker, der både skriver kode og forklarer, hvad den gør. Den vigtigste færdighed er ikke at huske syntaks, men at give præcise instruktioner og læse den kode, du får — så du ikke kopierer i blinde.",
+    ],
+    related: ["ai-agent", "prompt-engineering", "llm"],
+    faqs: [
+      {
+        q: "Hvad er forskellen på Cursor og ChatGPT til kode?",
+        a: "ChatGPT er en chat ved siden af din editor, hvor du kopierer kode frem og tilbage. Cursor har AI'en indbygget i editoren, så den ser dine filer, laver ændringer direkte og viser en diff, du godkender.",
+      },
+      {
+        q: "Skal jeg være udvikler for at bruge Cursor?",
+        a: "Nej. Cursors AI kan forklare koden undervejs, så også nybegyndere kan komme i gang. Du lærer at styre og læse koden frem for at skrive alt selv fra hukommelsen.",
+      },
+    ],
+  },
+  {
+    slug: "ai-automatisering",
+    term: "AI-automatisering",
+    aka: "AI-workflows",
+    short:
+      "AI-automatisering er at lade software med indbygget AI udføre gentagne opgaver for dig — fx sortere e-mails, opsummere dokumenter eller flytte data mellem systemer. En begivenhed udløser en kæde af handlinger, og AI'en klarer de trin, der kræver sprogforståelse. Timer bliver til minutter.",
+    body: [
+      "Hvor en chat-assistent svarer, når du spørger, kører en automatisering af sig selv. Den udløses af noget — en ny mail, en ny række i et regneark — og udfører en fast kæde af handlinger. AI'en kommer ind, hvor opgaven kræver sprog: opsummér, klassificér, skriv et udkast.",
+      "Værktøjer som n8n lader dig bygge disse arbejdsgange visuelt, uden kode. Styrken ligger i kombinationen af almindelig automatisering (hente, gemme, sende) og AI (forstå og formulere). Det vigtige er at vælge de rigtige opgaver — gentagne og velforståede — og beholde et menneske i loopet på de vigtige beslutninger.",
+    ],
+    related: ["ai-agent", "prompt-engineering", "rag"],
+    faqs: [
+      {
+        q: "Skal jeg kunne kode for at lave AI-automatisering?",
+        a: "Nej. Værktøjer som n8n er visuelle: du bygger arbejdsgange ved at forbinde kasser. Lidt sans for logik hjælper, men du behøver ikke at skrive kode for at komme i gang.",
+      },
+      {
+        q: "Hvilke opgaver er værd at automatisere?",
+        a: "Gentagne, velforståede opgaver med klare regler — sortere mails, lave faste rapporter, flytte data. Engangsopgaver og opgaver, der kræver skøn, egner sig dårligt.",
+      },
+    ],
+  },
+  {
     slug: "token",
     term: "Token",
     short:
