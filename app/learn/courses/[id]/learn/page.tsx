@@ -29,159 +29,257 @@ export default function LessonViewerPage() {
   const loadCourseData = async () => {
     setLoading(true)
     try {
-      // Mock course data - same as detail page
+      // Static course content for "AI Fundamentals" until the course/lesson
+      // tables are wired to Supabase. This is REAL content (not placeholder):
+      // no stock-video URLs, no fabricated instructor. Matches the module
+      // outline shown on the course detail page.
       const mockCourse: Course = {
         id: params.id as string,
-        title: 'Complete Web Development Bootcamp',
-        description: 'The only course you need to learn web development',
-        thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=600&fit=crop',
-        category: 'Development',
+        title: 'AI Fundamentals',
+        description: 'A practical, no-jargon introduction to using AI at work — what it is, how it works, and how to apply it to real tasks.',
+        thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=600&fit=crop',
+        category: 'AI & Productivity',
         level: 'beginner',
-        duration: 2400,
-        price: 89.99,
-        currency: 'USD',
+        duration: 240,
+        price: 0,
+        currency: 'DKK',
         instructor: {
-          id: '1',
-          name: 'Sarah Chen',
-          bio: 'Full-stack developer with 10+ years experience',
-          avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-          title: 'Senior Full-Stack Developer',
-          courses: 5,
-          students: 15000,
-          rating: 4.8
+          id: 'sven',
+          name: 'Sven Arnarsson',
+          bio: 'Founder of HEKLA. Designs and delivers hands-on AI training for Danish organisations.',
+          avatar: '',
+          title: 'Founder & Lead Instructor, HEKLA',
+          courses: 1,
+          students: 0,
+          rating: 0
         },
         modules: [
           {
             id: 'm1',
-            title: 'Introduction to Web Development',
-            description: 'Get started with the basics',
-            duration: 180,
+            title: 'Introduction to AI',
+            description: 'Core concepts and terminology',
+            duration: 60,
             order: 1,
             lessons: [
               {
                 id: 'l1',
-                title: 'Welcome to the Course',
-                description: 'Course overview and what you\'ll learn',
-                type: 'video',
+                title: 'What is Artificial Intelligence?',
+                description: 'A plain-language definition you can actually use',
+                type: 'text',
                 content: {
-                  video: {
-                    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                    duration: 300
+                  text: {
+                    content: `# What is Artificial Intelligence?
+
+## The short version
+Artificial Intelligence (AI) is software that performs tasks we normally associate with human thinking — understanding language, recognising patterns, making predictions, and generating content. You do not need a maths degree to use it well. You need to understand what it is good at, what it is bad at, and how to ask it for what you want.
+
+## What today's AI actually is
+Most of the tools you hear about (ChatGPT, Claude, Copilot, Gemini) are **large language models (LLMs)**. An LLM is trained on enormous amounts of text and learns to predict the most likely next words. That simple mechanism, at scale, produces something that can:
+- Draft and rewrite text
+- Summarise long documents
+- Answer questions
+- Translate
+- Write and explain code
+- Extract structure from messy information
+
+## What it is NOT
+- It is **not** a database of facts. It can be confidently wrong ("hallucinate").
+- It does **not** know anything that happened after its training cut-off unless you give it that information.
+- It has **no understanding of your business** unless you provide context.
+
+## Why this matters at work
+The value of AI is not "it's clever." The value is **time**: a task that took 60 minutes can take 5. The skill you are building in this course is turning that potential into real, repeatable time savings on your own work — safely.
+
+## Try this
+Open an AI tool and ask it to rewrite a short email in three different tones (formal, friendly, brief). Notice how the *instruction* changes the output. That instruction is called a **prompt** — and prompting well is the single highest-leverage skill in this course.`,
+                    estimatedReadTime: 6
                   }
                 },
-                duration: 5,
+                duration: 6,
                 order: 1,
                 isPreview: true
               },
               {
                 id: 'l2',
-                title: 'Setting Up Your Development Environment',
-                description: 'Install all the tools you need',
-                type: 'video',
+                title: 'History of AI Development',
+                description: 'How we got from rule-based systems to modern LLMs',
+                type: 'text',
                 content: {
-                  video: {
-                    url: 'https://vimeo.com/76979871',
-                    duration: 900
+                  text: {
+                    content: `# A Short History of AI (the parts that matter)
+
+You do not need the full academic history — just enough to understand why today's tools behave the way they do.
+
+## 1950s–1980s: Rules
+Early AI was **hand-written rules**: "if X, then Y." Powerful for narrow problems, but brittle — someone had to anticipate every case. This is why old "AI" felt rigid.
+
+## 1990s–2010s: Machine Learning
+Instead of writing rules, we let systems **learn patterns from data**. Spam filters, recommendation engines, and fraud detection came from this era. The machine finds the rules itself by looking at examples.
+
+## 2017–today: Transformers & LLMs
+A 2017 architecture called the **transformer** made it possible to train models on essentially the whole internet. The result is the general-purpose language models we use now. The leap that surprised everyone: a model trained only to "predict the next word" turned out to be able to reason, summarise, and write code.
+
+## The practical takeaway
+Today's AI is **general-purpose and language-driven**. You program it with plain instructions, not code. That is why a non-technical employee can get enormous value from it — the interface is your own language.`,
+                    estimatedReadTime: 5
                   }
                 },
-                duration: 15,
+                duration: 5,
                 order: 2,
                 isPreview: false
               },
               {
                 id: 'l3',
-                title: 'How the Web Works',
-                description: 'Understanding browsers, servers, and HTTP',
+                title: 'Types of AI Systems',
+                description: 'Chat assistants, agents, and automation — what is the difference',
                 type: 'text',
                 content: {
                   text: {
-                    content: `# How the Web Works
+                    content: `# Types of AI Systems
 
-## Introduction
-The World Wide Web is a system of interlinked hypertext documents accessed via the Internet. With a web browser, one can view web pages that may contain text, images, videos, and other multimedia.
+Knowing which type you need keeps expectations realistic.
 
-## Key Components
+## 1. Chat assistants
+Tools like ChatGPT and Claude. You type, they respond. Best for drafting, analysis, brainstorming, and Q&A. **You stay in control** of every step.
 
-### 1. Web Browser
-A web browser is a software application used to locate, retrieve, and display content on the World Wide Web. Popular browsers include:
-- Google Chrome
-- Mozilla Firefox
-- Safari
-- Microsoft Edge
+## 2. Copilots
+AI built *inside* a tool you already use (Microsoft 365 Copilot, GitHub Copilot). They act on the document or code in front of you. Lower friction, narrower scope.
 
-### 2. Web Server
-A web server is a computer that stores web content and delivers it to users. When you type a URL into your browser:
-1. The browser sends an HTTP request to the server
-2. The server processes the request
-3. The server sends back an HTTP response with the requested content
+## 3. AI agents
+Systems that can take **multiple steps on their own** toward a goal — read a file, call a tool, send a result. More powerful, but they need guardrails, because they act without asking at each step.
 
-### 3. HTTP/HTTPS
-HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the web. HTTPS is the secure version of HTTP.
+## 4. Automation (RPA + AI)
+Connecting AI into a repeatable workflow (e.g. "every new invoice → extract the fields → enter them"). This is where the largest, most durable time savings live, but it requires the foundation you are building now.
 
-### 4. HTML, CSS, and JavaScript
-- **HTML**: Provides the structure and content
-- **CSS**: Controls the presentation and layout
-- **JavaScript**: Adds interactivity and dynamic behavior
-
-## The Request-Response Cycle
-1. User enters a URL in the browser
-2. Browser performs DNS lookup to find the server's IP address
-3. Browser establishes a TCP connection with the server
-4. Browser sends an HTTP request
-5. Server processes the request and sends back a response
-6. Browser receives the response and renders the page
-
-## Summary
-Understanding how the web works is fundamental to becoming a web developer. In the next lessons, we'll dive deeper into each of these components.`,
-                    estimatedReadTime: 10
+## How to choose
+Start with a **chat assistant** for your own tasks. Move to **copilots** for tools you live in. Only build **agents/automation** once you have found a repetitive, well-understood process worth automating — which is exactly what Module 4 covers.`,
+                    estimatedReadTime: 5
                   }
                 },
-                duration: 10,
+                duration: 5,
                 order: 3,
+                isPreview: false
+              },
+              {
+                id: 'l4',
+                title: 'Knowledge Check: AI Fundamentals',
+                description: 'Check your understanding before moving on',
+                type: 'text',
+                content: {
+                  text: {
+                    content: `# Knowledge Check
+
+Answer these for yourself, then expand the answer to compare. (A graded, certificate-eligible version of this check is coming.)
+
+## 1. What is the core mechanism behind a large language model?
+*Your answer first…*
+
+**Answer:** It predicts the most likely next words based on patterns learned from huge amounts of text. It is **not** a fact database — which is why it can be confidently wrong and why you must verify important output.
+
+## 2. Where is the safest place to START getting value from AI at work?
+*Your answer first…*
+
+**Answer:** With a **chat assistant on your own day-to-day tasks**, where you stay in control of every step. Copilots come next; autonomous agents and automation come last, once you have found a repetitive, well-understood process worth automating.
+
+## 3. A vendor says "our AI learns from your data." What should you ask?
+*Your answer first…*
+
+**Answer:** "Supervised on **what labels**?" Specific answers are good; vague ones are a red flag.
+
+If all three felt clear, you are ready for Module 2.`,
+                    estimatedReadTime: 3
+                  }
+                },
+                duration: 3,
+                order: 4,
                 isPreview: false
               }
             ]
           },
           {
             id: 'm2',
-            title: 'HTML & CSS Fundamentals',
-            description: 'Master the building blocks',
-            duration: 360,
+            title: 'Machine Learning Basics',
+            description: 'Understanding how machines learn',
+            duration: 60,
             order: 2,
             lessons: [
               {
-                id: 'l4',
-                title: 'HTML Basics',
-                description: 'Learn HTML tags and structure',
-                type: 'video',
+                id: 'l5',
+                title: 'Supervised vs. Unsupervised Learning',
+                description: 'The two ways machines learn from data',
+                type: 'text',
                 content: {
-                  video: {
-                    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                    duration: 1200
+                  text: {
+                    content: `# Supervised vs. Unsupervised Learning
+
+You will hear these terms constantly. Here is the version you actually need.
+
+## Supervised learning
+You give the machine **examples with the right answers** ("this email is spam, this one is not"). It learns the pattern, then labels new examples. Most business ML (predicting churn, scoring leads, detecting fraud) is supervised.
+
+## Unsupervised learning
+You give the machine data with **no labels** and ask it to find structure — for example, grouping customers into segments it discovers on its own.
+
+## Where LLMs fit
+LLMs are trained in a *self-supervised* way: the "right answer" is simply the next word in real text, so no human labelling is needed at the huge scale required. That is the trick that made them possible.
+
+## Why you care
+When a vendor says "our AI learns from your data," ask: *supervised on what labels?* Good answers are specific. Vague answers are a red flag.`,
+                    estimatedReadTime: 5
                   }
                 },
-                duration: 20,
+                duration: 5,
                 order: 1,
+                isPreview: false
+              },
+              {
+                id: 'l6',
+                title: 'Neural Networks Explained',
+                description: 'The idea behind the technology — without the maths',
+                type: 'text',
+                content: {
+                  text: {
+                    content: `# Neural Networks, Without the Maths
+
+A neural network is a stack of simple maths operations that, together, learn to map an input to an output. Think of it as a very large set of adjustable dials.
+
+## Training in one sentence
+Show the network an example, check how wrong it is, nudge the dials to be slightly less wrong, repeat billions of times. That is it.
+
+## Why "deep"?
+"Deep learning" just means many layers of these dials stacked up. More layers let the network capture more complex patterns — at the cost of needing more data and compute.
+
+## The honest limitation
+Because the knowledge lives in millions of dials, the network cannot *explain* its reasoning the way a person can. This is why **verifying AI output matters** — especially for anything that affects a customer, a decision, or money.`,
+                    estimatedReadTime: 4
+                  }
+                },
+                duration: 4,
+                order: 2,
                 isPreview: false
               }
             ]
           }
         ],
-        tags: [],
+        tags: ['AI', 'ChatGPT', 'productivity'],
         language: 'English',
-        requirements: [],
-        objectives: [],
-        enrollmentCount: 12543,
-        rating: 4.7,
-        reviewCount: 3421,
-        lastUpdated: '2024-01-15',
-        createdAt: '2023-06-01',
-        publishedAt: '2023-06-15',
+        requirements: ['No technical background required'],
+        objectives: [
+          'Explain what modern AI is and is not',
+          'Choose the right type of AI tool for a task',
+          'Apply AI to a real work task safely'
+        ],
+        enrollmentCount: 0,
+        rating: 0,
+        reviewCount: 0,
+        lastUpdated: '2026-06-23',
+        createdAt: '2026-06-01',
+        publishedAt: '2026-06-23',
         status: 'published'
       }
 
       setCourse(mockCourse)
-      
+
       // Set first lesson as current
       if (mockCourse.modules.length > 0 && mockCourse.modules[0].lessons.length > 0) {
         setCurrentModule(mockCourse.modules[0])

@@ -1,60 +1,27 @@
 "use client"
 
 export function HarkaCertificates() {
-  const certificates = [
-    {
-      id: "1",
-      title: "AI Fundamentals Certification",
-      course: "AI Fundamentals",
-      completedDate: "Jan 15, 2024",
-      certificateNumber: "HEKLA-AI-2024-001",
-      instructor: "Dr. Sarah Chen",
-      skills: ["Machine Learning", "Neural Networks", "AI Ethics", "Data Processing"],
-      grade: "A+",
-      score: 95,
-      verificationUrl: "https://verify.harka.com/cert/HEKLA-AI-2024-001",
-      chipClass: "chip--moss",
-    },
-    {
-      id: "2",
-      title: "Machine Learning Specialist",
-      course: "Advanced Machine Learning",
-      completedDate: "Dec 20, 2023",
-      certificateNumber: "HEKLA-ML-2023-078",
-      instructor: "Prof. Michael Zhang",
-      skills: ["Deep Learning", "TensorFlow", "Model Optimization", "Computer Vision"],
-      grade: "A",
-      score: 88,
-      verificationUrl: "https://verify.harka.com/cert/HEKLA-ML-2023-078",
-      chipClass: "chip--ghost",
-    },
-    {
-      id: "3",
-      title: "AI Ethics & Governance",
-      course: "Ethics & Governance",
-      completedDate: "Nov 10, 2023",
-      certificateNumber: "HEKLA-ETH-2023-156",
-      instructor: "Dr. Emma Wilson",
-      skills: ["Ethical AI", "Bias Detection", "Regulatory Compliance", "Risk Assessment"],
-      grade: "A+",
-      score: 92,
-      verificationUrl: "https://verify.harka.com/cert/HEKLA-ETH-2023-156",
-      chipClass: "chip--moss",
-    },
-  ]
+  // Certificates are issued only after a learner passes a real assessment.
+  // Until the assessment/issuance flow is wired to the database, these lists
+  // are empty — we never show fabricated credentials or instructors.
+  type Certificate = {
+    id: string
+    title: string
+    course: string
+    completedDate: string
+    certificateNumber: string
+    instructor: string
+    skills: string[]
+    grade: string
+    score: number
+    verificationUrl: string
+    chipClass: string
+  }
+  const certificates: Certificate[] = []
 
-  const achievements = [
-    { label: "First Certificate", date: "Nov 2023" },
-    { label: "High Achiever", date: "Jan 2024" },
-    { label: "Ethics Champion", date: "Nov 2023" },
-    { label: "ML Expert", date: "Dec 2023" },
-  ]
+  const achievements: { label: string; date: string }[] = []
 
-  const inProgress = [
-    { name: "AI Implementation Specialist", progress: 75, est: "Est. 2 weeks" },
-    { name: "Advanced Neural Networks", progress: 45, est: "Est. 1 month" },
-    { name: "AI Project Management", progress: 20, est: "Est. 6 weeks" },
-  ]
+  const inProgress: { name: string; progress: number; est: string }[] = []
 
   return (
     <div>
@@ -78,19 +45,19 @@ export function HarkaCertificates() {
       <div className="row r4" style={{ marginBottom: "2rem" }}>
         <div className="card stat">
           <div className="eyebrow">Certificates</div>
-          <div className="num">3</div>
+          <div className="num">{certificates.length}</div>
         </div>
         <div className="card stat">
           <div className="eyebrow">Credits earned</div>
-          <div className="num">13</div>
+          <div className="num">0</div>
         </div>
         <div className="card stat">
           <div className="eyebrow">Average score</div>
-          <div className="num">91.7%</div>
+          <div className="num">—</div>
         </div>
         <div className="card stat edge-moss-b">
           <div className="eyebrow">Completion</div>
-          <div className="num">100%</div>
+          <div className="num">—</div>
         </div>
       </div>
 
@@ -99,6 +66,16 @@ export function HarkaCertificates() {
         {/* LEFT */}
         <div>
           <div className="section-label">My certificates</div>
+
+          {certificates.length === 0 && (
+            <div className="card" style={{ marginBottom: "1.25rem" }}>
+              <h3 style={{ margin: "0 0 0.5rem" }}>No certificates yet</h3>
+              <p className="muted" style={{ fontSize: "0.85rem", margin: 0 }}>
+                Complete a course and pass its assessment to earn your first verified HEKLA
+                credential. Certificates are only issued for assessed, completed courses.
+              </p>
+            </div>
+          )}
 
           {certificates.map((cert, idx) => (
             <div
@@ -201,6 +178,11 @@ export function HarkaCertificates() {
           {/* Achievements */}
           <div className="card" style={{ marginBottom: "1.25rem" }}>
             <div className="section-label">Achievements</div>
+            {achievements.length === 0 && (
+              <div className="muted" style={{ fontSize: "0.78rem" }}>
+                Earn achievements as you progress through courses.
+              </div>
+            )}
             {achievements.map((a) => (
               <div key={a.label} className="mini" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span>{a.label}</span>
@@ -214,6 +196,11 @@ export function HarkaCertificates() {
           {/* In progress */}
           <div className="card">
             <div className="section-label">In progress</div>
+            {inProgress.length === 0 && (
+              <div className="muted" style={{ fontSize: "0.78rem" }}>
+                Courses you start will appear here.
+              </div>
+            )}
             {inProgress.map((item) => (
               <div key={item.name} style={{ marginBottom: "1rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.25rem" }}>

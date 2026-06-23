@@ -256,6 +256,10 @@ export function DanishB2BLanding() {
                   <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
                   <span className="text-sm">90 dages support inkluderet</span>
                 </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-[#6FC15E] mt-0.5" />
+                  <span className="text-sm">12 måneders adgang til HEKLA-platformen for alle deltagere</span>
+                </div>
               </div>
               <div className="mb-4">
                 <span className="text-3xl font-bold">DKK 30.000</span>
