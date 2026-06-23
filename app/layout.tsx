@@ -9,9 +9,65 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { LanguageProvider } from "@/lib/i18n/language-context"
 import { UltraCleanHeader } from "@/components/layout/ultra-clean-header"
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://harka10.vercel.app"
+
 export const metadata: Metadata = {
-  title: "HEKLA - AI-Powered Learning Platform",
-  description: "Transform your organization with interactive AI-powered learning, personalized paths, and real-time collaboration.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "HEKLA — AI-Powered Learning Platform",
+    template: "%s | HEKLA",
+  },
+  description:
+    "HEKLA is an AI-powered learning platform: interactive AI courses, hands-on lessons, certificates, and a toolkit that turns AI curiosity into real, job-ready skills.",
+  keywords: [
+    "AI learning platform",
+    "AI kursus",
+    "lær AI",
+    "AI courses",
+    "prompt engineering",
+    "AI for begyndere",
+    "AI upskilling",
+    "HEKLA",
+  ],
+  applicationName: "HEKLA",
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    type: "website",
+    siteName: "HEKLA",
+    url: SITE_URL,
+    title: "HEKLA — AI-Powered Learning Platform",
+    description:
+      "Interactive AI courses, hands-on lessons, and certificates that turn AI curiosity into job-ready skills.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HEKLA — AI-Powered Learning Platform",
+    description:
+      "Interactive AI courses, hands-on lessons, and certificates that turn AI curiosity into job-ready skills.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+}
+
+// Organization + WebSite JSON-LD — the entity layer AI answer engines read to
+// understand and cite HEKLA. Emitted on every page via the root layout.
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "HEKLA",
+  url: SITE_URL,
+  description:
+    "AI-powered learning platform offering interactive AI courses, lessons, and certificates.",
+}
+const WEBSITE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "HEKLA",
+  url: SITE_URL,
 }
 
 export default function RootLayout({
@@ -38,6 +94,14 @@ export default function RootLayout({
         <head>
           {/* HEKLA brandbook is light-only */}
           <meta name="color-scheme" content="light only" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSONLD) }}
+          />
           <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,400;0,500;0,600;0,800;1,900&display=swap" rel="stylesheet" />
         </head>
