@@ -190,7 +190,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
                 }}
               >
                 <Link
-                  href="/settings"
+                  href="/profile"
                   onClick={() => setAvatarMenuOpen(false)}
                   style={{
                     display: "block",
@@ -382,7 +382,7 @@ export function DashboardLayoutMinimal({ children }: DashboardLayoutProps) {
                   {userName}
                 </div>
                 <Link
-                  href="/settings"
+                  href="/profile"
                   style={{
                     fontSize: 11,
                     color: "var(--ash)",

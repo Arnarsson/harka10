@@ -91,7 +91,7 @@ export function HarkaCourses() {
   const quickStats = [
     { label: "Total progress", value: "38%" },
     { label: "Active courses", value: "5" },
-    { label: "Hours spent", value: "25.5" },
+    { label: "Hours spent", value: "24.5" },
     { label: "Achievements", value: "12" },
   ]
 
