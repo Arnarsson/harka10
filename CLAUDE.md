@@ -1,4 +1,4 @@
-# Claude Code Instructions for HARKA Project
+# Claude Code Instructions for HEKLA Project
 
 ## Testing Strategy (Updated for Production Environment)
 

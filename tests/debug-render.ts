@@ -11,8 +11,8 @@ async function debugRender() {
     // Check for key components
     console.log('Homepage HTML length:', html.length);
     console.log('\nKey content checks:');
-    console.log('- Contains "HARKA":', html.includes('HARKA'));
-    console.log('- Contains "HarkaHero":', html.includes('HarkaHero'));
+    console.log('- Contains "HEKLA":', html.includes('HEKLA'));
+    console.log('- Contains "HeklaHero":', html.includes('HeklaHero'));
     console.log('- Contains "Dashboard" link:', html.includes('Dashboard'));
     console.log('- Contains "Learning" link:', html.includes('Learning'));
     

@@ -1,4 +1,4 @@
-# HARKA Enterprise Features Roadmap
+# HEKLA Enterprise Features Roadmap
 
 ## Enterprise Feature Categories
 
@@ -391,4 +391,4 @@ const enterprisePricing = {
 
 ---
 
-This roadmap positions HARKA as the premier enterprise learning platform, ready to serve Fortune 500 companies globally.
+This roadmap positions HEKLA as the premier enterprise learning platform, ready to serve Fortune 500 companies globally.

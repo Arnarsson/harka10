@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('HARKA Platform Comprehensive Testing', () => {
+test.describe('HEKLA Platform Comprehensive Testing', () => {
   
   test.beforeEach(async ({ page }) => {
     // Set up console error tracking
@@ -31,8 +31,8 @@ test.describe('HARKA Platform Comprehensive Testing', () => {
       // Check page title
       await expect(page).toHaveTitle(/HARKA/);
       
-      // Check for HARKA logo/branding
-      const harkaText = page.locator('text=HARKA').first();
+      // Check for HEKLA logo/branding
+      const harkaText = page.locator('text=HEKLA').first();
       await expect(harkaText).toBeVisible();
       
       // Check navigation elements
@@ -162,8 +162,8 @@ test.describe('HARKA Platform Comprehensive Testing', () => {
       
       await page.screenshot({ path: 'test-results/signin-page-full.png', fullPage: true });
       
-      // Check for HARKA branding on sign-in page
-      const harkaTitle = page.locator('text=HARKA');
+      // Check for HEKLA branding on sign-in page
+      const harkaTitle = page.locator('text=HEKLA');
       await expect(harkaTitle).toBeVisible();
       
       // Check for sign-in text
@@ -211,7 +211,7 @@ test.describe('HARKA Platform Comprehensive Testing', () => {
       await page.screenshot({ path: 'test-results/signup-page.png', fullPage: true });
       
       // Similar checks as sign-in page
-      const harkaTitle = page.locator('text=HARKA');
+      const harkaTitle = page.locator('text=HEKLA');
       await expect(harkaTitle).toBeVisible();
       
       console.log('✅ Sign-up page test completed');
@@ -286,7 +286,7 @@ test.describe('HARKA Platform Comprehensive Testing', () => {
       }
       
       // Check for admin branding
-      const adminTitle = page.locator('text=HARKA Admin');
+      const adminTitle = page.locator('text=HEKLA Admin');
       if (await adminTitle.isVisible()) {
         console.log('✅ Admin branding found');
       }

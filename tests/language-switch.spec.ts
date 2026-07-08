@@ -198,7 +198,7 @@ test.describe('Language Switch Functionality', () => {
     // Find texts that didn't change (potential hardcoded text)
     const unchangedTexts = englishTexts.filter(text => 
       danishTexts.includes(text) && 
-      !['©', '2024', 'HARKA', 'AI', 'FAQ', 'Blog', 'Dashboard'].includes(text)
+      !['©', '2024', 'HEKLA', 'AI', 'FAQ', 'Blog', 'Dashboard'].includes(text)
     );
 
     // Log unchanged texts for debugging

@@ -1,6 +1,6 @@
-# HARKA Entry-Surface Redesign — Working Notes
+# HEKLA Entry-Surface Redesign — Working Notes
 
-Driven by: TrainingPlatform/docs/handoffs/2026-06-17-harka-dashboard-redesign-smart-goal-loop.md
+Driven by: TrainingPlatform/docs/handoffs/2026-06-17-hekla-dashboard-redesign-smart-goal-loop.md
 Repo: ~/code/harka10 (Arnarsson/harka10), Next.js 14 App Router + Clerk + Supabase + shadcn/ui.
 
 ## Why /dashboard and /learn/courses "redirect to sign-in"
@@ -10,7 +10,7 @@ So the real anonymous **front door = `/sign-in`** + landing `/`.
 ## Target files
 | Surface | File | Current state |
 |---|---|---|
-| Sign-in (front door) | `app/sign-in/[[...sign-in]]/page.tsx` | **WEAKEST.** Floating Clerk card on near-empty white. "HARKA / Sign in to your learning platform". No value prop, no trust, dead space. |
+| Sign-in (front door) | `app/sign-in/[[...sign-in]]/page.tsx` | **WEAKEST.** Floating Clerk card on near-empty white. "HEKLA / Sign in to your learning platform". No value prop, no trust, dead space. |
 | Landing `/` | `components/landing/danish-b2b-landing.tsx` (510 ln) | Full Danish B2B landing — review hero only. |
 | Dashboard | `app/dashboard/ultra-clean-dashboard.tsx` (203 ln) | OK structure (continue-learning hero, stats, actions). Uses hardcoded grays not tokens; generic English content ("Advanced React Patterns", "Python Fundamentals") off-brand for a Danish AI-training product. |
 | Courses | `components/courses/harka-courses.tsx` (317 ln) | OK structure. Bookmarked resources are leftover v0 junk (React/Next/Tailwind) — off-brand. |
@@ -21,7 +21,7 @@ So the real anonymous **front door = `/sign-in`** + landing `/`.
 - Fonts: Inter (sans). radius 0.5rem.
 
 ## Plan (priority = impact, per handoff "one dominant action per screen")
-1. **Sign-in** — two-column "step into the platform": left = HARKA brand + 1-line value prop + 3 trust/benefit signals on a branded gradient panel; right = Clerk SignIn card. Kills dead white, answers "what is HARKA / why trust it". Mobile: stack, brand panel collapses to compact header.
+1. **Sign-in** — two-column "step into the platform": left = HEKLA brand + 1-line value prop + 3 trust/benefit signals on a branded gradient panel; right = Clerk SignIn card. Kills dead white, answers "what is HEKLA / why trust it". Mobile: stack, brand panel collapses to compact header.
 2. **Dashboard** — swap hardcoded grays → tokens; AI-training content; keep continue-learning dominant.
 3. **Courses** — fix off-brand bookmarked resources; strengthen resume.
 

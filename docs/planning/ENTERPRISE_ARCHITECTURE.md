@@ -1,4 +1,4 @@
-# HARKA Enterprise Architecture
+# HEKLA Enterprise Architecture
 
 ## Multi-Tenant System Design
 
@@ -281,7 +281,7 @@ class TenantEncryption {
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: harka-app
+  name: hekla-app
 spec:
   replicas: 10
   strategy:
@@ -290,7 +290,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: harka/app:latest
+        image: hekla/app:latest
         resources:
           requests:
             memory: "512Mi"

@@ -2,7 +2,7 @@
 
 ## 📊 **PROJECT OVERVIEW**
 
-### **Goal**: Transform HARKA into a comprehensive teacher-friendly platform with smart navigation
+### **Goal**: Transform HEKLA into a comprehensive teacher-friendly platform with smart navigation
 ### **Timeline**: 4-5 weeks 
 ### **Outcome**: Teachers can upload/manage content easily, students discover features intuitively
 
@@ -477,4 +477,4 @@ const apiRoutes = {
 4. ✅ Add Power Hour link with live session indicator
 5. ✅ Mobile-responsive navigation dropdown
 
-**Ready to transform HARKA into the ultimate interactive learning platform with teacher-friendly content management? Let's start with Phase 1!** 🚀
+**Ready to transform HEKLA into the ultimate interactive learning platform with teacher-friendly content management? Let's start with Phase 1!** 🚀

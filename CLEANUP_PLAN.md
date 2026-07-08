@@ -1,7 +1,7 @@
-# HARKA Project Cleanup Plan 🧹
+# HEKLA Project Cleanup Plan 🧹
 
 ## Executive Summary
-The HARKA project has become severely fragmented with duplicate routes, components, and documentation. This plan provides a systematic approach to consolidate and clean up the codebase while preserving functionality.
+The HEKLA project has become severely fragmented with duplicate routes, components, and documentation. This plan provides a systematic approach to consolidate and clean up the codebase while preserving functionality.
 
 ## 🚨 Current Problems
 
@@ -34,7 +34,7 @@ The HARKA project has become severely fragmented with duplicate routes, componen
 ```bash
 # These are clearly test routes - DELETE
 rm -rf app/test-dashboard/
-rm -rf app/test-harka/
+rm -rf app/test-hekla/
 rm -rf app/test-lang/
 rm -rf app/debug-auth/
 ```

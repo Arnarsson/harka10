@@ -11,7 +11,7 @@ import { useUser } from "@clerk/nextjs"
 import { useAnalytics } from "@/components/analytics/analytics-tracker"
 import { useLanguage } from "@/lib/i18n/language-context"
 
-export function HarkaHeroComplete() {
+export function HeklaHeroComplete() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const { isSignedIn, user } = useUser()

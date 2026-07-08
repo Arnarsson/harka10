@@ -1,6 +1,6 @@
 "use client"
 
-export function HarkaCourses() {
+export function HeklaCourses() {
   const currentCourse = {
     title: "AI Fundamentals",
     progress: 38,

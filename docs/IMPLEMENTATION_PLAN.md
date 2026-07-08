@@ -1,12 +1,12 @@
-# HARKA10 Implementation Plan - December 2024
+# HEKLA10 Implementation Plan - December 2024
 
 ## 🚨 Priority 1: Fix Critical Issues (Today)
 
 ### 1.1 Clean Repository ✅
 ```bash
 # Run the cleanup script
-chmod +x cleanup-harka10.sh
-./cleanup-harka10.sh
+chmod +x cleanup-hekla10.sh
+./cleanup-hekla10.sh
 git add -A
 git commit -m "chore: major cleanup - remove test files and consolidate auth"
 git push
@@ -54,7 +54,7 @@ git push
 - Search functionality
 ```
 
-## 🎯 Priority 3: HARKA Signature Features (Week 2)
+## 🎯 Priority 3: HEKLA Signature Features (Week 2)
 
 ### 3.1 48-Hour AI Mastery Program Structure ✅
 Created `components/programs/FortyEightHourProgram.tsx`

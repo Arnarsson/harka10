@@ -41,10 +41,10 @@ async function checkIssues() {
     const adminResponse = await fetch('http://localhost:3000/admin/sign-in');
     const adminHtml = await adminResponse.text();
     
-    const hasHarkaAdmin = adminHtml.includes('HARKA Admin');
+    const hasHeklaAdmin = adminHtml.includes('HEKLA Admin');
     const hasClerkSignIn = adminHtml.includes('clerk') || adminHtml.includes('SignIn');
     
-    console.log('   - HARKA Admin title:', hasHarkaAdmin);
+    console.log('   - HEKLA Admin title:', hasHeklaAdmin);
     console.log('   - Clerk component:', hasClerkSignIn);
     console.log('   - Status:', adminResponse.status);
     

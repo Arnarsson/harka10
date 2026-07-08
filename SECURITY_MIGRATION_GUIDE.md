@@ -1,8 +1,8 @@
-# HARKA Security Migration Guide
+# HEKLA Security Migration Guide
 
 ## Critical Security Update Required
 
-This guide walks through the security fixes implemented to address critical vulnerabilities in the HARKA platform's upload system.
+This guide walks through the security fixes implemented to address critical vulnerabilities in the HEKLA platform's upload system.
 
 ## Issues Fixed
 

@@ -1,4 +1,4 @@
-# HARKA Global Localization Strategy
+# HEKLA Global Localization Strategy
 
 ## 10+ Language Expansion Plan
 
@@ -36,9 +36,9 @@ export const i18nConfig = {
   domains: [
     { domain: 'harka.dk', defaultLocale: 'da' },
     { domain: 'harka.ai', defaultLocale: 'en' },
-    { domain: 'harka.de', defaultLocale: 'de' },
-    { domain: 'harka.es', defaultLocale: 'es' },
-    { domain: 'harka.jp', defaultLocale: 'ja' }
+    { domain: 'hekla.de', defaultLocale: 'de' },
+    { domain: 'hekla.es', defaultLocale: 'es' },
+    { domain: 'hekla.jp', defaultLocale: 'ja' }
   ]
 }
 
@@ -398,4 +398,4 @@ const localeKPIs = {
 
 ---
 
-This localization strategy enables HARKA to serve millions globally while maintaining quality and cultural relevance.
+This localization strategy enables HEKLA to serve millions globally while maintaining quality and cultural relevance.

@@ -1,9 +1,9 @@
-# HARKA10 - Next Steps Action Plan
+# HEKLA10 - Next Steps Action Plan
 
 ## ✅ What We've Completed (December 13, 2024)
 
 ### 1. Repository Improvements
-- ✅ Created cleanup script (`cleanup-harka10.sh`)
+- ✅ Created cleanup script (`cleanup-hekla10.sh`)
 - ✅ Fixed authentication middleware
 - ✅ Created environment configuration template
 - ✅ Added 48-Hour AI Mastery Program component
@@ -12,7 +12,7 @@
 
 ### 2. Files Created/Updated
 ```
-- cleanup-harka10.sh
+- cleanup-hekla10.sh
 - middleware.ts (fixed auth flow)
 - .env.local.example
 - components/programs/FortyEightHourProgram.tsx
@@ -26,8 +26,8 @@
 ### 1. Run Cleanup (5 minutes)
 ```bash
 cd ~/your-path/harka10
-chmod +x cleanup-harka10.sh
-./cleanup-harka10.sh
+chmod +x cleanup-hekla10.sh
+./cleanup-hekla10.sh
 git add -A
 git commit -m "chore: major cleanup - remove test files and consolidate auth"
 git push
@@ -75,7 +75,7 @@ git push origin main
 - [ ] Performance optimization
 - [ ] Deploy updates
 
-## 🎯 Week 2: HARKA Features
+## 🎯 Week 2: HEKLA Features
 
 ### Integration Playground
 - [ ] MCP Playground component

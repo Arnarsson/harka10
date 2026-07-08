@@ -1,4 +1,4 @@
-# HARKA 10X Infrastructure Architecture
+# HEKLA 10X Infrastructure Architecture
 
 ## Global Scale Infrastructure Design
 
@@ -78,13 +78,13 @@ class GlobalTrafficManager {
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: harka-production
+  name: hekla-production
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: harka-api
-  namespace: harka-production
+  name: hekla-api
+  namespace: hekla-production
 spec:
   replicas: 50
   strategy:
@@ -94,15 +94,15 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: harka-api
+      app: hekla-api
   template:
     metadata:
       labels:
-        app: harka-api
+        app: hekla-api
     spec:
       containers:
       - name: api
-        image: harka/api:latest
+        image: hekla/api:latest
         resources:
           requests:
             cpu: "2"
@@ -130,17 +130,17 @@ spec:
               - key: app
                 operator: In
                 values:
-                - harka-api
+                - hekla-api
             topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: harka-api-service
-  namespace: harka-production
+  name: hekla-api-service
+  namespace: hekla-production
 spec:
   selector:
-    app: harka-api
+    app: hekla-api
   ports:
   - protocol: TCP
     port: 80
@@ -150,13 +150,13 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: harka-api-hpa
-  namespace: harka-production
+  name: hekla-api-hpa
+  namespace: hekla-production
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: harka-api
+    name: hekla-api
   minReplicas: 10
   maxReplicas: 500
   metrics:
@@ -235,7 +235,7 @@ export const edgeFunctions = {
       // Use edge-deployed model
       const response = await edgeAI.generate({
         prompt,
-        model: model || 'harka-small',
+        model: model || 'hekla-small',
         maxTokens: 100
       })
       
@@ -250,7 +250,7 @@ export const edgeFunctions = {
 ### Distributed Database System
 ```sql
 -- PlanetScale (Vitess) configuration
-CREATE DATABASE harka_global 
+CREATE DATABASE hekla_global 
   WITH SHARDING_SCHEME = 'HASH'
   SHARD_COUNT = 100
   REGIONS = ['us-east-1', 'eu-central-1', 'ap-southeast-1'];
@@ -353,19 +353,19 @@ ai_infrastructure:
   
   inference:
     edge:
-      model: harka-small-edge
+      model: hekla-small-edge
       size: 500MB
       latency: <50ms
       locations: all-edges
     
     regional:
-      model: harka-medium
+      model: hekla-medium
       size: 10GB
       latency: <200ms
       gpu: T4
     
     central:
-      model: harka-large
+      model: hekla-large
       size: 100GB
       latency: <2s
       gpu: A100
@@ -641,4 +641,4 @@ class CostOptimizedScaling {
 
 ---
 
-This infrastructure can handle millions of users globally while maintaining performance, reliability, and cost efficiency. Ready to scale HARKA to the moon! 🚀
+This infrastructure can handle millions of users globally while maintaining performance, reliability, and cost efficiency. Ready to scale HEKLA to the moon! 🚀

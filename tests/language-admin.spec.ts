@@ -76,7 +76,7 @@ test.describe('Language Switch and Admin Access', () => {
     await page.waitForLoadState('networkidle');
     
     // Check if we're on the admin sign-in page
-    const adminTitle = await page.locator('h1:has-text("HARKA Admin")').count();
+    const adminTitle = await page.locator('h1:has-text("HEKLA Admin")').count();
     const adminSubtitle = await page.locator('text=/Administrator access portal/').count();
     
     console.log('Admin sign-in page title found:', adminTitle > 0);

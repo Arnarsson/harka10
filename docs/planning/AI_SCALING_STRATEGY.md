@@ -1,9 +1,9 @@
-# HARKA AI Scaling Strategy
+# HEKLA AI Scaling Strategy
 
 ## AI-First Platform Architecture
 
 ### Vision
-Transform HARKA into the world's most advanced AI-powered learning platform, serving millions with personalized, real-time AI assistance.
+Transform HEKLA into the world's most advanced AI-powered learning platform, serving millions with personalized, real-time AI assistance.
 
 ## 1. AI Model Architecture
 
@@ -11,7 +11,7 @@ Transform HARKA into the world's most advanced AI-powered learning platform, ser
 ```typescript
 interface AIModelTiers {
   edge: {
-    model: 'harka-nano',
+    model: 'hekla-nano',
     size: '100MB',
     latency: '<20ms',
     capabilities: ['quick-answers', 'syntax-check', 'translations'],
@@ -19,7 +19,7 @@ interface AIModelTiers {
   },
   
   fast: {
-    model: 'harka-micro',
+    model: 'hekla-micro',
     size: '1GB',
     latency: '<100ms', 
     capabilities: ['code-completion', 'error-detection', 'summaries'],
@@ -27,7 +27,7 @@ interface AIModelTiers {
   },
   
   standard: {
-    model: 'harka-base',
+    model: 'hekla-base',
     size: '10GB',
     latency: '<500ms',
     capabilities: ['full-assistance', 'code-generation', 'explanations'],
@@ -35,7 +35,7 @@ interface AIModelTiers {
   },
   
   advanced: {
-    model: 'harka-pro',
+    model: 'hekla-pro',
     size: '100GB',
     latency: '<2s',
     capabilities: ['complex-reasoning', 'architecture-design', 'optimization'],
@@ -46,8 +46,8 @@ interface AIModelTiers {
 
 ### Custom Model Training
 ```python
-# Fine-tuning pipeline for HARKA models
-class HARKAModelTraining:
+# Fine-tuning pipeline for HEKLA models
+class HEKLAModelTraining:
     def __init__(self):
         self.base_models = {
             'code': 'codellama-70b',
@@ -112,7 +112,7 @@ spec:
     spec:
       containers:
       - name: inference-server
-        image: harka/ai-inference:latest
+        image: hekla/ai-inference:latest
         resources:
           requests:
             memory: "32Gi"
@@ -200,7 +200,7 @@ class AIRequestRouter {
     const selected = this.loadBalancer.selectOptimal(edges, request.region)
     
     return await selected.process(request, {
-      model: 'harka-nano',
+      model: 'hekla-nano',
       timeout: 100,
       fallback: () => this.routeToRegional(request, routing)
     })
@@ -251,7 +251,7 @@ class TutorSessionManager {
     
     // Initialize personalized model
     const model = await this.initializeModel({
-      base: 'harka-tutor',
+      base: 'hekla-tutor',
       personality: config.personality || profile.preferredStyle,
       language: config.language,
       expertise: config.subject
@@ -555,4 +555,4 @@ const aiMetrics = {
 
 ---
 
-This AI scaling strategy positions HARKA as the most advanced AI-powered learning platform, ready to revolutionize education globally through intelligent, personalized, and scalable AI solutions.
+This AI scaling strategy positions HEKLA as the most advanced AI-powered learning platform, ready to revolutionize education globally through intelligent, personalized, and scalable AI solutions.

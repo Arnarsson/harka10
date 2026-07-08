@@ -1,4 +1,4 @@
-# HARKA Marketplace Architecture
+# HEKLA Marketplace Architecture
 
 ## Vision
 Create the world's premier AI & automation learning marketplace where instructors, enterprises, and learners connect to share knowledge and accelerate skill development.
@@ -7,7 +7,7 @@ Create the world's premier AI & automation learning marketplace where instructor
 
 ### Marketplace Ecosystem
 ```typescript
-interface HARKAMarketplace {
+interface HEKLAMarketplace {
   participants: {
     creators: {
       individual_instructors: number, // 10,000+
