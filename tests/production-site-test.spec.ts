@@ -8,7 +8,7 @@ test.describe('Production Site Testing - ethos-ai.cc', () => {
     await page.screenshot({ path: 'test-results/production-homepage.png', fullPage: true });
     
     // Check if page loads without errors
-    await expect(page).toHaveTitle(/HARKA/i);
+    await expect(page).toHaveTitle(/HEKLA/i);
     console.log('✅ Homepage loads with correct title');
     
     // Check for navigation elements

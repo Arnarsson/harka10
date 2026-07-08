@@ -38,7 +38,7 @@ interface SmartNavigation {
 ### **Visual Design: Multi-Level Dropdown**
 
 ```
-🏠 [HARKA] 
+🏠 [HEKLA] 
     │
     ├── 📚 Learning Hub ▼
     │   ├── 📊 Dashboard

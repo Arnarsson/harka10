@@ -1,7 +1,7 @@
-# HARKA 10X Scaling Plan 🚀
+# HEKLA 10X Scaling Plan 🚀
 
 ## Executive Summary
-Transform HARKA from a learning platform into a global AI education powerhouse serving 1M+ users across 50+ countries.
+Transform HEKLA from a learning platform into a global AI education powerhouse serving 1M+ users across 50+ countries.
 
 ## 10X Vision Components
 
@@ -153,10 +153,10 @@ const localizationPipeline = {
 
 ### 8. 🔧 Developer Ecosystem
 
-#### HARKA API Platform
+#### HEKLA API Platform
 ```typescript
 // Public API for developers
-const harkaAPI = {
+const heklaAPI = {
   endpoints: {
     courses: '/api/v1/courses',
     progress: '/api/v1/progress',

@@ -1,4 +1,4 @@
-# HARKA Implementation Summary
+# HEKLA Implementation Summary
 
 ## Overview
 This document summarizes the major fixes and enhancements implemented to resolve authentication issues, add real-time analytics, and create a professional teacher content management system.

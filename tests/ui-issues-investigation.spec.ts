@@ -11,7 +11,7 @@ test.describe('UI and Admin Issues Investigation', () => {
     await page.screenshot({ path: 'test-results/homepage.png', fullPage: true });
     
     // Check if page loads without errors
-    await expect(page).toHaveTitle(/HARKA/i);
+    await expect(page).toHaveTitle(/HEKLA/i);
     
     // Check for basic navigation elements
     const header = page.locator('header');

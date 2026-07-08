@@ -64,7 +64,7 @@ test.describe('Comprehensive Language Switch Testing', () => {
         const exceptions = [
           /^[0-9\s\-\+\(\)]+$/, // Numbers, phone numbers
           /^[\s]*$/, // Empty or whitespace
-          /^(HARKA|AI|FAQ|API|UI|UX|MVP|CMS|SEO)$/i, // Acronyms
+          /^(HEKLA|AI|FAQ|API|UI|UX|MVP|CMS|SEO)$/i, // Acronyms
           /^©.*2024/, // Copyright
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Emails
           /^https?:\/\//, // URLs
@@ -335,7 +335,7 @@ test.describe('Comprehensive Language Switch Testing', () => {
       const excludePatterns = [
         /^[0-9\s\-\+\(\)\.]+$/, // Numbers
         /^[\s]*$/, // Whitespace
-        /^(HARKA|AI|FAQ|API|UI|UX|MVP|CMS|SEO|URL|HTML|CSS|JS)$/i, // Tech terms
+        /^(HEKLA|AI|FAQ|API|UI|UX|MVP|CMS|SEO|URL|HTML|CSS|JS)$/i, // Tech terms
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Emails
         /^https?:\/\//, // URLs
         /^©/, // Copyright

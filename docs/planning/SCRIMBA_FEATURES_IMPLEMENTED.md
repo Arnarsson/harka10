@@ -101,7 +101,7 @@
 - 📱 **Mobile First**: Fully responsive design
 - 🔌 **Multi-Modal**: Code, workflows, prompts, configs
 
-### Unique HARKA Features
+### Unique HEKLA Features
 - **AI Pair Programming**: Active AI that codes with you
 - **Voice Interaction**: Talk to your AI tutor
 - **Global Power Hours**: Learn with peers worldwide
@@ -152,6 +152,6 @@ We've successfully implemented Scrimba-inspired interactive learning features wi
 - **Updated UI** across the platform
 - **Complete demo experience** at `/demo/interactive-learning`
 
-The foundation is set for a revolutionary learning experience that combines the best of Scrimba with HARKA's AI-first approach. Users can now pause, experiment, and learn with AI assistance - making coding education more engaging and effective than ever before!
+The foundation is set for a revolutionary learning experience that combines the best of Scrimba with HEKLA's AI-first approach. Users can now pause, experiment, and learn with AI assistance - making coding education more engaging and effective than ever before!
 
 **Time to ship and get user feedback! 🚀**

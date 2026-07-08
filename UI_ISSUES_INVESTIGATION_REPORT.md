@@ -1,4 +1,4 @@
-# HARKA Platform UI Issues Investigation Report
+# HEKLA Platform UI Issues Investigation Report
 
 **Generated:** August 7, 2025  
 **Testing Method:** Playwright automated testing with visual screenshots  
@@ -6,14 +6,14 @@
 
 ## Executive Summary
 
-The HARKA platform **looks visually appealing and professional**, but has **critical security and authentication issues**. The main problems are not with the UI design, but with the underlying authentication system being misconfigured.
+The HEKLA platform **looks visually appealing and professional**, but has **critical security and authentication issues**. The main problems are not with the UI design, but with the underlying authentication system being misconfigured.
 
 ## ✅ What's Working Well
 
 ### 1. Visual Design & Styling
 - **Professional, clean layout** with modern design
 - **Danish language content** properly displayed
-- **Consistent branding** with HARKA logo and styling
+- **Consistent branding** with HEKLA logo and styling
 - **Color scheme and typography** look professional
 - **Progress indicators and UI elements** render correctly
 
@@ -33,7 +33,7 @@ The HARKA platform **looks visually appealing and professional**, but has **crit
 ### 4. Admin Interface
 - **Professional admin sidebar** with clean dark theme
 - **Well-organized admin menu** (Dashboard, Users, Courses, Content, Blog, Subscriptions, Settings)
-- **Proper admin branding** ("HARKA Admin" header)
+- **Proper admin branding** ("HEKLA Admin" header)
 - **User indicator** at bottom of sidebar
 
 ## 🚨 Critical Issues Identified
@@ -47,7 +47,7 @@ The HARKA platform **looks visually appealing and professional**, but has **crit
 ### 2. **Authentication System Completely Broken**
 - **Severity:** CRITICAL 🔴
 - **Issue:** Clerk authentication widgets not loading on sign-in page
-- **Evidence:** Sign-in page shows only "HARKA" title and subtitle, no form
+- **Evidence:** Sign-in page shows only "HEKLA" title and subtitle, no form
 - **Root Cause:** Using mocked Clerk API keys (`pk_test_bW9ja2VkLWtleS1mb3ItYnVpbGQtdGltZS5jbGVyay5hY2NvdW50cy5kZXYk`)
 
 ### 3. **Middleware Not Enforcing Security**

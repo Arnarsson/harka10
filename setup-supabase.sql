@@ -1,4 +1,4 @@
--- SUPABASE SETUP SCRIPT FOR HARKA UPLOAD SYSTEM
+-- SUPABASE SETUP SCRIPT FOR HEKLA UPLOAD SYSTEM
 -- Run this in your Supabase SQL Editor
 
 -- Create content table
@@ -51,4 +51,4 @@ CREATE TRIGGER update_content_updated_at
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Success message
-SELECT 'HARKA Upload System Database Setup Complete!' as status;
+SELECT 'HEKLA Upload System Database Setup Complete!' as status;

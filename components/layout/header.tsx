@@ -18,7 +18,7 @@ export function Header() {
   const userRole = getUserRole(user)
 
   return (
-    <header className="sticky top-0 z-50 w-full harka-nav">
+    <header className="sticky top-0 z-50 w-full hekla-nav">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-3">
           <div className="text-2xl font-bold font-satoshi tracking-tight">HEKLA</div>

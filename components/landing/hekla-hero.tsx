@@ -10,7 +10,7 @@ import { useTheme } from "next-themes"
 import { useUser } from "@clerk/nextjs"
 import { useAnalytics } from "@/components/analytics/analytics-tracker"
 
-export function HarkaHero() {
+export function HeklaHero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [language, setLanguage] = useState<'da' | 'en'>('da')
   const [mounted, setMounted] = useState(false)

@@ -1,6 +1,6 @@
 "use client"
 
-export function HarkaCertificates() {
+export function HeklaCertificates() {
   // Certificates are issued only after a learner passes a real assessment.
   // Until the assessment/issuance flow is wired to the database, these lists
   // are empty — we never show fabricated credentials or instructors.

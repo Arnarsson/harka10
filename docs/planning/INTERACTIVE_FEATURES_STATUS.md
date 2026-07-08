@@ -78,6 +78,6 @@ Despite the Clerk auth warnings in other pages, all the Scrimba-inspired interac
 
 ## Summary
 
-The interactive learning features inspired by Scrimba have been successfully implemented with significant enhancements. The implementation focuses on the core interactive functionality while maintaining HARKA's clean design aesthetic.
+The interactive learning features inspired by Scrimba have been successfully implemented with significant enhancements. The implementation focuses on the core interactive functionality while maintaining HEKLA's clean design aesthetic.
 
 The build warnings are unrelated to the interactive features and exist in pages that were already in the codebase. The interactive features themselves are complete and functional.

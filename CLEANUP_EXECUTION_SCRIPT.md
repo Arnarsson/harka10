@@ -1,4 +1,4 @@
-# HARKA Cleanup Execution Script 🧹⚡
+# HEKLA Cleanup Execution Script 🧹⚡
 
 **WARNING**: This is the actual execution plan. Follow step-by-step with safety checks.
 
@@ -31,7 +31,7 @@ curl -I http://localhost:3000/sign-in
 ```bash
 # Delete obvious test routes
 rm -rf app/test-dashboard/
-rm -rf app/test-harka/
+rm -rf app/test-hekla/
 rm -rf app/test-lang/
 rm -rf app/debug-auth/
 

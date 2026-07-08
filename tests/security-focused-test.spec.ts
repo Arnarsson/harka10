@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('HARKA Security and Critical Issues Test', () => {
+test.describe('HEKLA Security and Critical Issues Test', () => {
   
   test.beforeEach(async ({ page }) => {
     // Track console errors
@@ -76,10 +76,10 @@ test.describe('HARKA Security and Critical Issues Test', () => {
         console.log('  🔴 Clerk authentication system not loading properly');
       }
       
-      // Check for HARKA branding
-      const harkaTitle = page.locator('text=HARKA');
-      if (await harkaTitle.isVisible()) {
-        console.log('  ✅ HARKA branding present');
+      // Check for HEKLA branding
+      const heklaTitle = page.locator('text=HEKLA');
+      if (await heklaTitle.isVisible()) {
+        console.log('  ✅ HEKLA branding present');
       }
       
     } catch (error) {
@@ -97,7 +97,7 @@ test.describe('HARKA Security and Critical Issues Test', () => {
       
       // Check key elements
       const elements = [
-        { selector: 'text=HARKA', name: 'HARKA branding' },
+        { selector: 'text=HEKLA', name: 'HEKLA branding' },
         { selector: 'text=Dashboard', name: 'Navigation - Dashboard' },
         { selector: 'text=Sign In', name: 'Sign In button' },
         { selector: 'text=Sign Up', name: 'Sign Up button' },

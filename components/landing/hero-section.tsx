@@ -55,7 +55,7 @@ export function HeroSection() {
           </div>
 
           <div className="relative smooth-enter">
-            <div className="harka-card p-8 space-y-6">
+            <div className="hekla-card p-8 space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold font-satoshi">Learning Progress</h3>
                 <TrendingUp className="h-5 w-5 text-primary" />
@@ -69,7 +69,7 @@ export function HeroSection() {
                     <span className="text-primary font-medium">100%</span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
-                    <div className="h-full harka-gradient rounded-full w-full transition-all duration-1000" />
+                    <div className="h-full hekla-gradient rounded-full w-full transition-all duration-1000" />
                   </div>
                 </div>
 
@@ -79,7 +79,7 @@ export function HeroSection() {
                     <span className="text-primary font-medium">75%</span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
-                    <div className="h-full harka-gradient rounded-full w-3/4 transition-all duration-1000" />
+                    <div className="h-full hekla-gradient rounded-full w-3/4 transition-all duration-1000" />
                   </div>
                 </div>
 
@@ -112,7 +112,7 @@ export function HeroSection() {
 
       {/* Bottom gradient lines */}
       <div className="absolute bottom-0 left-0 right-0">
-        <div className="harka-lines" />
+        <div className="hekla-lines" />
       </div>
     </section>
   )

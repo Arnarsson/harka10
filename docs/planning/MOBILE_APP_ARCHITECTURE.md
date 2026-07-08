@@ -1,4 +1,4 @@
-# HARKA Mobile App Architecture
+# HEKLA Mobile App Architecture
 
 ## Native Mobile Strategy
 
@@ -12,12 +12,12 @@
 
 ### SwiftUI Implementation
 ```swift
-// HARKA iOS App Structure
+// HEKLA iOS App Structure
 import SwiftUI
 import Combine
 
 @main
-struct HARKAApp: App {
+struct HEKLAApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var authManager = AuthenticationManager()
     @StateObject private var syncManager = SyncManager()
@@ -88,7 +88,7 @@ class OfflineDataManager: ObservableObject {
 // Advanced iOS integrations
 struct iOSFeatures {
     // Widgets
-    struct HARKAWidget: Widget {
+    struct HEKLAWidget: Widget {
         var body: some WidgetConfiguration {
             StaticConfiguration(kind: "learning-progress") { entry in
                 ProgressWidgetView(entry: entry)
@@ -102,20 +102,20 @@ struct iOSFeatures {
     // Siri Shortcuts
     class SiriShortcutsManager {
         func donateShortcuts() {
-            let continueLesson = NSUserActivity(activityType: "com.harka.continue-lesson")
+            let continueLesson = NSUserActivity(activityType: "com.hekla.continue-lesson")
             continueLesson.title = "Continue Learning"
             continueLesson.isEligibleForSearch = true
             continueLesson.isEligibleForPrediction = true
             
             let aiChat = NSUserActivity(activityType: "com.harka.ai-chat")
-            aiChat.title = "Ask HARKA AI"
+            aiChat.title = "Ask HEKLA AI"
             aiChat.isEligibleForSearch = true
             aiChat.isEligibleForPrediction = true
         }
     }
     
     // Apple Watch App
-    struct HARKAWatchApp: App {
+    struct HEKLAWatchApp: App {
         var body: some Scene {
             WindowGroup {
                 NavigationView {
@@ -150,15 +150,15 @@ struct iOSFeatures {
 
 ### Kotlin Implementation
 ```kotlin
-// HARKA Android App Architecture
-package com.harka.mobile
+// HEKLA Android App Architecture
+package com.hekla.mobile
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class HARKAApplication : Application() {
+class HEKLAApplication : Application() {
     @Inject lateinit var syncManager: SyncManager
     @Inject lateinit var aiManager: AIManager
     @Inject lateinit var notificationManager: NotificationManager
@@ -182,13 +182,13 @@ class HARKAApplication : Application() {
 
 // Jetpack Compose UI
 @Composable
-fun HARKAApp(
+fun HEKLAApp(
     navController: NavHostController = rememberNavController()
 ) {
     val systemUiController = rememberSystemUiController()
     val darkTheme = isSystemInDarkTheme()
     
-    HARKATheme(darkTheme = darkTheme) {
+    HEKLATheme(darkTheme = darkTheme) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -493,7 +493,7 @@ struct MobileAIFeatures {
     
     // Offline AI chat
     class OfflineAIChat {
-        private let model = LLMModel(name: "harka-mobile-7b")
+        private let model = LLMModel(name: "hekla-mobile-7b")
         
         func generateResponse(prompt: String, context: String) async -> String {
             let input = prepareInput(prompt: prompt, context: context)
@@ -630,7 +630,7 @@ class SecurityManager {
         do {
             let result = try await context.evaluatePolicy(
                 .deviceOwnerAuthenticationWithBiometrics,
-                localizedReason: "Access your HARKA courses"
+                localizedReason: "Access your HEKLA courses"
             )
             return result
         } catch {
@@ -656,8 +656,8 @@ class SecurityManager {
     // Certificate pinning
     func setupCertificatePinning() {
         let pinnedCertificates = [
-            "api.harka.ai": loadCertificate("harka-api"),
-            "cdn.harka.ai": loadCertificate("harka-cdn")
+            "api.harka.ai": loadCertificate("hekla-api"),
+            "cdn.harka.ai": loadCertificate("hekla-cdn")
         ]
         
         URLSession.shared.delegate = CertificatePinningDelegate(certificates: pinnedCertificates)
