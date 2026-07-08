@@ -77,8 +77,8 @@ test.describe('HEKLA Security and Critical Issues Test', () => {
       }
       
       // Check for HEKLA branding
-      const harkaTitle = page.locator('text=HEKLA');
-      if (await harkaTitle.isVisible()) {
+      const heklaTitle = page.locator('text=HEKLA');
+      if (await heklaTitle.isVisible()) {
         console.log('  ✅ HEKLA branding present');
       }
       

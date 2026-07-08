@@ -122,7 +122,7 @@ spec:
             nvidia.com/gpu: 1
         env:
         - name: MODEL_PATH
-          value: "/models/harka-base"
+          value: "/models/hekla-base"
         - name: BATCH_SIZE
           value: "32"
         - name: MAX_CONCURRENT

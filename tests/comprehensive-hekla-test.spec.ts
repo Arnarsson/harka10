@@ -29,11 +29,11 @@ test.describe('HEKLA Platform Comprehensive Testing', () => {
       await page.screenshot({ path: 'test-results/homepage-full.png', fullPage: true });
       
       // Check page title
-      await expect(page).toHaveTitle(/HARKA/);
+      await expect(page).toHaveTitle(/HEKLA/);
       
       // Check for HEKLA logo/branding
-      const harkaText = page.locator('text=HEKLA').first();
-      await expect(harkaText).toBeVisible();
+      const heklaText = page.locator('text=HEKLA').first();
+      await expect(heklaText).toBeVisible();
       
       // Check navigation elements
       const dashboard = page.locator('text=Dashboard');
@@ -163,8 +163,8 @@ test.describe('HEKLA Platform Comprehensive Testing', () => {
       await page.screenshot({ path: 'test-results/signin-page-full.png', fullPage: true });
       
       // Check for HEKLA branding on sign-in page
-      const harkaTitle = page.locator('text=HEKLA');
-      await expect(harkaTitle).toBeVisible();
+      const heklaTitle = page.locator('text=HEKLA');
+      await expect(heklaTitle).toBeVisible();
       
       // Check for sign-in text
       const signInText = page.locator('text=Sign in');
@@ -211,8 +211,8 @@ test.describe('HEKLA Platform Comprehensive Testing', () => {
       await page.screenshot({ path: 'test-results/signup-page.png', fullPage: true });
       
       // Similar checks as sign-in page
-      const harkaTitle = page.locator('text=HEKLA');
-      await expect(harkaTitle).toBeVisible();
+      const heklaTitle = page.locator('text=HEKLA');
+      await expect(heklaTitle).toBeVisible();
       
       console.log('✅ Sign-up page test completed');
     });

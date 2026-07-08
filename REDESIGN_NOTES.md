@@ -13,7 +13,7 @@ So the real anonymous **front door = `/sign-in`** + landing `/`.
 | Sign-in (front door) | `app/sign-in/[[...sign-in]]/page.tsx` | **WEAKEST.** Floating Clerk card on near-empty white. "HEKLA / Sign in to your learning platform". No value prop, no trust, dead space. |
 | Landing `/` | `components/landing/danish-b2b-landing.tsx` (510 ln) | Full Danish B2B landing — review hero only. |
 | Dashboard | `app/dashboard/ultra-clean-dashboard.tsx` (203 ln) | OK structure (continue-learning hero, stats, actions). Uses hardcoded grays not tokens; generic English content ("Advanced React Patterns", "Python Fundamentals") off-brand for a Danish AI-training product. |
-| Courses | `components/courses/harka-courses.tsx` (317 ln) | OK structure. Bookmarked resources are leftover v0 junk (React/Next/Tailwind) — off-brand. |
+| Courses | `components/courses/hekla-courses.tsx` (317 ln) | OK structure. Bookmarked resources are leftover v0 junk (React/Next/Tailwind) — off-brand. |
 
 ## Design system (shadcn tokens, app/globals.css)
 - primary = vibrant purple `262 83% 58%`; accent = emerald `142 76% 36%`; gradient purple→blue→emerald.
